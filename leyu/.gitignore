@@ -1,0 +1,15 @@
+bin/
+gen/
+progurad/
+bin/*
+gen/*
+proguard/*
+*.class
+*.apk
+.DS_Store
+project.properties
+.idea/
+classes/
+out/
+*.iml
+.fatjar
