@@ -39,7 +39,7 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 			T parseJSON = null;
 			if (mParser != null) {
 				try {
-					parseJSON = mParser.parse(responseBody.toString());
+					parseJSON = mParser.parse(new String(responseBody));
 					onSuccess(statusCode, headers, parseJSON);
 					// Successfully returned to save the server data
 					ServerDataCache cache = new ServerDataCache(mCacheUrl, new String(responseBody), System.currentTimeMillis());
@@ -59,7 +59,7 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 
 	@Override
 	public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-		   Log.e("JAsyncHttpResponseHandler", "statusCode="+statusCode, error);
+		   Log.d("JAsyncHttpResponseHandler", "statusCode="+statusCode, error);
 		   onFailure( statusCode, headers, responseBody, error);
 	}
 
