@@ -47,7 +47,7 @@ public class JHttpClient {
 		return AsyncHttpClient.getUrlWithQueryString(true, url, params);
 	}
 
-	private static <T> void getServerData(Context context, String url, RequestParams params, BaseParser<T> parser, String requestMethod, HttpCache httpCache, final DataCallback<T> callback) {
+	private static <T> void getServerData(Context context, String url, RequestParams params, BaseParser<T> parser, String requestMethod, HttpCache httpCache, final DataCallback<T> dataCallback) {
 		String cacheUrl = JHttpClient.getUrlWithQueryString(url, params).concat(requestMethod); // The
 		// only
 		// URL
@@ -63,12 +63,12 @@ public class JHttpClient {
 				hasCache = httpCache.getHttpCache(cacheUrl);
 			}
 			if (hasCache) {
-				getCache(context, parser, callback, cacheUrl);
+				getCache(context, parser, dataCallback, cacheUrl);
 			} else {
 				if (requestMethod != null && requestMethod.equals(GET)) {
-					JHttpClient.get(url, params, httpCacheResponseHandler(context, parser, httpCache, callback, cacheUrl));
+					JHttpClient.get(url, params, httpCacheResponseHandler(context, parser, httpCache, dataCallback, cacheUrl));
 				} else if (requestMethod != null && requestMethod.equals(POST)) {
-					JHttpClient.post(url, params, httpCacheResponseHandler(context, parser, httpCache, callback, cacheUrl));
+					JHttpClient.post(url, params, httpCacheResponseHandler(context, parser, httpCache, dataCallback, cacheUrl));
 				} else {
 					try {
 						throw new RuntimeException("requestMethod equals to null ,Please specify a request method name");
