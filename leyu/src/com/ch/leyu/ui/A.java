@@ -65,7 +65,7 @@ public class A extends BaseActivity {
 
     @Override
     protected void processLogic() {
-        JHttpClient.getFromServer(mContext, Constant.A_URL, null, RegisterResponse.class, new DataCallback<RegisterResponse>() {
+        JHttpClient.get(mContext, Constant.A_URL, null, RegisterResponse.class, new DataCallback<RegisterResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
@@ -74,17 +74,23 @@ public class A extends BaseActivity {
 
             @Override
             public void onStart() {
+                Toast.makeText(mContext, "onStart", Toast.LENGTH_SHORT).show();
+
 
             }
 
             @Override
             public void onFinish() {
+                Toast.makeText(mContext,  "onFinish", Toast.LENGTH_SHORT).show();
+
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
+                Toast.makeText(mContext, statusCode +"-----"+ responseString+"-----"+exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
             }
 
         });

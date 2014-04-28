@@ -1,11 +1,11 @@
 package com.ch.leyu.http.cacheimpl;
 
-import android.content.Context;
-
 import com.ch.leyu.http.cacheinterface.HttpCache;
 import com.ch.leyu.http.cacheservice.DBOpenHelperManager;
 import com.ch.leyu.http.cacheservice.ServerDataCache;
-import com.ch.leyu.http.utils.NetUtil;
+import com.ch.leyu.http.utils.NetWorkUtil;
+
+import android.content.Context;
 
 public class DefaultHttpCache implements HttpCache {
 	/**
@@ -30,11 +30,11 @@ public class DefaultHttpCache implements HttpCache {
 				return true;
 			}
 
-			if (!NetUtil.isNetworkAvalible(context)) {
+			if (!NetWorkUtil.isNetworkAvailable(context)) {
 				return true;
 			}
-
-			if (NetUtil.isWifi(context)) {
+			String networkType = NetWorkUtil.getNetworkType(context);
+			if (NetWorkUtil.NetworkType.NET_3G.equals(networkType)) {
 				long cacheTimeMillis = cache.getTime();
 				long currentTimeMillis = System.currentTimeMillis();
 				if ((currentTimeMillis - cacheTimeMillis) < wifiCacheExpriedTime()) {
@@ -42,7 +42,7 @@ public class DefaultHttpCache implements HttpCache {
 				}
 			}
 
-			if (NetUtil.is3G(context)) {
+			if (NetWorkUtil.NetworkType.NET_3G.equals(networkType)||NetWorkUtil.NetworkType.NET_2G.equals(networkType)||NetWorkUtil.NetworkType.NET_CMNET.equals(networkType)||NetWorkUtil.NetworkType.NET_CMWAP.equals(networkType)) {
 				long cacheTimeMillis = cache.getTime();
 				long currentTimeMillis = System.currentTimeMillis();
 				if ((currentTimeMillis - cacheTimeMillis) < sgCacheExpriedTime()) {

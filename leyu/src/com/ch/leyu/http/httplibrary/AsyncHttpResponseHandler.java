@@ -296,7 +296,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
         case FAILURE_MESSAGE:
             response = (Object[]) message.obj;
             if (response != null && response.length >= 4) {
-                onFailure((Integer) response[0], (Header[]) response[1], (byte[]) response[2], (Exception) response[3]);
+                onFailure((Integer) response[0], (Header[]) response[1], (byte[]) response[2], (Throwable) response[3]);
             } else {
                 Log.e(LOG_TAG, "FAILURE_MESSAGE didn't got enough params");
             }

@@ -1,13 +1,11 @@
 package com.ch.leyu.http.utils;
 
-import java.io.File;
+import com.ch.leyu.http.cacheservice.DBOpenHelper;
+import com.ch.leyu.http.cacheservice.DBOpenHelperManager;
 
 import android.content.Context;
 
-import static com.ch.leyu.http.cacheservice.DBOpenHelper.DB_NAME;
-
-import com.ch.leyu.http.cacheservice.DBOpenHelper;
-import com.ch.leyu.http.cacheservice.DBOpenHelperManager;
+import java.io.File;
 
 public class CacheUtil {
 
