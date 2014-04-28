@@ -60,7 +60,7 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 	@Override
 	public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 		   Log.d("JAsyncHttpResponseHandler", "statusCode="+statusCode, error);
-		   onFailure( statusCode, headers, responseBody, error);
+		   onFailure( statusCode, headers, responseBody, new Exception(error));
 	}
 
 	public abstract void onFailure(int statusCode,Header[] headers, byte[] responseBody,Exception e);
