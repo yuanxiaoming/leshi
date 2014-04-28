@@ -10,5 +10,5 @@ public interface DataCallback<T> {
 
 	public void onFinish();
 
-	public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable);
+	public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception);
 }

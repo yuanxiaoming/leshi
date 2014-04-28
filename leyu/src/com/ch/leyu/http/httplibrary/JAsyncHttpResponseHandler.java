@@ -1,14 +1,14 @@
 package com.ch.leyu.http.httplibrary;
 
-import org.apache.http.Header;
-
-import android.content.Context;
-import android.widget.Toast;
-
 import com.ch.leyu.http.cacheinterface.HttpCache;
 import com.ch.leyu.http.cacheservice.ServerDataCache;
 import com.ch.leyu.http.parserinterface.BaseParser;
 import com.ch.leyu.http.work.JHttpClient;
+
+import org.apache.http.Header;
+
+import android.content.Context;
+import android.util.Log;
 
 public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHandler {
 	private Context mContext;
@@ -39,9 +39,8 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 			T parseJSON = null;
 			if (mParser != null) {
 				try {
-					parseJSON = mParser.parse(new String(responseBody));
+					parseJSON = mParser.parse(responseBody.toString());
 					onSuccess(statusCode, headers, parseJSON);
-
 					// Successfully returned to save the server data
 					ServerDataCache cache = new ServerDataCache(mCacheUrl, new String(responseBody), System.currentTimeMillis());
 					if (mHttpCache != null) {
@@ -52,7 +51,7 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 						mHttpCache.putHttpCache(cache);
 					}
 				} catch (Exception e) {
-					onFailure(500, headers, responseBody, null);
+					onFailure(200, headers, responseBody,e);
 				}
 			}
 		}
@@ -60,18 +59,12 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 
 	@Override
 	public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-		switch (statusCode) {
-		case 404:
-			Toast.makeText(mContext, "网络错误", Toast.LENGTH_SHORT).show();
-			break;
-		case 500:
-			Toast.makeText(mContext, "服务器忙", Toast.LENGTH_SHORT).show();
-			break;
-		default:
-			Toast.makeText(mContext, "网络不给力", Toast.LENGTH_SHORT).show();
-			break;
-		}
+		   Log.e("JAsyncHttpResponseHandler", "statusCode="+statusCode, error);
+		   onFailure( statusCode, headers, responseBody, error);
 	}
+
+	public abstract void onFailure(int statusCode,Header[] headers, byte[] responseBody,Exception e);
+
 
 	public abstract void onSuccess(int statusCode, Header[] headers, T serverData);
 }

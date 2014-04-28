@@ -2,6 +2,7 @@ package com.ch.leyu.http.work;
 
 import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
+import org.json.JSONException;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,7 +19,7 @@ import com.ch.leyu.http.parserinterface.BaseParser;
 
 /**
  * Http get请求缓存数据
- * 
+ *
  * @Time 2014-4-21 上午10:00:21
  */
 public class JHttpClient {
@@ -79,55 +80,59 @@ public class JHttpClient {
 		}
 	}
 
-	private static <T> void getCache(Context context, BaseParser<T> parser, final DataCallback<T> callback, String cacheUrl) {
+	private static <T> void getCache(Context context, BaseParser<T> parser, final DataCallback<T> dataCallback, String cacheUrl) {
 		ServerDataCache cache = DBOpenHelperManager.getInstance(context).findCacheByUrl(cacheUrl);
 		T data = null;
 		try {
 			data = parser.parse(cache.getServerData());
-			callback.onSuccess(200, null, data);
+			dataCallback.onSuccess(200, null, data);
 		} catch (Exception e) {
-			//
+			dataCallback.onFailure(200, null, cache.getServerData(), new JSONException("josn解析异常"));
 		}
 
 		Log.i(JHttpClient.class.getSimpleName(), "Data taken from the cache");
 	}
 
-	private static <T> JAsyncHttpResponseHandler<T> httpCacheResponseHandler(final Context context, final BaseParser<T> parser, final HttpCache httpCache, final DataCallback<T> callback,
+	private static <T> JAsyncHttpResponseHandler<T> httpCacheResponseHandler(final Context context, final BaseParser<T> parser, final HttpCache httpCache, final DataCallback<T> dataCallback,
 			final String cacheUrl) {
 		return new JAsyncHttpResponseHandler<T>(context, parser, cacheUrl, httpCache) {
 
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, T data) {
 				if (statusCode == 200) {
-					callback.onSuccess(statusCode, headers, data);
+				    dataCallback.onSuccess(statusCode, headers, data);
 					Log.i(JHttpClient.class.getSimpleName(), "Data taken from the server");
 				}
 			}
 
 			@Override
 			public void onStart() {
-				callback.onStart();
+			    dataCallback.onStart();
 			}
 
 			@Override
 			public void onFinish() {
-				callback.onFinish();
+			    dataCallback.onFinish();
 			}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-				super.onFailure(statusCode, headers, responseBody, error);
-				// 请求失败 返回缓存数据
-				if (httpCache != null) {
-					getCache(context, parser, callback, cacheUrl);
-				}
-			}
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Exception e) {
+                // 请求失败 返回缓存数据
+                if (httpCache != null) {
+                    getCache(context, parser, dataCallback, cacheUrl);
+                }else{
+                    dataCallback.onFailure(statusCode, headers, responseBody.toString(), e);
+
+                }
+            }
 		};
 	}
 
+    /****************************************************************************************************************************/
+
 	/**
 	 * 自定义缓存请求（post）
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -139,11 +144,9 @@ public class JHttpClient {
 		getServerData(context, url, params, parser, JHttpClient.POST, httpCache, callback);
 	}
 
-	/****************************************************************************************************************************/
-
 	/**
 	 * 自定义缓存请求（get）
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -157,7 +160,7 @@ public class JHttpClient {
 
 	/**
 	 * post 请求有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -170,7 +173,7 @@ public class JHttpClient {
 
 	/**
 	 * get 請求有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -183,7 +186,7 @@ public class JHttpClient {
 
 	/**
 	 * get 请求 没有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -196,7 +199,7 @@ public class JHttpClient {
 
 	/**
 	 * post 请求 没有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -211,7 +214,7 @@ public class JHttpClient {
 
 	/**
 	 * 自定义缓存请求（post）
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -225,7 +228,7 @@ public class JHttpClient {
 
 	/**
 	 * 自定义缓存请求（get）
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -239,7 +242,7 @@ public class JHttpClient {
 
 	/**
 	 * post 請求有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -252,7 +255,7 @@ public class JHttpClient {
 
 	/**
 	 * get 請求有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -265,7 +268,7 @@ public class JHttpClient {
 
 	/**
 	 * get 请求 没有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
@@ -278,7 +281,7 @@ public class JHttpClient {
 
 	/**
 	 * post 请求 没有缓存
-	 * 
+	 *
 	 * @param context
 	 * @param url
 	 * @param params
