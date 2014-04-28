@@ -1,5 +1,12 @@
 package com.ch.leyu.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.http.Header;
+
+import android.view.View;
+
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.http.work.DataCallback;
@@ -8,13 +15,6 @@ import com.ch.leyu.responseparse.RegisterResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
-
-import org.apache.http.Header;
-
-import android.view.View;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class B extends BaseFragment {
     private XListView mListView;
