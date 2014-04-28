@@ -1,10 +1,5 @@
 package com.ch.leyu.ui;
 
-import com.ch.leyu.R;
-import com.ch.leyu.R.id;
-import com.ch.leyu.R.layout;
-import com.ch.leyu.application.ExitAppUtils;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -16,6 +11,9 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.ch.leyu.R;
+import com.ch.leyu.application.ExitAppUtils;
 
 public abstract class BaseActivity extends ActionBarActivity implements OnClickListener {
 	protected FragmentActivity mContext;

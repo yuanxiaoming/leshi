@@ -4,7 +4,6 @@ import org.apache.http.Header;
 import org.apache.http.client.CookieStore;
 import org.json.JSONException;
 
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;

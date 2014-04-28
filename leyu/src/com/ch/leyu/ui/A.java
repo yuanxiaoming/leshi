@@ -1,19 +1,12 @@
 package com.ch.leyu.ui;
 
-import org.apache.http.Header;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ch.leyu.R;
-import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.RegisterResponse;
 import com.ch.leyu.utils.CommonUtil;
-import com.ch.leyu.utils.Constant;
 
 public class A extends BaseActivity {
     private ImageView mImgCover;
@@ -65,36 +58,36 @@ public class A extends BaseActivity {
 
     @Override
     protected void processLogic() {
-        JHttpClient.get(mContext, Constant.A_URL, null, RegisterResponse.class, new DataCallback<RegisterResponse>() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-                Toast.makeText(mContext, data.getCount() + "", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStart() {
-                Toast.makeText(mContext, "onStart", Toast.LENGTH_SHORT).show();
-
-
-            }
-
-            @Override
-            public void onFinish() {
-                Toast.makeText(mContext,  "onFinish", Toast.LENGTH_SHORT).show();
-
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
-                Toast.makeText(mContext, statusCode +"-----"+ responseString+"-----"+exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-
-        });
-
+//        JHttpClient.get(mContext, Constant.A_URL, null, RegisterResponse.class, new DataCallback<RegisterResponse>() {
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
+//                Toast.makeText(mContext, data.getCount() + "", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onStart() {
+//                Toast.makeText(mContext, "onStart", Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                Toast.makeText(mContext,  "onFinish", Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String responseString,
+//                    Exception exception) {
+//                Toast.makeText(mContext, statusCode +"-----"+ responseString+"-----"+exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//        });
+//
 
 
         CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
