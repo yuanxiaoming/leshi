@@ -38,11 +38,6 @@ public class A extends BaseActivity {
 
     @Override
     protected void findViewById() {
-        // mImgCover = (ImageView) findViewById(R.id.img_login_cover);
-        // mTxtArea = (TextView) findViewById(R.id.txt_login_area);
-        // mTxtScore = (TextView) findViewById(R.id.txt_login_score);
-        // mTxtTotalNumber = (TextView)
-        // findViewById(R.id.txt_login_totalnumber);
 
         a = (RadioButton) findViewById(R.id.rb_main_account);
         b = (RadioButton) findViewById(R.id.rb_main_find);
@@ -58,37 +53,6 @@ public class A extends BaseActivity {
 
     @Override
     protected void processLogic() {
-//        JHttpClient.get(mContext, Constant.A_URL, null, RegisterResponse.class, new DataCallback<RegisterResponse>() {
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-//                Toast.makeText(mContext, data.getCount() + "", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onStart() {
-//                Toast.makeText(mContext, "onStart", Toast.LENGTH_SHORT).show();
-//
-//
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                Toast.makeText(mContext,  "onFinish", Toast.LENGTH_SHORT).show();
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString,
-//                    Exception exception) {
-//                Toast.makeText(mContext, statusCode +"-----"+ responseString+"-----"+exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//        });
-//
-
 
         CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
     }
