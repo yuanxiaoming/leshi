@@ -43,18 +43,39 @@ public class NetWorkUtil {
         public static final String NET_CMWAP = "cmwap";
     }
 
+//    /**
+//     *
+//     * @Title: isNetworkAvailable(当前是否有可用网络)
+//     * @author xiaoming.yuan
+//     * @data 2013-12-23 上午11:10:22
+//     * @param context
+//     * @return  boolean 返回类型
+//     */
+//    public static boolean isNetworkAvailable(Context context) {
+//        return !(NetworkType.UNKNOWN.endsWith(getNetworkType(context)));
+//    }
+
+
+
     /**
      *
-     * @Title: isNetworkAvailable(这 当前是否有可用网络)
+     * @Title: isConnected(网络是否连接)
      * @author xiaoming.yuan
      * @data 2013-12-23 上午11:10:22
      * @param context
      * @return
      * boolean 返回类型
      */
-    public static boolean isNetworkAvailable(Context context) {
-        return !(NetworkType.UNKNOWN.endsWith(getNetworkType(context)));
+    public static boolean isConnected(Context context) {
+        ConnectivityManager connMgr = (ConnectivityManager) context. getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
     /**
      *
@@ -118,21 +139,19 @@ public class NetWorkUtil {
      */
     public static boolean isCmwap(Context context) {
         String currentNetworkType = getNetworkType(context);
-
         if (NetworkType.NET_2G.equals(currentNetworkType)) {
             try {
-                ConnectivityManager connectMgr = (ConnectivityManager) context
-                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager connectMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectMgr != null) {
-                    NetworkInfo mobNetInfo = connectMgr
-                            .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                    NetworkInfo mobNetInfo = connectMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                     if (mobNetInfo != null && mobNetInfo.isConnected()) {
-                        if ("cmwap".equalsIgnoreCase(mobNetInfo.getExtraInfo())) {
+                        if (NetworkType.NET_CMWAP.equalsIgnoreCase(mobNetInfo.getExtraInfo())) {
                             return true;
                         }
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -142,7 +161,7 @@ public class NetWorkUtil {
 
 
     public static void checkNetwork(final Activity activity) {
-        if (!isNetworkAvailable(activity)) {
+        if (!isConnected(activity)) {
             TextView msg = new TextView(activity);
             msg.setText("当前没有可以使用的网络，请设置网络!");
             new AlertDialog.Builder(activity).setIcon(R.drawable.ic_launcher).setTitle("网络状态提示").setView(msg).setPositiveButton("确定", new DialogInterface.OnClickListener() {

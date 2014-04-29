@@ -30,7 +30,7 @@ public class DefaultHttpCache implements HttpCache {
 				return true;
 			}
 
-			if (!NetWorkUtil.isNetworkAvailable(context)) {
+			if (!NetWorkUtil.isConnected(context)) {
 				return true;
 			}
 			String networkType = NetWorkUtil.getNetworkType(context);
