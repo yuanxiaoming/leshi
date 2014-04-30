@@ -1,16 +1,19 @@
+
 package com.ch.leyu.ui;
+
+import com.ch.leyu.R;
+import com.ch.leyu.utils.CommonUtil;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.ch.leyu.R;
-import com.ch.leyu.utils.CommonUtil;
-
 public class A extends BaseActivity {
     private ImageView mImgCover;
+
     private TextView mTxtArea, mTxtScore, mTxtTotalNumber;
+
     private RadioButton a, b, c, d;
 
     @Override

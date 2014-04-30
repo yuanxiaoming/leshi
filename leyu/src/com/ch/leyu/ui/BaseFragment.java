@@ -40,7 +40,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		if (mResouce_id != 0) {
 			mContentView = inflater.inflate(mResouce_id, container, false);
 			// 将子类的布局加载进来
-			mFragmentContent.addView(mContentView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            mFragmentContent.addView(mContentView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			findViewById();
 			processLogic();
 			setListener();
@@ -53,14 +53,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		this.mResouce_id = resId;
 	}
 
-	// public void setContentView(String layoutId) {
-	// this.resId = ResourceUtil.getLayoutId(getActivity(), layoutId);
-	// }
-	//
-	// public View findViewById(View contentView ,String resId){
-	// return contentView.findViewById(ResourceUtil.getId(getActivity(),
-	// resId));
-	// }
 
 	public View findViewById(int resId) {
 		return mContentView.findViewById(resId);
@@ -76,9 +68,5 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 	protected abstract void getExtraParams();
 
-	// @Override
-	// public void setUserVisibleHint(boolean isVisibleToUser) {
-	//
-	// super.setUserVisibleHint(isVisibleToUser);
-	// }
+	
 }
