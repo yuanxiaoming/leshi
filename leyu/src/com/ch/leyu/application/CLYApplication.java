@@ -19,7 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class CLYApplication extends Application {
-	public SparseArray<Fragment> m_current_fragment_array;
+	public SparseArray<Fragment> mCurrent_fragment_array;
 	private CustomCrashHandler mCustomCrashHandler;
 
 	@Override
@@ -28,7 +28,7 @@ public class CLYApplication extends Application {
 		mCustomCrashHandler = CustomCrashHandler.getInstance();
 		mCustomCrashHandler.setCustomCrashHanler(getApplicationContext());
 		initImageLoader(getApplicationContext());
-		m_current_fragment_array = new SparseArray<Fragment>();
+		mCurrent_fragment_array = new SparseArray<Fragment>();
 
 		// copyDataBase();
 	}

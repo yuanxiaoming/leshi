@@ -88,10 +88,15 @@ public class CommonUtil {
 	public static void switchToFragment(FragmentActivity fragmentActivity, int contentid, Fragment to, String tag) {
 		CLYApplication app = (CLYApplication) fragmentActivity.getApplication();
 		FragmentManager manager = fragmentActivity.getSupportFragmentManager();
-		String fragment_tag = to.getClass().getName().concat(tag == null ? "" : tag);
-		System.out.println("tag" + fragment_tag);
+		String  fragment_tag = to.getClass().getSimpleName();
+		if(!TextUtils.isEmpty(tag)){
+		  fragment_tag = fragment_tag.concat(tag);
+		}
+		//获取缓存的Fragment
 		Fragment to_fragment = manager.findFragmentByTag(fragment_tag);
-		Fragment current_fragment = app.m_current_fragment_array.get(contentid);
+		//获取当前集合里面显示的 Fragment
+		Fragment current_fragment = app.mCurrent_fragment_array.get(contentid);
+
 		if (to_fragment == null) {
 			if (current_fragment == null) {
 				manager.beginTransaction().add(contentid, to, fragment_tag).commit();
@@ -99,12 +104,10 @@ public class CommonUtil {
 				manager.beginTransaction().add(contentid, to, fragment_tag).hide(current_fragment).commit();
 			}
 			to_fragment = to;
-		} else if (to_fragment == current_fragment) {
-
-		} else {
-			manager.beginTransaction().show(to_fragment).hide(current_fragment).commit();
+		} else if (to_fragment != current_fragment) {
+		    manager.beginTransaction().show(to_fragment).hide(current_fragment).commit();
 		}
-		app.m_current_fragment_array.put(contentid, to_fragment);
+		app.mCurrent_fragment_array.put(contentid, to_fragment);
 	}
 
 	// 验证密码是否格式良好
