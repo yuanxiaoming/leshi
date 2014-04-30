@@ -85,7 +85,14 @@ public class CommonUtil {
 		return telephonyManager.getDeviceId();
 	}
 
-	public static void switchToFragment(FragmentActivity fragmentActivity, int contentid, Fragment to, String tag) {
+	/**
+	 * Fragment切换
+	 * @param fragmentActivity    ContText
+	 * @param contentid      资源id
+	 * @param to   Fragment实例
+	 * @param tag  标记
+	 */
+    public static void switchToFragment(FragmentActivity fragmentActivity, int contentid, Fragment to, String tag) {
 		CLYApplication app = (CLYApplication) fragmentActivity.getApplication();
 		FragmentManager manager = fragmentActivity.getSupportFragmentManager();
 		String fragment_tag = to.getClass().getName().concat(tag == null ? "" : tag);
@@ -152,6 +159,6 @@ public class CommonUtil {
 			Matcher matcher = pattern.matcher(phoneNumber);
 			return matcher.find();
 		}
-		return false;
-	}
+        return false;
+    }
 }

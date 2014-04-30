@@ -1,3 +1,4 @@
+
 package com.ch.leyu.adapter;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class CLYAdapter extends ArrayAdapter<LoginResponse> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_login, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_login,
+                    parent, false);
             holder = new ViewHolder();
             holder.cover = (ImageView) convertView.findViewById(R.id.img_login_cover);
             holder.area = (TextView) convertView.findViewById(R.id.txt_login_area);
@@ -43,13 +45,15 @@ public class CLYAdapter extends ArrayAdapter<LoginResponse> {
             holder.score.setText(item.getScore());
             holder.total.setText(item.getCur_num());
 
-            ImageLoader.getInstance().displayImage(item.getCover(), holder.cover, ImageLoaderUtil.getImageLoaderOptions());
+            ImageLoader.getInstance().displayImage(item.getCover(), holder.cover,
+                    ImageLoaderUtil.getImageLoaderOptions());
         }
         return convertView;
     }
 
     private final class ViewHolder {
         public ImageView cover;
+
         public TextView total, score, area;
     }
 

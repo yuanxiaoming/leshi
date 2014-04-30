@@ -1,8 +1,6 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.R.id;
-import com.ch.leyu.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,7 +40,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		if (resId != 0) {
 			mContentView = inflater.inflate(resId, container, false);
 			// 将子类的布局加载进来
-			mFragmentContent.addView(mContentView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            mFragmentContent.addView(mContentView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			findViewById();
 			processLogic();
 			setListener();
@@ -55,14 +53,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		this.resId = resId;
 	}
 
-	// public void setContentView(String layoutId) {
-	// this.resId = ResourceUtil.getLayoutId(getActivity(), layoutId);
-	// }
-	//
-	// public View findViewById(View contentView ,String resId){
-	// return contentView.findViewById(ResourceUtil.getId(getActivity(),
-	// resId));
-	// }
 
 	public View findViewById(int resId) {
 		return mContentView.findViewById(resId);
@@ -78,9 +68,5 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 	protected abstract void getExtraParams();
 
-	// @Override
-	// public void setUserVisibleHint(boolean isVisibleToUser) {
-	//
-	// super.setUserVisibleHint(isVisibleToUser);
-	// }
+	
 }
