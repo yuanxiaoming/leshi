@@ -60,7 +60,7 @@ public class JHttpClient {
                 Log.i(JHttpClient.class.getSimpleName(), e.toString());
             }
         } else {
-            if(!NetWorkUtil.isNetworkAvailable(context)){
+            if(!NetWorkUtil.isConnected(context)){
               Toast.makeText(context, "网络不可用", Toast.LENGTH_SHORT).show();
               getCache(context, parser, dataCallback, cacheUrl);
               return;
