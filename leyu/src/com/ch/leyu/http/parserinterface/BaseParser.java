@@ -8,7 +8,7 @@ public abstract  class BaseParser<T> {
 
     protected static final String MSG = "msg";
 
-    protected static final int SUCCESS = 0;
+    protected static final String SUCCESS = "0";
 
     public abstract T parse(String result) throws Exception;
 
