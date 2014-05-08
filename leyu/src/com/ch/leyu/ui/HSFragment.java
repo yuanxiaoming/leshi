@@ -60,7 +60,7 @@ public class HSFragment extends BaseFragment {
         mBigImg2 = (ImageView) findViewById(R.id.hs_img_bigRecommend2);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
-       
+
     }
 
     @Override

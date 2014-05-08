@@ -3,35 +3,66 @@ package com.ch.leyu.http.work;
 import com.ch.leyu.http.parserinterface.BaseParser;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 
-public class JacksonParser<T> implements BaseParser<T> {
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.TextView;
 
-	private static ObjectMapper sObjectMapper;
-	/** 解析类型对象 **/
-	private Class<T> mClazz;
+public class JacksonParser<T> extends BaseParser<T> {
 
-	/** jackson解析对象 **/
+    private static ObjectMapper sObjectMapper;
+    /** 解析类型对象 **/
+    private Class<T> mClazz;
 
-	public JacksonParser(Class<T> clazz) {
-		this.mClazz = clazz;
-	}
+    /** jackson解析对象 **/
 
-	public static void clear() {
-		sObjectMapper = null;
-	}
+    public JacksonParser(Class<T> clazz) {
+        this.mClazz = clazz;
+    }
 
-	public T parse(String rsp) throws Exception {
-		if (sObjectMapper == null) {
-			sObjectMapper = new ObjectMapper();
-			sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
-			// objectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES,
-			// false);
-		}
-		return sObjectMapper.readValue(rsp, mClazz);
-	}
+    public static void clear() {
+        sObjectMapper = null;
+    }
 
-	public Class<T> getResponseClass() {
-		return mClazz;
-	}
+    public T parse(String rsp) throws Exception {
+        JSONObject paramObject = new JSONObject(rsp);
+        if(paramObject != null &&!TextUtils.isEmpty(paramObject.optString(CODE))){
+            if (paramObject != null && paramObject.optString(CODE).equals(SUCCESS) ){
+                JSONObject jsonObject = paramObject.optJSONObject(DATA);
+                if (jsonObject != null) {
+                    if (sObjectMapper == null) {
+                        sObjectMapper = new ObjectMapper();
+                        sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                        sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
+                        // objectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES,
+                        // false);
+                    }
+                    return sObjectMapper.readValue(jsonObject.toString(), mClazz);
+                }else{
+
+                    Log.d("JacksonParser", "没有数据可用");
+                }
+            }else{
+                Log.d("JacksonParser", "服务器code 代码错误");
+            }
+
+        }else{
+
+            if (sObjectMapper == null) {
+                sObjectMapper = new ObjectMapper();
+                sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
+                // objectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES,
+                // false);
+            }
+            return sObjectMapper.readValue(rsp, mClazz);
+
+        }
+        return null;
+    }
+
+    public Class<T> getResponseClass() {
+        return mClazz;
+    }
 }
