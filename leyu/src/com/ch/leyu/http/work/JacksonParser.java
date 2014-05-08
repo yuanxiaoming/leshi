@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
 public class JacksonParser<T> extends BaseParser<T> {
 

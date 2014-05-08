@@ -7,7 +7,7 @@ import com.ch.leyu.adapter.RecommendGridAdapter;
 import com.ch.leyu.adapter.ViewFlowAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.HSResponse;
+import com.ch.leyu.responseparse.HSDataResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.CircleFlowIndicator;
@@ -23,7 +23,7 @@ import android.widget.ListView;
 
 /***
  * 炉石传说首页
- * 
+ *
  * @author Administrator
  */
 public class HSFragment extends BaseFragment {
@@ -72,30 +72,30 @@ public class HSFragment extends BaseFragment {
     @Override
     protected void processLogic() {
 
-        JHttpClient.get(getActivity(), Constant.HS_URL, null, HSResponse.class,
-                new DataCallback<HSResponse>() {
+        JHttpClient.get(getActivity(), Constant.HS_URL, null, HSDataResponse.class,
+                new DataCallback<HSDataResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
-                        mViewFlow.setmSideBuffer(data.getData().getFocus().size());
+                    public void onSuccess(int statusCode, Header[] headers, HSDataResponse data) {
+                        mViewFlow.setmSideBuffer(data.getFocus().size());
                         mViewFlow.setFlowIndicator(mIndicator);
                         mViewFlow.setTimeSpan(4000);
                         mViewFlow.setSelection(3 * 1000); // 设置初始位置
                         mViewFlow.startAutoFlowTimer(); // 启动自动播放
-                        mViewFlow.setAdapter(new ViewFlowAdapter(getActivity(), data.getData()
+                        mViewFlow.setAdapter(new ViewFlowAdapter(getActivity(), data
                                 .getFocus()));
-                        mNewsListView.setAdapter(new NewsListAdapter(data.getData().getNews(),
+                        mNewsListView.setAdapter(new NewsListAdapter(data.getNews(),
                                 getActivity()));
-                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getData()
+                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data
                                 .getRecommend(), getActivity()));
-                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getData().getHot(),
+                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(),
                                 getActivity()));
 
                         ImageLoader.getInstance().displayImage(
-                                data.getData().getBigRecommend().get(0).getImageSrc(), mBigImg1,
+                                data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
                                 ImageLoaderUtil.getImageLoaderOptions());
                         ImageLoader.getInstance().displayImage(
-                                data.getData().getBigRecommend().get(1).getImageSrc(), mBigImg2,
+                                data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
                                 ImageLoaderUtil.getImageLoaderOptions());
 
                     }
