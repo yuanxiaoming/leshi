@@ -78,20 +78,24 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
         return mChildView.findViewById(viewId);
     }
 
+
+    public String getResourceString(int resId) {
+        return getResources().getString(resId);
+    }
+
     /**
-     * 初始化控件
+     * 参数传递
      */
-    protected abstract void findViewById();
+    protected abstract void getExtraParams();
 
     /**
      * 加载布局
      */
     protected abstract void loadViewLayout();
-
     /**
-     * 处理逻辑
+     * 初始化控件
      */
-    protected abstract void processLogic();
+    protected abstract void findViewById();
 
     /**
      * 设置监听
@@ -99,13 +103,12 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
     protected abstract void setListener();
 
     /**
-     * 参数传递
+     * 处理逻辑
      */
-    protected abstract void getExtraParams();
+    protected abstract void processLogic();
 
-    public String getResourceString(int resId) {
-        return getResources().getString(resId);
-    }
+
+
 
     @Override
     protected void onDestroy() {

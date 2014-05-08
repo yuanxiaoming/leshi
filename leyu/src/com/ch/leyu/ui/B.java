@@ -31,6 +31,17 @@ public class B extends BaseFragment {
     }
 
     @Override
+    protected void getExtraParams() {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.fragment_b);
+
+    }
+
+    @Override
     protected void findViewById() {
         // TODO Auto-generated method stub
         mListView = (XListView) findViewById(R.id.listview_b_cly);
@@ -42,12 +53,11 @@ public class B extends BaseFragment {
         mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
+
     @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.fragment_b);
+    protected void setListener() {
 
     }
-
     @Override
     protected void processLogic() {
         JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,new DataCallback<RegisterResponse>() {
@@ -83,10 +93,7 @@ public class B extends BaseFragment {
         });
     }
 
-    @Override
-    protected void setListener() {
 
-    }
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新
@@ -102,10 +109,6 @@ public class B extends BaseFragment {
         }
     };
 
-    @Override
-    protected void getExtraParams() {
-        // TODO Auto-generated method stub
 
-    }
 
 }

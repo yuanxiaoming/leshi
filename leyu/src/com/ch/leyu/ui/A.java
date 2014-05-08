@@ -21,7 +21,7 @@ public class A extends BaseActivity {
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.rb_main_account:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
                 break;
 
             case R.id.rb_main_find:
@@ -40,12 +40,8 @@ public class A extends BaseActivity {
     }
 
     @Override
-    protected void findViewById() {
+    protected void getExtraParams() {
 
-        a = (RadioButton) findViewById(R.id.rb_main_account);
-        b = (RadioButton) findViewById(R.id.rb_main_find);
-        c = (RadioButton) findViewById(R.id.rb_main_my);
-        d = (RadioButton) findViewById(R.id.rb_main_setting);
     }
 
     @Override
@@ -55,9 +51,12 @@ public class A extends BaseActivity {
     }
 
     @Override
-    protected void processLogic() {
+    protected void findViewById() {
 
-        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+        a = (RadioButton) findViewById(R.id.rb_main_account);
+        b = (RadioButton) findViewById(R.id.rb_main_find);
+        c = (RadioButton) findViewById(R.id.rb_main_my);
+        d = (RadioButton) findViewById(R.id.rb_main_setting);
     }
 
     @Override
@@ -69,8 +68,9 @@ public class A extends BaseActivity {
     }
 
     @Override
-    protected void getExtraParams() {
+    protected void processLogic() {
 
+        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
     }
 
 }

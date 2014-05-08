@@ -30,6 +30,17 @@ public class D extends BaseFragment {
 
     }
 
+    @Override
+    protected void getExtraParams() {
+
+    }
+
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.fragment_d);
+
+    }
+
     @SuppressLint("InlinedApi")
     @Override
     protected void findViewById() {
@@ -40,18 +51,7 @@ public class D extends BaseFragment {
         // 设置背景的颜色
         mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
         mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
-                addTitle()));
-    }
-
-    @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.fragment_d);
-
-    }
-
-    @Override
-    protected void processLogic() {
-
+                        addTitle()));
     }
 
     @Override
@@ -59,10 +59,12 @@ public class D extends BaseFragment {
 
     }
 
+
     @Override
-    protected void getExtraParams() {
+    protected void processLogic() {
 
     }
+
 
     private ArrayList<String> addTitle() {
         mTitleList = new ArrayList<String>();

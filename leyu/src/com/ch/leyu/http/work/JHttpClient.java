@@ -61,9 +61,9 @@ public class JHttpClient {
             }
         } else {
             if(!NetWorkUtil.isConnected(context)){
-              Toast.makeText(context, "网络不可用", Toast.LENGTH_SHORT).show();
-              getCache(context, parser, dataCallback, cacheUrl);
-              return;
+                Toast.makeText(context, "网络不可用", Toast.LENGTH_SHORT).show();
+                getCache(context, parser, dataCallback, cacheUrl);
+                return;
             }
             boolean hasCache = false;
             if (httpCache != null) {
@@ -108,7 +108,7 @@ public class JHttpClient {
     }
 
     private static <T> JAsyncHttpResponseHandler<T> httpCacheResponseHandler(final Context context, final BaseParser<T> parser, final HttpCache httpCache, final DataCallback<T> dataCallback,
-            final String cacheUrl) {
+                    final String cacheUrl) {
         return new JAsyncHttpResponseHandler<T>(context, parser, cacheUrl, httpCache) {
 
             @Override
@@ -145,6 +145,74 @@ public class JHttpClient {
     /****************************************************************************************************************************/
 
     /**
+     * get 請求有缓存
+     *
+     * @param context
+     * @param url
+     * @param params
+     * @param parser
+     * @param callback
+     */
+    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
+        getServerData(context, url, params, parser, JHttpClient.GET, new DefaultHttpCache(context), callback);
+    }
+
+    /**
+     * post 请求有缓存
+     *
+     * @param context
+     * @param url
+     * @param params
+     * @param parser
+     * @param callback
+     */
+    public static <T> void post(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
+        getServerData(context, url, params, parser, JHttpClient.POST, new DefaultHttpCache(context), callback);
+    }
+
+
+    /**
+     * get 請求有缓存
+     *
+     * @param context
+     * @param url
+     * @param params
+     * @param clazz
+     * @param callback
+     */
+    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, new DefaultHttpCache(context), callback);
+    }
+
+    /**
+     * post 請求有缓存
+     *
+     * @param context
+     * @param url
+     * @param params
+     * @param clazz
+     * @param callback
+     */
+    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, new DefaultHttpCache(context), callback);
+    }
+
+    /**
+     * 自定义缓存请求（get）
+     *
+     * @param context
+     * @param url
+     * @param params
+     * @param parser
+     * @param httpCache
+     * @param callback
+     */
+    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, HttpCache httpCache, final DataCallback<T> callback) {
+        getServerData(context, url, params, parser, JHttpClient.GET, httpCache, callback);
+    }
+
+
+    /**
      * 自定义缓存请求（post）
      *
      * @param context
@@ -164,39 +232,30 @@ public class JHttpClient {
      * @param context
      * @param url
      * @param params
-     * @param parser
+     * @param clazz
      * @param httpCache
      * @param callback
      */
-    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.GET, httpCache, callback);
+    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> callback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, httpCache, callback);
     }
 
     /**
-     * post 请求有缓存
+     * 自定义缓存请求（post）
      *
      * @param context
      * @param url
      * @param params
-     * @param parser
+     * @param clazz
+     * @param httpCache
      * @param callback
      */
-    public static <T> void post(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.POST, new DefaultHttpCache(context), callback);
+    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> callback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, httpCache, callback);
     }
 
-    /**
-     * get 請求有缓存
-     *
-     * @param context
-     * @param url
-     * @param params
-     * @param parser
-     * @param callback
-     */
-    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.GET, new DefaultHttpCache(context), callback);
-    }
+
+    /****************************************************************************************************************************/
 
     /**
      * get 请求 没有缓存
@@ -211,6 +270,10 @@ public class JHttpClient {
         getServerData(context, url, params, parser, JHttpClient.GET, null, callback);
     }
 
+
+
+
+
     /**
      * post 请求 没有缓存
      *
@@ -224,61 +287,6 @@ public class JHttpClient {
         getServerData(context, url, params, parser, JHttpClient.POST, null, callback);
     }
 
-    /****************************************************************************************************************************/
-
-    /**
-     * 自定义缓存请求（post）
-     *
-     * @param context
-     * @param url
-     * @param params
-     * @param parser
-     * @param httpCache
-     * @param callback
-     */
-    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, httpCache, callback);
-    }
-
-    /**
-     * 自定义缓存请求（get）
-     *
-     * @param context
-     * @param url
-     * @param params
-     * @param parser
-     * @param httpCache
-     * @param callback
-     */
-    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, httpCache, callback);
-    }
-
-    /**
-     * post 請求有缓存
-     *
-     * @param context
-     * @param url
-     * @param params
-     * @param parser
-     * @param callback
-     */
-    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, new DefaultHttpCache(context), callback);
-    }
-
-    /**
-     * get 請求有缓存
-     *
-     * @param context
-     * @param url
-     * @param params
-     * @param parser
-     * @param callback
-     */
-    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, new DefaultHttpCache(context), callback);
-    }
 
     /**
      * get 请求 没有缓存
@@ -286,7 +294,7 @@ public class JHttpClient {
      * @param context
      * @param url
      * @param params
-     * @param parser
+     * @param clazz
      * @param callback
      */
     public static <T> void getFromServer(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
@@ -299,7 +307,7 @@ public class JHttpClient {
      * @param context
      * @param url
      * @param params
-     * @param parser
+     * @param clazz
      * @param callback
      */
     public static <T> void postFromServer(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
