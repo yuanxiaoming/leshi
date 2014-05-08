@@ -1,11 +1,6 @@
 package com.ch.leyu.utils;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.ch.leyu.application.CLYApplication;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -18,7 +13,12 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.WindowManager;
 
-import com.ch.leyu.application.CLYApplication;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommonUtil {
 	public static void caculateView(View view) {

@@ -1,10 +1,10 @@
 package com.ch.leyu.http.httplibrary;
 
-import java.io.UnsupportedEncodingException;
-
 import org.apache.http.Header;
 
 import android.util.Log;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Used to intercept and handle the responses from requests made using

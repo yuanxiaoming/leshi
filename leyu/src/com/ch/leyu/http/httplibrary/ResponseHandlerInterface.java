@@ -1,10 +1,10 @@
 package com.ch.leyu.http.httplibrary;
 
-import java.io.IOException;
-import java.net.URI;
-
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+
+import java.io.IOException;
+import java.net.URI;
 
 /**
  * Interface to standardize implementations

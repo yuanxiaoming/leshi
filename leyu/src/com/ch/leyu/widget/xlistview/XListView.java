@@ -9,6 +9,8 @@
 
 package com.ch.leyu.widget.xlistview;
 
+import com.ch.leyu.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,8 +26,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
-
-import com.ch.leyu.R;
 
 public class XListView extends ListView implements OnScrollListener {
 

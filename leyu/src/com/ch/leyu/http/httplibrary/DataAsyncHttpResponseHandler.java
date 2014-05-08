@@ -18,14 +18,14 @@ package com.ch.leyu.http.httplibrary;
  limitations under the License.
  */
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.util.ByteArrayBuffer;
 
 import android.os.Message;
 import android.util.Log;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public abstract class DataAsyncHttpResponseHandler extends AsyncHttpResponseHandler {
 	private static final String LOG_TAG = "DataAsyncHttpResponseHandler";

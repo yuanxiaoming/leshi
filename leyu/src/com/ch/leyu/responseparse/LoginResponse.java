@@ -10,6 +10,16 @@ public class LoginResponse {
 
     private String area;
 
+    private String intro;
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
     public String getCover() {
         return cover;
     }

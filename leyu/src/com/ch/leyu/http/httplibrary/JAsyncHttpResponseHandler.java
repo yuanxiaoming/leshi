@@ -1,14 +1,14 @@
 package com.ch.leyu.http.httplibrary;
 
-import org.apache.http.Header;
-
-import android.content.Context;
-import android.util.Log;
-
 import com.ch.leyu.http.cacheinterface.HttpCache;
 import com.ch.leyu.http.cacheservice.ServerDataCache;
 import com.ch.leyu.http.parserinterface.BaseParser;
 import com.ch.leyu.http.work.JHttpClient;
+
+import org.apache.http.Header;
+
+import android.content.Context;
+import android.util.Log;
 
 public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHandler {
 	private Context mContext;

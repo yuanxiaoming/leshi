@@ -1,13 +1,5 @@
 package com.ch.leyu.http.work;
 
-import org.apache.http.Header;
-import org.apache.http.client.CookieStore;
-import org.json.JSONException;
-
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.ch.leyu.http.cacheimpl.DefaultHttpCache;
 import com.ch.leyu.http.cacheinterface.HttpCache;
 import com.ch.leyu.http.cacheservice.DBOpenHelperManager;
@@ -18,6 +10,14 @@ import com.ch.leyu.http.httplibrary.JAsyncHttpResponseHandler;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.parserinterface.BaseParser;
 import com.ch.leyu.http.utils.NetWorkUtil;
+
+import org.apache.http.Header;
+import org.apache.http.client.CookieStore;
+import org.json.JSONException;
+
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Http get请求缓存数据

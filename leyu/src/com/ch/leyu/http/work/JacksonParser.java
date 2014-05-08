@@ -1,8 +1,8 @@
 package com.ch.leyu.http.work;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
 import com.ch.leyu.http.parserinterface.BaseParser;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class JacksonParser<T> implements BaseParser<T> {
 

@@ -1,7 +1,10 @@
 
 package com.ch.leyu.adapter;
 
-import java.util.List;
+import com.ch.leyu.R;
+import com.ch.leyu.responseparse.LoginResponse;
+import com.ch.leyu.utils.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,11 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ch.leyu.R;
-import com.ch.leyu.responseparse.LoginResponse;
-import com.ch.leyu.responseparse.RegisterResponse;
-import com.ch.leyu.utils.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import java.util.List;
 
 public class CLYAdapter extends ArrayAdapter<LoginResponse> {
 

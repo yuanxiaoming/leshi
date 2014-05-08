@@ -1,49 +1,86 @@
+
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.R.id;
-import com.ch.leyu.R.layout;
+import com.ch.leyu.adapter.LYViewPagerAdapter;
+import com.ch.leyu.view.LYViewPager;
 
+import android.annotation.SuppressLint;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class D extends BaseFragment {
-	private TextView textView;
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
+    private ViewPager mViewPager;
 
-	}
+    private PagerTabStrip mTabStrip;
 
-	@Override
-	protected void findViewById() {
-		// TODO Auto-generated method stub
-		textView = (TextView) findViewById(R.id.textView1);
-	}
+    /** viewpager标头 */
+    private ArrayList<String> mTitleList;
 
-	@Override
-	protected void loadViewLayout() {
-		setContentView(R.layout.fragment_x);
+    /***/
+    private ArrayList<Fragment> mFragmentList;
 
-	}
+    @Override
+    public void onClick(View v) {
 
-	@Override
-	protected void processLogic() {
-		// TODO Auto-generated method stub
-		textView.setText("wo shi D");
-	}
+    }
 
-	@Override
-	protected void setListener() {
-		// TODO Auto-generated method stub
+    @SuppressLint("InlinedApi")
+    @Override
+    protected void findViewById() {
+        mViewPager = (LYViewPager) findViewById(R.id.d_viewpager);
+        mTabStrip = (PagerTabStrip) findViewById(R.id.d_pagertab);
+        // 设置下划线的颜色
+        mTabStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
+        // 设置背景的颜色
+        mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
+                addTitle()));
+    }
 
-	}
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.fragment_d);
 
-	@Override
-	protected void getExtraParams() {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    protected void processLogic() {
+
+    }
+
+    @Override
+    protected void setListener() {
+
+    }
+
+    @Override
+    protected void getExtraParams() {
+
+    }
+
+    private ArrayList<String> addTitle() {
+        mTitleList = new ArrayList<String>();
+        mTitleList.add("全部");
+        mTitleList.add("英雄联盟");
+        mTitleList.add("其他");
+
+        return mTitleList;
+    }
+
+    private ArrayList<Fragment> addFragment() {
+        mFragmentList = new ArrayList<Fragment>();
+        mFragmentList.add(new AllFragment());
+        mFragmentList.add(new AllFragment());
+        mFragmentList.add(new AllFragment());
+
+        return mFragmentList;
+
+    }
 
 }

@@ -7,6 +7,8 @@
 
 package com.ch.leyu.widget.xlistview;
 
+import com.ch.leyu.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -14,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.ch.leyu.R;
 
 public class XListViewFooter extends LinearLayout {
 	public final static int STATE_NORMAL = 0;

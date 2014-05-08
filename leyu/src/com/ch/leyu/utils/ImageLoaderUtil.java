@@ -1,11 +1,11 @@
 package com.ch.leyu.utils;
 
-import android.graphics.Bitmap;
-
 import com.ch.leyu.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import android.graphics.Bitmap;
 
 public class ImageLoaderUtil {
 
