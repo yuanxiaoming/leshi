@@ -13,9 +13,6 @@ import org.apache.http.Header;
 
 import android.view.View;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class C extends BaseFragment {
 
     private XListView mXListView;
@@ -29,7 +26,6 @@ public class C extends BaseFragment {
 
     @Override
     protected void findViewById() {
-        mHttpLoadingView=mHttpLoading.inflate();
         mXListView = (XListView) findViewById(R.id.listview_c_cly);
 
 

@@ -88,6 +88,7 @@ public class JHttpClient {
     }
 
     private static <T> void getCache(Context context, BaseParser<T> parser, final DataCallback<T> dataCallback, String cacheUrl) {
+        dataCallback.onStart();
         ServerDataCache cache = DBOpenHelperManager.getInstance(context).findCacheByUrl(cacheUrl);
         if(cache != null){
             T data = null;
@@ -103,6 +104,7 @@ public class JHttpClient {
             dataCallback.onFailure(500, null, "没有缓存", new JSONException("josn解析异常"));
             Log.i(JHttpClient.class.getSimpleName(), "has not cache");
         }
+        dataCallback.onFinish();
     }
 
     private static <T> JAsyncHttpResponseHandler<T> httpCacheResponseHandler(final Context context, final BaseParser<T> parser, final HttpCache httpCache, final DataCallback<T> dataCallback,
@@ -113,7 +115,7 @@ public class JHttpClient {
             public void onSuccess(int statusCode, Header[] headers, T data) {
                 if (statusCode == 200) {
                     dataCallback.onSuccess(statusCode, headers, data);
-                    Log.i(JHttpClient.class.getSimpleName(), "Data taken from the server");
+                    Log.d(JHttpClient.class.getSimpleName(), "Data taken from the server");
                 }
             }
 

@@ -34,8 +34,6 @@ public class B extends BaseFragment {
     protected void findViewById() {
         // TODO Auto-generated method stub
         mListView = (XListView) findViewById(R.id.listview_b_cly);
-        mHttpLoadingView=mHttpLoading.inflate();
-
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
         mListView.setXListViewListener(mIXListViewListenerImp);
@@ -52,29 +50,34 @@ public class B extends BaseFragment {
 
     @Override
     protected void processLogic() {
-        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
-                        new DataCallback<RegisterResponse>() {
+        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,new DataCallback<RegisterResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
                 adapter = new CLYAdapter(getActivity(), data.getList());
                 mListView.setAdapter(adapter);
+                System.out.println("onSuccess");
             }
 
             @Override
             public void onStart() {
+                System.out.println("onStart");
                 mHttpLoadingView.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onFinish() {
                 mHttpLoadingView.setVisibility(View.GONE);
+                System.out.println("onFinish");
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
 
+                System.out.println("onFailure");
             }
 
         });

@@ -25,7 +25,7 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
 
     private View mChildView;
 
-    protected ViewStub mViewStubProgress, mViewStubError;
+    protected ViewStub mHttpLoading, mHttpError;
     protected View mHttpLoadingView=null;
     protected View mHttpErrorView=null;
 
@@ -37,8 +37,17 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
         supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.setContentView(R.layout.activity_base);
         mActivityContent = (LinearLayout) super.findViewById(R.id.activity_content_base);
-        mViewStubProgress = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
-        mViewStubError = (ViewStub) super.findViewById(R.id.viewstub_http_error);
+        mHttpLoading = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
+        mHttpError = (ViewStub) super.findViewById(R.id.viewstub_http_error);
+
+        if(mHttpLoading!=null){
+            mHttpLoadingView=mHttpLoading.inflate();
+            mHttpLoadingView.setVisibility(View.GONE);
+        }
+        if(mHttpError!=null){
+            mHttpErrorView=mHttpError.inflate();
+            mHttpErrorView.setVisibility(View.GONE);
+        }
         mContext = this;
         mActionBar = getSupportActionBar();
         mActionBar.setIcon(android.R.drawable.sym_action_chat);

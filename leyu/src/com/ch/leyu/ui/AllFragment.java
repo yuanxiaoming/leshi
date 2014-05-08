@@ -47,7 +47,6 @@ public class AllFragment extends BaseFragment {
         mViewFlow = (ViewFlow) findViewById(R.id.all_viewflow);
         mIndicator = (CircleFlowIndicator) findViewById(R.id.all_viewflowindic);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
-        mHttpLoadingView=mHttpLoading.inflate();
 
         mViewFlow.setAdapter(new AllViewFlowAdapter(getActivity()));
         mViewFlow.setmSideBuffer(3); // 实际图片张数， 我的ImageAdapter实际图片张数为3
