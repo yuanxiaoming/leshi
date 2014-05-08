@@ -41,13 +41,4 @@
         android:layout_below="@+id/framelayout" >
     </com.ch.leyu.widget.xlistview.XListView>
 
-    <ProgressBar
-        android:id="@+id/all_progressbar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
-
 </RelativeLayout>

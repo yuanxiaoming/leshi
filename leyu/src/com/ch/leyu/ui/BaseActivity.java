@@ -4,8 +4,6 @@ package com.ch.leyu.ui;
 import com.ch.leyu.R;
 import com.ch.leyu.application.ExitAppUtils;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -28,6 +26,10 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
     private View mChildView;
 
     protected ViewStub mViewStubProgress, mViewStubError;
+    protected View mHttpLoadingView=null;
+    protected View mHttpErrorView=null;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

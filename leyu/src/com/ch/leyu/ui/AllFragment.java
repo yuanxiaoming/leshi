@@ -23,7 +23,7 @@ import java.util.Date;
 
 /**
  * 新闻资讯---全部Fragment
- * 
+ *
  * @author liu
  */
 public class AllFragment extends BaseFragment {
@@ -33,8 +33,6 @@ public class AllFragment extends BaseFragment {
     private XListView mXListView;
 
     private CircleFlowIndicator mIndicator;
-
-    private ProgressBar mBar;
 
     private CLYAdapter mAdapter;
 
@@ -50,7 +48,7 @@ public class AllFragment extends BaseFragment {
         mViewFlow = (ViewFlow) findViewById(R.id.all_viewflow);
         mIndicator = (CircleFlowIndicator) findViewById(R.id.all_viewflowindic);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
-        mBar = (ProgressBar) findViewById(R.id.all_progressbar);
+        mHttpLoadingView=mHttpLoading.inflate();
 
         mViewFlow.setAdapter(new AllViewFlowAdapter(getActivity()));
         mViewFlow.setmSideBuffer(3); // 实际图片张数， 我的ImageAdapter实际图片张数为3
@@ -79,12 +77,12 @@ public class AllFragment extends BaseFragment {
 
                     @Override
                     public void onStart() {
-                        mBar.setVisibility(View.VISIBLE);
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFinish() {
-                        mBar.setVisibility(View.GONE);
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
 
                     @Override

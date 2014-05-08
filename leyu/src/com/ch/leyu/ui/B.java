@@ -13,8 +13,6 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 import org.apache.http.Header;
 
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,8 +21,6 @@ public class B extends BaseFragment {
     private XListView mListView;
 
     private CLYAdapter adapter;
-
-    private ProgressBar mBar;
 
     private SimpleDateFormat mSimpleDateFormat;
 
@@ -38,7 +34,14 @@ public class B extends BaseFragment {
     protected void findViewById() {
         // TODO Auto-generated method stub
         mListView = (XListView) findViewById(R.id.listview_b_cly);
-        mBar = (ProgressBar) findViewById(R.id.progressBar1);
+        mHttpLoadingView=mHttpLoading.inflate();
+
+        mListView.setPullRefreshEnable(true);
+        mListView.setPullLoadEnable(true);
+        mListView.setXListViewListener(mIXListViewListenerImp);
+        mListView.setAdapter(adapter);
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
     @Override
@@ -50,41 +53,36 @@ public class B extends BaseFragment {
     @Override
     protected void processLogic() {
         JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
-                new DataCallback<RegisterResponse>() {
+                        new DataCallback<RegisterResponse>() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-                        adapter = new CLYAdapter(getActivity(), data.getList());
-                        mListView.setAdapter(adapter);
-                    }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
+                adapter = new CLYAdapter(getActivity(), data.getList());
+                mListView.setAdapter(adapter);
+            }
 
-                    @Override
-                    public void onStart() {
-                        mBar.setVisibility(View.VISIBLE);
-                    }
+            @Override
+            public void onStart() {
+                mHttpLoadingView.setVisibility(View.VISIBLE);
+            }
 
-                    @Override
-                    public void onFinish() {
-                        mBar.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
 
-                    }
+            }
 
-                });
+        });
     }
 
     @Override
     protected void setListener() {
-        mListView.setPullRefreshEnable(true);
-        mListView.setPullLoadEnable(true);
-        mListView.setXListViewListener(mIXListViewListenerImp);
-        mListView.setAdapter(adapter);
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+
     }
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {

@@ -20,6 +20,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected ViewStub mHttpLoading;
 	protected ViewStub mHttpError;
 
+	protected View mHttpLoadingView=null;
+    protected View mHttpErrorView=null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,5 +71,5 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 	protected abstract void getExtraParams();
 
-	
+
 }

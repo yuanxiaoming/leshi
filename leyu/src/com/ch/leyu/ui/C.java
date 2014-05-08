@@ -2,7 +2,6 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.adapter.StarListAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
@@ -13,13 +12,13 @@ import com.ch.leyu.widget.xlistview.XListView;
 import org.apache.http.Header;
 
 import android.view.View;
-import android.widget.ProgressBar;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class C extends BaseFragment {
 
     private XListView mXListView;
-
-    private ProgressBar mBar;
 
     private StarListAdapter mAdapter;
 
@@ -30,8 +29,10 @@ public class C extends BaseFragment {
 
     @Override
     protected void findViewById() {
+        mHttpLoadingView=mHttpLoading.inflate();
         mXListView = (XListView) findViewById(R.id.listview_c_cly);
-        mBar = (ProgressBar) findViewById(R.id.progressBar_c);
+
+
     }
 
     @Override
@@ -53,12 +54,12 @@ public class C extends BaseFragment {
 
                     @Override
                     public void onStart() {
-                        mBar.setVisibility(View.VISIBLE);
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFinish() {
-                        mBar.setVisibility(View.GONE);
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
 
                     @Override
