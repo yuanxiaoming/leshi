@@ -70,15 +70,29 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
         return mContentView.findViewById(resId);
     }
 
+    /**
+     * 参数传递
+     */
+    protected abstract void getExtraParams();
+
+    /**
+     * 加载布局
+     */
+    protected abstract void loadViewLayout();
+    /**
+     * 初始化控件
+     */
     protected abstract void findViewById();
 
-    protected abstract void loadViewLayout();
-
-    protected abstract void processLogic();
-
+    /**
+     * 设置监听
+     */
     protected abstract void setListener();
 
-    protected abstract void getExtraParams();
+    /**
+     * 处理逻辑
+     */
+    protected abstract void processLogic();
 
 
 }
