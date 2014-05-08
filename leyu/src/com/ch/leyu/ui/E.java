@@ -73,9 +73,9 @@ public class E extends BaseFragment {
 
     private ArrayList<Fragment> addFragment() {
         fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(new B());
-        fragmentList.add(new B());
-        fragmentList.add(new B());
+        fragmentList.add(new HSFragment());
+        fragmentList.add(new HSFragment());
+        fragmentList.add(new HSFragment());
 
         return fragmentList;
     }

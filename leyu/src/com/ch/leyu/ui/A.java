@@ -21,7 +21,7 @@ public class A extends BaseActivity {
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.rb_main_account:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
                 break;
 
             case R.id.rb_main_find:
@@ -57,7 +57,7 @@ public class A extends BaseActivity {
     @Override
     protected void processLogic() {
 
-        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
+        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
     }
 
     @Override

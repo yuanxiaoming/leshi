@@ -18,4 +18,7 @@ public interface Constant {
 
     // 测试接口
     public static final String A_URL = "http://manhua.haomee.net/?android_version=203&m=Api&a=listByType&limit=15&id=57&order=3&page=1";
+
+    /** 炉石传说接口 */
+    public static final String HS_URL = "http://www.legames.cn/app/api/game.php?gameId=23";
 }
