@@ -38,6 +38,17 @@ public class A extends BaseActivity {
                 break;
         }
     }
+    @Override
+    protected void getExtraParams() {
+
+    }
+
+
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.activity_old_main);
+
+    }
 
     @Override
     protected void findViewById() {
@@ -48,17 +59,6 @@ public class A extends BaseActivity {
         d = (RadioButton) findViewById(R.id.rb_main_setting);
     }
 
-    @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.activity_old_main);
-
-    }
-
-    @Override
-    protected void processLogic() {
-
-        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
-    }
 
     @Override
     protected void setListener() {
@@ -68,9 +68,12 @@ public class A extends BaseActivity {
         d.setOnClickListener(this);
     }
 
-    @Override
-    protected void getExtraParams() {
 
+    @Override
+    protected void processLogic() {
+
+        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
     }
+
 
 }

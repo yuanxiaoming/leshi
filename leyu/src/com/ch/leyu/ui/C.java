@@ -25,9 +25,7 @@ public class C extends BaseFragment {
     }
 
     @Override
-    protected void findViewById() {
-        mXListView = (XListView) findViewById(R.id.listview_c_cly);
-
+    protected void getExtraParams() {
 
     }
 
@@ -36,6 +34,20 @@ public class C extends BaseFragment {
         setContentView(R.layout.fragment_c);
 
     }
+
+    @Override
+    protected void findViewById() {
+        mXListView = (XListView) findViewById(R.id.listview_c_cly);
+
+
+    }
+    @Override
+    protected void setListener() {
+
+    }
+
+
+
 
     @Override
     protected void processLogic() {
@@ -68,14 +80,6 @@ public class C extends BaseFragment {
 
     }
 
-    @Override
-    protected void setListener() {
 
-    }
-
-    @Override
-    protected void getExtraParams() {
-
-    }
 
 }

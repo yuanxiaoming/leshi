@@ -43,6 +43,16 @@ public class AllFragment extends BaseFragment {
     }
 
     @Override
+    protected void getExtraParams() {
+
+    }
+
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.fragment_all);
+    }
+
+    @Override
     protected void findViewById() {
         mViewFlow = (ViewFlow) findViewById(R.id.all_viewflow);
         mIndicator = (CircleFlowIndicator) findViewById(R.id.all_viewflowindic);
@@ -63,47 +73,42 @@ public class AllFragment extends BaseFragment {
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
 
     }
-
-    @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.fragment_all);
-    }
-
-    @Override
-    protected void processLogic() {
-        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
-                new DataCallback<RegisterResponse>() {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-                        mAdapter = new CLYAdapter(getActivity(), data.getList());
-                        mXListView.setAdapter(mAdapter);
-                    }
-
-                    @Override
-                    public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
-                            Exception exception) {
-
-                    }
-
-                });
-
-    }
-
     @Override
     protected void setListener() {
 
     }
+    @Override
+    protected void processLogic() {
+        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
+                        new DataCallback<RegisterResponse>() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
+                mAdapter = new CLYAdapter(getActivity(), data.getList());
+                mXListView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onStart() {
+                mHttpLoadingView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                            Exception exception) {
+
+            }
+
+        });
+
+    }
+
+
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新
@@ -119,9 +124,6 @@ public class AllFragment extends BaseFragment {
         }
     };
 
-    @Override
-    protected void getExtraParams() {
 
-    }
 
 }
