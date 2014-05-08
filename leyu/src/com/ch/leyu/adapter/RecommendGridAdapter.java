@@ -3,23 +3,27 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class NewsListAdapter extends BaseAdapter {
+public class RecommendGridAdapter extends BaseAdapter {
 
     private ArrayList<Property> mNewsList;
 
     private Context mContext;
 
-    public NewsListAdapter(ArrayList<Property> mNewsList, Context mContext) {
+    public RecommendGridAdapter(ArrayList<Property> mNewsList, Context mContext) {
         this.mContext = mContext;
         this.mNewsList = mNewsList;
     }
@@ -44,19 +48,21 @@ public class NewsListAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.news_listview_item, null);
-            holder.txt = (TextView) convertView.findViewById(R.id.news_lvitem_tv);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.recommend_grid_item, null);
+            holder.img = (ImageView) convertView.findViewById(R.id.rec_img);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.txt.setText(mNewsList.get(position).getTitle());
+
+        ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
+                ImageLoaderUtil.getImageLoaderOptions());
 
         return convertView;
     }
 
     class ViewHolder {
-        TextView txt;
+        ImageView img;
     }
 
 }

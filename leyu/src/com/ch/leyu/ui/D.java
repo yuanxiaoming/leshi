@@ -8,14 +8,13 @@ import com.ch.leyu.view.LYViewPager;
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import java.util.ArrayList;
 
 public class D extends BaseFragment {
 
-    private ViewPager mViewPager;
+    private LYViewPager mViewPager;
 
     private PagerTabStrip mTabStrip;
 
@@ -51,7 +50,7 @@ public class D extends BaseFragment {
         // 设置背景的颜色
         mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
         mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
-                        addTitle()));
+                addTitle()));
     }
 
     @Override
@@ -59,12 +58,10 @@ public class D extends BaseFragment {
 
     }
 
-
     @Override
     protected void processLogic() {
 
     }
-
 
     private ArrayList<String> addTitle() {
         mTitleList = new ArrayList<String>();

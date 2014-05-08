@@ -1,13 +1,11 @@
 
 package com.ch.leyu.responseparse;
 
-import java.util.ArrayList;
-
 public class HSResponse {
 
     private String code;
 
-    private ArrayList<HSDataResponse> data;
+    private HSDataResponse data;
 
     public String getCode() {
         return code;
@@ -17,11 +15,11 @@ public class HSResponse {
         this.code = code;
     }
 
-    public ArrayList<HSDataResponse> getData() {
+    public HSDataResponse getData() {
         return data;
     }
 
-    public void setData(ArrayList<HSDataResponse> data) {
+    public void setData(HSDataResponse data) {
         this.data = data;
     }
 

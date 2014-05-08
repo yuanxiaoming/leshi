@@ -3,18 +3,18 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.LYViewPagerAdapter;
+import com.ch.leyu.view.LYViewPager;
 
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import java.util.ArrayList;
 
 public class E extends BaseFragment {
 
-    private ViewPager mViewPager;
+    private LYViewPager mViewPager;
 
     private PagerTabStrip mTabStrip;
 
@@ -34,7 +34,6 @@ public class E extends BaseFragment {
 
     }
 
-
     @Override
     protected void loadViewLayout() {
         setContentView(R.layout.fragment_e);
@@ -44,14 +43,14 @@ public class E extends BaseFragment {
     @SuppressLint("InlinedApi")
     @Override
     protected void findViewById() {
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (LYViewPager) findViewById(R.id.viewpager);
         mTabStrip = (PagerTabStrip) findViewById(R.id.pagertab);
         // 设置下划线的颜色
         mTabStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
         // 设置背景的颜色
         mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
         mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
-                        addTitle()));
+                addTitle()));
     }
 
     @Override
@@ -62,7 +61,6 @@ public class E extends BaseFragment {
     @Override
     protected void processLogic() {
     }
-
 
     private ArrayList<String> addTitle() {
         titleList = new ArrayList<String>();
