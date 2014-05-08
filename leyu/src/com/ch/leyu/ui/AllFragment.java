@@ -16,7 +16,6 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 import org.apache.http.Header;
 
 import android.view.View;
-import android.widget.ProgressBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,6 +55,13 @@ public class AllFragment extends BaseFragment {
         mViewFlow.setTimeSpan(3000);
         mViewFlow.setSelection(3 * 1000); // 设置初始位置
         mViewFlow.startAutoFlowTimer(); // 启动自动播放
+
+
+        mXListView.setPullRefreshEnable(true);
+        mXListView.setPullLoadEnable(true);
+        mXListView.setXListViewListener(mIXListViewListenerImp);
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
 
     }
 
@@ -97,11 +103,6 @@ public class AllFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-        mXListView.setPullRefreshEnable(true);
-        mXListView.setPullLoadEnable(true);
-        mXListView.setXListViewListener(mIXListViewListenerImp);
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
 
     }
 
