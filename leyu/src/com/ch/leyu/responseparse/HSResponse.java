@@ -1,28 +1,27 @@
 
 package com.ch.leyu.responseparse;
 
-import java.util.ArrayList;
 
 public class HSResponse {
 
     private String code;
 
-    private ArrayList<HSDataResponse> data;
+    private HSDataResponse data;
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public ArrayList<HSDataResponse> getData() {
-        return data;
-    }
+	public HSDataResponse getData() {
+		return data;
+	}
 
-    public void setData(ArrayList<HSDataResponse> data) {
-        this.data = data;
-    }
+	public void setData(HSDataResponse data) {
+		this.data = data;
+	}
 
 }
