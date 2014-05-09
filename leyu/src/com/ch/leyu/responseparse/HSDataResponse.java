@@ -3,7 +3,7 @@ package com.ch.leyu.responseparse;
 
 import java.util.ArrayList;
 
-public class HSDataResponse {
+public class HSDataResponse{
 
     private ArrayList<Property> focus;
 
@@ -14,6 +14,8 @@ public class HSDataResponse {
     private ArrayList<Property> bigRecommend;
 
     private ArrayList<Property> hot;
+
+
 
     public ArrayList<Property> getFocus() {
         return focus;

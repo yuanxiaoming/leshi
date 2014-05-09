@@ -30,6 +30,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.View.MeasureSpec;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AbsListView;
 import android.widget.Adapter;
@@ -207,6 +208,7 @@ public class ViewFlow extends AdapterView<Adapter> {
             mScroller.startScroll(0, 0, mCurrentScreen * width, 0, 0);
             mFirstLayout = false;
         }
+
     }
 
     @Override

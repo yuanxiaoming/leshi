@@ -2,25 +2,28 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.NewsListAdapter;
+import com.ch.leyu.adapter.RecommendGridAdapter;
+import com.ch.leyu.adapter.ViewFlowAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.HSResponse;
-import com.ch.leyu.responseparse.RegisterResponse;
+import com.ch.leyu.responseparse.HSDataResponse;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.LYGridView;
 import com.ch.leyu.view.ViewFlow;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 /***
  * 炉石传说首页
- * 
+ *
  * @author Administrator
  */
 public class HSFragment extends BaseFragment {
@@ -40,6 +43,7 @@ public class HSFragment extends BaseFragment {
     /** 四张小图小编推荐 */
     private LYGridView mRecommendGrid;
 
+    /** Hot */
     private LYGridView mHotGrid;
 
     @Override
@@ -67,20 +71,43 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-        JHttpClient.get(getActivity(), Constant.HS_URL, null, HSResponse.class,
-                new DataCallback<HSResponse>() {
+
+        JHttpClient.get(getActivity(), Constant.HS_URL, null, HSDataResponse.class,
+                new DataCallback<HSDataResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
-                        Toast.makeText(getActivity(), "---" + data.getCode(), 1000).show();
+                    public void onSuccess(int statusCode, Header[] headers, HSDataResponse data) {
+                        mViewFlow.setmSideBuffer(data.getFocus().size());
+                        mViewFlow.setFlowIndicator(mIndicator);
+                        mViewFlow.setTimeSpan(4000);
+                        mViewFlow.setSelection(3 * 1000); // 设置初始位置
+                        mViewFlow.startAutoFlowTimer(); // 启动自动播放
+                        mViewFlow.setAdapter(new ViewFlowAdapter(getActivity(), data
+                                .getFocus()));
+                        mNewsListView.setAdapter(new NewsListAdapter(data.getNews(),
+                                getActivity()));
+                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data
+                                .getRecommend(), getActivity()));
+                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(),
+                                getActivity()));
+
+                        ImageLoader.getInstance().displayImage(
+                                data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
+                                ImageLoaderUtil.getImageLoaderOptions());
+                        ImageLoader.getInstance().displayImage(
+                                data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
+                                ImageLoaderUtil.getImageLoaderOptions());
+
                     }
 
                     @Override
                     public void onStart() {
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFinish() {
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -88,13 +115,11 @@ public class HSFragment extends BaseFragment {
                             Exception exception) {
 
                     }
-
                 });
     }
 
     @Override
     protected void setListener() {
-
     }
 
     @Override

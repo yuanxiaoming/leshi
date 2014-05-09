@@ -8,14 +8,11 @@
     android:paddingRight="5dp"
     android:paddingTop="5dp" >
 
-    <TextView
-        android:id="@+id/news_lvitem_tv"
+    <ImageView
+        android:id="@+id/rec_img"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
