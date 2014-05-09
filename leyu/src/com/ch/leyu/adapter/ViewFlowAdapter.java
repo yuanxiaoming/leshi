@@ -32,8 +32,9 @@ public class ViewFlowAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // return Integer.MAX_VALUE; // 返回很大的值使得getView中的position不断增大来实现循环
-        return arrayList.size();
+
+        return Integer.MAX_VALUE; // 返回很大的值使得getView中的position不断增大来实现循环
+        // return arrayList.size();
     }
 
     @Override
@@ -51,7 +52,8 @@ public class ViewFlowAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.all_viewflow_item, null);
         }
-        ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
+        ImageLoader.getInstance().displayImage(
+                arrayList.get(position % arrayList.size()).getImageSrc(),
                 (ImageView) convertView.findViewById(R.id.imgView),
                 ImageLoaderUtil.getImageLoaderOptions());
 

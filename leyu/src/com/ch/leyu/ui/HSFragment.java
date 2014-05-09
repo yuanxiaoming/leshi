@@ -12,6 +12,7 @@ import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.LYGridView;
+import com.ch.leyu.view.LYViewFlow;
 import com.ch.leyu.view.ViewFlow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -23,13 +24,13 @@ import android.widget.ListView;
 
 /***
  * 炉石传说首页
- *
- * @author Administrator
+ * 
+ * @author L
  */
 public class HSFragment extends BaseFragment {
 
     /** 滚动新闻 */
-    private ViewFlow mViewFlow;
+    private LYViewFlow mViewFlow;
 
     /** ViewFlow指示器 */
     private CircleFlowIndicator mIndicator;
@@ -53,7 +54,7 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void findViewById() {
-        mViewFlow = (ViewFlow) findViewById(R.id.hs_viewflow);
+        mViewFlow = (LYViewFlow) findViewById(R.id.hs_viewflow);
         mIndicator = (CircleFlowIndicator) findViewById(R.id.hs_viewflowindic);
         mNewsListView = (ListView) findViewById(R.id.hs_listview_news);
         mBigImg1 = (ImageView) findViewById(R.id.hs_img_bigRecommend1);
@@ -82,14 +83,11 @@ public class HSFragment extends BaseFragment {
                         mViewFlow.setTimeSpan(4000);
                         mViewFlow.setSelection(3 * 1000); // 设置初始位置
                         mViewFlow.startAutoFlowTimer(); // 启动自动播放
-                        mViewFlow.setAdapter(new ViewFlowAdapter(getActivity(), data
-                                .getFocus()));
-                        mNewsListView.setAdapter(new NewsListAdapter(data.getNews(),
+                        mViewFlow.setAdapter(new ViewFlowAdapter(getActivity(), data.getFocus()));
+                        mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
+                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
                                 getActivity()));
-                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data
-                                .getRecommend(), getActivity()));
-                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(),
-                                getActivity()));
+                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
 
                         ImageLoader.getInstance().displayImage(
                                 data.getBigRecommend().get(0).getImageSrc(), mBigImg1,

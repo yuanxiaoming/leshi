@@ -1,6 +1,7 @@
+
 package com.ch.leyu.http.parserinterface;
 
-public abstract  class BaseParser<T> {
+public abstract class BaseParser<T> {
 
     protected static final String CODE = "code";
 

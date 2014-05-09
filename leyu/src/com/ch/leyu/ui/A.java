@@ -70,7 +70,7 @@ public class A extends BaseActivity {
     @Override
     protected void processLogic() {
 
-        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new B(), "");
+        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
     }
 
 }

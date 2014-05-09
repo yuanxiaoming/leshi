@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * 新闻资讯---全部Fragment
- *
+ * 
  * @author liu
  */
 public class AllFragment extends BaseFragment {
@@ -65,7 +65,6 @@ public class AllFragment extends BaseFragment {
         mViewFlow.setSelection(3 * 1000); // 设置初始位置
         mViewFlow.startAutoFlowTimer(); // 启动自动播放
 
-
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
         mXListView.setXListViewListener(mIXListViewListenerImp);
@@ -73,42 +72,42 @@ public class AllFragment extends BaseFragment {
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
 
     }
+
     @Override
     protected void setListener() {
 
     }
+
     @Override
     protected void processLogic() {
         JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
-                        new DataCallback<RegisterResponse>() {
+                new DataCallback<RegisterResponse>() {
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-                mAdapter = new CLYAdapter(getActivity(), data.getList());
-                mXListView.setAdapter(mAdapter);
-            }
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
+                        mAdapter = new CLYAdapter(getActivity(), data.getList());
+                        mXListView.setAdapter(mAdapter);
+                    }
 
-            @Override
-            public void onStart() {
-                mHttpLoadingView.setVisibility(View.VISIBLE);
-            }
+                    @Override
+                    public void onStart() {
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
+                    }
 
-            @Override
-            public void onFinish() {
-                mHttpLoadingView.setVisibility(View.GONE);
-            }
+                    @Override
+                    public void onFinish() {
+                        mHttpLoadingView.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
 
-            }
+                    }
 
-        });
+                });
 
     }
-
-
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新
@@ -123,7 +122,5 @@ public class AllFragment extends BaseFragment {
 
         }
     };
-
-
 
 }
