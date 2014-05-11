@@ -86,7 +86,7 @@ public class AllFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-    	 
+    	 loadData();
 
     }
 
@@ -131,12 +131,5 @@ public class AllFragment extends BaseFragment {
         public void onLoadMore() {
 
         }
-    };
-
-
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-    	if(isVisibleToUser){
-    		loadData();
-    	}
     };
 }
