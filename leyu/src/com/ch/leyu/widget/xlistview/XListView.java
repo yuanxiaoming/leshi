@@ -107,8 +107,10 @@ public class XListView extends ListView implements OnScrollListener {
 
 		// init header view
 		mHeaderView = new XListViewHeader(context);
-		mHeaderViewContent = (RelativeLayout) mHeaderView.findViewById(R.id.xlistview_header_content);
-		mHeaderTimeView = (TextView) mHeaderView.findViewById(R.id.xlistview_header_time);
+		mHeaderViewContent = (RelativeLayout) mHeaderView
+				.findViewById(R.id.xlistview_header_content);
+		mHeaderTimeView = (TextView) mHeaderView
+				.findViewById(R.id.xlistview_header_time);
 		mHeaderTimeView.setTextColor(Color.BLACK);
 		addHeaderView(mHeaderView);
 
@@ -116,18 +118,21 @@ public class XListView extends ListView implements OnScrollListener {
 		mFooterView = new XListViewFooter(context);
 
 		// init header height
-		mHeaderView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onGlobalLayout() {
-				mHeaderViewHeight = mHeaderViewContent.getHeight();
-				if (Build.VERSION.SDK_INT >= 16) {
-					getViewTreeObserver().removeOnGlobalLayoutListener(this);
-				} else {
-					getViewTreeObserver().removeGlobalOnLayoutListener(this);
-				}
-			}
-		});
+		mHeaderView.getViewTreeObserver().addOnGlobalLayoutListener(
+				new OnGlobalLayoutListener() {
+					@SuppressWarnings("deprecation")
+					@Override
+					public void onGlobalLayout() {
+						mHeaderViewHeight = mHeaderViewContent.getHeight();
+						if (Build.VERSION.SDK_INT >= 16) {
+							getViewTreeObserver().removeOnGlobalLayoutListener(
+									this);
+						} else {
+							getViewTreeObserver().removeGlobalOnLayoutListener(
+									this);
+						}
+					}
+				});
 	}
 
 	@Override
@@ -142,7 +147,7 @@ public class XListView extends ListView implements OnScrollListener {
 
 	/**
 	 * enable or disable pull down refresh feature.
-	 * 
+	 *
 	 * @param enable
 	 */
 	public void setPullRefreshEnable(boolean enable) {
@@ -156,7 +161,7 @@ public class XListView extends ListView implements OnScrollListener {
 
 	/**
 	 * enable or disable pull up load more feature.
-	 * 
+	 *
 	 * @param enable
 	 */
 	public void setPullLoadEnable(boolean enable) {
@@ -200,7 +205,7 @@ public class XListView extends ListView implements OnScrollListener {
 
 	/**
 	 * set last refresh time
-	 * 
+	 *
 	 * @param time
 	 */
 	public void setRefreshTime(String time) {
@@ -215,7 +220,8 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	private void updateHeaderHeight(float delta) {
-		mHeaderView.setVisiableHeight((int) delta + mHeaderView.getVisiableHeight());
+		mHeaderView.setVisiableHeight((int) delta
+				+ mHeaderView.getVisiableHeight());
 		if (mEnablePullRefresh && !mPullRefreshing) {
 			if (mHeaderView.getVisiableHeight() > mHeaderViewHeight) {// 未处于刷新状态，更新箭头
 				mHeaderView.setState(XListViewHeader.STATE_READY);
@@ -243,7 +249,8 @@ public class XListView extends ListView implements OnScrollListener {
 			finalHeight = mHeaderViewHeight;
 		}
 		mScrollBack = SCROLLBACK_HEADER;
-		mScroller.startScroll(0, height, 0, finalHeight - height, SCROLL_DURATION);
+		mScroller.startScroll(0, height, 0, finalHeight - height,
+				SCROLL_DURATION);
 		// trigger computeScroll
 		invalidate();
 	}
@@ -267,7 +274,8 @@ public class XListView extends ListView implements OnScrollListener {
 		int bottomMargin = mFooterView.getBottomMargin();
 		if (bottomMargin > 0) {
 			mScrollBack = SCROLLBACK_FOOTER;
-			mScroller.startScroll(0, bottomMargin, 0, -bottomMargin, SCROLL_DURATION);
+			mScroller.startScroll(0, bottomMargin, 0, -bottomMargin,
+					SCROLL_DURATION);
 			invalidate();
 		}
 	}
@@ -301,11 +309,13 @@ public class XListView extends ListView implements OnScrollListener {
 		case MotionEvent.ACTION_MOVE:
 			final float deltaY = ev.getRawY() - mLastY;
 			mLastY = ev.getRawY();
-			if (getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
+			if (getFirstVisiblePosition() == 0
+					&& (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
 				// the first item is showing, header has shown or pull down.
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
-			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
+			} else if (getLastVisiblePosition() == mTotalItemCount - 1
+					&& (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
 				// last item, already pulled up or want to pull up.
 				updateFooterHeight(-deltaY / OFFSET_RADIO);
 			}
@@ -314,13 +324,15 @@ public class XListView extends ListView implements OnScrollListener {
 			mLastY = -1; // reset
 			if (getFirstVisiblePosition() == 0) {
 				// invoke refresh
-				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
+				if (mEnablePullRefresh
+						&& mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					startPullRefresh();
 				}
 				resetHeaderHeight();
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
 				// invoke load more.
-				if (mEnablePullLoad && mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA) {
+				if (mEnablePullLoad
+						&& mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA) {
 					startLoadMore();
 				}
 				resetFooterHeight();
@@ -357,11 +369,13 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
 		// send to user's listener
 		mTotalItemCount = totalItemCount;
 		if (mScrollListener != null) {
-			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount,
+					totalItemCount);
 		}
 	}
 
@@ -386,30 +400,31 @@ public class XListView extends ListView implements OnScrollListener {
 		public void onLoadMore();
 	}
 
-	// //解决与ViewPager时间引发的冲突
-	// private float mXscrollDistance , mYscrollDistance , mXlastDistance
-	// ,mYlastDistance ;
-	// @Override
-	// public boolean onInterceptTouchEvent(MotionEvent ev) {
-	// switch (ev.getAction()) {
-	// case MotionEvent.ACTION_DOWN:
-	// mYscrollDistance = mXscrollDistance = 0f ;
-	// mXlastDistance = ev.getX();
-	// mYlastDistance = ev.getY();
-	// break;
-	//
-	// case MotionEvent.ACTION_MOVE:
-	// float mCurrentX = ev.getX();
-	// float mCurrentY = ev.getY();
-	// mXscrollDistance += Math.abs((mCurrentX - mXlastDistance));
-	// mYscrollDistance += Math.abs((mCurrentY - mYlastDistance));
-	// mXlastDistance = ev.getX();
-	// mYlastDistance = ev.getY();
-	// if(mXscrollDistance > mYscrollDistance){
-	// return false ;
-	// }
-	// break ;
-	// }
-	// return super.onInterceptTouchEvent(ev);
-	// }
+	// 解决与ViewPager时间引发的冲突
+	private float mXscrollDistance, mYscrollDistance, mXlastDistance,
+			mYlastDistance;
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			mYscrollDistance = mXscrollDistance = 0f;
+			mXlastDistance = ev.getX();
+			mYlastDistance = ev.getY();
+			break;
+
+		case MotionEvent.ACTION_MOVE:
+			float mCurrentX = ev.getX();
+			float mCurrentY = ev.getY();
+			mXscrollDistance += Math.abs((mCurrentX - mXlastDistance));
+			mYscrollDistance += Math.abs((mCurrentY - mYlastDistance));
+			mXlastDistance = ev.getX();
+			mYlastDistance = ev.getY();
+			if (mXscrollDistance > mYscrollDistance) {
+				return false;
+			}
+			break;
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
 }

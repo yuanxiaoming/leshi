@@ -9,8 +9,8 @@ import android.widget.PopupWindow;
 import com.ch.leyu.utils.CommonUtil;
 
 public abstract class BasePopupWindow extends PopupWindow implements View.OnClickListener{
-	private Context mContext ;
-	private View mContentView  ;
+	protected Context mContext ;
+	protected View mContentView  ;
 	public BasePopupWindow(Context context) {
 		super(context);
 		init(context);
@@ -29,28 +29,28 @@ public abstract class BasePopupWindow extends PopupWindow implements View.OnClic
 		setBackgroundDrawable(new ColorDrawable());
 		setTouchable(true);
 		loadViewLayout();
-		
+
 		setWidth(CommonUtil.getWidthMetrics(context));
 		setHeight(LayoutParams.WRAP_CONTENT);
-		
+
 		findViewById();
 		processLogic();
 		setListener();
 	}
-	
+
 	public void setContentView(int resId) {
 		mContentView = LayoutInflater.from(mContext).inflate(resId, null);
 		super.setContentView(mContentView);
 	}
-	
+
 	public abstract void loadViewLayout();
-	
+
 	public abstract void findViewById();
 
 	public abstract void setListener();
 
 	public abstract void processLogic();
-	
+
 	public View findViewById(int viewId) {
 		return mContentView.findViewById(viewId);
 	}
@@ -58,5 +58,5 @@ public abstract class BasePopupWindow extends PopupWindow implements View.OnClic
 //	public View findViewById(String id) {
 //		return mContentView.findViewById(ResourceUtil.getId(mContext, id));
 //	}
-	
+
 }
