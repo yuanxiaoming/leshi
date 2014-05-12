@@ -1,8 +1,13 @@
 
 package com.ch.leyu.http.parserinterface;
 
-public interface BaseParser<T> {
+public abstract class  BaseParser<T> {
 
-    T parse(String result) throws Exception;
+  public  abstract T parse(String result) throws Exception;
+
+  public  final static String  CODE="code";
+  public  final static String  SUCCESS="0";
+  public  final static String  DATA="DATA";
+
 
 }
