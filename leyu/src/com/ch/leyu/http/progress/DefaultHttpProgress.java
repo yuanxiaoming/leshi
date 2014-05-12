@@ -18,7 +18,7 @@ public class DefaultHttpProgress implements HttpProgress {
 		if(mProgressDialog != null)
 		{
 			mProgressDialog.show();
-			mProgressDialog.setTitle(mTitle);
+			mProgressDialog.setProgressDialogContent(mTitle);
 		}
 	}
 
