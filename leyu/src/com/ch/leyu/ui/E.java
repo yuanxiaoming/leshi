@@ -19,10 +19,10 @@ public class E extends BaseFragment {
     private PagerTabStrip mTabStrip;
 
     /** viewpager标头 */
-    private ArrayList<String> titleList;
+    private ArrayList<String> mTitleList;
 
     /***/
-    private ArrayList<Fragment> fragmentList;
+    private ArrayList<Fragment> mFragmentList;
 
     @Override
     public void onClick(View v) {
@@ -36,15 +36,15 @@ public class E extends BaseFragment {
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.fragment_e);
+        setContentView(R.layout.fragment_d);
 
     }
 
     @SuppressLint("InlinedApi")
     @Override
     protected void findViewById() {
-        mViewPager = (LYViewPager) findViewById(R.id.viewpager);
-        mTabStrip = (PagerTabStrip) findViewById(R.id.pagertab);
+        mViewPager = (LYViewPager) findViewById(R.id.d_viewpager);
+        mTabStrip = (PagerTabStrip) findViewById(R.id.d_pagertab);
         // 设置下划线的颜色
         mTabStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
         // 设置背景的颜色
@@ -60,24 +60,26 @@ public class E extends BaseFragment {
 
     @Override
     protected void processLogic() {
+
     }
 
     private ArrayList<String> addTitle() {
-        titleList = new ArrayList<String>();
-        titleList.add("第一页");
-        titleList.add("第二页");
-        titleList.add("第三页");
+        mTitleList = new ArrayList<String>();
+        mTitleList.add("全部");
+        mTitleList.add("英雄联盟");
+        mTitleList.add("其他");
 
-        return titleList;
+        return mTitleList;
     }
 
     private ArrayList<Fragment> addFragment() {
-        fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(new HSFragment());
-        fragmentList.add(new HSFragment());
-        fragmentList.add(new HSFragment());
+        mFragmentList = new ArrayList<Fragment>();
+        mFragmentList.add(new AllFragment());
+        mFragmentList.add(new AllFragment());
+        mFragmentList.add(new AllFragment());
 
-        return fragmentList;
+        return mFragmentList;
+
     }
 
 }

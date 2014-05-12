@@ -13,7 +13,12 @@ import org.apache.http.Header;
 
 import android.view.View;
 
-public class C extends BaseFragment {
+/***
+ * 首页--明星解说
+ * 
+ * @author L
+ */
+public class StarGirefFragment extends BaseFragment {
 
     private XListView mXListView;
 
@@ -39,15 +44,12 @@ public class C extends BaseFragment {
     protected void findViewById() {
         mXListView = (XListView) findViewById(R.id.listview_c_cly);
 
-
     }
+
     @Override
     protected void setListener() {
 
     }
-
-
-
 
     @Override
     protected void processLogic() {
@@ -79,7 +81,5 @@ public class C extends BaseFragment {
                 });
 
     }
-
-
 
 }

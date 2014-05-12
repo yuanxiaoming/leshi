@@ -5,31 +5,25 @@ import com.ch.leyu.R;
 import com.ch.leyu.utils.CommonUtil;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 public class A extends BaseActivity {
-    private ImageView mImgCover;
-
-    private TextView mTxtArea, mTxtScore, mTxtTotalNumber;
 
     private RadioButton a, b, c, d;
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.rb_main_account:
                 CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
                 break;
 
             case R.id.rb_main_find:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new C(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new StarGirefFragment(), "");
                 break;
 
             case R.id.rb_main_my:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new D(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new StarGirefFragment(), "");
                 break;
             case R.id.rb_main_setting:
                 CommonUtil.switchToFragment(mContext, R.id.fragment_content, new E(), "");
