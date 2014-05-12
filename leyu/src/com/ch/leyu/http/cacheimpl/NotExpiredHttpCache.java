@@ -9,7 +9,7 @@ public class NotExpiredHttpCache extends DefaultHttpCache {
 	}
 
 	@Override
-	public boolean isExpried() {
+	public boolean isNotExpried() {
 		return true;
 	}
 

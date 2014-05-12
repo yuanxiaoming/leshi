@@ -8,7 +8,7 @@ public interface HttpCache {
 
 	public void putHttpCache(ServerDataCache cache);
 
-	public boolean isExpried();
+	public boolean isNotExpried();
 
 	public long wifiCacheExpriedTime();
 

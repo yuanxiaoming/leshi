@@ -3,6 +3,7 @@ package com.ch.leyu.http.httplibrary;
 import com.ch.leyu.http.cacheinterface.HttpCache;
 import com.ch.leyu.http.cacheservice.ServerDataCache;
 import com.ch.leyu.http.parserinterface.BaseParser;
+import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 
 import org.apache.http.Header;
@@ -15,22 +16,28 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 	private BaseParser<T> mParser;
 	private String mCacheUrl;
 	private HttpCache mHttpCache;
+	private DataCallback<T> mCallback ;
 
-	public JAsyncHttpResponseHandler(Context context, BaseParser<T> baseParse, String cacheUrl, HttpCache cacheManager) {
+	public JAsyncHttpResponseHandler(Context context, BaseParser<T> baseParse, String cacheUrl, HttpCache httpCache,DataCallback<T> callback) {
 		this.mContext = context;
 		this.mParser = baseParse;
 		mCacheUrl = cacheUrl;
-		mHttpCache = cacheManager;
+		mHttpCache = httpCache;
+		mCallback = callback ;
 	}
 
 	@Override
 	public void onStart() {
-
+		if(mCallback != null){
+			mCallback.onStart();
+		}
 	}
 
 	@Override
 	public void onFinish() {
-
+		if(mCallback != null){
+			mCallback.onFinish();
+		}
 	}
 
 	@Override
@@ -44,7 +51,7 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 					// Successfully returned to save the server data
 					ServerDataCache cache = new ServerDataCache(mCacheUrl, new String(responseBody), System.currentTimeMillis());
 					if (mHttpCache != null) {
-						if (mHttpCache.isExpried()) {
+						if (mHttpCache.isNotExpried()) {
 							cache.setTime(JHttpClient.NOT_EXPIRED);
 						}
 						// insert httpcache
@@ -60,10 +67,22 @@ public abstract class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHand
 	@Override
 	public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 		   Log.d("JAsyncHttpResponseHandler", "statusCode="+statusCode, error);
-		   onFailure( statusCode, headers, responseBody, new Exception(error));
+//		   onFailure( statusCode, headers, responseBody, new Exception(error));
+		  
+		   // 请求失败 返回缓存数据
+           if (mHttpCache != null) {
+               JHttpClient.getCache(mContext, mParser, mCallback, mCacheUrl);
+               
+               //这里调用onFinish()方法hide 进度条操作
+               mCallback.onFinish();
+           }else{
+	        	   if(mCallback != null){
+	   				mCallback.onFailure(statusCode, headers, null, new Exception(error));
+	   			}
+           }
 	}
 
-	public abstract void onFailure(int statusCode,Header[] headers, byte[] responseBody,Exception e);
+//	public abstract void onFailure(int statusCode,Header[] headers, byte[] responseBody,Exception e);
 
 
 	public abstract void onSuccess(int statusCode, Header[] headers, T serverData);

@@ -26,7 +26,7 @@ public class DefaultHttpCache implements HttpCache {
 		ServerDataCache cache = manager.findCacheByUrl(url);
 		if (cache != null) {
 
-			if (isExpried()) {
+			if (isNotExpried()) {
 				return true;
 			}
 
@@ -69,7 +69,7 @@ public class DefaultHttpCache implements HttpCache {
 	}
 
 	@Override
-	public boolean isExpried() {
+	public boolean isNotExpried() {
 		return false;
 	}
 
