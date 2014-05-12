@@ -7,7 +7,7 @@ public abstract class  BaseParser<T> {
 
   public  final static String  CODE="code";
   public  final static String  SUCCESS="0";
-  public  final static String  DATA="DATA";
+  public  final static String  DATA="data";
 
 
 }
