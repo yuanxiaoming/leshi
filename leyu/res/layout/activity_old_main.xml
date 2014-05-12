@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="#FFFFFF">
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:id="@+id/fragment_content"
@@ -18,9 +18,9 @@
         android:id="@+id/rgp_main"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal"
+        android:background="#Ac000000"
         android:gravity="center_vertical"
-        android:background="#Ac000000">
+        android:orientation="horizontal" >
 
         <RadioButton
             android:id="@+id/rb_main_account"
@@ -28,13 +28,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
-            android:gravity="center"
-            android:text="账号"
-            android:drawablePadding="2dp"
-            android:textSize="13sp"
             android:checked="true"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/account_btn_selector"
+            android:gravity="center"
+            android:text="炉石传说"
             android:textColor="@drawable/radiobutton_textcolor"
-            android:drawableTop="@drawable/account_btn_selector"/>
+            android:textSize="13sp" />
 
         <RadioButton
             android:id="@+id/rb_main_find"
@@ -42,12 +42,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
-            android:gravity="center"
-            android:text="发现"
             android:drawablePadding="2dp"
-            android:textSize="13sp"
+            android:drawableTop="@drawable/find_btn_selector"
+            android:gravity="center"
+            android:text="英雄联盟"
             android:textColor="@drawable/radiobutton_textcolor"
-            android:drawableTop="@drawable/find_btn_selector"/>
+            android:textSize="13sp" />
 
         <RadioButton
             android:id="@+id/rb_main_my"
@@ -55,12 +55,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
-            android:gravity="center"
-            android:text="我的"
             android:drawablePadding="2dp"
-            android:textSize="13sp"
+            android:drawableTop="@drawable/my_btn_selector"
+            android:gravity="center"
+            android:text="明星解说"
             android:textColor="@drawable/radiobutton_textcolor"
-            android:drawableTop="@drawable/my_btn_selector"/>
+            android:textSize="13sp" />
 
         <RadioButton
             android:id="@+id/rb_main_setting"
@@ -68,12 +68,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
-            android:gravity="center"
-            android:text="设置"
             android:drawablePadding="2dp"
-            android:textSize="13sp"
+            android:drawableTop="@drawable/setting_btn_selector"
+            android:gravity="center"
+            android:text="新闻资讯"
             android:textColor="@drawable/radiobutton_textcolor"
-            android:drawableTop="@drawable/setting_btn_selector" />
+            android:textSize="13sp" />
     </RadioGroup>
 
 </LinearLayout>

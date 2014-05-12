@@ -3,6 +3,11 @@ package com.ch.leyu.responseparse;
 
 import java.util.ArrayList;
 
+/***
+ * 炉石传说数据
+ * 
+ * @author L
+ */
 public class HSDataResponse {
 
     private ArrayList<Property> focus;
