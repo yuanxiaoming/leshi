@@ -4,41 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="fill_parent"
-        android:layout_height="150dip"
-        android:background="#ffffff" >
-
-        <com.ch.leyu.view.ViewFlow
-            android:id="@+id/all_viewflow"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </com.ch.leyu.view.ViewFlow>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#88252525"
-            android:gravity="center"
-            android:padding="3dip" >
-
-            <com.ch.leyu.view.CircleFlowIndicator
-                android:id="@+id/all_viewflowindic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:padding="2dip" />
-        </LinearLayout>
-    </FrameLayout>
-
     <com.ch.leyu.widget.xlistview.XListView
         android:id="@+id/all_listview_cly"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/framelayout" >
+        android:layout_alignParentLeft="true">
     </com.ch.leyu.widget.xlistview.XListView>
 
 </RelativeLayout>

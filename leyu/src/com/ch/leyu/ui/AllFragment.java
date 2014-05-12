@@ -15,6 +15,7 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
+import android.view.LayoutInflater;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ import java.util.Date;
 
 /**
  * 新闻资讯---全部Fragment
- * 
+ *
  * @author liu
  */
 public class AllFragment extends BaseFragment {
@@ -37,6 +38,9 @@ public class AllFragment extends BaseFragment {
 
     private SimpleDateFormat mSimpleDateFormat;
 
+    //ListView 要加入的头部View
+    private View mListViewHeaderView ;
+
     @Override
     public void onClick(View v) {
 
@@ -50,12 +54,13 @@ public class AllFragment extends BaseFragment {
     @Override
     protected void loadViewLayout() {
         setContentView(R.layout.fragment_all);
+        mListViewHeaderView = LayoutInflater.from(getActivity()).inflate(R.layout.viewflow, null);
     }
 
     @Override
     protected void findViewById() {
-        mViewFlow = (ViewFlow) findViewById(R.id.all_viewflow);
-        mIndicator = (CircleFlowIndicator) findViewById(R.id.all_viewflowindic);
+        mViewFlow = (ViewFlow) mListViewHeaderView.findViewById(R.id.all_viewflow);
+        mIndicator = (CircleFlowIndicator) mListViewHeaderView.findViewById(R.id.all_viewflowindic);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
 
         mViewFlow.setAdapter(new AllViewFlowAdapter(getActivity()));
@@ -65,6 +70,7 @@ public class AllFragment extends BaseFragment {
         mViewFlow.setSelection(3 * 1000); // 设置初始位置
         mViewFlow.startAutoFlowTimer(); // 启动自动播放
 
+        mXListView.addHeaderView(mListViewHeaderView);
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
         mXListView.setXListViewListener(mIXListViewListenerImp);
@@ -80,7 +86,12 @@ public class AllFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
+    	 loadData();
+
+    }
+
+	private void loadData() {
+		JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
                 new DataCallback<RegisterResponse>() {
 
                     @Override
@@ -106,8 +117,7 @@ public class AllFragment extends BaseFragment {
                     }
 
                 });
-
-    }
+	}
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新
@@ -122,5 +132,4 @@ public class AllFragment extends BaseFragment {
 
         }
     };
-
 }
