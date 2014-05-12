@@ -36,13 +36,13 @@ public class StarGirefFragment extends BaseFragment {
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.fragment_c);
+        setContentView(R.layout.fragment_stargiref);
 
     }
 
     @Override
     protected void findViewById() {
-        mXListView = (XListView) findViewById(R.id.listview_c_cly);
+        mXListView = (XListView) findViewById(R.id.star_xistview);
 
     }
 

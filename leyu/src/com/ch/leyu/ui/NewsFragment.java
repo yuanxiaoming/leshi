@@ -12,7 +12,12 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-public class E extends BaseFragment {
+/***
+ * 首页--新闻资讯
+ * @author L
+ *
+ */
+public class NewsFragment extends BaseFragment {
 
     private LYViewPager mViewPager;
 
@@ -36,7 +41,7 @@ public class E extends BaseFragment {
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.fragment_d);
+        setContentView(R.layout.fragment_news);
 
     }
 

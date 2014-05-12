@@ -26,15 +26,14 @@ public class B extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     protected void getExtraParams() {
-        // TODO Auto-generated method stub
 
     }
+
     @Override
     protected void loadViewLayout() {
         setContentView(R.layout.fragment_b);
@@ -53,47 +52,46 @@ public class B extends BaseFragment {
         mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
-
     @Override
     protected void setListener() {
 
     }
+
     @Override
     protected void processLogic() {
-        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,new DataCallback<RegisterResponse>() {
+        JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
+                new DataCallback<RegisterResponse>() {
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-                adapter = new CLYAdapter(getActivity(), data.getList());
-                mListView.setAdapter(adapter);
-                System.out.println("onSuccess");
-            }
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
+                        adapter = new CLYAdapter(getActivity(), data.getList());
+                        mListView.setAdapter(adapter);
+                        System.out.println("onSuccess");
+                    }
 
-            @Override
-            public void onStart() {
-                System.out.println("onStart");
-                mHttpLoadingView.setVisibility(View.VISIBLE);
+                    @Override
+                    public void onStart() {
+                        System.out.println("onStart");
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
 
-            }
+                    }
 
-            @Override
-            public void onFinish() {
-                mHttpLoadingView.setVisibility(View.GONE);
-                System.out.println("onFinish");
+                    @Override
+                    public void onFinish() {
+                        mHttpLoadingView.setVisibility(View.GONE);
+                        System.out.println("onFinish");
 
-            }
+                    }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
 
-                System.out.println("onFailure");
-            }
+                        System.out.println("onFailure");
+                    }
 
-        });
+                });
     }
-
-
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新
@@ -108,7 +106,5 @@ public class B extends BaseFragment {
 
         }
     };
-
-
 
 }

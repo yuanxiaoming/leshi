@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 /***
- * 炉石传说首页
+ * 首页--炉石传说
  * 
  * @author L
  */

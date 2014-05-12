@@ -26,7 +26,7 @@ public class A extends BaseActivity {
                 CommonUtil.switchToFragment(mContext, R.id.fragment_content, new StarGirefFragment(), "");
                 break;
             case R.id.rb_main_setting:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new E(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
                 break;
             default:
                 break;

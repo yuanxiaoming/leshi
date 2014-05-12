@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <com.ch.leyu.widget.xlistview.XListView
-        android:id="@+id/listview_c_cly"
+        android:id="@+id/star_xistview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
