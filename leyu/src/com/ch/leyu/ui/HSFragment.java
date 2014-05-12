@@ -7,14 +7,12 @@ import com.ch.leyu.adapter.RecommendGridAdapter;
 import com.ch.leyu.adapter.ViewFlowAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.HSDataResponse;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.LYGridView;
 import com.ch.leyu.view.LYViewFlow;
-import com.ch.leyu.view.ViewFlow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
