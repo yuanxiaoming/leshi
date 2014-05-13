@@ -2,6 +2,7 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.AutoScrollerPagerAdapter;
 import com.ch.leyu.adapter.NewsListAdapter;
 import com.ch.leyu.adapter.RecommendGridAdapter;
 import com.ch.leyu.adapter.ViewFlowAdapter;
@@ -10,7 +11,9 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
+import com.ch.leyu.view.AutoScrollViewPager;
 import com.ch.leyu.view.CircleFlowIndicator;
+import com.ch.leyu.view.CircleLoopPageIndicator;
 import com.ch.leyu.view.LYGridView;
 import com.ch.leyu.view.LYViewFlow;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -46,6 +49,10 @@ public class HSFragment extends BaseFragment {
 
     /** Hot */
     private LYGridView mHotGrid;
+    
+    private AutoScrollViewPager mAtuoScrollViewPager ;
+    
+    private CircleLoopPageIndicator mCircleLoopPageIndicator ;
 
     @Override
     public void onClick(View v) {
@@ -54,13 +61,14 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void findViewById() {
-        mViewFlow = (LYViewFlow) findViewById(R.id.hs_viewflow);
-        mIndicator = (CircleFlowIndicator) findViewById(R.id.hs_viewflowindic);
         mNewsListView = (ListView) findViewById(R.id.hs_listview_news);
         mBigImg1 = (ImageView) findViewById(R.id.hs_img_bigRecommend1);
         mBigImg2 = (ImageView) findViewById(R.id.hs_img_bigRecommend2);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
+        
+        mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
+        mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
 
     }
 
@@ -78,12 +86,14 @@ public class HSFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
-                        mViewFlow.setmSideBuffer(data.getFocus().size());
-                        mViewFlow.setFlowIndicator(mIndicator);
-                        mViewFlow.setTimeSpan(4000);
-                        mViewFlow.setSelection(3 * 1000); // 设置初始位置
-                        mViewFlow.startAutoFlowTimer(); // 启动自动播放
-                        mViewFlow.setAdapter(new ViewFlowAdapter(getActivity(), data.getFocus()));
+                    	
+                    	mAtuoScrollViewPager.startAutoScroll(2000);
+                    	AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity() , data.getFocus());
+                    	mAtuoScrollViewPager.setAdapter(adapter);
+                    	mAtuoScrollViewPager.setCurrentItem(data.getFocus().size()*10000);
+                    	mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                    	mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
+                        
                         mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
                         mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
                                 getActivity()));
@@ -118,6 +128,7 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
+    	
     }
 
     @Override
