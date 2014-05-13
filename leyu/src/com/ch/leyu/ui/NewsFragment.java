@@ -2,15 +2,12 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.LYViewPagerAdapter;
-import com.ch.leyu.view.LYViewPager;
-
-import android.annotation.SuppressLint;
+import com.ch.leyu.view.TabPageIndicator;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerTabStrip;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-
-import java.util.ArrayList;
 
 /***
  * 首页--新闻资讯
@@ -19,15 +16,9 @@ import java.util.ArrayList;
  */
 public class NewsFragment extends BaseFragment {
 
-    private LYViewPager mViewPager;
-
-    private PagerTabStrip mTabStrip;
-
-    /** viewpager标头 */
-    private ArrayList<String> mTitleList;
-
-    /***/
-    private ArrayList<Fragment> mFragmentList;
+    private TabPageIndicator mTabIndicator ;
+    private ViewPager mViewPager ;
+    private String [] mNewsTitle = new String[]{"全部","英雄联盟","其他"};
 
     @Override
     public void onClick(View v) {
@@ -44,17 +35,10 @@ public class NewsFragment extends BaseFragment {
         setContentView(R.layout.fragment_news);
 
     }
-    @SuppressLint("InlinedApi")
     @Override
     protected void findViewById() {
-        mViewPager = (LYViewPager) findViewById(R.id.news_viewpager);
-        mTabStrip = (PagerTabStrip) findViewById(R.id.news_pagertab);
-        // 设置下划线的颜色
-        mTabStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
-        // 设置背景的颜色
-        mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
-        mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
-                addTitle()));
+        mTabIndicator = (TabPageIndicator) findViewById(R.id.newsfragment_tab_indicator);
+        mViewPager = (ViewPager) findViewById(R.id.newsfragment_viewpager);
     }
 
     @Override
@@ -64,26 +48,29 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-
+    	mViewPager.setAdapter(new NewsAdapter(getChildFragmentManager()));
+        mTabIndicator.setViewPager(mViewPager);
     }
 
-    private ArrayList<String> addTitle() {
-        mTitleList = new ArrayList<String>();
-        mTitleList.add("全部");
-        mTitleList.add("英雄联盟");
-        mTitleList.add("其他");
+    private final class NewsAdapter extends FragmentStatePagerAdapter{
 
-        return mTitleList;
+		public NewsAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int positionn) {
+			return new AllFragment();
+		}
+
+		@Override
+		public int getCount() {
+			return mNewsTitle.length;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return mNewsTitle[position];
+		}
     }
-
-    private ArrayList<Fragment> addFragment() {
-        mFragmentList = new ArrayList<Fragment>();
-        mFragmentList.add(new AllFragment());
-        mFragmentList.add(new AllFragment());
-        mFragmentList.add(new AllFragment());
-
-        return mFragmentList;
-
-    }
-
 }

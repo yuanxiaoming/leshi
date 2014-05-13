@@ -8,7 +8,7 @@ import android.view.View;
 
 /**
  * 解决viewpager中嵌套viewFlow的事件冲突。
- * 
+ *
  * @author Administrator
  */
 public class LYViewPager extends ViewPager {
@@ -23,7 +23,7 @@ public class LYViewPager extends ViewPager {
 
     @Override
     protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
-        if (v != this && v instanceof ViewFlow) {
+        if (v != this && v instanceof ViewPager) {
             return true;
         }
 

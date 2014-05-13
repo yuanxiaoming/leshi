@@ -25,18 +25,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 /***
- * 首页--炉石传说 
- * 
- * 
+ * 首页--炉石传说
+ *
+ *
  * @author L
  */
 public class HSFragment extends BaseFragment {
-
-    /** 滚动新闻 */
-    private LYViewFlow mViewFlow;
-
-    /** ViewFlow指示器 */
-    private CircleFlowIndicator mIndicator;
 
     /** 新闻 */
     private ListView mNewsListView;
@@ -49,9 +43,9 @@ public class HSFragment extends BaseFragment {
 
     /** Hot */
     private LYGridView mHotGrid;
-    
+
     private AutoScrollViewPager mAtuoScrollViewPager ;
-    
+
     private CircleLoopPageIndicator mCircleLoopPageIndicator ;
 
     @Override
@@ -66,7 +60,7 @@ public class HSFragment extends BaseFragment {
         mBigImg2 = (ImageView) findViewById(R.id.hs_img_bigRecommend2);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
-        
+
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
 
@@ -86,14 +80,14 @@ public class HSFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
-                    	
+
                     	mAtuoScrollViewPager.startAutoScroll(2000);
                     	AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity() , data.getFocus());
                     	mAtuoScrollViewPager.setAdapter(adapter);
                     	mAtuoScrollViewPager.setCurrentItem(data.getFocus().size()*10000);
                     	mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                     	mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
-                        
+
                         mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
                         mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
                                 getActivity()));
@@ -128,7 +122,7 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-    	
+
     }
 
     @Override

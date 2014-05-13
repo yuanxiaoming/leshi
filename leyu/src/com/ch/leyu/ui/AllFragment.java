@@ -1,45 +1,46 @@
 
 package com.ch.leyu.ui;
 
-import com.ch.leyu.R;
-import com.ch.leyu.adapter.AllViewFlowAdapter;
-import com.ch.leyu.adapter.CLYAdapter;
-import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.RegisterResponse;
-import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.CircleFlowIndicator;
-import com.ch.leyu.view.ViewFlow;
-import com.ch.leyu.widget.xlistview.XListView;
-import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.http.Header;
 
 import android.view.LayoutInflater;
 import android.view.View;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.ch.leyu.R;
+import com.ch.leyu.adapter.CLYAdapter;
+import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.RegisterResponse;
+import com.ch.leyu.utils.Constant;
+import com.ch.leyu.view.AutoScrollViewPager;
+import com.ch.leyu.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.xlistview.XListView;
+import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 /**
  * 新闻资讯---全部Fragment
  *
- * @author liu
+ * @author CAIJIA
  */
 public class AllFragment extends BaseFragment {
 
-    private ViewFlow mViewFlow;
-
     private XListView mXListView;
-
-    private CircleFlowIndicator mIndicator;
-
     private CLYAdapter mAdapter;
-
     private SimpleDateFormat mSimpleDateFormat;
 
     //ListView 要加入的头部View
     private View mListViewHeaderView ;
+
+    private AutoScrollViewPager mAutoScrollViewPager ;
+    private CircleLoopPageIndicator mCircleLoopPageIndicator ;
+
+	private int mDrawable[] = new int[] { R.drawable.biz_plugin_weather_beijin,
+			R.drawable.biz_plugin_weather_guangzhou,
+			R.drawable.biz_plugin_weather_shanghai };
 
     @Override
     public void onClick(View v) {
@@ -54,29 +55,14 @@ public class AllFragment extends BaseFragment {
     @Override
     protected void loadViewLayout() {
         setContentView(R.layout.fragment_all);
-        mListViewHeaderView = LayoutInflater.from(getActivity()).inflate(R.layout.viewflow, null);
+        mListViewHeaderView = LayoutInflater.from(getActivity()).inflate(R.layout.all_fragment_head, null);
     }
 
     @Override
     protected void findViewById() {
-        mViewFlow = (ViewFlow) mListViewHeaderView.findViewById(R.id.all_viewflow);
-        mIndicator = (CircleFlowIndicator) mListViewHeaderView.findViewById(R.id.all_viewflowindic);
+    	mAutoScrollViewPager = (AutoScrollViewPager) mListViewHeaderView.findViewById(R.id.all_auto_scroll_viewpager);
+    	mCircleLoopPageIndicator = (CircleLoopPageIndicator) mListViewHeaderView.findViewById(R.id.all_cirle_pageindicator);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
-
-        mViewFlow.setAdapter(new AllViewFlowAdapter(getActivity()));
-        mViewFlow.setmSideBuffer(3); // 实际图片张数， 我的ImageAdapter实际图片张数为3
-        mViewFlow.setFlowIndicator(mIndicator);
-        mViewFlow.setTimeSpan(3000);
-        mViewFlow.setSelection(3 * 1000); // 设置初始位置
-        mViewFlow.startAutoFlowTimer(); // 启动自动播放
-
-        mXListView.addHeaderView(mListViewHeaderView);
-        mXListView.setPullRefreshEnable(true);
-        mXListView.setPullLoadEnable(true);
-        mXListView.setXListViewListener(mIXListViewListenerImp);
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
-
     }
 
     @Override
@@ -86,7 +72,22 @@ public class AllFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-    	 loadData();
+
+    	mAutoScrollViewPager.startAutoScroll(2000);
+    	HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity() , mDrawable);
+    	mAutoScrollViewPager.setAdapter(adapter);
+    	mAutoScrollViewPager.setCurrentItem(mDrawable.length * 10000);
+    	mCircleLoopPageIndicator.setPageCount(mDrawable.length);
+    	mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
+
+    	mXListView.addHeaderView(mListViewHeaderView);
+        mXListView.setPullRefreshEnable(true);
+        mXListView.setPullLoadEnable(true);
+        mXListView.setXListViewListener(mIXListViewListenerImp);
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+
+    	loadData();
 
     }
 

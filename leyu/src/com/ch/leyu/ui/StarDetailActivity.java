@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.apache.http.Header;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
 import android.view.View;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 
 /***
  * 明星详情
- * 
+ *
  * @author L
  */
 public class StarDetailActivity extends BaseActivity {
@@ -56,11 +57,10 @@ public class StarDetailActivity extends BaseActivity {
 
     @Override
     protected void getExtraParams() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            uid = intent.getStringExtra(Constant.UID);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            uid = bundle.getString(Constant.UID);
         }
-
     }
 
     @Override

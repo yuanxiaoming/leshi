@@ -1,21 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".MainActivity" >
+    android:orientation="vertical" >
+
+    <com.ch.leyu.view.TabPageIndicator
+        android:id="@+id/newsfragment_tab_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0" />
 
     <com.ch.leyu.view.LYViewPager
-        android:id="@+id/news_viewpager"
+        android:id="@+id/newsfragment_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <!-- 这里可以把PagerTabStrip替换成PagerTitleStrip看看效果有何不同 -->
-
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/news_pagertab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </com.ch.leyu.view.LYViewPager>
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
 </LinearLayout>
