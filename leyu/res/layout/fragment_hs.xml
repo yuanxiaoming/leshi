@@ -25,6 +25,7 @@
             app:strokeColor="@android:color/transparent"
             app:pageColor="@android:color/darker_gray"
             app:vpiradius="5dp"
+            app:snap="true"
             />
         
         <ListView
