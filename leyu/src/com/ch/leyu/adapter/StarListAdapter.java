@@ -2,12 +2,11 @@
 package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
-import com.ch.leyu.responseparse.LoginResponse;
+import com.ch.leyu.responseparse.Info;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class StarListAdapter extends ArrayAdapter<LoginResponse> {
+public class StarListAdapter extends ArrayAdapter<Info> {
 
-    public StarListAdapter(Context context, List<LoginResponse> objects) {
+    public StarListAdapter(Context context, List<Info> objects) {
         super(context, 0, objects);
 
     }
@@ -33,18 +32,18 @@ public class StarListAdapter extends ArrayAdapter<LoginResponse> {
             viewHolder = new ViewHolder();
             viewHolder.cover = (ImageView) convertView
                     .findViewById(R.id.fragment_c_item_imageView1);
-            viewHolder.score = (TextView) convertView.findViewById(R.id.fragment_c_item_textView1);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.fragment_c_item_textView1);
             viewHolder.intro = (TextView) convertView.findViewById(R.id.fragment_c_item_textView2);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        LoginResponse item = getItem(position);
+        Info item = getItem(position);
         if (item != null) {
-            viewHolder.score.setText(item.getScore());
-            viewHolder.intro.setText(item.getIntro());
+            viewHolder.name.setText(item.getNickname());
+            viewHolder.intro.setText(item.getDetail());
 
-            ImageLoader.getInstance().displayImage(item.getCover(), viewHolder.cover,ImageLoaderUtil.getImageLoaderOptions());
+            ImageLoader.getInstance().displayImage(item.getThumb(), viewHolder.cover,ImageLoaderUtil.getImageLoaderOptions());
         }
         
         
@@ -55,7 +54,7 @@ public class StarListAdapter extends ArrayAdapter<LoginResponse> {
 
         ImageView cover;
 
-        TextView score, intro;
+        TextView name, intro;
 
     }
 }

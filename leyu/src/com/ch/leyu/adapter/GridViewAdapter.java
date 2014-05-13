@@ -15,25 +15,26 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class RecommendGridAdapter extends BaseAdapter {
+public class GridViewAdapter extends BaseAdapter {
 
-    private ArrayList<Property> mNewsList;
+    private ArrayList<Property> arrayList;
 
-    private Context mContext;
+    private LayoutInflater mInflater;
 
-    public RecommendGridAdapter(ArrayList<Property> mNewsList, Context mContext) {
-        this.mContext = mContext;
-        this.mNewsList = mNewsList;
+    public GridViewAdapter(ArrayList<Property> arrayList, Context context) {
+        this.arrayList = arrayList;
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return mNewsList.size();
+        
+        return arrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mNewsList.get(position);
+        return arrayList.get(position);
     }
 
     @Override
@@ -43,24 +44,24 @@ public class RecommendGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.recommend_grid_item, null);
-            holder.img = (ImageView) convertView.findViewById(R.id.rec_img);
+            convertView = mInflater.inflate(R.layout.gridview_item, null);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.gd_img1);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
-                ImageLoaderUtil.getImageLoaderOptions());
+        ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
+                holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
 
         return convertView;
     }
 
     class ViewHolder {
-        ImageView img;
+        ImageView imageView;
     }
 
 }

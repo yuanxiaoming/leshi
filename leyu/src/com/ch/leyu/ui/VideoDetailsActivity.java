@@ -5,28 +5,28 @@ import com.ch.leyu.R;
 import com.ch.leyu.adapter.LYViewPagerAdapter;
 import com.ch.leyu.view.LYViewPager;
 
-import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 /***
- * 首页--新闻资讯
- * @author L
+ * 暂无接口
+ * @author Administrator
  *
  */
-public class NewsFragment extends BaseFragment {
+public class VideoDetailsActivity extends BaseActivity {
 
     private LYViewPager mViewPager;
 
     private PagerTabStrip mTabStrip;
 
-    /** viewpager标头 */
+    private ImageView mImageView;
+
     private ArrayList<String> mTitleList;
 
-    /***/
     private ArrayList<Fragment> mFragmentList;
 
     @Override
@@ -41,19 +41,19 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.fragment_news);
-
+        setContentView(R.layout.activity_video);
     }
-    @SuppressLint("InlinedApi")
+
     @Override
     protected void findViewById() {
-        mViewPager = (LYViewPager) findViewById(R.id.news_viewpager);
-        mTabStrip = (PagerTabStrip) findViewById(R.id.news_pagertab);
+        mImageView = (ImageView) findViewById(R.id.activity_video_imageView);
+        mViewPager = (LYViewPager) findViewById(R.id.activity_video_viewpager);
+        mTabStrip = (PagerTabStrip) findViewById(R.id.activity_video_pagertab);
         // 设置下划线的颜色
         mTabStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
         // 设置背景的颜色
         mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
-        mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
+        mViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
                 addTitle()));
     }
 

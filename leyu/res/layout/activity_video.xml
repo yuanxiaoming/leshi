@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/activity_video_imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+    <com.ch.leyu.view.LYViewPager
+        android:id="@+id/activity_video_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/activity_video_imageView" >
+
+        <!-- 这里可以把PagerTabStrip替换成PagerTitleStrip看看效果有何不同 -->
+
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/activity_video_pagertab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.ch.leyu.view.LYViewPager>
+
+</RelativeLayout>

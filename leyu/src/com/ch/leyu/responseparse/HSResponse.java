@@ -1,25 +1,63 @@
 
 package com.ch.leyu.responseparse;
 
+import java.util.ArrayList;
+
+/***
+ * 炉石传说数据
+ * 
+ * @author L
+ */
 public class HSResponse {
-    private String code;
 
-    private HSDataResponse data;
+    private ArrayList<Property> focus;
 
-    public String getCode() {
-        return code;
+    private ArrayList<Property> news;
+
+    private ArrayList<Property> recommend;
+
+    private ArrayList<Property> bigRecommend;
+
+    private ArrayList<Property> hot;
+
+    public ArrayList<Property> getFocus() {
+        return focus;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setFocus(ArrayList<Property> focus) {
+        this.focus = focus;
     }
 
-    public HSDataResponse getData() {
-        return data;
+    public ArrayList<Property> getNews() {
+        return news;
     }
 
-    public void setData(HSDataResponse data) {
-        this.data = data;
+    public void setNews(ArrayList<Property> news) {
+        this.news = news;
+    }
+
+    public ArrayList<Property> getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(ArrayList<Property> recommend) {
+        this.recommend = recommend;
+    }
+
+    public ArrayList<Property> getBigRecommend() {
+        return bigRecommend;
+    }
+
+    public void setBigRecommend(ArrayList<Property> bigRecommend) {
+        this.bigRecommend = bigRecommend;
+    }
+
+    public ArrayList<Property> getHot() {
+        return hot;
+    }
+
+    public void setHot(ArrayList<Property> hot) {
+        this.hot = hot;
     }
 
 }

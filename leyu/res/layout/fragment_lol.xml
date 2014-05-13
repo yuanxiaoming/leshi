@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="150dip"
+        android:background="#ffffff" >
+
+        <com.ch.leyu.view.LYViewFlow
+            android:id="@+id/lol_viewflow"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+        </com.ch.leyu.view.LYViewFlow>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#88252525"
+            android:gravity="center"
+            android:padding="3dip" >
+
+            <com.ch.leyu.view.CircleFlowIndicator
+                android:id="@+id/lol_viewflowindic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:padding="2dip" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <com.ch.leyu.view.LYViewPager
+        android:id="@+id/lol_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/framelayout" >
+
+        <!-- 这里可以把PagerTabStrip替换成PagerTitleStrip看看效果有何不同 -->
+
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/lol_pagertab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.ch.leyu.view.LYViewPager>
+
+</RelativeLayout>

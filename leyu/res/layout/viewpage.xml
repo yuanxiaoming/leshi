@@ -1,19 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/includ_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".MainActivity" >
+    android:orientation="vertical" >
 
     <com.ch.leyu.view.LYViewPager
-        android:id="@+id/news_viewpager"
+        android:id="@+id/includ_eviewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <!-- 这里可以把PagerTabStrip替换成PagerTitleStrip看看效果有何不同 -->
-
         <android.support.v4.view.PagerTabStrip
-            android:id="@+id/news_pagertab"
+            android:id="@+id/includ_pagertab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </com.ch.leyu.view.LYViewPager>

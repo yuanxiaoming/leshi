@@ -19,7 +19,7 @@ public class A extends BaseActivity {
                 break;
 
             case R.id.rb_main_find:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new StarGirefFragment(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new LOLFragment(), "");
                 break;
 
             case R.id.rb_main_my:

@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.ch.leyu.widget.xlistview.XListView
-        android:id="@+id/listview_b_cly"
+    <GridView
+        android:id="@+id/lolvedio_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </com.ch.leyu.widget.xlistview.XListView>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:numColumns="2" >
+    </GridView>
 
 </RelativeLayout>
