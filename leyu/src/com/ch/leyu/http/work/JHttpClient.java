@@ -54,11 +54,7 @@ public class JHttpClient {
         // only
         // URL
         if (parser == null) {
-            try {
                 throw new RuntimeException("BaseParse equals to null ,Please send a data parser");
-            } catch (Exception e) {
-                Log.i(JHttpClient.class.getSimpleName(), e.toString());
-            }
         } else {
             if(!NetWorkUtil.isConnected(context)){
               Toast.makeText(context, "网络不可用", Toast.LENGTH_SHORT).show();
@@ -76,18 +72,12 @@ public class JHttpClient {
                     JHttpClient.get(url, params, httpCacheResponseHandler(context, parser, httpCache, dataCallback, cacheUrl));
                 } else if (requestMethod != null && requestMethod.equals(POST)) {
                     JHttpClient.post(url, params, httpCacheResponseHandler(context, parser, httpCache, dataCallback, cacheUrl));
-                } else {
-                    try {
-                        throw new RuntimeException("requestMethod equals to null ,Please specify a request method name");
-                    } catch (Exception e) {
-                        Log.i(JHttpClient.class.getSimpleName(), e.toString());
-                    }
                 }
             }
         }
     }
 
-    private static <T> void getCache(Context context, BaseParser<T> parser, final DataCallback<T> dataCallback, String cacheUrl) {
+    public static <T> void getCache(Context context, BaseParser<T> parser, final DataCallback<T> dataCallback, String cacheUrl) {
         ServerDataCache cache = DBOpenHelperManager.getInstance(context).findCacheByUrl(cacheUrl);
         if(cache != null){
             T data = null;
@@ -107,34 +97,13 @@ public class JHttpClient {
 
     private static <T> JAsyncHttpResponseHandler<T> httpCacheResponseHandler(final Context context, final BaseParser<T> parser, final HttpCache httpCache, final DataCallback<T> dataCallback,
             final String cacheUrl) {
-        return new JAsyncHttpResponseHandler<T>(context, parser, cacheUrl, httpCache) {
+        return new JAsyncHttpResponseHandler<T>(context, parser, cacheUrl, httpCache,dataCallback) {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, T data) {
                 if (statusCode == 200) {
                     dataCallback.onSuccess(statusCode, headers, data);
                     Log.i(JHttpClient.class.getSimpleName(), "Data taken from the server");
-                }
-            }
-
-            @Override
-            public void onStart() {
-                dataCallback.onStart();
-            }
-
-            @Override
-            public void onFinish() {
-                dataCallback.onFinish();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Exception e) {
-                // 请求失败 返回缓存数据
-                if (httpCache != null) {
-                    getCache(context, parser, dataCallback, cacheUrl);
-                }else{
-                    dataCallback.onFailure(statusCode, headers, responseBody.toString(), e);
-
                 }
             }
         };
