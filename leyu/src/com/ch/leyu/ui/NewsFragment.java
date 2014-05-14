@@ -1,13 +1,16 @@
 
 package com.ch.leyu.ui;
 
-import com.ch.leyu.R;
-import com.ch.leyu.view.TabPageIndicator;
+import android.content.res.ColorStateList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import com.ch.leyu.R;
+import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.view.TabPageIndicator;
 
 /***
  * 首页--新闻资讯
@@ -16,7 +19,7 @@ import android.view.View;
  */
 public class NewsFragment extends BaseFragment {
 
-    private TabPageIndicator mTabIndicator ;
+    private PagerSlidingTabStrip mSlideTabIndicator ;
     private ViewPager mViewPager ;
     private String [] mNewsTitle = new String[]{"全部","英雄联盟","其他"};
 
@@ -37,7 +40,7 @@ public class NewsFragment extends BaseFragment {
     }
     @Override
     protected void findViewById() {
-        mTabIndicator = (TabPageIndicator) findViewById(R.id.newsfragment_tab_indicator);
+    	mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.newsfragment_tab_indicator);
         mViewPager = (ViewPager) findViewById(R.id.newsfragment_viewpager);
     }
 
@@ -49,7 +52,8 @@ public class NewsFragment extends BaseFragment {
     @Override
     protected void processLogic() {
     	mViewPager.setAdapter(new NewsAdapter(getChildFragmentManager()));
-        mTabIndicator.setViewPager(mViewPager);
+    	mSlideTabIndicator.setViewPager(mViewPager);
+    	mSlideTabIndicator.setTextSize(24);
     }
 
     private final class NewsAdapter extends FragmentStatePagerAdapter{
