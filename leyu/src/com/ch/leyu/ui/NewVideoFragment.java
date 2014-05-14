@@ -9,7 +9,7 @@ import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.VideoListResponse;
+import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.utils.Constant;
 
 /**
@@ -60,11 +60,11 @@ public class NewVideoFragment extends BaseFragment {
         //如果是最多播放添加如下参数
         params.put(Constant.SORT, "sort");
         JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
-                VideoListResponse.class, new DataCallback<VideoListResponse>() {
+                StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoListResponse data) {
-                        mAdapter = new GridViewAdapter(data.getData(), getActivity());
+                    public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
+                        mAdapter = new GridViewAdapter(data.getVideoList().getData(), getActivity());
                         mGridView.setAdapter(mAdapter);
 
                     }
