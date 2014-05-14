@@ -6,17 +6,17 @@ import com.ch.leyu.adapter.LYViewPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.StarResponse;
+import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.LYViewPager;
+import com.ch.leyu.view.TabPageIndicator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerTabStrip;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,7 +43,7 @@ public class StarDetailActivity extends BaseActivity {
 
     private LYViewPager mLyViewPager;
 
-    private PagerTabStrip mStrip;
+    private TabPageIndicator mIndicator;
 
     private ArrayList<String> mTitleList;
 
@@ -56,11 +56,10 @@ public class StarDetailActivity extends BaseActivity {
 
     @Override
     protected void getExtraParams() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            uid = intent.getStringExtra(Constant.UID);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            uid = bundle.getString(Constant.UID);
         }
-
     }
 
     @Override
@@ -74,14 +73,8 @@ public class StarDetailActivity extends BaseActivity {
         mName = (TextView) findViewById(R.id.star_act_tv_name);
         mDetail = (TextView) findViewById(R.id.star_act_tv_detail);
         mLyViewPager = (LYViewPager) findViewById(R.id.star_act_viewpager);
-        mStrip = (PagerTabStrip) findViewById(R.id.star_act_pagertab);
-        mLyViewPager = (LYViewPager) findViewById(R.id.star_act_viewpager);
-        // 设置下划线的颜色
-        mStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
-        // 设置背景的颜色
-        mStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
-        mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
-                addTitle()));
+        mIndicator = (TabPageIndicator) findViewById(R.id.star_act_pagertab);
+
     }
 
     @Override
@@ -91,18 +84,18 @@ public class StarDetailActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
+        mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
+                addTitle()));
+        mIndicator.setViewPager(mLyViewPager);
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params, StarResponse.class,
-                new DataCallback<StarResponse>() {
+        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, StarResponse data) {
-                        mName.setText(data.getUserInfo().get(0).getNickname());
-                        ImageLoader.getInstance().displayImage(
-                                data.getUserInfo().get(0).getThumb(), mImageView,
-                                ImageLoaderUtil.getImageLoaderOptions());
-                        mDetail.setText(data.getUserInfo().get(0).getDetail());
+                    public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
+                        mName.setText(data.getUserInfo().getNickname());
+                        ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(),mImageView, ImageLoaderUtil.getImageLoaderOptions());
+                        mDetail.setText(data.getUserInfo().getDetail());
                     }
 
                     @Override
@@ -123,6 +116,8 @@ public class StarDetailActivity extends BaseActivity {
                 });
 
     }
+    
+
 
     private ArrayList<String> addTitle() {
         mTitleList = new ArrayList<String>();

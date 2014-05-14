@@ -1,20 +1,21 @@
 
 package com.ch.leyu.ui;
 
-import com.ch.leyu.R;
-import com.ch.leyu.adapter.StarListAdapter;
-import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.StarResponse;
-import com.ch.leyu.utils.Constant;
-import com.ch.leyu.widget.xlistview.XListView;
-
 import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.ch.leyu.R;
+import com.ch.leyu.adapter.StarListAdapter;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.Info;
+import com.ch.leyu.responseparse.StarResponse;
+import com.ch.leyu.utils.Constant;
+import com.ch.leyu.widget.xlistview.XListView;
 
 /***
  * 首页--明星解说
@@ -26,8 +27,6 @@ public class StarGirefFragment extends BaseFragment {
     private XListView mXListView;
 
     private StarListAdapter mAdapter;
-
-    private String uid;
 
     @Override
     public void onClick(View v) {
@@ -53,6 +52,17 @@ public class StarGirefFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
+        mXListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Info info = (Info) parent.getAdapter().getItem(position);
+                String uid = info.getUid();
+                Intent intent = new Intent(getActivity(), StarDetailActivity.class);
+                intent.putExtra(Constant.UID, uid);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -64,19 +74,6 @@ public class StarGirefFragment extends BaseFragment {
                     public void onSuccess(int statusCode, Header[] headers, final StarResponse data) {
                         mAdapter = new StarListAdapter(getActivity(), data.getUserInfo());
                         mXListView.setAdapter(mAdapter);
-                        mXListView.setOnItemClickListener(new OnItemClickListener() {
-
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-
-                                uid = data.getUserInfo().get(position).getUid();
-                                Intent intent = new Intent(getActivity(), StarDetailActivity.class);
-                                intent.putExtra(Constant.UID, uid);
-                                startActivity(intent);
-                            }
-
-                        });
                     }
 
                     @Override

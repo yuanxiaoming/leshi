@@ -34,7 +34,6 @@ public abstract class BaseActivity extends ActionBarActivity implements OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.setContentView(R.layout.activity_base);
         mActivityContent = (LinearLayout) super.findViewById(R.id.activity_content_base);
         mHttpLoading = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
