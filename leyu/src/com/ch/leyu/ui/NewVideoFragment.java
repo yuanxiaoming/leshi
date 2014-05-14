@@ -2,10 +2,8 @@
 package com.ch.leyu.ui;
 
 import org.apache.http.Header;
-
 import android.view.View;
 import android.widget.GridView;
-
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
@@ -55,11 +53,12 @@ public class NewVideoFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
+    	
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
 
         //如果是最多播放添加如下参数
-        //params.put(Constant.SORT, "sort");
+        params.put(Constant.SORT, "sort");
         JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
                 VideoListResponse.class, new DataCallback<VideoListResponse>() {
 
