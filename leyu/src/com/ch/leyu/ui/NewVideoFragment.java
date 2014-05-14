@@ -1,6 +1,11 @@
 
 package com.ch.leyu.ui;
 
+import org.apache.http.Header;
+
+import android.view.View;
+import android.widget.GridView;
+
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
@@ -8,11 +13,6 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.VideoListResponse;
 import com.ch.leyu.utils.Constant;
-
-import org.apache.http.Header;
-
-import android.view.View;
-import android.widget.GridView;
 
 /**
  * 明星视频--最新上传

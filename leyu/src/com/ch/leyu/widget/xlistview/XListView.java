@@ -400,31 +400,29 @@ public class XListView extends ListView implements OnScrollListener {
 		public void onLoadMore();
 	}
 
-	// 解决与ViewPager时间引发的冲突
-	private float mXscrollDistance, mYscrollDistance, mXlastDistance,
-			mYlastDistance;
-
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		switch (ev.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			mYscrollDistance = mXscrollDistance = 0f;
-			mXlastDistance = ev.getX();
-			mYlastDistance = ev.getY();
-			break;
-
-		case MotionEvent.ACTION_MOVE:
-			float mCurrentX = ev.getX();
-			float mCurrentY = ev.getY();
-			mXscrollDistance += Math.abs((mCurrentX - mXlastDistance));
-			mYscrollDistance += Math.abs((mCurrentY - mYlastDistance));
-			mXlastDistance = ev.getX();
-			mYlastDistance = ev.getY();
-			if (mXscrollDistance > mYscrollDistance) {
-				return false;
-			}
-			break;
-		}
-		return super.onInterceptTouchEvent(ev);
-	}
+//	// 解决与ViewPager时间引发的冲突
+//	private float mStartX, mStartY ;
+//
+//	@Override
+//	public boolean onInterceptTouchEvent(MotionEvent ev) {
+//		switch (ev.getAction()) {
+//		case MotionEvent.ACTION_DOWN:
+//			mStartX = ev.getX();
+//			mStartY = ev.getY();
+//			break;
+//
+//		case MotionEvent.ACTION_MOVE:
+//			float curX = ev.getX();
+//			float curY = ev.getY();
+//			
+//			float deltaX = curX - mStartX ;
+//			float deltaY = curY - mStartY ;
+//			if (Math.abs(deltaY) > Math.abs(deltaX)) {
+//				return true;
+//			}
+//			break;
+//			
+//		}
+//		return super.onInterceptTouchEvent(ev);
+//	}
 }
