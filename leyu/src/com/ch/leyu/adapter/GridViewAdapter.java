@@ -28,7 +28,6 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        
         return arrayList.size();
     }
 

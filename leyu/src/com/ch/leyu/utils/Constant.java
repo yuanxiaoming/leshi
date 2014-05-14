@@ -12,6 +12,8 @@ public interface Constant {
     public static final int ID_NUMBER = 3;
 
     public static final String UID = "uid";
+    
+    public static final String SORT = "sort";
 
     // 测试接口
     public static final String A_URL = "http://manhua.haomee.net/?android_version=203&m=Api&a=listByType&limit=15&id=57&order=3&page=1";

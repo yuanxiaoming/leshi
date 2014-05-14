@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu">
+    android:orientation="vertical" >
 
     <com.ch.leyu.view.PagerSlidingTabStrip
         android:id="@+id/newsfragment_tab_indicator"
@@ -13,8 +14,7 @@
         app:pstsIndicatorHeight="6dp"
         app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="12dp"
-        app:pstsUnderlineColor="#339933"
-        />
+        app:pstsUnderlineColor="#339933" />
 
     <com.ch.leyu.view.LYViewPager
         android:id="@+id/newsfragment_viewpager"

@@ -1,16 +1,14 @@
 
 package com.ch.leyu.ui;
 
-import android.content.res.ColorStateList;
+import com.ch.leyu.R;
+import com.ch.leyu.view.PagerSlidingTabStrip;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
-import com.ch.leyu.R;
-import com.ch.leyu.view.PagerSlidingTabStrip;
-import com.ch.leyu.view.TabPageIndicator;
 
 /***
  * 首页--新闻资讯
@@ -21,7 +19,7 @@ public class NewsFragment extends BaseFragment {
 
     private PagerSlidingTabStrip mSlideTabIndicator ;
     private ViewPager mViewPager ;
-    private String [] mNewsTitle = new String[]{"全部","英雄联盟","其他"};
+    private String [] mNewsTitle = new String[]{"全部","炉石传说","英雄联盟","其他"};
 
     @Override
     public void onClick(View v) {

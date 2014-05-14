@@ -10,7 +10,7 @@ import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.LYViewPager;
-import com.ch.leyu.view.TabPageIndicator;
+import com.ch.leyu.view.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
@@ -43,11 +43,11 @@ public class StarDetailActivity extends BaseActivity {
 
     private LYViewPager mLyViewPager;
 
-    private TabPageIndicator mIndicator;
+    private PagerSlidingTabStrip mTabStrip;
 
-    private ArrayList<String> mTitleList;
+    private ArrayList<String> mTitles;
 
-    private ArrayList<Fragment> mFragmentList;
+    private ArrayList<Fragment> mFragments;
 
     @Override
     public void onClick(View v) {
@@ -73,7 +73,7 @@ public class StarDetailActivity extends BaseActivity {
         mName = (TextView) findViewById(R.id.star_act_tv_name);
         mDetail = (TextView) findViewById(R.id.star_act_tv_detail);
         mLyViewPager = (LYViewPager) findViewById(R.id.star_act_viewpager);
-        mIndicator = (TabPageIndicator) findViewById(R.id.star_act_pagertab);
+        mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.star_act_pagertab);
 
     }
 
@@ -86,26 +86,29 @@ public class StarDetailActivity extends BaseActivity {
     protected void processLogic() {
         mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
                 addTitle()));
-        mIndicator.setViewPager(mLyViewPager);
+        mTabStrip.setViewPager(mLyViewPager);
+        mTabStrip.setTextSize(24);
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,
+                StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
                         mName.setText(data.getUserInfo().getNickname());
-                        ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(),mImageView, ImageLoaderUtil.getImageLoaderOptions());
+                        ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(),
+                                mImageView, ImageLoaderUtil.getImageLoaderOptions());
                         mDetail.setText(data.getUserInfo().getDetail());
                     }
 
                     @Override
                     public void onStart() {
-
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFinish() {
-
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -116,22 +119,27 @@ public class StarDetailActivity extends BaseActivity {
                 });
 
     }
-    
-
 
     private ArrayList<String> addTitle() {
-        mTitleList = new ArrayList<String>();
-        mTitleList.add("最新上传");
-        mTitleList.add("最多播放");
-
-        return mTitleList;
+        mTitles = new ArrayList<String>();
+        mTitles.add("最新上传");
+        mTitles.add("最多播放");
+        return mTitles;
     }
 
     private ArrayList<Fragment> addFragment() {
-        mFragmentList = new ArrayList<Fragment>();
-        mFragmentList.add(new AllFragment());
-        mFragmentList.add(new AllFragment());
-
-        return mFragmentList;
+        mFragments = new ArrayList<Fragment>();
+        mFragments.add(new NewVideoFragment());
+        mFragments.add(new AllFragment());
+        return mFragments;
     }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 }
