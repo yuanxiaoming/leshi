@@ -69,13 +69,13 @@ public class StarGirefFragment extends BaseFragment {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                                
+
                                 uid = data.getUserInfo().get(position).getUid();
-                                Intent intent = new Intent(getActivity(),StarDetailActivity.class);
+                                Intent intent = new Intent(getActivity(), StarDetailActivity.class);
                                 intent.putExtra(Constant.UID, uid);
                                 startActivity(intent);
                             }
-                       
+
                         });
                     }
 
