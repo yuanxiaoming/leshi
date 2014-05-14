@@ -23,16 +23,19 @@ public class DBOpenHelperManager {
 		values.put("data", serverDataCache.getServerData());
 		values.put("time", serverDataCache.getTime());
 		db.insert("server_data_cache", null, values);
+		db.close();
 	}
 
 	public void deleteCache(String path) {
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		db.execSQL("delete from server_data_cache where url=?", new Object[] { path });
+		db.close();
 	}
 
 	public void deleteCache() {
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		db.execSQL("delete from server_data_cache");
+		db.close();
 	}
 
 	public ServerDataCache findCacheByUrl(String url) {
@@ -46,12 +49,14 @@ public class DBOpenHelperManager {
 			cache = new ServerDataCache(cache_url, cache_data, cache_time);
 		}
 		r.close();
+		db.close();
 		return cache;
 	}
 
 	public void updateCache(ServerDataCache serverDataCache) {
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		db.execSQL("update server_data_cache set  data = ? , time = ? where url = ?", new Object[] { serverDataCache.getServerData(), serverDataCache.getTime(), serverDataCache.getUrl() });
+		db.close();
 	}
 
 	public void insertOrUpdateCache(ServerDataCache serverDataCache) {

@@ -200,12 +200,12 @@ public class AutoScrollViewPager extends ViewPager {
                     if (pageCount > 1) {
                         setCurrentItem(pageCount - currentItem - 1, isBorderAnimation);
                     }
-                    getParent().requestDisallowInterceptTouchEvent(true);
+//                    getParent().requestDisallowInterceptTouchEvent(true);
                 }
                 return super.onTouchEvent(ev);
             }
         }
-        getParent().requestDisallowInterceptTouchEvent(true);
+//        getParent().requestDisallowInterceptTouchEvent(true);
         return super.onTouchEvent(ev);
     }
 
