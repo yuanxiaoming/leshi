@@ -3,6 +3,15 @@
 
     <string name="app_name">乐娱视频</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+
+    <!-- 反馈 -->
+    <string name="feedback_detail">请尽量详细描述你的问题或建议。如有错误、无效连接，请反馈页面地址给我们，谢谢。</string>
+    <string name="feedback_phone">例如小米2</string>
+    <string name="feedback_contact">QQ/Email/Tel</string>
+    <string name="feedback_commit">提交</string>
+    <string name="txt_problem_description">问题描述:</string>
+    <string name="txt_problem_description1">*请填问题描述</string>
+    <string name="txt_feedback_contact">联系方式:</string>
+    <string name="txt_feedback_contact_txt">手机型号:</string>
 
 </resources>
