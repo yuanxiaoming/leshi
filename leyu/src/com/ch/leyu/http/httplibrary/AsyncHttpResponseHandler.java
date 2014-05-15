@@ -372,14 +372,14 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
     */
     protected Message obtainMessage(int responseMessageId, Object responseMessageData) {
         Message msg;
-        if (handler != null) {
-            msg = handler.obtainMessage(responseMessageId, responseMessageData);
-        } else {
+        if (handler == null) {
             msg = Message.obtain();
             if (msg != null) {
                 msg.what = responseMessageId;
                 msg.obj = responseMessageData;
             }
+        } else {
+            msg = Message.obtain(handler, responseMessageId, responseMessageData);
         }
         return msg;
     }
