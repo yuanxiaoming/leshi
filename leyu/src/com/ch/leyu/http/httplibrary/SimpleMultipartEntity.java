@@ -14,20 +14,20 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
- */
+*/
 
 /*
- This code is taken from Rafael Sanches' blog.
- http://blog.rafaelsanches.com/2011/01/29/upload-using-multipart-post-using-httpclient-in-android/
- */
+    This code is taken from Rafael Sanches' blog.
+    http://blog.rafaelsanches.com/2011/01/29/upload-using-multipart-post-using-httpclient-in-android/
+*/
 
 package com.ch.leyu.http.httplibrary;
+
+import android.util.Log;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
-
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,243 +44,240 @@ import java.util.Random;
  */
 class SimpleMultipartEntity implements HttpEntity {
 
-	private static final String LOG_TAG = "SimpleMultipartEntity";
+    private static final String LOG_TAG = "SimpleMultipartEntity";
 
-	private static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
-	private static final byte[] CR_LF = ("\r\n").getBytes();
-	private static final byte[] TRANSFER_ENCODING_BINARY = "Content-Transfer-Encoding: binary\r\n".getBytes();
+    private static final String STR_CR_LF = "\r\n";
+    private static final byte[] CR_LF = STR_CR_LF.getBytes();
+    private static final byte[] TRANSFER_ENCODING_BINARY =
+        ("Content-Transfer-Encoding: binary" + STR_CR_LF).getBytes();
 
-	private final static char[] MULTIPART_CHARS = "-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    private final static char[] MULTIPART_CHARS =
+        "-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
-	private String boundary;
-	private byte[] boundaryLine;
-	private byte[] boundaryEnd;
-	private boolean isRepeatable = false;
+    private final String boundary;
+    private final byte[] boundaryLine;
+    private final byte[] boundaryEnd;
+    private boolean isRepeatable;
 
-	private List<FilePart> fileParts = new ArrayList<FilePart>();
+    private final List<FilePart> fileParts = new ArrayList();
 
-	// The buffer we use for building the message excluding files and the last
-	// boundary
-	private ByteArrayOutputStream out = new ByteArrayOutputStream();
+    // The buffer we use for building the message excluding files and the last
+    // boundary
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-	private ResponseHandlerInterface progressHandler;
+    private final ResponseHandlerInterface progressHandler;
 
-	private int bytesWritten;
+    private int bytesWritten;
 
-	private int totalSize;
+    private int totalSize;
 
-	public SimpleMultipartEntity(ResponseHandlerInterface progressHandler) {
-		final StringBuilder buf = new StringBuilder();
-		final Random rand = new Random();
-		for (int i = 0; i < 30; i++) {
-			buf.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
-		}
+    public SimpleMultipartEntity(ResponseHandlerInterface progressHandler) {
+        final StringBuilder buf = new StringBuilder();
+        final Random rand = new Random();
+        for (int i = 0; i < 30; i++) {
+            buf.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
+        }
 
-		boundary = buf.toString();
-		boundaryLine = ("--" + boundary + "\r\n").getBytes();
-		boundaryEnd = ("--" + boundary + "--\r\n").getBytes();
+        boundary = buf.toString();
+        boundaryLine = ("--" + boundary + STR_CR_LF).getBytes();
+        boundaryEnd = ("--" + boundary + "--" + STR_CR_LF).getBytes();
 
-		this.progressHandler = progressHandler;
-	}
+        this.progressHandler = progressHandler;
+    }
 
-	public void addPart(final String key, final String value, final String contentType) {
-		try {
-			out.write(boundaryLine);
-			out.write(createContentDisposition(key));
-			out.write(createContentType(contentType));
-			out.write(CR_LF);
-			out.write(value.getBytes());
-			out.write(CR_LF);
-		} catch (final IOException e) {
-			// Shall not happen on ByteArrayOutputStream
-			Log.e(LOG_TAG, "addPart ByteArrayOutputStream exception", e);
-		}
-	}
+    public void addPart(String key, String value, String contentType) {
+        try {
+            out.write(boundaryLine);
+            out.write(createContentDisposition(key));
+            out.write(createContentType(contentType));
+            out.write(CR_LF);
+            out.write(value.getBytes());
+            out.write(CR_LF);
+        } catch (final IOException e) {
+            // Shall not happen on ByteArrayOutputStream
+            Log.e(LOG_TAG, "addPart ByteArrayOutputStream exception", e);
+        }
+    }
 
-	public void addPart(final String key, final String value) {
-		addPart(key, value, "text/plain; charset=UTF-8");
-	}
+    public void addPart(String key, String value) {
+        addPart(key, value, "text/plain; charset=UTF-8");
+    }
 
-	public void addPart(String key, File file) {
-		addPart(key, file, null);
-	}
+    public void addPart(String key, File file) {
+        addPart(key, file, null);
+    }
 
-	public void addPart(final String key, File file, String type) {
-		if (type == null) {
-			type = APPLICATION_OCTET_STREAM;
-		}
-		fileParts.add(new FilePart(key, file, type));
-	}
+    public void addPart(String key, File file, String type) {
+        fileParts.add(new FilePart(key, file, normalizeContentType(type)));
+    }
 
-	public void addPart(String key, String streamName, InputStream inputStream, String type) throws IOException {
-		if (type == null) {
-			type = APPLICATION_OCTET_STREAM;
-		}
-		out.write(boundaryLine);
+    public void addPart(String key, String streamName, InputStream inputStream, String type)
+            throws IOException {
 
-		// Headers
-		out.write(createContentDisposition(key, streamName));
-		out.write(createContentType(type));
-		out.write(TRANSFER_ENCODING_BINARY);
-		out.write(CR_LF);
+        out.write(boundaryLine);
 
-		// Stream (file)
-		final byte[] tmp = new byte[4096];
-		int l;
-		while ((l = inputStream.read(tmp)) != -1) {
-			out.write(tmp, 0, l);
-		}
+        // Headers
+        out.write(createContentDisposition(key, streamName));
+        out.write(createContentType(type));
+        out.write(TRANSFER_ENCODING_BINARY);
+        out.write(CR_LF);
 
-		out.write(CR_LF);
-		out.flush();
-		try {
-			inputStream.close();
-		} catch (final IOException e) {
-			// Not important, just log it
-			Log.w(LOG_TAG, "Cannot close input stream", e);
-		}
-	}
+        // Stream (file)
+        final byte[] tmp = new byte[4096];
+        int l;
+        while ((l = inputStream.read(tmp)) != -1) {
+            out.write(tmp, 0, l);
+        }
 
-	private byte[] createContentType(String type) {
-		String result = "Content-Type: " + type + "\r\n";
-		return result.getBytes();
-	}
+        out.write(CR_LF);
+        out.flush();
 
-	private byte[] createContentDisposition(final String key) {
-		return ("Content-Disposition: form-data; name=\"" + key + "\"\r\n").getBytes();
-	}
+        AsyncHttpClient.silentCloseOutputStream(out);
+    }
 
-	private byte[] createContentDisposition(final String key, final String fileName) {
-		return ("Content-Disposition: form-data; name=\"" + key + "\"; filename=\"" + fileName + "\"\r\n").getBytes();
-	}
+    private String normalizeContentType(String type) {
+       return type == null ? RequestParams.APPLICATION_OCTET_STREAM : type;
+    }
 
-	private void updateProgress(int count) {
-		bytesWritten += count;
-		progressHandler.sendProgressMessage(bytesWritten, totalSize);
-	}
+    private byte[] createContentType(String type) {
+        String result = "Content-Type: " + normalizeContentType(type) + STR_CR_LF;
+        return result.getBytes();
+    }
 
-	private class FilePart {
-		public File file;
-		public byte[] header;
+    private byte[] createContentDisposition(String key) {
+        return ("Content-Disposition: form-data; name=\"" + key + "\"" + STR_CR_LF)
+            .getBytes();
+    }
 
-		public FilePart(String key, File file, String type) {
-			header = createHeader(key, file.getName(), type);
-			this.file = file;
-		}
+    private byte[] createContentDisposition(String key, String fileName) {
+        return ("Content-Disposition: form-data; name=\"" + key + "\"; filename=\"" + fileName + "\"" + STR_CR_LF)
+            .getBytes();
+    }
 
-		private byte[] createHeader(String key, String filename, String type) {
-			ByteArrayOutputStream headerStream = new ByteArrayOutputStream();
-			try {
-				headerStream.write(boundaryLine);
+    private void updateProgress(int count) {
+        bytesWritten += count;
+        progressHandler.sendProgressMessage(bytesWritten, totalSize);
+    }
 
-				// Headers
-				headerStream.write(createContentDisposition(key, filename));
-				headerStream.write(createContentType(type));
-				headerStream.write(TRANSFER_ENCODING_BINARY);
-				headerStream.write(CR_LF);
-			} catch (IOException e) {
-				// Can't happen on ByteArrayOutputStream
-				Log.e(LOG_TAG, "createHeader ByteArrayOutputStream exception", e);
-			}
-			return headerStream.toByteArray();
-		}
+    private class FilePart {
+        public File file;
+        public byte[] header;
 
-		public long getTotalLength() {
-			long streamLength = file.length() + CR_LF.length;
-			return header.length + streamLength;
-		}
+        public FilePart(String key, File file, String type) {
+            header = createHeader(key, file.getName(), type);
+            this.file = file;
+        }
 
-		public void writeTo(OutputStream out) throws IOException {
-			out.write(header);
-			updateProgress(header.length);
+        private byte[] createHeader(String key, String filename, String type) {
+            ByteArrayOutputStream headerStream = new ByteArrayOutputStream();
+            try {
+                headerStream.write(boundaryLine);
 
-			FileInputStream inputStream = new FileInputStream(file);
-			final byte[] tmp = new byte[4096];
-			int l;
-			while ((l = inputStream.read(tmp)) != -1) {
-				out.write(tmp, 0, l);
-				updateProgress(l);
-			}
-			out.write(CR_LF);
-			updateProgress(CR_LF.length);
-			out.flush();
-			try {
-				inputStream.close();
-			} catch (final IOException e) {
-				// Not important, just log it
-				Log.w(LOG_TAG, "Cannot close input stream", e);
-			}
-		}
-	}
+                // Headers
+                headerStream.write(createContentDisposition(key, filename));
+                headerStream.write(createContentType(type));
+                headerStream.write(TRANSFER_ENCODING_BINARY);
+                headerStream.write(CR_LF);
+            } catch (IOException e) {
+                // Can't happen on ByteArrayOutputStream
+                Log.e(LOG_TAG, "createHeader ByteArrayOutputStream exception", e);
+            }
+            return headerStream.toByteArray();
+        }
 
-	// The following methods are from the HttpEntity interface
+        public long getTotalLength() {
+            long streamLength = file.length() + CR_LF.length;
+            return header.length + streamLength;
+        }
 
-	@Override
-	public long getContentLength() {
-		long contentLen = out.size();
-		for (FilePart filePart : fileParts) {
-			long len = filePart.getTotalLength();
-			if (len < 0) {
-				return -1; // Should normally not happen
-			}
-			contentLen += len;
-		}
-		contentLen += boundaryEnd.length;
-		return contentLen;
-	}
+        public void writeTo(OutputStream out) throws IOException {
+            out.write(header);
+            updateProgress(header.length);
 
-	@Override
-	public Header getContentType() {
-		return new BasicHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
-	}
+            FileInputStream inputStream = new FileInputStream(file);
+            final byte[] tmp = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(tmp)) != -1) {
+                out.write(tmp, 0, bytesRead);
+                updateProgress(bytesRead);
+            }
+            out.write(CR_LF);
+            updateProgress(CR_LF.length);
+            out.flush();
+            AsyncHttpClient.silentCloseInputStream(inputStream);
+        }
+    }
 
-	@Override
-	public boolean isChunked() {
-		return false;
-	}
+    // The following methods are from the HttpEntity interface
 
-	public void setIsRepeatable(boolean isRepeatable) {
-		this.isRepeatable = isRepeatable;
-	}
+    @Override
+    public long getContentLength() {
+        long contentLen = out.size();
+        for (FilePart filePart : fileParts) {
+            long len = filePart.getTotalLength();
+            if (len < 0) {
+                return -1; // Should normally not happen
+            }
+            contentLen += len;
+        }
+        contentLen += boundaryEnd.length;
+        return contentLen;
+    }
 
-	@Override
-	public boolean isRepeatable() {
-		return isRepeatable;
-	}
+    @Override
+    public Header getContentType() {
+        return new BasicHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+    }
 
-	@Override
-	public boolean isStreaming() {
-		return false;
-	}
+    @Override
+    public boolean isChunked() {
+        return false;
+    }
 
-	@Override
-	public void writeTo(final OutputStream outstream) throws IOException {
-		bytesWritten = 0;
-		totalSize = (int) getContentLength();
-		out.writeTo(outstream);
-		updateProgress(out.size());
+    public void setIsRepeatable(boolean isRepeatable) {
+        this.isRepeatable = isRepeatable;
+    }
 
-		for (FilePart filePart : fileParts) {
-			filePart.writeTo(outstream);
-		}
-		outstream.write(boundaryEnd);
-		updateProgress(boundaryEnd.length);
-	}
+    @Override
+    public boolean isRepeatable() {
+        return isRepeatable;
+    }
 
-	@Override
-	public Header getContentEncoding() {
-		return null;
-	}
+    @Override
+    public boolean isStreaming() {
+        return false;
+    }
 
-	@Override
-	public void consumeContent() throws IOException, UnsupportedOperationException {
-		if (isStreaming()) {
-			throw new UnsupportedOperationException("Streaming entity does not implement #consumeContent()");
-		}
-	}
+    @Override
+    public void writeTo(final OutputStream outstream) throws IOException {
+        bytesWritten = 0;
+        totalSize = (int) getContentLength();
+        out.writeTo(outstream);
+        updateProgress(out.size());
 
-	@Override
-	public InputStream getContent() throws IOException, UnsupportedOperationException {
-		throw new UnsupportedOperationException("getContent() is not supported. Use writeTo() instead.");
-	}
+        for (FilePart filePart : fileParts) {
+            filePart.writeTo(outstream);
+        }
+        outstream.write(boundaryEnd);
+        updateProgress(boundaryEnd.length);
+    }
+
+    @Override
+    public Header getContentEncoding() {
+        return null;
+    }
+
+    @Override
+    public void consumeContent() throws IOException, UnsupportedOperationException {
+        if (isStreaming()) {
+            throw new UnsupportedOperationException(
+                    "Streaming entity does not implement #consumeContent()");
+        }
+    }
+
+    @Override
+    public InputStream getContent() throws IOException, UnsupportedOperationException {
+        throw new UnsupportedOperationException(
+                "getContent() is not supported. Use writeTo() instead.");
+    }
 }

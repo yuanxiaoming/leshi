@@ -14,9 +14,11 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
- */
+*/
 
 package com.ch.leyu.http.httplibrary;
+
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,10 +26,7 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import android.util.Log;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,84 +42,72 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * A collection of string request parameters or files to send along with
- * requests made from an {@link AsyncHttpClient} instance.
- * <p>
- * &nbsp;
- * </p>
- * For example:
- * <p>
- * &nbsp;
- * </p>
- *
+ * A collection of string request parameters or files to send along with requests made from an
+ * {@link AsyncHttpClient} instance. <p>&nbsp;</p> For example: <p>&nbsp;</p>
  * <pre>
  * RequestParams params = new RequestParams();
- * params.put(&quot;username&quot;, &quot;james&quot;);
- * params.put(&quot;password&quot;, &quot;123456&quot;);
- * params.put(&quot;email&quot;, &quot;my@email.com&quot;);
- * params.put(&quot;profile_picture&quot;, new File(&quot;pic.jpg&quot;)); // Upload a File
- * params.put(&quot;profile_picture2&quot;, someInputStream); // Upload an InputStream
- * params.put(&quot;profile_picture3&quot;, new ByteArrayInputStream(someBytes)); // Upload
- * // some
- * // bytes
+ * params.put("username", "james");
+ * params.put("password", "123456");
+ * params.put("email", "my&#064;email.com");
+ * params.put("profile_picture", new File("pic.jpg")); // Upload a File
+ * params.put("profile_picture2", someInputStream); // Upload an InputStream
+ * params.put("profile_picture3", new ByteArrayInputStream(someBytes)); // Upload some bytes
  *
  * Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();
- * map.put(&quot;first_name&quot;, &quot;James&quot;);
- * map.put(&quot;last_name&quot;, &quot;Smith&quot;);
- * params.put(&quot;user&quot;, map); // url params:
- * // &quot;user[first_name]=James&amp;user[last_name]=Smith&quot;
+ * map.put("first_name", "James");
+ * map.put("last_name", "Smith");
+ * params.put("user", map); // url params: "user[first_name]=James&amp;user[last_name]=Smith"
  *
  * Set&lt;String&gt; set = new HashSet&lt;String&gt;(); // unordered collection
- * set.add(&quot;music&quot;);
- * set.add(&quot;art&quot;);
- * params.put(&quot;like&quot;, set); // url params: &quot;like=music&amp;like=art&quot;
+ * set.add("music");
+ * set.add("art");
+ * params.put("like", set); // url params: "like=music&amp;like=art"
  *
  * List&lt;String&gt; list = new ArrayList&lt;String&gt;(); // Ordered collection
- * list.add(&quot;Java&quot;);
- * list.add(&quot;C&quot;);
- * params.put(&quot;languages&quot;, list); // url params: &quot;languages[]=Java&amp;languages[]=C&quot;
+ * list.add("Java");<>
+ * list.add("C");
+ * params.put("languages", list); // url params: "languages[]=Java&amp;languages[]=C"
  *
- * String[] colors = { &quot;blue&quot;, &quot;yellow&quot; }; // Ordered collection
- * params.put(&quot;colors&quot;, colors); // url params: &quot;colors[]=blue&amp;colors[]=yellow&quot;
+ * String[] colors = { "blue", "yellow" }; // Ordered collection
+ * params.put("colors", colors); // url params: "colors[]=blue&amp;colors[]=yellow"
  *
- * List&lt;Map&lt;String, String&gt;&gt; listOfMaps = new ArrayList&lt;Map&lt;String, String&gt;&gt;();
+ * List&lt;Map&lt;String, String&gt;&gt; listOfMaps = new ArrayList&lt;Map&lt;String,
+ * String&gt;&gt;();
  * Map&lt;String, String&gt; user1 = new HashMap&lt;String, String&gt;();
- * user1.put(&quot;age&quot;, &quot;30&quot;);
- * user1.put(&quot;gender&quot;, &quot;male&quot;);
+ * user1.put("age", "30");
+ * user1.put("gender", "male");
  * Map&lt;String, String&gt; user2 = new HashMap&lt;String, String&gt;();
- * user2.put(&quot;age&quot;, &quot;25&quot;);
- * user2.put(&quot;gender&quot;, &quot;female&quot;);
+ * user2.put("age", "25");
+ * user2.put("gender", "female");
  * listOfMaps.add(user1);
  * listOfMaps.add(user2);
- * params.put(&quot;users&quot;, listOfMaps); // url params:
- * // &quot;users[][age]=30&amp;users[][gender]=male&amp;users[][age]=25&amp;users[][gender]=female&quot;
+ * params.put("users", listOfMaps); // url params: "users[][age]=30&amp;users[][gender]=male&amp;users[][age]=25&amp;users[][gender]=female"
  *
  * AsyncHttpClient client = new AsyncHttpClient();
- * client.post(&quot;http://myendpoint.com&quot;, params, responseHandler);
+ * client.post("http://myendpoint.com", params, responseHandler);
  * </pre>
  */
 public class RequestParams {
 
+    public final static String APPLICATION_OCTET_STREAM =
+        "application/octet-stream";
+
     protected final static String LOG_TAG = "RequestParams";
     protected boolean isRepeatable;
     protected boolean useJsonStreamer;
-    protected ConcurrentHashMap<String, String> urlParams;
-    protected ConcurrentHashMap<String, StreamWrapper> streamParams;
-    protected ConcurrentHashMap<String, FileWrapper> fileParams;
-    protected ConcurrentHashMap<String, Object> urlParamsWithObjects;
+    protected boolean autoCloseInputStreams;
+    protected final ConcurrentHashMap<String, String> urlParams = new ConcurrentHashMap();
+    protected final ConcurrentHashMap<String, StreamWrapper> streamParams = new ConcurrentHashMap();
+    protected final ConcurrentHashMap<String, FileWrapper> fileParams = new ConcurrentHashMap();
+    protected final ConcurrentHashMap<String, Object> urlParamsWithObjects = new ConcurrentHashMap();
     protected String contentEncoding = HTTP.UTF_8;
 
     /**
-    * Sets content encoding for return value of {@link #getParamString()} and
-    * {@link #createFormEntity()}
-    * <p>
-    * &nbsp;
-    * </p>
-    * Default encoding is "UTF-8"
-    *
-    * @param encoding
-    *            String constant from {@link org.apache.http.protocol.HTTP}
-    */
+     * Sets content encoding for return value of {@link #getParamString()} and {@link
+     * #createFormEntity()} <p>&nbsp;</p> Default encoding is "UTF-8"
+     *
+     * @param encoding String constant from {@link org.apache.http.protocol.HTTP}
+     */
     public void setContentEncoding(final String encoding) {
         if (encoding != null)
             this.contentEncoding = encoding;
@@ -129,21 +116,19 @@ public class RequestParams {
     }
 
     /**
-    * Constructs a new empty {@code RequestParams} instance.
-    */
+     * Constructs a new empty {@code RequestParams} instance.
+     */
     public RequestParams() {
         this((Map<String, String>) null);
     }
 
     /**
-    * Constructs a new RequestParams instance containing the key/value string
-    * params from the specified map.
-    *
-    * @param source
-    *            the source key/value string map to add.
-    */
+     * Constructs a new RequestParams instance containing the key/value string params from the
+     * specified map.
+     *
+     * @param source the source key/value string map to add.
+     */
     public RequestParams(Map<String, String> source) {
-        init();
         if (source != null) {
             for (Map.Entry<String, String> entry : source.entrySet()) {
                 put(entry.getKey(), entry.getValue());
@@ -152,35 +137,27 @@ public class RequestParams {
     }
 
     /**
-    * Constructs a new RequestParams instance and populate it with a single
-    * initial key/value string param.
-    *
-    * @param key
-    *            the key name for the intial param.
-    * @param value
-    *            the value string for the initial param.
-    */
-    @SuppressWarnings("serial")
+     * Constructs a new RequestParams instance and populate it with a single initial key/value
+     * string param.
+     *
+     * @param key   the key name for the intial param.
+     * @param value the value string for the initial param.
+     */
     public RequestParams(final String key, final String value) {
-        this(new HashMap<String, String>() {
-            {
-                put(key, value);
-            }
-        });
+        this(new HashMap<String, String>() {{
+            put(key, value);
+        }});
     }
 
     /**
-    * Constructs a new RequestParams instance and populate it with multiple
-    * initial key/value string param.
-    *
-    * @param keysAndValues
-    *            a sequence of keys and values. Objects are automatically
-    *            converted to Strings (including the value {@code null}).
-    * @throws IllegalArgumentException
-    *             if the number of arguments isn't even.
-    */
+     * Constructs a new RequestParams instance and populate it with multiple initial key/value
+     * string param.
+     *
+     * @param keysAndValues a sequence of keys and values. Objects are automatically converted to
+     *                      Strings (including the value {@code null}).
+     * @throws IllegalArgumentException if the number of arguments isn't even.
+     */
     public RequestParams(Object... keysAndValues) {
-        init();
         int len = keysAndValues.length;
         if (len % 2 != 0)
             throw new IllegalArgumentException("Supplied arguments must be even");
@@ -192,13 +169,11 @@ public class RequestParams {
     }
 
     /**
-    * Adds a key/value string pair to the request.
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param value
-    *            the value string for the new param.
-    */
+     * Adds a key/value string pair to the request.
+     *
+     * @param key   the key name for the new param.
+     * @param value the value string for the new param.
+     */
     public void put(String key, String value) {
         if (key != null && value != null) {
             urlParams.put(key, value);
@@ -206,31 +181,24 @@ public class RequestParams {
     }
 
     /**
-    * Adds a file to the request.
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param file
-    *            the file to add.
-    * @throws java.io.FileNotFoundException
-    *             throws if wrong File argument was passed
-    */
+     * Adds a file to the request.
+     *
+     * @param key  the key name for the new param.
+     * @param file the file to add.
+     * @throws java.io.FileNotFoundException throws if wrong File argument was passed
+     */
     public void put(String key, File file) throws FileNotFoundException {
         put(key, file, null);
     }
 
     /**
-    * Adds a file to the request.
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param file
-    *            the file to add.
-    * @param contentType
-    *            the content type of the file, eg. application/json
-    * @throws java.io.FileNotFoundException
-    *             throws if wrong File argument was passed
-    */
+     * Adds a file to the request.
+     *
+     * @param key         the key name for the new param.
+     * @param file        the file to add.
+     * @param contentType the content type of the file, eg. application/json
+     * @throws java.io.FileNotFoundException throws if wrong File argument was passed
+     */
     public void put(String key, File file, String contentType) throws FileNotFoundException {
         if (file == null || !file.exists()) {
             throw new FileNotFoundException();
@@ -241,57 +209,59 @@ public class RequestParams {
     }
 
     /**
-    * Adds an input stream to the request.
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param stream
-    *            the input stream to add.
-    */
+     * Adds an input stream to the request.
+     *
+     * @param key    the key name for the new param.
+     * @param stream the input stream to add.
+     */
     public void put(String key, InputStream stream) {
         put(key, stream, null);
     }
 
     /**
-    * Adds an input stream to the request.
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param stream
-    *            the input stream to add.
-    * @param name
-    *            the name of the stream.
-    */
+     * Adds an input stream to the request.
+     *
+     * @param key    the key name for the new param.
+     * @param stream the input stream to add.
+     * @param name   the name of the stream.
+     */
     public void put(String key, InputStream stream, String name) {
         put(key, stream, name, null);
     }
 
     /**
-    * Adds an input stream to the request.
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param stream
-    *            the input stream to add.
-    * @param name
-    *            the name of the stream.
-    * @param contentType
-    *            the content type of the file, eg. application/json
-    */
+     * Adds an input stream to the request.
+     *
+     * @param key         the key name for the new param.
+     * @param stream      the input stream to add.
+     * @param name        the name of the stream.
+     * @param contentType the content type of the file, eg. application/json
+     */
     public void put(String key, InputStream stream, String name, String contentType) {
+        put(key, stream, name, contentType, autoCloseInputStreams);
+    }
+
+    /**
+     * Adds an input stream to the request.
+     *
+     * @param key         the key name for the new param.
+     * @param stream      the input stream to add.
+     * @param name        the name of the stream.
+     * @param contentType the content type of the file, eg. application/json
+     * @param autoClose   close input stream automatically on successful upload
+     */
+    public void put(String key, InputStream stream, String name, String contentType, boolean autoClose) {
         if (key != null && stream != null) {
-            streamParams.put(key, new StreamWrapper(stream, name, contentType));
+            streamParams.put(key, StreamWrapper.newInstance(stream, name, contentType, autoClose));
         }
     }
 
     /**
-    * Adds param with non-string value (e.g. Map, List, Set).
-    *
-    * @param key
-    *            the key name for the new param.
-    * @param value
-    *            the non-string value object for the new param.
-    */
+     * Adds param with non-string value (e.g. Map, List, Set).
+     *
+     * @param key   the key name for the new param.
+     * @param value the non-string value object for the new param.
+     */
     public void put(String key, Object value) {
         if (key != null && value != null) {
             urlParamsWithObjects.put(key, value);
@@ -299,14 +269,35 @@ public class RequestParams {
     }
 
     /**
-    * Adds string value to param which can have more than one value.
-    *
-    * @param key
-    *            the key name for the param, either existing or new.
-    * @param value
-    *            the value string for the new param.
-    */
-    @SuppressWarnings("unchecked")
+     * Adds a int value to the request.
+     *
+     * @param key   the key name for the new param.
+     * @param value the value int for the new param.
+     */
+    public void put(String key, int value) {
+        if (key != null) {
+            urlParams.put(key, String.valueOf(value));
+        }
+    }
+
+    /**
+     * Adds a long value to the request.
+     *
+     * @param key   the key name for the new param.
+     * @param value the value long for the new param.
+     */
+    public void put(String key, long value) {
+        if (key != null) {
+            urlParams.put(key, String.valueOf(value));
+        }
+    }
+
+    /**
+     * Adds string value to param which can have more than one value.
+     *
+     * @param key   the key name for the param, either existing or new.
+     * @param value the value string for the new param.
+     */
     public void add(String key, String value) {
         if (key != null && value != null) {
             Object params = urlParamsWithObjects.get(key);
@@ -316,19 +307,18 @@ public class RequestParams {
                 this.put(key, params);
             }
             if (params instanceof List) {
-                ((List<Object>) params).add(value);
+                ((List) params).add(value);
             } else if (params instanceof Set) {
-                ((Set<Object>) params).add(value);
+                ((Set) params).add(value);
             }
         }
     }
 
     /**
-    * Removes a parameter from the request.
-    *
-    * @param key
-    *            the key name for the parameter to remove.
-    */
+     * Removes a parameter from the request.
+     *
+     * @param key the key name for the parameter to remove.
+     */
     public void remove(String key) {
         urlParams.remove(key);
         streamParams.remove(key);
@@ -388,18 +378,26 @@ public class RequestParams {
     }
 
     /**
-    * Returns an HttpEntity containing all request parameters
-    *
-    * @param progressHandler
-    *            HttpResponseHandler for reporting progress on entity submit
-    * @return HttpEntity resulting HttpEntity to be included along with
-    *         {@link org.apache.http.client.methods.HttpEntityEnclosingRequestBase}
-    * @throws IOException
-    *             if one of the streams cannot be read
-    */
+     * Set global flag which determines whether to automatically close input
+     * streams on successful upload.
+     *
+     * @param flag boolean whether to automatically close input streams
+     */
+    public void setAutoCloseInputStreams(boolean flag) {
+        autoCloseInputStreams = flag;
+    }
+
+    /**
+     * Returns an HttpEntity containing all request parameters.
+     *
+     * @param progressHandler HttpResponseHandler for reporting progress on entity submit
+     * @return HttpEntity resulting HttpEntity to be included along with {@link
+     * org.apache.http.client.methods.HttpEntityEnclosingRequestBase}
+     * @throws IOException if one of the streams cannot be read
+     */
     public HttpEntity getEntity(ResponseHandlerInterface progressHandler) throws IOException {
         if (useJsonStreamer) {
-            return createJsonStreamerEntity();
+            return createJsonStreamerEntity(progressHandler);
         } else if (streamParams.isEmpty() && fileParams.isEmpty()) {
             return createFormEntity();
         } else {
@@ -407,8 +405,9 @@ public class RequestParams {
         }
     }
 
-    private HttpEntity createJsonStreamerEntity() throws IOException {
-        JsonStreamerEntity entity = new JsonStreamerEntity(!fileParams.isEmpty() || !streamParams.isEmpty());
+    private HttpEntity createJsonStreamerEntity(ResponseHandlerInterface progressHandler) throws IOException {
+        JsonStreamerEntity entity = new JsonStreamerEntity(progressHandler,
+            !fileParams.isEmpty() || !streamParams.isEmpty());
 
         // Add string params
         for (ConcurrentHashMap.Entry<String, String> entry : urlParams.entrySet()) {
@@ -422,15 +421,19 @@ public class RequestParams {
 
         // Add file params
         for (ConcurrentHashMap.Entry<String, FileWrapper> entry : fileParams.entrySet()) {
-            FileWrapper fileWrapper = entry.getValue();
-            entity.addPart(entry.getKey(), new FileInputStream(fileWrapper.file), fileWrapper.file.getName(), fileWrapper.contentType);
+            entity.addPart(entry.getKey(), entry.getValue());
         }
 
         // Add stream params
         for (ConcurrentHashMap.Entry<String, StreamWrapper> entry : streamParams.entrySet()) {
             StreamWrapper stream = entry.getValue();
             if (stream.inputStream != null) {
-                entity.addPart(entry.getKey(), stream.inputStream, stream.name, stream.contentType);
+                entity.addPart(entry.getKey(),
+                    StreamWrapper.newInstance(
+                        stream.inputStream,
+                        stream.name,
+                        stream.contentType,
+                        stream.autoClose));
             }
         }
 
@@ -442,8 +445,7 @@ public class RequestParams {
             return new UrlEncodedFormEntity(getParamsList(), contentEncoding);
         } catch (UnsupportedEncodingException e) {
             Log.e(LOG_TAG, "createFormEntity failed", e);
-            return null; // Can happen, if the 'contentEncoding' won't be
-                            // HTTP.UTF_8
+            return null; // Can happen, if the 'contentEncoding' won't be HTTP.UTF_8
         }
     }
 
@@ -466,7 +468,8 @@ public class RequestParams {
         for (ConcurrentHashMap.Entry<String, StreamWrapper> entry : streamParams.entrySet()) {
             StreamWrapper stream = entry.getValue();
             if (stream.inputStream != null) {
-                entity.addPart(entry.getKey(), stream.name, stream.inputStream, stream.contentType);
+                entity.addPart(entry.getKey(), stream.name, stream.inputStream,
+                        stream.contentType);
             }
         }
 
@@ -479,15 +482,8 @@ public class RequestParams {
         return entity;
     }
 
-    private void init() {
-        urlParams = new ConcurrentHashMap<String, String>();
-        streamParams = new ConcurrentHashMap<String, StreamWrapper>();
-        fileParams = new ConcurrentHashMap<String, FileWrapper>();
-        urlParamsWithObjects = new ConcurrentHashMap<String, Object>();
-    }
-
     protected List<BasicNameValuePair> getParamsList() {
-        List<BasicNameValuePair> lparams = new LinkedList<BasicNameValuePair>();
+        List<BasicNameValuePair> lparams = new LinkedList();
 
         for (ConcurrentHashMap.Entry<String, String> entry : urlParams.entrySet()) {
             lparams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
@@ -498,48 +494,52 @@ public class RequestParams {
         return lparams;
     }
 
-    @SuppressWarnings("unchecked")
     private List<BasicNameValuePair> getParamsList(String key, Object value) {
-        List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
+        List<BasicNameValuePair> params = new LinkedList();
         if (value instanceof Map) {
-            Map<String, Object> map = (Map<String, Object>) value;
-            List<String> list = new ArrayList<String>(map.keySet());
+            Map map = (Map) value;
+            List list = new ArrayList<Object>(map.keySet());
             // Ensure consistent ordering in query string
             Collections.sort(list);
-            for (String nestedKey : list) {
-                Object nestedValue = map.get(nestedKey);
-                if (nestedValue != null) {
-                    params.addAll(getParamsList(key == null ? nestedKey : String.format("%s[%s]", key, nestedKey), nestedValue));
+            for (Object nestedKey : list) {
+                if (nestedKey instanceof String) {
+                    Object nestedValue = map.get(nestedKey);
+                    if (nestedValue != null) {
+                        params.addAll(getParamsList(key == null ? (String) nestedKey : String.format("%s[%s]", key, nestedKey),
+                                nestedValue));
+                    }
                 }
             }
         } else if (value instanceof List) {
-            List<Object> list = (List<Object>) value;
-            for (Object nestedValue : list) {
-                params.addAll(getParamsList(String.format("%s[]", key), nestedValue));
+            List list = (List) value;
+            int listSize = list.size();
+            for (int nestedValueIndex = 0; nestedValueIndex < listSize; nestedValueIndex++) {
+                params.addAll(getParamsList(String.format("%s[%d]", key, nestedValueIndex), list.get(nestedValueIndex)));
             }
         } else if (value instanceof Object[]) {
             Object[] array = (Object[]) value;
-            for (Object nestedValue : array) {
-                params.addAll(getParamsList(String.format("%s[]", key), nestedValue));
+            int arrayLength = array.length;
+            for (int nestedValueIndex = 0; nestedValueIndex < arrayLength; nestedValueIndex++) {
+                params.addAll(getParamsList(String.format("%s[%d]", key, nestedValueIndex), array[nestedValueIndex]));
             }
         } else if (value instanceof Set) {
-            Set<Object> set = (Set<Object>) value;
+            Set set = (Set) value;
             for (Object nestedValue : set) {
                 params.addAll(getParamsList(key, nestedValue));
             }
-        } else if (value instanceof String) {
-            params.add(new BasicNameValuePair(key, (String) value));
+        } else {
+            params.add(new BasicNameValuePair(key, value.toString()));
         }
         return params;
     }
 
-    public String getParamString() {
+    protected String getParamString() {
         return URLEncodedUtils.format(getParamsList(), contentEncoding);
     }
 
     public static class FileWrapper {
-        public File file;
-        public String contentType;
+        public final File file;
+        public final String contentType;
 
         public FileWrapper(File file, String contentType) {
             this.file = file;
@@ -548,14 +548,24 @@ public class RequestParams {
     }
 
     public static class StreamWrapper {
-        public InputStream inputStream;
-        public String name;
-        public String contentType;
+        public final InputStream inputStream;
+        public final String name;
+        public final String contentType;
+        public final boolean autoClose;
 
-        public StreamWrapper(InputStream inputStream, String name, String contentType) {
+        public StreamWrapper(InputStream inputStream, String name, String contentType, boolean autoClose) {
             this.inputStream = inputStream;
             this.name = name;
             this.contentType = contentType;
+            this.autoClose = autoClose;
+        }
+
+        static StreamWrapper newInstance(InputStream inputStream, String name, String contentType, boolean autoClose) {
+            return new StreamWrapper(
+                inputStream,
+                name,
+                contentType == null ? APPLICATION_OCTET_STREAM : contentType,
+                autoClose);
         }
     }
 }
