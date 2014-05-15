@@ -89,6 +89,7 @@ public class StarDetailActivity extends BaseActivity {
                 addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
         mTabStrip.setTextSize(24);
+        
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,

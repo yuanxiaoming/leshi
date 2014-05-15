@@ -54,7 +54,7 @@ public class CircleLoopPageIndicator extends View implements PageIndicator {
     private boolean mCentered;
     private boolean mSnap;
     private int mPageCount ;
-    
+
     public int getPageCount() {
 		return mPageCount;
 	}
@@ -199,12 +199,12 @@ public class CircleLoopPageIndicator extends View implements PageIndicator {
         if (mViewPager == null) {
             return;
         }
-        
+
         if(mPageCount == 0)
         {
         	return ;
         }
-        
+
         int longSize;
         int longPaddingBefore;
         int longPaddingAfter;
@@ -342,7 +342,7 @@ public class CircleLoopPageIndicator extends View implements PageIndicator {
         if (mListener != null) {
             mListener.onPageSelected(position % mPageCount);
         }
-        
+
     }
 
     @Override
@@ -464,5 +464,9 @@ public class CircleLoopPageIndicator extends View implements PageIndicator {
             }
         };
     }
-    
+    @Override
+    public boolean isFocused() {
+        return true;
+
+    }
 }

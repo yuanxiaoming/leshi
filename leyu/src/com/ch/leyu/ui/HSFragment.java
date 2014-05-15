@@ -5,17 +5,14 @@ import com.ch.leyu.R;
 import com.ch.leyu.adapter.AutoScrollerPagerAdapter;
 import com.ch.leyu.adapter.NewsListAdapter;
 import com.ch.leyu.adapter.RecommendGridAdapter;
-import com.ch.leyu.adapter.ViewFlowAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.CircleLoopPageIndicator;
 import com.ch.leyu.view.LYGridView;
-import com.ch.leyu.view.LYViewFlow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
@@ -62,6 +59,8 @@ public class HSFragment extends BaseFragment {
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
 
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
+        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
+        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
 
     }

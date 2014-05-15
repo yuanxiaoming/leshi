@@ -2,6 +2,7 @@ package com.ch.leyu.view;
 
 import java.lang.reflect.Field;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +28,7 @@ import android.view.animation.Interpolator;
  * <li>{@link #setSlideBorderMode(int)} set how to process when sliding at the last or first item</li>
  * <li>{@link #setStopScrollWhenTouch(boolean)} set whether stop auto scroll when touching, default is true</li>
  * </ul>
- * 
+ *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-12-30
  */
 public class AutoScrollViewPager extends ViewPager {
@@ -90,7 +91,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * start auto scroll
-     * 
+     *
      * @param delayTimeInMills first scroll delay time
      */
     public void startAutoScroll(int delayTimeInMills) {
@@ -168,14 +169,34 @@ public class AutoScrollViewPager extends ViewPager {
      * <li>if event is up, start auto scroll again.</li>
      * </ul>
      */
+
+    private float mStartX, mStartY ;
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (stopScrollWhenTouch) {
             if (ev.getAction() == MotionEvent.ACTION_DOWN && isAutoScroll) {
                 isStopByTouch = true;
                 stopAutoScroll();
-            } else if (ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch) {
+                System.out.println("down");
+                mStartX = ev.getX();
+    			mStartY = ev.getY();
+            }
+
+            if(ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch)
+            {
+            	float curX = ev.getX();
+    			float curY = ev.getY();
+
+    			float deltaX = curX - mStartX ;
+    			float deltaY = curY - mStartY ;
+
+    			System.out.println("deltaX = " + deltaX);
+    			System.out.println("deltaY = " + deltaY);
+            }
+
+            if (ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch) {
                 startAutoScroll();
+                System.out.println("up");
             }
         }
 
@@ -200,7 +221,7 @@ public class AutoScrollViewPager extends ViewPager {
                     if (pageCount > 1) {
                         setCurrentItem(pageCount - currentItem - 1, isBorderAnimation);
                     }
-//                    getParent().requestDisallowInterceptTouchEvent(true);
+                    getParent().requestDisallowInterceptTouchEvent(true);
                 }
                 return super.onTouchEvent(ev);
             }
@@ -209,7 +230,8 @@ public class AutoScrollViewPager extends ViewPager {
         return super.onTouchEvent(ev);
     }
 
-    private class MyHandler extends Handler {
+    @SuppressLint("HandlerLeak")
+	private class MyHandler extends Handler {
 
         @Override
         public void handleMessage(Message msg) {
@@ -227,7 +249,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * get auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL}
-     * 
+     *
      * @return the interval
      */
     public long getInterval() {
@@ -236,7 +258,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * set auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL}
-     * 
+     *
      * @param interval the interval to set
      */
     public void setInterval(long interval) {
@@ -245,7 +267,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * get auto scroll direction
-     * 
+     *
      * @return {@link #LEFT} or {@link #RIGHT}, default is {@link #RIGHT}
      */
     public int getDirection() {
@@ -254,7 +276,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * set auto scroll direction
-     * 
+     *
      * @param direction {@link #LEFT} or {@link #RIGHT}, default is {@link #RIGHT}
      */
     public void setDirection(int direction) {
@@ -263,7 +285,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * whether automatic cycle when auto scroll reaching the last or first item, default is true
-     * 
+     *
      * @return the isCycle
      */
     public boolean isCycle() {
@@ -272,7 +294,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * set whether automatic cycle when auto scroll reaching the last or first item, default is true
-     * 
+     *
      * @param isCycle the isCycle to set
      */
     public void setCycle(boolean isCycle) {
@@ -281,7 +303,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * whether stop auto scroll when touching, default is true
-     * 
+     *
      * @return the stopScrollWhenTouch
      */
     public boolean isStopScrollWhenTouch() {
@@ -290,7 +312,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * set whether stop auto scroll when touching, default is true
-     * 
+     *
      * @param stopScrollWhenTouch
      */
     public void setStopScrollWhenTouch(boolean stopScrollWhenTouch) {
@@ -299,7 +321,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * get how to process when sliding at the last or first item
-     * 
+     *
      * @return the slideBorderMode {@link #SLIDE_BORDER_MODE_NONE}, {@link #SLIDE_BORDER_MODE_TO_PARENT},
      *         {@link #SLIDE_BORDER_MODE_CYCLE}, default is {@link #SLIDE_BORDER_MODE_NONE}
      */
@@ -309,7 +331,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * set how to process when sliding at the last or first item
-     * 
+     *
      * @param slideBorderMode {@link #SLIDE_BORDER_MODE_NONE}, {@link #SLIDE_BORDER_MODE_TO_PARENT},
      *        {@link #SLIDE_BORDER_MODE_CYCLE}, default is {@link #SLIDE_BORDER_MODE_NONE}
      */
@@ -319,7 +341,7 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * whether animating when auto scroll at the last or first item, default is true
-     * 
+     *
      * @return
      */
     public boolean isBorderAnimation() {
@@ -328,10 +350,17 @@ public class AutoScrollViewPager extends ViewPager {
 
     /**
      * set whether animating when auto scroll at the last or first item, default is true
-     * 
+     *
      * @param isBorderAnimation
      */
     public void setBorderAnimation(boolean isBorderAnimation) {
         this.isBorderAnimation = isBorderAnimation;
     }
+
+
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
+
 }
