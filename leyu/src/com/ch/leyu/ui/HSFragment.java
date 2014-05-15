@@ -62,6 +62,8 @@ public class HSFragment extends BaseFragment {
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
 
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
+        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
+        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
 
     }

@@ -7,7 +7,7 @@ import com.ch.leyu.utils.CommonUtil;
 import android.view.View;
 import android.widget.RadioButton;
 
-public class A extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     private RadioButton a, b, c, d;
 
