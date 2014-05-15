@@ -317,10 +317,10 @@ public class AsyncHttpClient {
     * requests. By default, Executors.newFixedThreadPool() is used.
     *
     * @param threadPool
-    *            an instance of {@link ThreadPoolExecutor} to use for
+    *            an instance of {@link ExecutorService} to use for
     *            queuing/pooling requests.
     */
-    public void setThreadPool(ThreadPoolExecutor threadPool) {
+    public void setThreadPool(ExecutorService threadPool) {
         this.threadPool = threadPool;
     }
 
