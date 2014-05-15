@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.ch.leyu.view.BaseScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu">
+    android:layout_height="fill_parent" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -11,37 +12,35 @@
         <com.ch.leyu.view.AutoScrollViewPager
             android:id="@+id/hs_auto_scroll_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="180dp" >
-        </com.ch.leyu.view.AutoScrollViewPager>
+            android:layout_height="180dp" />
 
         <com.ch.leyu.view.CircleLoopPageIndicator
             android:id="@+id/hs_cirle_pageindicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_alignBottom="@+id/hs_auto_scroll_viewpager"
-           android:layout_alignRight="@+id/hs_auto_scroll_viewpager"
+            android:layout_alignBottom="@+id/hs_auto_scroll_viewpager"
+            android:layout_alignRight="@+id/hs_auto_scroll_viewpager"
             android:padding="6dp"
             app:fillColor="#339933"
-            app:strokeColor="@android:color/transparent"
             app:pageColor="@android:color/darker_gray"
-            app:vpiradius="5dp"
             app:snap="true"
-            />
-        
+            app:strokeColor="@android:color/transparent"
+            app:vpiradius="5dp" />
+
         <ListView
             android:id="@+id/hs_listview_news"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
+            android:layout_below="@+id/hs_auto_scroll_viewpager"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp" 
-            android:layout_below="@+id/hs_auto_scroll_viewpager"/>
+            android:paddingTop="5dp" />
 
         <LinearLayout
             android:id="@+id/hs_ll_video"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/hs_listview_news" >
+            android:layout_below="@+id/hs_listview_news"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/hs_bt_match"
@@ -69,8 +68,8 @@
             android:id="@+id/hs_ll_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:layout_below="@+id/hs_ll_video">
+            android:layout_below="@+id/hs_ll_video"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,8 +112,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@+id/hs_ll_edit" >
+            android:layout_below="@+id/hs_ll_edit"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,8 +130,6 @@
                 android:numColumns="2"
                 android:stretchMode="columnWidth" />
         </LinearLayout>
-        
-        
     </RelativeLayout>
 
 </com.ch.leyu.view.BaseScrollView>

@@ -11,11 +11,11 @@ import com.ch.leyu.utils.Constant;
 import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.LYViewFlow;
 import com.ch.leyu.view.LYViewPager;
+import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerTabStrip;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class LOLFragment extends BaseFragment {
     private LYViewPager mViewPager;
 
     /** ViewPager指示器 */
-    private PagerTabStrip mTabStrip;
+    private PagerSlidingTabStrip mSlideTabIndicator ;
 
     private ArrayList<String> mTitleList;
 
@@ -65,13 +65,9 @@ public class LOLFragment extends BaseFragment {
         mViewFlow = (LYViewFlow) findViewById(R.id.lol_viewflow);
         mIndicator = (CircleFlowIndicator) findViewById(R.id.lol_viewflowindic);
         mViewPager = (LYViewPager) findViewById(R.id.lol_viewpager);
-        mTabStrip = (PagerTabStrip) findViewById(R.id.lol_pagertab);
-        // 设置下划线的颜色
-        mTabStrip.setTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
-        // 设置背景的颜色
-        mTabStrip.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.lol_pagertab);
         mPagerAdapter = new LYViewPagerAdapter(getChildFragmentManager(), addFragment(), addTitle());
-        mViewPager.setAdapter(mPagerAdapter);
+       
 
     }
 
@@ -82,6 +78,9 @@ public class LOLFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
+        mViewPager.setAdapter(mPagerAdapter);
+        mSlideTabIndicator.setViewPager(mViewPager);
+        mSlideTabIndicator.setTextSize(24);
         JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_URL, null, HSResponse.class,
                 new DataCallback<HSResponse>() {
 

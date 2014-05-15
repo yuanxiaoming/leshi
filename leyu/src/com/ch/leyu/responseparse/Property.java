@@ -2,7 +2,7 @@
 package com.ch.leyu.responseparse;
 
 /***
- * 新闻详情&&炉石传说
+ * 新闻详情&&炉石传说&&搜索--title
  * 
  * @author Administrator
  */

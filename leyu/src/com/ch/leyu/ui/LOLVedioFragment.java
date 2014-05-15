@@ -3,7 +3,6 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.GridViewAdapter;
-import com.ch.leyu.adapter.LYViewPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
@@ -12,8 +11,6 @@ import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 

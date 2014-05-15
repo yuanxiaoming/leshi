@@ -15,7 +15,7 @@
     </LinearLayout>
 
     <RadioGroup
-        android:id="@+id/rgp_main"
+        android:id="@+id/act_nav_rgp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#Ac000000"
@@ -23,7 +23,7 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/rb_main_account"
+            android:id="@+id/act_nav_rb_hs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,7 +37,7 @@
             android:textSize="13sp" />
 
         <RadioButton
-            android:id="@+id/rb_main_find"
+            android:id="@+id/act_nav_rb_lol"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -50,7 +50,7 @@
             android:textSize="13sp" />
 
         <RadioButton
-            android:id="@+id/rb_main_my"
+            android:id="@+id/act_nav_rb_star"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
             android:textSize="13sp" />
 
         <RadioButton
-            android:id="@+id/rb_main_setting"
+            android:id="@+id/act_nav_rb_news"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

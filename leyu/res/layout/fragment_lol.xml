@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -32,19 +33,24 @@
         </LinearLayout>
     </FrameLayout>
 
+    <com.ch.leyu.view.PagerSlidingTabStrip
+        android:id="@+id/lol_pagertab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/framelayout"
+        android:layout_weight="0"
+        app:pstsIndicatorColor="#339933"
+        app:pstsIndicatorHeight="6dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabPaddingLeftRight="12dp"
+        app:pstsUnderlineColor="#339933" />
+
     <com.ch.leyu.view.LYViewPager
         android:id="@+id/lol_viewpager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/framelayout" >
-
-        <!-- 这里可以把PagerTabStrip替换成PagerTitleStrip看看效果有何不同 -->
-
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/lol_pagertab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_below="@+id/lol_pagertab" >
     </com.ch.leyu.view.LYViewPager>
 
 </RelativeLayout>
