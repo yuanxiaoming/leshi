@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 /***
  * 搜索activity
- * 
+ *
  * @author L
  */
 public class SearchActivity extends BaseActivity implements OnItemClickListener {
@@ -59,8 +59,10 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers,VideoSearchResponse data) {
-                                if (data.getVideoList() == null) {
-
+                                if(data!=null){
+                                    Toast.makeText(mContext, "搜索到"+data.getTotalPage()+"相关的资料", Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(mContext, "搜索不到相关的资料", Toast.LENGTH_LONG).show();
                                 }
                             }
 
@@ -75,14 +77,10 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
                             }
 
                             @Override
-                            public void onFailure(int statusCode, Header[] headers,
-                                    String responseString, Exception exception) {
-
+                            public void onFailure(int statusCode, Header[] headers,String responseString, Exception exception) {
+                                Toast.makeText(mContext, "搜索不到相关的资料", Toast.LENGTH_LONG).show();
                             }
                         });
-                break;
-
-            default:
                 break;
         }
     }
