@@ -200,15 +200,13 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
     /**
     * Fired when the request is started, override to handle in your own code
     */
-    public void onStart() {
-    }
+    public abstract void onStart();
 
     /**
     * Fired in all cases when the request is finished, after both success and
     * failure, override to handle in your own code
     */
-    public void onFinish() {
-    }
+    public  abstract void onFinish();
 
     /**
     * Fired when a request returns successfully, override to handle in your own

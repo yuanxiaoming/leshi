@@ -14,23 +14,39 @@ public class FastJsonParser<T> extends BaseParser<T> {
     public static final String TAG = "FastJsonParser";
 
     @Override
-    public T parse(String result) throws Exception {
-        JSONObject paramObject = new JSONObject(result);
-        if(paramObject != null &&!TextUtils.isEmpty(paramObject.optString(CODE))){
-            if (paramObject != null && paramObject.optString(CODE).equals(SUCCESS) ){
-                JSONObject jsonObject = paramObject.optJSONObject(DATA);
-                if (jsonObject != null) {
-                    return JSON.parseObject(jsonObject.toString(), new TypeReference<T>() {});
-                } else{
-                    Log.d("JacksonParser", "没有数据可用");
-                }
-            }else{
-                Log.d("JacksonParser", "服务器code 代码错误");
-            }
+    public T parse(String rsp) throws Exception {
+        switch (parseType(rsp)) {
+        case BaseParserJSONObject:
+            JSONObject  paramObject = new JSONObject(rsp);
+            if(paramObject != null &&!TextUtils.isEmpty(paramObject.optString(CODE))){
+                if (paramObject != null && paramObject.optString(CODE).equals(SUCCESS) ){
+                    JSONObject jsonObject = paramObject.optJSONObject(DATA);
+                    if (jsonObject != null) {
+                        return JSON.parseObject(jsonObject.toString(), new TypeReference<T>() {});
+                    }else{
+                        Log.d(TAG, "没有数据可用");
+                        return null;
+                    }
+                }else{
+                    Log.d(TAG, "服务器code 代码错误");
+                    return null;
 
-        }else{
-            return JSON.parseObject(result, new TypeReference<T>() {});
+                }
+
+            }
+            return JSON.parseObject(rsp, new TypeReference<T>() {});
+
+        case BaseParserJSONArray:
+
+            break;
+        case BaseParserString:
+
+            break;
+
+        case BaseParserUnknown:
+            break;
         }
+
         return null;
     }
 }

@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class JacksonParser<T> extends BaseParser<T> {
-
+    public static final String TAG = "FastJsonParser";
     private static ObjectMapper sObjectMapper;
     /** 解析类型对象 **/
     private Class<T> mClazz;
@@ -25,39 +25,43 @@ public class JacksonParser<T> extends BaseParser<T> {
     }
 
     public T parse(String rsp) throws Exception {
-        JSONObject paramObject = new JSONObject(rsp);
-        if(paramObject != null &&!TextUtils.isEmpty(paramObject.optString(CODE))){
-            if (paramObject != null && paramObject.optString(CODE).equals(SUCCESS) ){
-                JSONObject jsonObject = paramObject.optJSONObject(DATA);
-                if (jsonObject != null) {
-                    if (sObjectMapper == null) {
-                        sObjectMapper = new ObjectMapper();
-                        sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                        sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
-                        // objectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES,
-                        // false);
+        if (sObjectMapper == null) {
+            sObjectMapper = new ObjectMapper();
+            sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
+            sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES, false);
+        }
+        switch (parseType(rsp)) {
+        case BaseParserJSONObject:
+            JSONObject  paramObject = new JSONObject(rsp);
+            if(paramObject != null &&!TextUtils.isEmpty(paramObject.optString(CODE))){
+                if (paramObject != null && paramObject.optString(CODE).equals(SUCCESS) ){
+                    JSONObject jsonObject = paramObject.optJSONObject(DATA);
+                    if (jsonObject != null) {
+                        return sObjectMapper.readValue(jsonObject.toString(), mClazz);
+                    }else{
+                        Log.d(TAG, "没有数据可用");
+                        return null;
                     }
-                    return sObjectMapper.readValue(jsonObject.toString(), mClazz);
                 }else{
-
-                    Log.d("JacksonParser", "没有数据可用");
+                    Log.d(TAG, "服务器code 代码错误");
+                    return null;
                 }
-            }else{
-                Log.d("JacksonParser", "服务器code 代码错误");
-            }
 
-        }else{
-
-            if (sObjectMapper == null) {
-                sObjectMapper = new ObjectMapper();
-                sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
-                // objectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES,
-                // false);
             }
             return sObjectMapper.readValue(rsp, mClazz);
 
+        case BaseParserJSONArray:
+
+            break;
+        case BaseParserString:
+
+            break;
+
+        case BaseParserUnknown:
+            break;
         }
+
         return null;
     }
 

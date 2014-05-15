@@ -6,6 +6,7 @@ import com.ch.leyu.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -27,13 +28,21 @@ public class ClearEditText extends EditText implements OnFocusChangeListener, Te
      */
     private boolean hasFoucs;
 
+    private String contentString;
+
+    private  boolean autoAnimation = true;
+
+
+
     public ClearEditText(Context context) {
         this(context, null);
+        init();
     }
 
     public ClearEditText(Context context, AttributeSet attrs) {
         // 这里构造方法也很重要，不加这个很多属性不能再XML里面定义
         this(context, attrs, android.R.attr.editTextStyle);
+        init();
     }
 
     public ClearEditText(Context context, AttributeSet attrs, int defStyle) {
@@ -91,12 +100,17 @@ public class ClearEditText extends EditText implements OnFocusChangeListener, Te
             setClearIconVisible(getText().length() > 0);
         } else {
             setClearIconVisible(false);
+            if (autoAnimation) {
+                if (TextUtils.isEmpty(contentString)) {
+                    setShakeAnimation();
+                }
+            }
         }
     }
 
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
-     * 
+     *
      * @param visible
      */
     protected void setClearIconVisible(boolean visible) {
@@ -122,7 +136,7 @@ public class ClearEditText extends EditText implements OnFocusChangeListener, Te
 
     @Override
     public void afterTextChanged(Editable s) {
-
+        contentString = s.toString();
     }
 
     /**
@@ -132,13 +146,24 @@ public class ClearEditText extends EditText implements OnFocusChangeListener, Te
         this.setAnimation(shakeAnimation(5));
     }
 
+
+    /**
+     * setter method
+     * @param autoAnimation
+     * the autoAnimation to set
+     */
+
+    public void setAutoAnimation(boolean autoAnimation) {
+        this.autoAnimation = autoAnimation;
+    }
+
     /**
      * 晃动动画
-     * 
+     *
      * @param counts 1秒钟晃动多少下
      * @return
      */
-    public static Animation shakeAnimation(int counts) {
+    private Animation shakeAnimation(int counts) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
         translateAnimation.setDuration(1000);
