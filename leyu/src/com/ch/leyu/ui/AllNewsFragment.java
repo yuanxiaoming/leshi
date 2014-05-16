@@ -1,32 +1,32 @@
 
 package com.ch.leyu.ui;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.apache.http.Header;
-
-import android.view.LayoutInflater;
-import android.view.View;
-
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.RegisterResponse;
+import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.view.AutoScrollViewPager;
 import com.ch.leyu.view.CircleLoopPageIndicator;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
+import org.apache.http.Header;
+
+import android.view.LayoutInflater;
+import android.view.View;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * 新闻资讯---全部Fragment
+ * 新闻资讯---全部
  *
- * @author CAIJIA
+ * @author L
  */
-public class AllFragment extends BaseFragment {
+public class AllNewsFragment extends BaseFragment {
 
     private XListView mXListView;
     private CLYAdapter mAdapter;
@@ -74,11 +74,9 @@ public class AllFragment extends BaseFragment {
     protected void processLogic() {
 
     	mAutoScrollViewPager.startAutoScroll(2000);
-    	HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity() , mDrawable);
-    	mAutoScrollViewPager.setAdapter(adapter);
     	mAutoScrollViewPager.setCurrentItem(mDrawable.length * 10000);
     	mCircleLoopPageIndicator.setPageCount(mDrawable.length);
-    	mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
+    	
 
     	mXListView.addHeaderView(mListViewHeaderView);
         mXListView.setPullRefreshEnable(true);
@@ -92,12 +90,15 @@ public class AllFragment extends BaseFragment {
     }
 
 	private void loadData() {
-		JHttpClient.get(getActivity(), Constant.A_URL, null, RegisterResponse.class,
-                new DataCallback<RegisterResponse>() {
+		JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS, null, AllNewResponse.class,
+                new DataCallback<AllNewResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, RegisterResponse data) {
-                        mAdapter = new CLYAdapter(getActivity(), data.getList());
+                    public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
+                        mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
+                        mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
+                     
+                        mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
                         mXListView.setAdapter(mAdapter);
                     }
 

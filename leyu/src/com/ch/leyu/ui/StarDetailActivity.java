@@ -26,11 +26,13 @@ import java.util.ArrayList;
 
 /***
  * 明星详情
- *
+ * 
  * @author L
  */
+
 public class StarDetailActivity extends BaseActivity implements OnClickListener {
 
+    /** 明星ID */
     private String uid;
 
     /** 明星头像 */
@@ -132,7 +134,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     private ArrayList<Fragment> addFragment() {
         mFragments = new ArrayList<Fragment>();
         mFragments.add(new NewVideoFragment());
-        mFragments.add(new AllFragment());
+        mFragments.add(new HotsVideoFragment());
         return mFragments;
     }
 
