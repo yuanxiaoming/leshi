@@ -62,6 +62,8 @@
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <activity android:name=".ui.SearchListActivity"></activity>
+        <activity android:name=".ui.FeedbackActivity"></activity>
     </application>
 
 </manifest>

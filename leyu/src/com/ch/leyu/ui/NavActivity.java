@@ -90,7 +90,8 @@ public class NavActivity extends BaseActivity implements OnClickListener {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_feedback:
-
+                intent = new Intent(this,FeedbackActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.action_search:
