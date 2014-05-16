@@ -25,7 +25,6 @@
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.AppCompat.Light"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,11 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ch.leyu.ui.NavActivity"
+            android:name="com.ch.leyu.ui.MainActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.AppCompat.Light"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
@@ -62,8 +60,13 @@
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <activity android:name=".ui.SearchListActivity"></activity>
-        <activity android:name=".ui.FeedbackActivity"></activity>
+        <activity
+            android:name="com.ch.leyu.ui.SearchListActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
     </application>
 
 </manifest>
