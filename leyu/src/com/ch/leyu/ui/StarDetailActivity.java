@@ -18,18 +18,18 @@ import org.apache.http.Header;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /***
  * 明星详情
- * 
+ *
  * @author L
  */
-public class StarDetailActivity extends BaseActivity {
+public class StarDetailActivity extends BaseActivity implements OnClickListener {
 
     private String uid;
 
@@ -89,7 +89,7 @@ public class StarDetailActivity extends BaseActivity {
                 addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
         mTabStrip.setTextSize(24);
-        
+
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,

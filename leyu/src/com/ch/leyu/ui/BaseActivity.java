@@ -10,13 +10,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewStub;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
-public abstract class BaseActivity extends ActionBarActivity implements OnClickListener {
+public abstract class BaseActivity extends ActionBarActivity{
     protected FragmentActivity mContext;
 
     protected ActionBar mActionBar;
