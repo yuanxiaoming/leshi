@@ -1,12 +1,19 @@
 
 package com.ch.leyu.responseparse;
 
+import java.io.Serializable;
+
 /***
  * 新闻详情&&炉石传说&&搜索--title
  * 
  * @author Administrator
  */
-public class Property {
+public class Property implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7501646692922101207L;
+
     private String id;
 
     private String title;

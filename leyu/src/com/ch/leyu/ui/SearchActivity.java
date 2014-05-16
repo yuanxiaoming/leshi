@@ -12,6 +12,7 @@ import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,7 +25,7 @@ import android.widget.Toast;
 
 /***
  * 搜索activity
- *
+ * 
  * @author L
  */
 public class SearchActivity extends BaseActivity implements OnItemClickListener {
@@ -35,7 +36,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
     /** 输入内容 */
     private EditText mDetail;
 
-    /** 热门搜索，历史搜索 */
+    /** 热门搜索，历史记录 */
     private GridView mHots, mHistory;
 
     /** 没有搜索结果 */
@@ -51,7 +52,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
 
                 break;
             case R.id.act_search_bt_search:
-                String keyWord = mDetail.getText().toString();
+                final String keyWord = mDetail.getText().toString();
                 RequestParams params = new RequestParams();
                 params.put(Constant.KEYWORD, keyWord);
 
@@ -59,11 +60,13 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers,VideoSearchResponse data) {
-                                if(data!=null){
-                                    Toast.makeText(mContext, "搜索到"+data.getTotalPage()+"相关的资料", Toast.LENGTH_LONG).show();
-                                }else{
-                                    Toast.makeText(mContext, "搜索不到相关的资料", Toast.LENGTH_LONG).show();
+                                if (data != null) {
+                                    Intent intent = new Intent(SearchActivity.this,SearchListActivity.class);
+                                    intent.putExtra("result", data);
+                                    intent.putExtra(Constant.KEYWORD, keyWord);
+                                    startActivity(intent);
                                 }
+
                             }
 
                             @Override
@@ -78,7 +81,9 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
 
                             @Override
                             public void onFailure(int statusCode, Header[] headers,String responseString, Exception exception) {
-                                Toast.makeText(mContext, "搜索不到相关的资料", Toast.LENGTH_LONG).show();
+
+                                mHistory.setVisibility(View.GONE);
+                                mResult.setVisibility(View.VISIBLE);
                             }
                         });
                 break;
@@ -117,8 +122,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
     @Override
     protected void processLogic() {
 
-        JHttpClient.get(this, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,
-                new DataCallback<SearchResponse>() {
+        JHttpClient.get(this, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,new DataCallback<SearchResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, SearchResponse data) {
@@ -136,8 +140,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
-                            Exception exception) {
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
 
                     }
                 });
@@ -145,7 +148,6 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO Auto-generated method stub
 
     }
 
