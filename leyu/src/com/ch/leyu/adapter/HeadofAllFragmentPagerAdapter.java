@@ -1,21 +1,28 @@
 package com.ch.leyu.adapter;
 
+import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.ImageLoaderUtil;
+import com.ch.leyu.view.RecyclingPagerAdapter;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import com.ch.leyu.view.RecyclingPagerAdapter;
+
+import java.util.ArrayList;
 
 public class HeadofAllFragmentPagerAdapter extends RecyclingPagerAdapter {
 
-	private int [] mFocus ;
 	private Context mContext ;
+	
+	private ArrayList<Property>mList;
 
-	public HeadofAllFragmentPagerAdapter(Context context, int [] focus) {
-		mFocus = focus ;
-		mContext = context ;
+	public HeadofAllFragmentPagerAdapter(Context context, ArrayList<Property>arrayList) {
+	   this.mList = arrayList ;
+	   this.mContext = context ;
 	}
 
 	@Override
@@ -35,7 +42,8 @@ public class HeadofAllFragmentPagerAdapter extends RecyclingPagerAdapter {
 		holder.image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		holder.image.setScaleType(ScaleType.FIT_XY);
 
-		holder.image.setImageResource(mFocus[position % mFocus.length]);
+		 ImageLoader.getInstance().displayImage(mList.get(position % mList.size()).getImageSrc(),
+	                holder.image,ImageLoaderUtil.getImageLoaderOptions());
 		return convertView;
 	}
 

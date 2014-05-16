@@ -2,13 +2,14 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.LYViewPagerAdapter;
 import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import java.util.ArrayList;
 
 /***
  * 首页--新闻资讯
@@ -19,7 +20,8 @@ public class NewsFragment extends BaseFragment {
 
     private PagerSlidingTabStrip mSlideTabIndicator ;
     private ViewPager mViewPager ;
-    private String [] mNewsTitle = new String[]{"全部","炉石传说","英雄联盟","其他"};
+    private ArrayList<String> mTitleList;
+    private ArrayList<Fragment> mFragmentList;
 
     @Override
     public void onClick(View v) {
@@ -49,30 +51,29 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-    	mViewPager.setAdapter(new NewsAdapter(getChildFragmentManager()));
+    	mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(), addTitle()));
     	mSlideTabIndicator.setViewPager(mViewPager);
     	mSlideTabIndicator.setTextSize(24);
     }
 
-    private final class NewsAdapter extends FragmentStatePagerAdapter{
+    
+    private ArrayList<String> addTitle() {
+        mTitleList = new ArrayList<String>();
+        mTitleList.add("全部");
+        mTitleList.add("炉石传说");
+        mTitleList.add("英雄联盟");
+        mTitleList.add("其他");
 
-		public NewsAdapter(FragmentManager fm) {
-			super(fm);
-		}
+        return mTitleList;
+    }
 
-		@Override
-		public Fragment getItem(int positionn) {
-			return new AllFragment();
-		}
+    private ArrayList<Fragment> addFragment() {
+        mFragmentList = new ArrayList<Fragment>();
+        mFragmentList.add(new AllNewsFragment());
+        mFragmentList.add(new AllNewsFragment());
+        mFragmentList.add(new AllNewsFragment());
+        mFragmentList.add(new AllNewsFragment());
+        return mFragmentList;
 
-		@Override
-		public int getCount() {
-			return mNewsTitle.length;
-		}
-
-		@Override
-		public CharSequence getPageTitle(int position) {
-			return mNewsTitle[position];
-		}
     }
 }

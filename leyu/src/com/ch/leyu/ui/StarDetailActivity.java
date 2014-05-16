@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  * @author L
  */
 public class StarDetailActivity extends BaseActivity {
-
+    /** 明星ID */
     private String uid;
 
     /** 明星头像 */
@@ -49,6 +48,7 @@ public class StarDetailActivity extends BaseActivity {
     private ArrayList<String> mTitles;
 
     private ArrayList<Fragment> mFragments;
+    
 
     @Override
     public void onClick(View v) {
@@ -89,7 +89,7 @@ public class StarDetailActivity extends BaseActivity {
                 addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
         mTabStrip.setTextSize(24);
-        
+
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,
@@ -132,7 +132,7 @@ public class StarDetailActivity extends BaseActivity {
     private ArrayList<Fragment> addFragment() {
         mFragments = new ArrayList<Fragment>();
         mFragments.add(new NewVideoFragment());
-        mFragments.add(new AllFragment());
+        mFragments.add(new HotsVideoFragment());
         return mFragments;
     }
 
@@ -143,5 +143,6 @@ public class StarDetailActivity extends BaseActivity {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
 
 }

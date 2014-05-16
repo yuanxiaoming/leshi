@@ -15,11 +15,11 @@ import android.view.View;
 import android.widget.GridView;
 
 /**
- * 明星视频--最新上传
+ * 明星视频--最热播放
  * 
  * @author L
  */
-public class NewVideoFragment extends BaseFragment {
+public class HotsVideoFragment extends BaseFragment {
 
     private GridView mGridView;
 
@@ -56,6 +56,8 @@ public class NewVideoFragment extends BaseFragment {
     protected void processLogic() {
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
+        // 如果是最多播放添加如下参数
+        params.put(Constant.SORT, "click");
         JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
                 StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 

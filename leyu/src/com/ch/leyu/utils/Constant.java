@@ -17,6 +17,9 @@ public interface Constant {
 
     public static final String KEYWORD = "keyword";
 
+    /** 游戏id */
+    public static final String GMAE_ID = "gameId";
+
     // 测试接口
     public static final String A_URL = "http://manhua.haomee.net/?android_version=203&m=Api&a=listByType&limit=15&id=57&order=3&page=1";
 
@@ -43,4 +46,12 @@ public interface Constant {
 
     /** 热词搜索 */
     public static final String HOT_SEARCH = "search.php?action=hot";
+
+    /** 全部新闻 */
+    public static final String ALL_NEWS = "news.php?";
+    
+    /** 其他新闻 */
+    public static final String RESTS_NEWS = "action=list";
+    
+
 }

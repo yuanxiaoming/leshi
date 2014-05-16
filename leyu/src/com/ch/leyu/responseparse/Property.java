@@ -4,7 +4,7 @@ package com.ch.leyu.responseparse;
 import java.io.Serializable;
 
 /***
- * 新闻详情&&炉石传说&&搜索--title
+ * 新闻详情&&炉石传说&&搜索--title&&createTime--全部新闻
  * 
  * @author Administrator
  */
@@ -21,6 +21,16 @@ public class Property implements Serializable {
     private String imageSrc;
 
     private String linkUrl;
+
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public String getLinkUrl() {
         return linkUrl;
