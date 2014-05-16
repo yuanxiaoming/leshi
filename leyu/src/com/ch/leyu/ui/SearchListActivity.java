@@ -13,6 +13,7 @@ import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -20,12 +21,12 @@ import android.widget.TextView;
 
 /***
  * 搜索结果列表显示
- * 
+ *
  * 暂未处理没有结果时的显示情况
- * 
+ *
  * @author L
  */
-public class SearchListActivity extends BaseActivity {
+public class SearchListActivity extends BaseActivity implements OnClickListener {
 
     /** 最新 */
     private Button mNewst;

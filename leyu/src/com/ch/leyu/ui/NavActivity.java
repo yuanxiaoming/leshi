@@ -4,18 +4,20 @@ package com.ch.leyu.ui;
 import com.ch.leyu.R;
 import com.ch.leyu.utils.CommonUtil;
 
+
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 
 /***
  * 导航页
- * 
+ *
  * @author Administrator
  */
-public class NavActivity extends BaseActivity {
+public class NavActivity extends BaseActivity implements OnClickListener {
 
     private RadioButton mHs, mLol, mStar, mNews;
 

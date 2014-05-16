@@ -7,15 +7,11 @@ import android.view.View;
 
 /***
  * 反馈
- * 
+ *
  * @author L
  */
 public class FeedbackActivity extends BaseActivity {
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

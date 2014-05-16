@@ -13,6 +13,8 @@
     <string name="txt_problem_description1">*请填问题描述</string>
     <string name="txt_feedback_contact">联系方式:</string>
     <string name="txt_feedback_contact_txt">手机型号:</string>
+    <string name="launch_start_app_btn_txt">进入APP主界面</string>
+    <string name="launch_app_version_txt">v</string>
 
     <!-- 视频搜索结果 -->
     <string name="search_newst">最新</string>

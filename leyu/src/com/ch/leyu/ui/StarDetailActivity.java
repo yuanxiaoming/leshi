@@ -18,6 +18,7 @@ import org.apache.http.Header;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +29,9 @@ import java.util.ArrayList;
  * 
  * @author L
  */
-public class StarDetailActivity extends BaseActivity {
+
+public class StarDetailActivity extends BaseActivity implements OnClickListener {
+
     /** 明星ID */
     private String uid;
 
@@ -48,7 +51,6 @@ public class StarDetailActivity extends BaseActivity {
     private ArrayList<String> mTitles;
 
     private ArrayList<Fragment> mFragments;
-    
 
     @Override
     public void onClick(View v) {
@@ -143,6 +145,5 @@ public class StarDetailActivity extends BaseActivity {
     public void setUid(String uid) {
         this.uid = uid;
     }
-
 
 }
