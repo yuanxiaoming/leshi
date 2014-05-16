@@ -47,7 +47,6 @@ public abstract class BaseActivity extends ActionBarActivity{
         }
         mContext = this;
         mActionBar = getSupportActionBar();
-        mActionBar.setIcon(android.R.drawable.sym_action_chat);
         initView();
         ExitAppUtils.getInstance().addActivity(this);
 

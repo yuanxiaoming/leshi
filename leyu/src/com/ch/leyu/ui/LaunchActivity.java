@@ -93,7 +93,7 @@ public class LaunchActivity extends BaseActivity {
 
     private void gotoMainActivity() {
         Intent intent = getIntent();
-        intent.setClass(this, NavActivity.class);
+        intent.setClass(this, MainActivity.class);
         startActivity(intent);
     }
 

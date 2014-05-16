@@ -17,7 +17,7 @@ import android.widget.RadioButton;
  *
  * @author Administrator
  */
-public class NavActivity extends BaseActivity implements OnClickListener {
+public class MainActivity extends BaseActivity implements OnClickListener {
 
     private RadioButton mHs, mLol, mStar, mNews;
 
@@ -34,11 +34,11 @@ public class NavActivity extends BaseActivity implements OnClickListener {
 
             case R.id.act_nav_rb_star:
                 CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-                        new StarGirefFragment(), "");
+                                new StarGirefFragment(), "");
                 break;
             case R.id.act_nav_rb_news:
                 CommonUtil
-                        .switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
+                .switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
                 break;
             default:
                 break;
@@ -47,7 +47,7 @@ public class NavActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void getExtraParams() {
-
+        mActionBar.setDisplayShowHomeEnabled(false);
     }
 
     @Override
@@ -89,13 +89,13 @@ public class NavActivity extends BaseActivity implements OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.action_feedback:
-                intent = new Intent(this,FeedbackActivity.class);
+            case R.id.action_search:
+                intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 break;
 
-            case R.id.action_search:
-                intent = new Intent(this, SearchActivity.class);
+            case R.id.action_feedback:
+                intent = new Intent(this,FeedbackActivity.class);
                 startActivity(intent);
                 break;
 
