@@ -26,7 +26,7 @@ public class CLYAdapter extends ArrayAdapter<Property> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_allnew,
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_allnew_item,
                     parent, false);
             holder = new ViewHolder();
             holder.img = (ImageView) convertView.findViewById(R.id.allnews_item_img);

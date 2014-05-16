@@ -15,6 +15,7 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -26,6 +27,7 @@ import java.util.Date;
  *
  * @author L
  */
+@SuppressLint("SimpleDateFormat")
 public class AllNewsFragment extends BaseFragment {
 
     private XListView mXListView;
@@ -77,7 +79,6 @@ public class AllNewsFragment extends BaseFragment {
     	mAutoScrollViewPager.setCurrentItem(mDrawable.length * 10000);
     	mCircleLoopPageIndicator.setPageCount(mDrawable.length);
     	
-
     	mXListView.addHeaderView(mListViewHeaderView);
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
