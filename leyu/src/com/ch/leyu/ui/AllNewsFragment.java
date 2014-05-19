@@ -24,25 +24,24 @@ import java.util.Date;
 
 /**
  * 新闻资讯---全部
- *
+ * 
  * @author L
  */
 @SuppressLint("SimpleDateFormat")
 public class AllNewsFragment extends BaseFragment {
 
     private XListView mXListView;
+
     private CLYAdapter mAdapter;
+
     private SimpleDateFormat mSimpleDateFormat;
 
-    //ListView 要加入的头部View
-    private View mListViewHeaderView ;
+    // ListView 要加入的头部View
+    private View mListViewHeaderView;
 
-    private AutoScrollViewPager mAutoScrollViewPager ;
-    private CircleLoopPageIndicator mCircleLoopPageIndicator ;
+    private AutoScrollViewPager mAutoScrollViewPager;
 
-	private int mDrawable[] = new int[] { R.drawable.biz_plugin_weather_beijin,
-			R.drawable.biz_plugin_weather_guangzhou,
-			R.drawable.biz_plugin_weather_shanghai };
+    private CircleLoopPageIndicator mCircleLoopPageIndicator;
 
     @Override
     public void onClick(View v) {
@@ -62,8 +61,8 @@ public class AllNewsFragment extends BaseFragment {
 
     @Override
     protected void findViewById() {
-    	mAutoScrollViewPager = (AutoScrollViewPager) mListViewHeaderView.findViewById(R.id.all_auto_scroll_viewpager);
-    	mCircleLoopPageIndicator = (CircleLoopPageIndicator) mListViewHeaderView.findViewById(R.id.all_cirle_pageindicator);
+        mAutoScrollViewPager = (AutoScrollViewPager) mListViewHeaderView.findViewById(R.id.all_auto_scroll_viewpager);
+        mCircleLoopPageIndicator = (CircleLoopPageIndicator) mListViewHeaderView.findViewById(R.id.all_cirle_pageindicator);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
     }
 
@@ -75,30 +74,29 @@ public class AllNewsFragment extends BaseFragment {
     @Override
     protected void processLogic() {
 
-    	mAutoScrollViewPager.startAutoScroll(2000);
-    	mAutoScrollViewPager.setCurrentItem(mDrawable.length * 10000);
-    	mCircleLoopPageIndicator.setPageCount(mDrawable.length);
-    	
-    	mXListView.addHeaderView(mListViewHeaderView);
+        mXListView.addHeaderView(mListViewHeaderView);
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
         mXListView.setXListViewListener(mIXListViewListenerImp);
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
 
-    	loadData();
+        loadData();
 
     }
 
-	private void loadData() {
-		JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS, null, AllNewResponse.class,
-                new DataCallback<AllNewResponse>() {
+    private void loadData() {
+        JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS, null,
+                AllNewResponse.class, new DataCallback<AllNewResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
+                        mAutoScrollViewPager.startAutoScroll(2000);
+                        mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                        mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                         mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                         mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
-                     
+
                         mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
                         mXListView.setAdapter(mAdapter);
                     }
@@ -120,7 +118,7 @@ public class AllNewsFragment extends BaseFragment {
                     }
 
                 });
-	}
+    }
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新

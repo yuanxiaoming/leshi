@@ -74,7 +74,7 @@ public class NewsFragment extends BaseFragment {
     private ArrayList<Fragment> addFragment() {
         mFragmentList = new ArrayList<Fragment>();
         mFragmentList.add(new AllNewsFragment());
-        mFragmentList.add(new AllNewsFragment());
+        mFragmentList.add(new HSNewsFragment());
         mFragmentList.add(new LOLNewsFragment());
         mFragmentList.add(new OtherNewsFragment());
         return mFragmentList;

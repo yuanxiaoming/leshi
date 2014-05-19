@@ -17,14 +17,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 /***
  * 首页--炉石传说
- *
- *
+ * 
  * @author L
  */
 public class HSFragment extends BaseFragment {
@@ -41,13 +42,38 @@ public class HSFragment extends BaseFragment {
     /** Hot */
     private LYGridView mHotGrid;
 
-    private AutoScrollViewPager mAtuoScrollViewPager ;
+    private AutoScrollViewPager mAtuoScrollViewPager;
 
-    private CircleLoopPageIndicator mCircleLoopPageIndicator ;
+    private CircleLoopPageIndicator mCircleLoopPageIndicator;
+
+    /** 赛事专区 */
+    private Button mMatch;
+
+    /** 视频库 */
+    private Button mVideos;
+
+    /** 高玩攻略 */
+    private Button mRaiders;
 
     @Override
     public void onClick(View v) {
+        Intent intent = null ;
+        switch (v.getId()) {
+            case R.id.hs_bt_match:
 
+                break;
+            case R.id.hs_bt_videos:
+                intent = new Intent(getActivity(), VideosActivity.class);
+                startActivity(intent);
+                
+                break;
+            case R.id.hs_bt_raiders:
+
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override
@@ -57,6 +83,9 @@ public class HSFragment extends BaseFragment {
         mBigImg2 = (ImageView) findViewById(R.id.hs_img_bigRecommend2);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
+        mMatch = (Button) findViewById(R.id.hs_bt_match);
+        mVideos = (Button) findViewById(R.id.hs_bt_videos);
+        mRaiders = (Button) findViewById(R.id.hs_bt_raiders);
 
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
         mAtuoScrollViewPager.setStopScrollWhenTouch(false);
@@ -80,12 +109,13 @@ public class HSFragment extends BaseFragment {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
 
-                    	mAtuoScrollViewPager.startAutoScroll(2000);
-                    	AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity() , data.getFocus());
-                    	mAtuoScrollViewPager.setAdapter(adapter);
-                    	mAtuoScrollViewPager.setCurrentItem(data.getFocus().size()*10000);
-                    	mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                    	mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
+                        mAtuoScrollViewPager.startAutoScroll(2000);
+                        AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(
+                                getActivity(), data.getFocus());
+                        mAtuoScrollViewPager.setAdapter(adapter);
+                        mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                        mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                        mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
 
                         mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
                         mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
@@ -121,7 +151,9 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mMatch.setOnClickListener(this);
+        mVideos.setOnClickListener(this);
+        mRaiders.setOnClickListener(this);
     }
 
     @Override

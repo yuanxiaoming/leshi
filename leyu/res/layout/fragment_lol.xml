@@ -4,40 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <FrameLayout
-        android:id="@+id/framelayout"
+    <include
+        android:id="@+id/fragment_lol_include"
         android:layout_width="fill_parent"
-        android:layout_height="150dip"
-        android:background="#ffffff" >
-
-        <com.ch.leyu.view.LYViewFlow
-            android:id="@+id/lol_viewflow"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </com.ch.leyu.view.LYViewFlow>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#88252525"
-            android:gravity="center"
-            android:padding="3dip" >
-
-            <com.ch.leyu.view.CircleFlowIndicator
-                android:id="@+id/lol_viewflowindic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:padding="2dip" />
-        </LinearLayout>
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        layout="@layout/all_fragment_head" />
 
     <com.ch.leyu.view.PagerSlidingTabStrip
-        android:id="@+id/lol_pagertab"
+        android:id="@+id/fragment_lol_pagertab"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/framelayout"
+        android:layout_below="@+id/fragment_lol_include"
         android:layout_weight="0"
         app:pstsIndicatorColor="#339933"
         app:pstsIndicatorHeight="6dp"
@@ -46,11 +23,11 @@
         app:pstsUnderlineColor="#339933" />
 
     <com.ch.leyu.view.LYViewPager
-        android:id="@+id/lol_viewpager"
+        android:id="@+id/fragment_lol_viewpager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lol_pagertab" >
+        android:layout_below="@+id/fragment_lol_pagertab" >
     </com.ch.leyu.view.LYViewPager>
 
 </RelativeLayout>
