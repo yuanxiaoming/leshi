@@ -109,15 +109,14 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
-//            // Sleep一会后结束程序
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                Log.e(TAG, "Error : ", e);
-//            }
-//           android.os.Process.killProcess(android.os.Process.myPid());
-//           System.exit(1);
-            mDefaultHandler.uncaughtException(thread, ex);
+            // Sleep一会后结束程序
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                Log.e(TAG, "Error : ", e);
+            }
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
 
         }
     }
@@ -143,7 +142,6 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
             public void run() {
                 Looper.prepare();
                 showToast(mContext, "程序出错，即将退出:\r\n" + msg);
-
                 Looper.loop();
             }
         }.start();
@@ -151,10 +149,9 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         collectCrashDeviceInfo(mContext);
         // 保存错误报告文件
         saveCrashInfoToFile(ex);
-
         ExitAppUtils.getInstance().exit();
         // 发送错误报告到服务器
-   //     sendCrashReportsToServer(mContext);
+        //     sendCrashReportsToServer(mContext);
 
         return true;
     }
@@ -242,29 +239,35 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
      * @param ex
      * @return
      */
-    private void saveCrashInfoToFile(Throwable ex) {
-        Writer info = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(info);
-        ex.printStackTrace(printWriter);
-        Throwable cause = ex.getCause();
-        while (cause != null) {
-            cause.printStackTrace(printWriter);
-            cause = cause.getCause();
-        }
-        String result = info.toString();
-        printWriter.close();
-        mProperties.put(STACK_TRACE, result);
-        String fileName = "";
-        try {
-            fileName = "Crash_" +  paserTime(System.currentTimeMillis()) + CRASH_REPORTER_EXTENSION;
-            FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE);
-            mProperties.store(trace, "Crash_log");
-            trace.flush();
-            trace.close();
-            Log.d(TAG, fileName);
-        } catch (Exception e) {
-            Log.e(TAG, "an error occured while writing report file..." + fileName, e);
-        }
+    private void saveCrashInfoToFile(final Throwable ex) {
+
+        new Thread(){
+            public void run() {
+                Writer info = new StringWriter();
+                PrintWriter printWriter = new PrintWriter(info);
+                ex.printStackTrace(printWriter);
+                Throwable cause = ex.getCause();
+                while (cause != null) {
+                    cause.printStackTrace(printWriter);
+                    cause = cause.getCause();
+                }
+                String result = info.toString();
+                printWriter.close();
+                mProperties.put(STACK_TRACE, result);
+                String fileName = "";
+                try {
+                    fileName = "Crash_" +  paserTime(System.currentTimeMillis()) + CRASH_REPORTER_EXTENSION;
+                    FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE);
+                    mProperties.store(trace, "Crash_log");
+                    trace.flush();
+                    trace.close();
+                    Log.d(TAG, fileName);
+                } catch (Exception e) {
+                    Log.e(TAG, "an error occured while writing report file..." + fileName, e);
+                }
+            };
+        }.start();
+
     }
 
     /**
@@ -302,93 +305,5 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         String times = format.format(new Date(milliseconds));
         return times;
     }
-
-
-
-    /* *//**
-     * 获取一些简单的信息,软件版本，手机版本，型号等信息存放在HashMap中 收集程序崩溃的设备信息
-     * @param context
-     * @return
-     *//*
-
-    private HashMap<String, String> obtainSimpleInfo(Context context) {
-        HashMap<String, String> map = new HashMap<String, String>();
-        PackageManager mPackageManager = context.getPackageManager();
-        PackageInfo mPackageInfo = null;
-        try {
-            mPackageInfo = mPackageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
-            if (mPackageInfo != null) {
-                map.put("versionName", mPackageInfo.versionName);
-                map.put("versionCode", "" + mPackageInfo.versionCode);
-            }
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        map.put("MODEL", "" + Build.MODEL);
-        map.put("SDK_INT", "" + Build.VERSION.SDK_INT);
-        map.put("PRODUCT", "" + Build.PRODUCT);
-
-        return map;
-    }
-      */
-    /*    *//**
-     * 获取系统未捕捉的错误信息
-     *
-     * @param throwable
-     * @return
-     */
-    /*
-    private String obtainExceptionInfo(Throwable throwable) {
-        StringWriter mStringWriter = new StringWriter();
-        PrintWriter mPrintWriter = new PrintWriter(mStringWriter);
-        throwable.printStackTrace(mPrintWriter);
-        mPrintWriter.close();
-
-        Log.e(TAG, mStringWriter.toString());
-        return mStringWriter.toString();
-    }
-     */
-    /* *//**
-     * 保存获取的 软件信息，设备信息和出错信息保存在SDcard中
-     *
-     * @param context
-     * @param ex
-     * @return
-     */
-
-    /*
-    private String savaInfoToSD(Context context, Throwable ex) {
-        String fileName = null;
-        StringBuffer sb = new StringBuffer();
-
-        for (Map.Entry<String, String> entry : obtainSimpleInfo(context).entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            sb.append(key).append(" = ").append(value).append("\n");
-        }
-
-        sb.append(obtainExceptionInfo(ex));
-
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File dir = new File(SDCARD_ROOT + File.separator + "crash" + File.separator);
-            if (!dir.exists()) {
-                dir.mkdir();
-            }
-            try {
-                fileName = dir.toString() + File.separator + paserTime(System.currentTimeMillis()) + ".log";
-                FileOutputStream fos = new FileOutputStream(fileName);
-                fos.write(sb.toString().getBytes());
-                fos.flush();
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        return fileName;
-
-    }
-     */
 
 }
