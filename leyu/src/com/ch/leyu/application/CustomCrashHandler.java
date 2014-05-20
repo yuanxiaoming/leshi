@@ -63,7 +63,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
 
     /** 错误报告文件的扩展名 */
 
-    private static final String CRASH_REPORTER_EXTENSION = ".properties";
+    private static final String CRASH_REPORTER_EXTENSION = ".txt";
 
     private CustomCrashHandler() {
         //        SDCARD_ROOT = Environment.getExternalStorageDirectory().toString();
@@ -252,7 +252,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
                 printWriter.close();
                 Log.e(TAG, result);
                 mProperties.put(STACK_TRACE, result);
-                String fileName = "Crash_" +  paserTime(System.currentTimeMillis()) + CRASH_REPORTER_EXTENSION;
+                String fileName = paserTime(System.currentTimeMillis())+"_crash"+ CRASH_REPORTER_EXTENSION;
                 try {
                     FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE|Context.MODE_APPEND);
                     mProperties.store(trace, null);
@@ -260,7 +260,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
                     trace.close();
                     Log.e(TAG, "writing report" + fileName+" file over");
                 }catch (Exception e) {
-                    Log.e(TAG, "an error occured while writing report" + fileName+" file " +e.getLocalizedMessage());
+                    Log.e(TAG, "an error occured while writing report " + fileName+" file " +e.getLocalizedMessage());
                 }
 
             };
@@ -301,7 +301,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         // System.setProperty("user.timezone", "Asia/Guangzhou");
         // TimeZone tz = TimeZone.getTimeZone("Asia/Guangzhou");
         // TimeZone.setDefault(tz);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
         String times = format.format(new Date(milliseconds));
         return times;
     }
