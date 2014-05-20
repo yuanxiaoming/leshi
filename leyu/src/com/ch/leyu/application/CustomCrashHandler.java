@@ -8,13 +8,16 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -33,7 +36,7 @@ import java.util.TreeSet;
  * @author ldx
  */
 public class CustomCrashHandler implements UncaughtExceptionHandler {
-    private static final String TAG = "Activity";
+    private static final String TAG = "CustomCrashHandler";
 
     private Context mContext;
 
@@ -60,7 +63,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
 
     /** 错误报告文件的扩展名 */
 
-    private static final String CRASH_REPORTER_EXTENSION = ".cr";
+    private static final String CRASH_REPORTER_EXTENSION = ".properties";
 
     private CustomCrashHandler() {
         //        SDCARD_ROOT = Environment.getExternalStorageDirectory().toString();
@@ -105,6 +108,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+        Log.e(TAG,"Caused by: "+ex.toString()+" Thread name "+thread.getName());
         if (!handleException(ex) && mDefaultHandler != null) {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
@@ -132,24 +136,17 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         if (ex == null) {
             return true;
         }
-        final String msg = ex.getLocalizedMessage();
-        if(msg == null) {
-            return false;
-        }
         //使用Toast来显示异常信息
         new Thread() {
             @Override
             public void run() {
                 Looper.prepare();
-                showToast(mContext, "程序出错，即将退出:\r\n" + msg);
+                showToast(mContext, "程序出错，即将退出");
                 Looper.loop();
             }
         }.start();
-        // 收集设备信息
-        collectCrashDeviceInfo(mContext);
         // 保存错误报告文件
-        saveCrashInfoToFile(ex);
-        ExitAppUtils.getInstance().exit();
+        saveCrashInfoToFile(mContext,ex);
         // 发送错误报告到服务器
         //     sendCrashReportsToServer(mContext);
 
@@ -239,10 +236,10 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
      * @param ex
      * @return
      */
-    private void saveCrashInfoToFile(final Throwable ex) {
-
+    private void saveCrashInfoToFile(final Context context,final Throwable ex) {
         new Thread(){
             public void run() {
+                collectCrashDeviceInfo(context);
                 Writer info = new StringWriter();
                 PrintWriter printWriter = new PrintWriter(info);
                 ex.printStackTrace(printWriter);
@@ -253,20 +250,23 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
                 }
                 String result = info.toString();
                 printWriter.close();
+                Log.e(TAG, result);
                 mProperties.put(STACK_TRACE, result);
-                String fileName = "";
+                String fileName = "Crash_" +  paserTime(System.currentTimeMillis()) + CRASH_REPORTER_EXTENSION;
                 try {
-                    fileName = "Crash_" +  paserTime(System.currentTimeMillis()) + CRASH_REPORTER_EXTENSION;
-                    FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE);
-                    mProperties.store(trace, "Crash_log");
+                    FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE|Context.MODE_APPEND);
+                    mProperties.store(trace, null);
                     trace.flush();
                     trace.close();
-                    Log.d(TAG, fileName);
-                } catch (Exception e) {
-                    Log.e(TAG, "an error occured while writing report file..." + fileName, e);
+                    Log.e(TAG, "writing report" + fileName+" file over");
+                }catch (Exception e) {
+                    Log.e(TAG, "an error occured while writing report" + fileName+" file " +e.getLocalizedMessage());
                 }
+
             };
+
         }.start();
+
 
     }
 
@@ -280,15 +280,15 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
             if (pi != null) {
-                mProperties.put(VERSION_NAME, pi.versionName == null ? "not set" : pi.versionName);
-                mProperties.put(VERSION_CODE, pi.versionCode);
+                mProperties.put(VERSION_NAME, TextUtils.isEmpty(pi.versionName) ? "not set versionName" : pi.versionName);
+                mProperties.put(VERSION_CODE, String.valueOf(pi.versionCode));
             }
         } catch (NameNotFoundException e) {
             Log.e(TAG, "Error while collect package info", e);
         }
-        mProperties.put("MODEL", "" + Build.MODEL);
-        mProperties.put("SDK_INT", "" + Build.VERSION.SDK_INT);
-        mProperties.put("PRODUCT", "" + Build.PRODUCT);
+        mProperties.put("MODEL", Build.MODEL);
+        mProperties.put("SDK_INT",String.valueOf(Build.VERSION.SDK_INT));
+        mProperties.put("PRODUCT", Build.PRODUCT);
 
     }
     /**
@@ -301,7 +301,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         // System.setProperty("user.timezone", "Asia/Guangzhou");
         // TimeZone tz = TimeZone.getTimeZone("Asia/Guangzhou");
         // TimeZone.setDefault(tz);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss", Locale.getDefault());
         String times = format.format(new Date(milliseconds));
         return times;
     }
