@@ -258,7 +258,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
                     mProperties.store(trace, null);
                     trace.flush();
                     trace.close();
-                    Log.e(TAG, "writing report" + fileName+" file over");
+                    Log.e(TAG, "writing report " + fileName+" file over");
                 }catch (Exception e) {
                     Log.e(TAG, "an error occured while writing report " + fileName+" file " +e.getLocalizedMessage());
                 }
