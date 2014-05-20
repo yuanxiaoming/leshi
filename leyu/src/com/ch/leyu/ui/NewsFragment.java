@@ -55,8 +55,7 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-        mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),
-                addTitle()));
+        mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),addTitle()));
         mSlideTabIndicator.setViewPager(mViewPager);
         mSlideTabIndicator.setTextSize(24);
     }

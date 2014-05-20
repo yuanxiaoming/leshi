@@ -1,40 +1,38 @@
 
 package com.ch.leyu.adapter;
 
+import com.ch.leyu.responseparse.TagResponse;
+import com.ch.leyu.ui.StarGirefFragment;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class LYViewPagerAdapter extends FragmentStatePagerAdapter {
+public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<Fragment> mFragments;
+    private ArrayList<TagResponse> mStrings;
 
-    private ArrayList<String> mStrings;
-
-    public LYViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> mFragments,
-            ArrayList<String> mStrings) {
+    public VideobankPagerAdapter(FragmentManager fm, ArrayList<TagResponse> mStrings) {
         super(fm);
-        this.mFragments = mFragments;
         this.mStrings = mStrings;
     }
 
     @Override
     public Fragment getItem(int position) {
-        
-        return mFragments.get(position);
+
+        return new StarGirefFragment();
     }
 
     @Override
     public int getCount() {
-        return mFragments.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mStrings.get(position);
+        return mStrings.get(position).getTag();
     }
-    
-    
+
 }
