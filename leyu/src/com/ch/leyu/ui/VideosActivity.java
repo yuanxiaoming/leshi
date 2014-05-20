@@ -2,9 +2,16 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.LYViewPagerAdapter;
+import com.ch.leyu.adapter.VideobankPagerAdapter;
+import com.ch.leyu.http.httplibrary.RequestParams;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.LOLResponse;
+import com.ch.leyu.utils.Constant;
 import com.ch.leyu.view.LYViewPager;
 import com.ch.leyu.view.PagerSlidingTabStrip;
+
+import org.apache.http.Header;
 
 import android.support.v4.app.Fragment;
 import android.widget.Button;
@@ -16,11 +23,6 @@ public class VideosActivity extends BaseActivity {
     private PagerSlidingTabStrip mSlideTabIndicator;
 
     private LYViewPager mViewPager;
-
-    /** viewPager的title */
-    private ArrayList<String> mTitie;
-    
-    private ArrayList<Fragment>mFragments;
 
     private Button mButton;
 
@@ -43,54 +45,39 @@ public class VideosActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
-
     }
 
     @Override
     protected void processLogic() {
-        
-        mViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(),addFragment(),addTitle()));
-        mSlideTabIndicator.setViewPager(mViewPager);
-        mSlideTabIndicator.setTextSize(24);
-        
-       
-    }
 
-    private ArrayList<String> addTitle() {
-        mTitie = new ArrayList<String>();
-        mTitie.add("全部");
-        mTitie.add("教学");
-        mTitie.add("解说");
-        mTitie.add("搞笑");
-        mTitie.add("术士");
-        mTitie.add("法师");
-        mTitie.add("盗贼");
-        mTitie.add("牧师");
-        mTitie.add("战士");
-        mTitie.add("萨满");
-        mTitie.add("德鲁伊");
-        mTitie.add("圣骑士");
+        RequestParams params = new RequestParams();
+        params.put(Constant.GMAE_ID, 23);
+        JHttpClient.get(this, Constant.URL + Constant.LOL_VEDIO_URL, params, LOLResponse.class,new DataCallback<LOLResponse>() {
 
-        return mTitie;
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, LOLResponse data) {
+                        mViewPager.setAdapter(new VideobankPagerAdapter(getSupportFragmentManager(), data.getTags()));
+                        mSlideTabIndicator.setViewPager(mViewPager);
+                        mSlideTabIndicator.setTextSize(24);
+                    }
 
-    }
-    
-    private ArrayList<Fragment> addFragment() {
-        mFragments = new ArrayList<Fragment>();
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
-        mFragments.add(new StarGirefFragment());
+                    @Override
+                    public void onStart() {
 
-        return mFragments;
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString,
+                            Exception exception) {
+
+                    }
+                });
 
     }
+
 }
