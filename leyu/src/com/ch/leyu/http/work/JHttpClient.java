@@ -71,11 +71,12 @@ public class JHttpClient {
 
     }
 
-    public static <T> void getCache(Context context, BaseParser<T> baseParser, final DataCallback<T> dataCallback, String cacheUrl) {
+    private static <T> void getCache(Context context, BaseParser<T> baseParser, final DataCallback<T> dataCallback, String cacheUrl) {
         ServerDataCache cacheData = DBOpenHelperManager.getInstance(context).findCacheByUrl(cacheUrl);
         if(cacheData != null){
             try {
-                dataCallback.onSuccess(200, null, baseParser.parse(cacheData.getServerData()));
+                T parse = baseParser.parse(cacheData.getServerData());
+                dataCallback.onSuccess(200, null, parse);
                 Log.d(JHttpClient.class.getSimpleName(), "Data taken from the cacheData");
             } catch (Exception e) {
                 Log.d(JHttpClient.class.getSimpleName(), e.getLocalizedMessage());

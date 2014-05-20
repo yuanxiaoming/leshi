@@ -13,10 +13,7 @@ import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
-import android.support.v4.app.Fragment;
 import android.widget.Button;
-
-import java.util.ArrayList;
 
 /** 炉石传说视频库 */
 public class VideosActivity extends BaseActivity {
@@ -56,6 +53,7 @@ public class VideosActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, LOLResponse data) {
+                        System.out.println(data.getTags().size()+"---------------"+data.getVideoList().size()+"---------------"+data.getTotalPage());
                         mViewPager.setAdapter(new VideobankPagerAdapter(getSupportFragmentManager(), data.getTags()));
                         mSlideTabIndicator.setViewPager(mViewPager);
                         mSlideTabIndicator.setTextSize(24);
