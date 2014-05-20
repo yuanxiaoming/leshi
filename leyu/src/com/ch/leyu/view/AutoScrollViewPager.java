@@ -182,7 +182,7 @@ public class AutoScrollViewPager extends ViewPager {
     			mStartY = ev.getY();
             }  
             
-            if(ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch)
+            if(ev.getAction() == MotionEvent.ACTION_MOVE && isStopByTouch )
             {
             	float curX = ev.getX();
     			float curY = ev.getY();
@@ -192,6 +192,14 @@ public class AutoScrollViewPager extends ViewPager {
     			
     			System.out.println("deltaX = " + deltaX);
     			System.out.println("deltaY = " + deltaY);
+    			
+    			if(Math.abs(deltaY) > Math.abs(deltaX) )
+    			{
+    				MotionEvent obtain = MotionEvent.obtain(ev);
+    				obtain.setAction(MotionEvent.ACTION_UP);
+    				onTouchEvent(obtain);
+    				obtain.recycle();
+    			}
             }
             
             if (ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch) {
