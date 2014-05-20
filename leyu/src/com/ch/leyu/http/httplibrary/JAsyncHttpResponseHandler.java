@@ -8,18 +8,15 @@ import com.ch.leyu.http.work.JHttpClient;
 
 import org.apache.http.Header;
 
-import android.content.Context;
 import android.util.Log;
 
 public class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHandler {
-    private Context mContext;
     private BaseParser<T> mBaseParser;
     private String mCacheUrl;
     private HttpCache mHttpCache;
     private DataCallback<T> mDataCallback ;
 
-    public JAsyncHttpResponseHandler(Context context, BaseParser<T> baseParse,HttpCache httpCache, String cacheUrl, DataCallback<T> callback) {
-        this.mContext = context;
+    public JAsyncHttpResponseHandler(BaseParser<T> baseParse,HttpCache httpCache, String cacheUrl, DataCallback<T> callback) {
         this.mBaseParser = baseParse;
         this.mCacheUrl = cacheUrl;
         this.mHttpCache = httpCache;
@@ -49,7 +46,7 @@ public class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHandler {
                 parseString = new String(responseBody,"UTF-8");
                 parse = mBaseParser.parse(parseString);
             } catch(Exception e)  {
-                Log.d("JAsyncHttpResponseHandler", "statusCode="+statusCode+"---"+e.getLocalizedMessage());
+                Log.d(JAsyncHttpResponseHandler.class.getSimpleName(), "statusCode="+statusCode+"---"+e.getLocalizedMessage());
                 onFailure(200, headers, responseBody,e);
                 return;
             }
@@ -69,7 +66,7 @@ public class JAsyncHttpResponseHandler<T> extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        Log.d("JAsyncHttpResponseHandler", "statusCode="+statusCode, error);
+        Log.d(JAsyncHttpResponseHandler.class.getSimpleName(), "statusCode="+statusCode, error);
         if(mDataCallback != null){
             mDataCallback.onFailure(statusCode, headers, null, new Exception(error));
         }

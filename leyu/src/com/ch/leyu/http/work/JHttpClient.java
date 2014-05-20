@@ -63,9 +63,9 @@ public class JHttpClient {
             getCache(context, baseParser, dataCallback, cacheUrl);
         }else {
             if (requestMethod != null && requestMethod.equals(GET)) {
-                JHttpClient.get(url, params, new JAsyncHttpResponseHandler<T>(context, baseParser, httpCache, cacheUrl,dataCallback));
+                JHttpClient.get(url, params, new JAsyncHttpResponseHandler<T>( baseParser, httpCache, cacheUrl,dataCallback));
             } else if (requestMethod != null && requestMethod.equals(POST)) {
-                JHttpClient.post(url, params, new JAsyncHttpResponseHandler<T>(context, baseParser, httpCache, cacheUrl,dataCallback));
+                JHttpClient.post(url, params, new JAsyncHttpResponseHandler<T>(baseParser, httpCache, cacheUrl,dataCallback));
             }
         }
 
@@ -99,10 +99,10 @@ public class JHttpClient {
     * @param params
     * @param parser
     * @param httpCache
-    * @param callback
+    * @param dataCallback
     */
-    public static <T> void post(Context context, String url, RequestParams params, BaseParser<T> parser, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.POST, httpCache, callback);
+    public static <T> void post(Context context, String url, RequestParams params, BaseParser<T> parser, HttpCache httpCache, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, parser, JHttpClient.POST, httpCache, dataCallback);
     }
 
     /**
@@ -115,8 +115,8 @@ public class JHttpClient {
     * @param httpCache
     * @param callback
     */
-    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.GET, httpCache, callback);
+    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, HttpCache httpCache, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, parser, JHttpClient.GET, httpCache, dataCallback);
     }
 
     /**
@@ -128,8 +128,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void post(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.POST, new DefaultHttpCache(context), callback);
+    public static <T> void post(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, parser, JHttpClient.POST, new DefaultHttpCache(context), dataCallback);
     }
 
     /**
@@ -141,8 +141,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.GET, new DefaultHttpCache(context), callback);
+    public static <T> void get(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, parser, JHttpClient.GET, new DefaultHttpCache(context), dataCallback);
     }
 
     /**
@@ -154,8 +154,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void getFromServer(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.GET, null, callback);
+    public static <T> void getFromServer(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, parser, JHttpClient.GET, null, dataCallback);
     }
 
     /**
@@ -167,8 +167,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void postFromServer(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> callback) {
-        getServerData(context, url, params, parser, JHttpClient.POST, null, callback);
+    public static <T> void postFromServer(Context context, String url, RequestParams params, BaseParser<T> parser, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, parser, JHttpClient.POST, null, dataCallback);
     }
 
     /****************************************************************************************************************************/
@@ -183,8 +183,8 @@ public class JHttpClient {
     * @param httpCache
     * @param callback
     */
-    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, httpCache, callback);
+    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, httpCache, dataCallback);
     }
 
     /**
@@ -197,8 +197,8 @@ public class JHttpClient {
     * @param httpCache
     * @param callback
     */
-    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, httpCache, callback);
+    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, HttpCache httpCache, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, httpCache, dataCallback);
     }
 
     /**
@@ -210,8 +210,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, new DefaultHttpCache(context), callback);
+    public static <T> void post(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, new DefaultHttpCache(context), dataCallback);
     }
 
     /**
@@ -223,8 +223,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, new DefaultHttpCache(context), callback);
+    public static <T> void get(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, new DefaultHttpCache(context), dataCallback);
     }
 
     /**
@@ -236,8 +236,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void getFromServer(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, null, callback);
+    public static <T> void getFromServer(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.GET, null, dataCallback);
     }
 
     /**
@@ -249,8 +249,8 @@ public class JHttpClient {
     * @param parser
     * @param callback
     */
-    public static <T> void postFromServer(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> callback) {
-        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, null, callback);
+    public static <T> void postFromServer(Context context, String url, RequestParams params, Class<T> clazz, final DataCallback<T> dataCallback) {
+        getServerData(context, url, params, new JacksonParser<T>(clazz), JHttpClient.POST, null, dataCallback);
     }
 
 }
