@@ -13,7 +13,6 @@ import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.Button;
 
@@ -76,10 +75,12 @@ public class VideosActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, final VideoBankResponse data) {
-                        mVideobankPagerAdapter=new VideobankPagerAdapter(getSupportFragmentManager(), data.getTags());
+                    	if(data!=null){
+                        mVideobankPagerAdapter=new VideobankPagerAdapter(getSupportFragmentManager(), data);
                         mViewPager.setAdapter(mVideobankPagerAdapter);
                         mSlideTabIndicator.setViewPager(mViewPager);
                         mSlideTabIndicator.setTextSize(24);
+                        }
 
                     }
 

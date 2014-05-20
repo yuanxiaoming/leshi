@@ -18,23 +18,43 @@ import java.util.ArrayList;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private ArrayList<Property> arrayList;
+    private ArrayList<Property> mArrayList;
 
     private LayoutInflater mInflater;
 
     public GridViewAdapter(ArrayList<Property> arrayList, Context context) {
-        this.arrayList = arrayList;
+        this.mArrayList = arrayList;
         mInflater = LayoutInflater.from(context);
+    }
+
+    public void chargeArrayList (ArrayList<Property> arrayList) {
+        this.mArrayList = arrayList;
+        notifyDataSetChanged();
+    }
+
+    public void addArrayList (ArrayList<Property> arrayList) {
+        if(mArrayList!=null){
+            this.mArrayList.addAll(arrayList);
+            notifyDataSetChanged();
+        }else{
+            chargeArrayList(arrayList);
+        }
     }
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        if(mArrayList!=null){
+            return mArrayList.size();
+        }
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return arrayList.get(position);
+        if(mArrayList!=null){
+            return mArrayList.get(position);
+         }
+        return null;
     }
 
     @Override
@@ -55,9 +75,9 @@ public class GridViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
+        ImageLoader.getInstance().displayImage(mArrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
-        holder.textView.setText(arrayList.get(position).getTitle());
+        holder.textView.setText(mArrayList.get(position).getTitle());
         return convertView;
     }
 
