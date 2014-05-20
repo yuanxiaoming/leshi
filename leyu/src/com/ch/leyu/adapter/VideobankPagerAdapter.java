@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<TagResponse> mStrings;
+    
 
     public VideobankPagerAdapter(FragmentManager fm, ArrayList<TagResponse> mStrings) {
         super(fm);
@@ -32,7 +33,9 @@ public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+      
         return mStrings.get(position).getTag();
     }
-
+    
+  
 }

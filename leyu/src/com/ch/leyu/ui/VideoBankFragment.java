@@ -11,7 +11,6 @@ import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
 
