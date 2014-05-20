@@ -51,7 +51,7 @@ public class LOLVedioFragment extends BaseFragment {
         mParams.put("gameId", 21);
         mParams.put("page", 1);
 
-        JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_VEDIO_URL, mParams,
+        JHttpClient.get(getActivity(), Constant.LOL_VEDIO_URL, mParams,
                 VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
                     @Override

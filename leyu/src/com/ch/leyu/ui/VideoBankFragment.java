@@ -54,7 +54,7 @@ public class VideoBankFragment extends BaseFragment {
     protected void processLogic() {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
-        JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_VEDIO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
+        JHttpClient.get(getActivity(), Constant.LOL_VEDIO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, final VideoBankResponse data) {
