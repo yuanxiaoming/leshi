@@ -4,24 +4,16 @@ package com.ch.leyu.responseparse;
 import java.util.ArrayList;
 
 /***
- * LOL视频库数据&&&炉石视频库数据
+ * 视频库数据lol  hs
  * 
  * @author L
  */
-public class LOLResponse {
+public class VideoBankResponse {
     private ArrayList<Property> videoList;
 
     private int totalPage;
 
     private ArrayList<TagResponse> tags;
-
-    public ArrayList<TagResponse> getTags() {
-        return tags;
-    }
-
-    public void setTags(ArrayList<TagResponse> tags) {
-        this.tags = tags;
-    }
 
     public ArrayList<Property> getVideoList() {
         return videoList;
@@ -37,6 +29,14 @@ public class LOLResponse {
 
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
+    }
+
+    public ArrayList<TagResponse> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<TagResponse> tags) {
+        this.tags = tags;
     }
 
 }

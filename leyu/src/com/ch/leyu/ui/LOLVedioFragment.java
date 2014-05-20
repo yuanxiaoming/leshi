@@ -6,7 +6,7 @@ import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.LOLResponse;
+import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
@@ -52,10 +52,10 @@ public class LOLVedioFragment extends BaseFragment {
         mParams.put("page", 1);
 
         JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_VEDIO_URL, mParams,
-                LOLResponse.class, new DataCallback<LOLResponse>() {
+                VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, LOLResponse data) {
+                    public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
                         mAdapter = new GridViewAdapter(data.getVideoList(), getActivity());
                         mGridView.setAdapter(mAdapter);
 

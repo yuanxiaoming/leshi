@@ -2,7 +2,7 @@
 package com.ch.leyu.adapter;
 
 import com.ch.leyu.responseparse.TagResponse;
-import com.ch.leyu.ui.StarGirefFragment;
+import com.ch.leyu.ui.VideoBankFragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,12 +22,12 @@ public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return new StarGirefFragment();
+        return new VideoBankFragment();
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return mStrings.size();
     }
 
     @Override

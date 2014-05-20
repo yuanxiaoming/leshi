@@ -6,17 +6,16 @@ import com.ch.leyu.adapter.VideobankPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.LOLResponse;
+import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.view.LYViewPager;
 import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.Button;
-
-import java.util.ArrayList;
 
 /** 炉石传说视频库 */
 public class VideosActivity extends BaseActivity {
@@ -25,7 +24,8 @@ public class VideosActivity extends BaseActivity {
     private LYViewPager mViewPager;
 
     private Button mButton;
-
+    
+    
     @Override
     protected void getExtraParams() {
 
@@ -45,20 +45,38 @@ public class VideosActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
+
     }
 
     @Override
     protected void processLogic() {
-
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
-        JHttpClient.get(this, Constant.URL + Constant.LOL_VEDIO_URL, params, LOLResponse.class,new DataCallback<LOLResponse>() {
+        JHttpClient.get(this, Constant.URL + Constant.LOL_VEDIO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, LOLResponse data) {
+                    public void onSuccess(int statusCode, Header[] headers, final VideoBankResponse data) {
                         mViewPager.setAdapter(new VideobankPagerAdapter(getSupportFragmentManager(), data.getTags()));
                         mSlideTabIndicator.setViewPager(mViewPager);
                         mSlideTabIndicator.setTextSize(24);
+                        mSlideTabIndicator.setOnPageChangeListener(new OnPageChangeListener() {
+                            
+                            @Override
+                            public void onPageSelected(int arg0) {
+
+                            }
+                            
+                            @Override
+                            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                                
+                            }
+                            
+                            @Override
+                            public void onPageScrollStateChanged(int arg0) {
+                                
+                            }
+                        });
+
                     }
 
                     @Override
