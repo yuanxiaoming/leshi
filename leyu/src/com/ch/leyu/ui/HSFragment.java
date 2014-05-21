@@ -110,26 +110,26 @@ public class HSFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
+                        if(data!=null){
+                            mAtuoScrollViewPager.startAutoScroll(2000);
+                            AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
+                            mAtuoScrollViewPager.setAdapter(adapter);
+                            mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                            mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
 
-                        mAtuoScrollViewPager.startAutoScroll(2000);
-                        AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(
-                                getActivity(), data.getFocus());
-                        mAtuoScrollViewPager.setAdapter(adapter);
-                        mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                        mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                        mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
+                            mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
+                            mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
+                                    getActivity()));
+                            mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
 
-                        mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
-                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
-                                getActivity()));
-                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
-
-                        ImageLoader.getInstance().displayImage(
-                                data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
-                                ImageLoaderUtil.getImageLoaderOptions());
-                        ImageLoader.getInstance().displayImage(
-                                data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
-                                ImageLoaderUtil.getImageLoaderOptions());
+                            ImageLoader.getInstance().displayImage(
+                                    data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
+                                    ImageLoaderUtil.getImageLoaderOptions());
+                            ImageLoader.getInstance().displayImage(
+                                    data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
+                                    ImageLoaderUtil.getImageLoaderOptions());
+                        }
 
                     }
 

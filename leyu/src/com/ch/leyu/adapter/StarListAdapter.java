@@ -43,10 +43,10 @@ public class StarListAdapter extends ArrayAdapter<Info> {
             viewHolder.name.setText(item.getNickname());
             viewHolder.intro.setText(item.getDetail());
 
-            ImageLoader.getInstance().displayImage(item.getThumb(), viewHolder.cover,ImageLoaderUtil.getImageLoaderOptions());
+            ImageLoader.getInstance().displayImage(item.getThumb(), viewHolder.cover,
+                    ImageLoaderUtil.getImageLoaderOptions());
         }
-        
-        
+
         return convertView;
     }
 

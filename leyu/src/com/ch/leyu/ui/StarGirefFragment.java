@@ -72,8 +72,10 @@ public class StarGirefFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, final StarResponse data) {
-                        mAdapter = new StarListAdapter(getActivity(), data.getUserInfo());
-                        mXListView.setAdapter(mAdapter);
+                        if(data!=null){
+                            mAdapter = new StarListAdapter(getActivity(), data.getUserInfo());
+                            mXListView.setAdapter(mAdapter);
+                        }
                     }
 
                     @Override

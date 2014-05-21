@@ -91,14 +91,16 @@ public class AllNewsFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-                        mAutoScrollViewPager.startAutoScroll(2000);
-                        mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                        mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                        mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
-                        mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
+                       if(data!=null){
+                           mAutoScrollViewPager.startAutoScroll(2000);
+                           mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                           mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                           mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
+                           mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
 
-                        mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
-                        mXListView.setAdapter(mAdapter);
+                           mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
+                           mXListView.setAdapter(mAdapter);
+                       }
                     }
 
                     @Override

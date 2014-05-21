@@ -70,14 +70,17 @@ public class HSNewsFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-                mViewPager.startAutoScroll(2000);
-                mViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                mPageIndicator.setPageCount(data.getFocus().size());
-                mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
-                mPageIndicator.setViewPager(mViewPager);
-                
-//                maAdapter = new HSNewsGridViewAdapter(data.getNewsList(), getActivity());
-//                mGridView.setAdapter(maAdapter);
+               if(data!=null){
+                   mViewPager.startAutoScroll(2000);
+                   mViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                   mPageIndicator.setPageCount(data.getFocus().size());
+                   mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
+                   mPageIndicator.setViewPager(mViewPager);
+                   
+//                   maAdapter = new HSNewsGridViewAdapter(data.getNewsList(), getActivity());
+//                   mGridView.setAdapter(maAdapter);
+               }
+              
                 
             }
 

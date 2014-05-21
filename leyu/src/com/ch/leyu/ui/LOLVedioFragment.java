@@ -51,14 +51,16 @@ public class LOLVedioFragment extends BaseFragment {
         mParams.put("gameId", 21);
         mParams.put("page", 1);
 
-        JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_VEDIO_URL, mParams,
+        JHttpClient.get(getActivity(), Constant.LOL_VEDIO_URL, mParams,
                 VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
-                        mAdapter = new GridViewAdapter(data.getVideoList(), getActivity());
-                        mGridView.setAdapter(mAdapter);
+                       if(data!=null){
+                           mAdapter = new GridViewAdapter(data.getVideoList(), getActivity());
+                           mGridView.setAdapter(mAdapter);
 
+                       }
                     }
 
                     @Override

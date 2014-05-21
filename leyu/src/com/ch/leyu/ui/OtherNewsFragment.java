@@ -51,7 +51,9 @@ public class OtherNewsFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-                mListView.setAdapter(new CLYAdapter(getActivity(), data.getNewsList()));
+              if(data!=null){
+                  mListView.setAdapter(new CLYAdapter(getActivity(), data.getNewsList()));
+              }
             }
 
             @Override

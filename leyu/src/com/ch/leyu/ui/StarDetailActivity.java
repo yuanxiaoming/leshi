@@ -94,15 +94,16 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
 
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,
-                StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
-                        mName.setText(data.getUserInfo().getNickname());
-                        ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(),
-                                mImageView, ImageLoaderUtil.getImageLoaderOptions());
-                        mDetail.setText(data.getUserInfo().getDetail());
+                       if(data!=null){
+                           mName.setText(data.getUserInfo().getNickname());
+                           ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(),
+                                   mImageView, ImageLoaderUtil.getImageLoaderOptions());
+                           mDetail.setText(data.getUserInfo().getDetail());
+                       }
                     }
 
                     @Override

@@ -23,8 +23,9 @@ public class VideosActivity extends BaseActivity {
     private LYViewPager mViewPager;
 
     private Button mButton;
-    
-    
+
+    private VideobankPagerAdapter mVideobankPagerAdapter;
+
     @Override
     protected void getExtraParams() {
 
@@ -40,10 +41,26 @@ public class VideosActivity extends BaseActivity {
         mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videos_tabstrip);
         mViewPager = (LYViewPager) findViewById(R.id.act_videos_viewpager);
         mButton = (Button) findViewById(R.id.act_videos_bt);
+
     }
 
     @Override
     protected void setListener() {
+        mSlideTabIndicator.setOnPageChangeListener(new OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int i, float f, int j) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+
+        });
 
     }
 
@@ -51,32 +68,17 @@ public class VideosActivity extends BaseActivity {
     protected void processLogic() {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
-        JHttpClient.get(this, Constant.URL + Constant.LOL_VEDIO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
+        JHttpClient.get(this, Constant.LOL_VEDIO_URL, params, VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
-                        mViewPager.setAdapter(new VideobankPagerAdapter(getSupportFragmentManager(), data.getTags())); 
-                        mSlideTabIndicator.setViewPager(mViewPager);
-                        mSlideTabIndicator.setTextSize(24);
-                        mSlideTabIndicator.setOnPageChangeListener(new OnPageChangeListener() {
-                            
-                            @Override
-                            public void onPageSelected(int arg0) {
-                                
-                                
-                            }
-                            
-                            @Override
-                            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                                
-                            }
-                            
-                            @Override
-                            public void onPageScrollStateChanged(int arg0) {
-                                
-                            }
-                        });
+                    public void onSuccess(int statusCode, Header[] headers,final VideoBankResponse data) {
+                        if (data != null) {
+                            mVideobankPagerAdapter = new VideobankPagerAdapter(getSupportFragmentManager(), data);
+                            mViewPager.setAdapter(mVideobankPagerAdapter);
+                            mSlideTabIndicator.setViewPager(mViewPager);
+                            mSlideTabIndicator.setTextSize(24);
 
+                        }
                     }
 
                     @Override

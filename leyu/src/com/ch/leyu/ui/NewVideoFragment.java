@@ -61,8 +61,10 @@ public class NewVideoFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
-                        mAdapter = new GridViewAdapter(data.getVideoList().getData(), getActivity());
-                        mGridView.setAdapter(mAdapter);
+                       if(data!=null){
+                           mAdapter = new GridViewAdapter(data.getVideoList().getData(), getActivity());
+                           mGridView.setAdapter(mAdapter);
+                       }
 
                     }
 

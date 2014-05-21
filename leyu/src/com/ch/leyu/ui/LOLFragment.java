@@ -92,11 +92,13 @@ public class LOLFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
-                        mfocusViewPager.startAutoScroll(2000);
-                        mfocusViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                        mPageIndicator.setPageCount(data.getFocus().size());
-                        mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
-                        mPageIndicator.setViewPager(mfocusViewPager);
+                      if(data!=null){
+                          mfocusViewPager.startAutoScroll(2000);
+                          mfocusViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                          mPageIndicator.setPageCount(data.getFocus().size());
+                          mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
+                          mPageIndicator.setViewPager(mfocusViewPager);
+                      }
                         
                     }
 

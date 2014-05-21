@@ -71,8 +71,10 @@ public class SearchListActivity extends BaseActivity implements OnClickListener 
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
-                        mGridView.setAdapter(new GridViewAdapter(data.getVideoList(),
-                                SearchListActivity.this));
+                        if(data!=null){
+                            mGridView.setAdapter(new GridViewAdapter(data.getVideoList(),
+                                    SearchListActivity.this));
+                        }
                     }
 
                     @Override

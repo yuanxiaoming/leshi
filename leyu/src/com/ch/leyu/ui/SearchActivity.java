@@ -126,7 +126,9 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener,
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, SearchResponse data) {
-                        mHots.setAdapter(new SearchAdapter(SearchActivity.this, data.getHot()));
+                        if(data!=null){
+                            mHots.setAdapter(new SearchAdapter(SearchActivity.this, data.getHot()));
+                        }
                     }
 
                     @Override
