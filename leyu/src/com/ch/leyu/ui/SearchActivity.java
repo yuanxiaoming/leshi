@@ -85,6 +85,8 @@ public class SearchActivity extends BaseActivity {
         mSearch = (Button) findViewById(R.id.act_search_bt_search);
         mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();
         if(mLatestSearchArrayList!=null&&mLatestSearchArrayList.size()!=0){
+            mHistory.setVisibility(View.VISIBLE);
+            mResult.setVisibility(View.GONE);
             mLatestSearchAdapter=new LatestSearchAdapter(mLatestSearchArrayList);
             mHistory.setAdapter(mLatestSearchAdapter);
         }else{
@@ -96,13 +98,20 @@ public class SearchActivity extends BaseActivity {
 
     }
 
+
+
     @Override
     protected void setListener() {
         mDelete.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                if(mLatestSearchAdapter!=null){
+                    mLatestSearchAdapter.chargeArrayList(null);
+                    LatestSearchManager.deleteSearch();
+                    mHistory.setVisibility(View.GONE);
+                    mResult.setVisibility(View.VISIBLE);
+                }
 
             }
         });
@@ -156,7 +165,6 @@ public class SearchActivity extends BaseActivity {
     }
 
 
-
     /*
     * 关键字搜索
     */
@@ -172,6 +180,10 @@ public class SearchActivity extends BaseActivity {
             if (data != null) {
                 LatestSearch latestSearch=new LatestSearch(mKeyWord, data);
                 LatestSearchManager.insertOrUpdateSearch(latestSearch);
+                if(mLatestSearchAdapter!=null){
+                    mLatestSearchAdapter.chargeArrayList(LatestSearchManager.findLatestSearchAll());
+                }
+                mDetail.setText(null);
                 Intent intent = new Intent(mContext,SearchListActivity.class);
                 intent.putExtra("result", data);
                 intent.putExtra(Constant.KEYWORD, mKeyWord);
