@@ -4,13 +4,15 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by jwb on 13-12-26.
  */
 public class LatestSearchManager {
-    private DatabaseHelper mLatestSearchHelper = DatabaseHelper.getInstance();
+    private static DatabaseHelper mLatestSearchHelper = DatabaseHelper.getInstance();
 
-    public void insertSearch(LatestSearch latestSearch) {
+    public static void insertSearch(LatestSearch latestSearch) {
         SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(LatestSearchTable.KEYWORD, latestSearch.getKeyword());
@@ -19,19 +21,36 @@ public class LatestSearchManager {
         db.close();
     }
 
-    public void deleteSearch(String keyWord) {
+    public static void deleteSearch(String keyWord) {
         SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
         db.execSQL("delete from "+LatestSearchTable.TABLE_NAME+ " where "+LatestSearchTable.KEYWORD+" = ?", new Object[] { keyWord });
         db.close();
     }
 
-    public void deleteSearch() {
+    public static void deleteSearch() {
         SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
         db.execSQL("delete from "+LatestSearchTable.TABLE_NAME);
         db.close();
     }
 
-    public LatestSearch findSearchByKeyWord(String keyWord) {
+    public static ArrayList<LatestSearch> findLatestSearchAll() {
+        SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
+        String sql="select * from "+LatestSearchTable.TABLE_NAME +" order by " +LatestSearchTable._ID+" desc limit 6 offset 0";
+
+        ArrayList<LatestSearch> latestSearchsArrayList=new ArrayList<LatestSearch>();
+        Cursor r = db.rawQuery(sql, null);
+        while (r.moveToNext()) {
+            String keyWords = r.getString(r.getColumnIndex(LatestSearchTable.KEYWORD));
+            String data = r.getString(r.getColumnIndex(LatestSearchTable.DATA));
+            LatestSearch latestSearch = new LatestSearch(keyWords, data);
+            latestSearchsArrayList.add(latestSearch);
+        }
+        r.close();
+        db.close();
+        return latestSearchsArrayList;
+    }
+
+    public static LatestSearch findSearchByKeyWord(String keyWord) {
         SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
         LatestSearch latestSearch = null;
         Cursor r = db.rawQuery("select * from "+LatestSearchTable.TABLE_NAME+ " where "+LatestSearchTable.KEYWORD+" = ? ", new String[] { keyWord });
@@ -45,18 +64,18 @@ public class LatestSearchManager {
         return latestSearch;
     }
 
-    public void updateSearch(LatestSearch latestSearch) {
+    public static void updateSearch(LatestSearch latestSearch) {
         SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
         db.execSQL("update "+LatestSearchTable.TABLE_NAME+ " set  "+LatestSearchTable.DATA+ " = ?  where "+LatestSearchTable.KEYWORD+ " = ?", new Object[] { latestSearch.getmVideoSearchResponseString(), latestSearch.getKeyword() });
         db.close();
     }
 
-    public void insertOrUpdateSearch(LatestSearch latestSearch) {
+    public static void insertOrUpdateSearch(LatestSearch latestSearch) {
         LatestSearch latestSearchs = findSearchByKeyWord(latestSearch.getKeyword());
         if (latestSearchs == null) {
-            insertSearch(latestSearchs);
+            insertSearch(latestSearch);
         } else {
-            updateSearch(latestSearchs);
+            updateSearch(latestSearch);
         }
     }
 }

@@ -2,13 +2,17 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.LatestSearchAdapter;
 import com.ch.leyu.adapter.SearchAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.provider.LatestSearch;
+import com.ch.leyu.provider.LatestSearchManager;
 import com.ch.leyu.responseparse.SearchResponse;
 import com.ch.leyu.responseparse.VideoSearchResponse;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.view.LYGridView;
 
 import org.apache.http.Header;
 
@@ -26,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /***
  * 搜索activity
  *
@@ -40,7 +46,9 @@ public class SearchActivity extends BaseActivity {
     private EditText mDetail;
 
     /** 热门搜索，历史记录 */
-    private GridView mHots, mHistory;
+    private GridView mHots;
+    /* 历史记录 */
+    private LYGridView  mHistory;
 
     /** 没有搜索结果 */
     private TextView mResult;
@@ -51,6 +59,10 @@ public class SearchActivity extends BaseActivity {
     private  String mKeyWord="";
 
     private Context mContext;
+
+    private LatestSearchAdapter mLatestSearchAdapter;
+
+    private ArrayList<LatestSearch> mLatestSearchArrayList;
 
     @Override
     protected void getExtraParams() {
@@ -65,12 +77,23 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void findViewById() {
-        mHistory = (GridView) findViewById(R.id.act_search_gd_history);
+        mHistory = (LYGridView) findViewById(R.id.act_search_gd_history);
         mHots = (GridView) findViewById(R.id.act_search_gd_hots);
         mDetail = (EditText) findViewById(R.id.act_search_et_detail);
         mDelete = (ImageView) findViewById(R.id.act_seacrh_img_del);
         mResult = (TextView) findViewById(R.id.act_search_tv_result);
         mSearch = (Button) findViewById(R.id.act_search_bt_search);
+        mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();
+        if(mLatestSearchArrayList!=null&&mLatestSearchArrayList.size()!=0){
+            mLatestSearchAdapter=new LatestSearchAdapter(mLatestSearchArrayList);
+            mHistory.setAdapter(mLatestSearchAdapter);
+        }else{
+            //TODO 提示没有最近搜索记录
+            Toast.makeText(mContext, "没有最近搜索记录", Toast.LENGTH_LONG).show();
+            mHistory.setVisibility(View.GONE);
+            mResult.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -112,12 +135,16 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
+                LatestSearchAdapter latestSearchAdapter=(LatestSearchAdapter) parent.getAdapter();
+                if(latestSearchAdapter!=null){
+                    LatestSearch latestSearch=(LatestSearch)( latestSearchAdapter.getArrayList().get(position));
+                    Intent intent = new Intent(mContext,SearchListActivity.class);
+                    intent.putExtra("result", latestSearch.getmVideoSearchResponse());
+                    intent.putExtra(Constant.KEYWORD, latestSearch.getKeyword());
+                    startActivity(intent);
+                }
 
             }
-
-
 
         });
     }
@@ -131,8 +158,8 @@ public class SearchActivity extends BaseActivity {
 
 
     /*
-     * 关键字搜索
-     */
+    * 关键字搜索
+    */
     DataCallback<VideoSearchResponse> mSearchDataCallback=new DataCallback<VideoSearchResponse>(){
 
         @Override
@@ -143,10 +170,15 @@ public class SearchActivity extends BaseActivity {
         public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
 
             if (data != null) {
+                LatestSearch latestSearch=new LatestSearch(mKeyWord, data);
+                LatestSearchManager.insertOrUpdateSearch(latestSearch);
                 Intent intent = new Intent(mContext,SearchListActivity.class);
                 intent.putExtra("result", data);
                 intent.putExtra(Constant.KEYWORD, mKeyWord);
                 startActivity(intent);
+            }else{
+                Toast.makeText(mContext, "没有搜索相应的视频资料", Toast.LENGTH_LONG).show();
+
             }
         }
 
@@ -159,8 +191,6 @@ public class SearchActivity extends BaseActivity {
         @Override
         public void onFinish() {
 
-            mHistory.setVisibility(View.GONE);
-            mResult.setVisibility(View.VISIBLE);
 
         }
 
@@ -170,8 +200,8 @@ public class SearchActivity extends BaseActivity {
 
 
     /**
-     *热门搜索
-     */
+    *热门搜索
+    */
     DataCallback<SearchResponse> mHotSearchDataCallback=new DataCallback<SearchResponse>(){
 
         @Override

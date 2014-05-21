@@ -17,6 +17,6 @@ public class LatestSearchTable implements BaseColumns {
             TABLE_NAME + " (" +
             _ID + " Integer primary key autoincrement, " +
             KEYWORD + " text, " +
-            DATA + " text, " +
+            DATA + " text " +
             ")";
 }

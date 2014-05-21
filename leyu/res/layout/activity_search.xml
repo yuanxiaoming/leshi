@@ -32,16 +32,15 @@
         android:text="热门搜索"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <GridView
+    <com.ch.leyu.view.LYGridView
         android:id="@+id/act_search_gd_history"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/act_seacrh_img_del"
         android:numColumns="2"
-        
         android:visibility="visible" >
-    </GridView>
+    </com.ch.leyu.view.LYGridView>
 
     <TextView
         android:id="@+id/textView1"
