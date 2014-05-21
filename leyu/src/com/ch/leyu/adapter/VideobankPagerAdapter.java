@@ -4,6 +4,7 @@ package com.ch.leyu.adapter;
 import com.ch.leyu.responseparse.TagResponse;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.ui.VideoBankFragment;
+import com.ch.leyu.utils.Constant;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,6 @@ public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
 
     private VideoBankFragment videoBankFragment;
 
-    public static final String POSITION = "position";
-
     private ArrayList<TagResponse> mTagResponse;
 
     public VideobankPagerAdapter(FragmentManager fm, VideoBankResponse videoBankResponse) {
@@ -33,7 +32,7 @@ public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         videoBankFragment = new VideoBankFragment();
         Bundle bundle = new Bundle();
-        bundle.putCharSequence(POSITION, mTagResponse.get(position).getKeyword());
+        bundle.putCharSequence(Constant.POSITION, mTagResponse.get(position).getKeyword());
         videoBankFragment.setArguments(bundle);
         return videoBankFragment;
     }

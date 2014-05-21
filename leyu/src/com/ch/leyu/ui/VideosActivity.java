@@ -13,10 +13,13 @@ import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.Button;
 
-/** 炉石传说视频库 */
+/***
+ * 炉石传说首页--视频库
+ * 
+ * @author L
+ */
 public class VideosActivity extends BaseActivity {
     private PagerSlidingTabStrip mSlideTabIndicator;
 
@@ -46,21 +49,6 @@ public class VideosActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
-        mSlideTabIndicator.setOnPageChangeListener(new OnPageChangeListener() {
-
-            @Override
-            public void onPageScrolled(int i, float f, int j) {
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-            }
-
-        });
 
     }
 
@@ -68,13 +56,17 @@ public class VideosActivity extends BaseActivity {
     protected void processLogic() {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
-        JHttpClient.get(this, Constant.LOL_VEDIO_URL, params, VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
+        JHttpClient.get(this, Constant.URL + Constant.VEDIO_URL, params, VideoBankResponse.class,
+                new DataCallback<VideoBankResponse>() {
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers,final VideoBankResponse data) {
+                    public void onSuccess(int statusCode, Header[] headers,
+                            final VideoBankResponse data) {
                         if (data != null) {
-                            mVideobankPagerAdapter = new VideobankPagerAdapter(getSupportFragmentManager(), data);
+                            mVideobankPagerAdapter = new VideobankPagerAdapter(
+                                    getSupportFragmentManager(), data);
                             mViewPager.setAdapter(mVideobankPagerAdapter);
+
                             mSlideTabIndicator.setViewPager(mViewPager);
                             mSlideTabIndicator.setTextSize(24);
 

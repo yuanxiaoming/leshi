@@ -13,8 +13,7 @@ public class LYViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<String> mStrings;
 
-    public LYViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> mFragments,
-            ArrayList<String> mStrings) {
+    public LYViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> mFragments,ArrayList<String> mStrings) {
         super(fm);
         this.mFragments = mFragments;
         this.mStrings = mStrings;

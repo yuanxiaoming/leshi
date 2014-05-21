@@ -3,25 +3,19 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
-import com.ch.leyu.adapter.LYViewPagerAdapter;
-import com.ch.leyu.adapter.ViewFlowAdapter;
+import com.ch.leyu.adapter.LOLViewPagerAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.CircleLoopPageIndicator;
-import com.ch.leyu.view.LYViewFlow;
 import com.ch.leyu.view.LYViewPager;
 import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
-import android.support.v4.app.Fragment;
 import android.view.View;
-
-import java.util.ArrayList;
 
 /***
  * 首页--英雄联盟
@@ -30,23 +24,19 @@ import java.util.ArrayList;
  */
 public class LOLFragment extends BaseFragment {
 
-    /** 滑动显示组件 */
+    /** 焦点栏viewpager */
+    private AutoScrollViewPager mfocusViewPager;
+
+    /** 焦点栏ViewPager指示点 */
+    private CircleLoopPageIndicator mPageIndicator;
+
     private LYViewPager mViewPager;
 
-    /** ViewPager指示器 */
-    private PagerSlidingTabStrip mSlideTabIndicator ;
+    private PagerSlidingTabStrip mSlideTabIndicator;
 
-    private ArrayList<String> mTitleList;
+    private LOLViewPagerAdapter mPagerAdapter;
 
-    private ArrayList<Fragment> mFragmentList;
-
-    private LYViewPagerAdapter mPagerAdapter;
-    
     private View mView;
-    
-    private AutoScrollViewPager mfocusViewPager ;
-    
-    private CircleLoopPageIndicator mPageIndicator;
 
     @Override
     public void onClick(View v) {
@@ -69,11 +59,8 @@ public class LOLFragment extends BaseFragment {
         mViewPager = (LYViewPager) findViewById(R.id.fragment_lol_viewpager);
         mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.fragment_lol_pagertab);
         mView = findViewById(R.id.fragment_lol_include);
-        mfocusViewPager = (AutoScrollViewPager)mView. findViewById(R.id.all_auto_scroll_viewpager);
-        mPageIndicator = (CircleLoopPageIndicator)mView. findViewById(R.id.all_cirle_pageindicator);
-        
-        mPagerAdapter = new LYViewPagerAdapter(getChildFragmentManager(), addFragment(), addTitle());
-       
+        mfocusViewPager = (AutoScrollViewPager) mView.findViewById(R.id.all_auto_scroll_viewpager);
+        mPageIndicator = (CircleLoopPageIndicator) mView.findViewById(R.id.all_cirle_pageindicator);
 
     }
 
@@ -84,6 +71,7 @@ public class LOLFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
+        mPagerAdapter = new LOLViewPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mSlideTabIndicator.setViewPager(mViewPager);
         mSlideTabIndicator.setTextSize(24);
@@ -92,14 +80,15 @@ public class LOLFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
-                      if(data!=null){
-                          mfocusViewPager.startAutoScroll(2000);
-                          mfocusViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                          mPageIndicator.setPageCount(data.getFocus().size());
-                          mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
-                          mPageIndicator.setViewPager(mfocusViewPager);
-                      }
-                        
+                        if (data != null) {
+                            mfocusViewPager.startAutoScroll(2000);
+                            mfocusViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                            mPageIndicator.setPageCount(data.getFocus().size());
+                            mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(
+                                    getActivity(), data.getFocus()));
+                            mPageIndicator.setViewPager(mfocusViewPager);
+                        }
+
                     }
 
                     @Override
@@ -121,26 +110,6 @@ public class LOLFragment extends BaseFragment {
                     }
 
                 });
-    }
-
-    private ArrayList<String> addTitle() {
-        mTitleList = new ArrayList<String>();
-        mTitleList.add("全部");
-        mTitleList.add("本周热门");
-        mTitleList.add("教学视频");
-        mTitleList.add("解说视频");
-
-        return mTitleList;
-    }
-
-    private ArrayList<Fragment> addFragment() {
-        mFragmentList = new ArrayList<Fragment>();
-        mFragmentList.add(new LOLVedioFragment());
-        mFragmentList.add(new LOLVedioFragment());
-        mFragmentList.add(new LOLVedioFragment());
-        mFragmentList.add(new LOLVedioFragment());
-        return mFragmentList;
-
     }
 
 }
