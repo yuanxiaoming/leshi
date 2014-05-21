@@ -181,9 +181,14 @@ public class SearchActivity extends BaseActivity {
                 LatestSearch latestSearch=new LatestSearch(mKeyWord, data);
                 LatestSearchManager.insertOrUpdateSearch(latestSearch);
                 if(mLatestSearchAdapter!=null){
+                    if(mHistory.getVisibility()!=View.VISIBLE){
+                        mHistory.setVisibility(View.VISIBLE);
+                        mResult.setVisibility(View.GONE);
+                    }
                     mLatestSearchAdapter.chargeArrayList(LatestSearchManager.findLatestSearchAll());
                 }
                 mDetail.setText(null);
+
                 Intent intent = new Intent(mContext,SearchListActivity.class);
                 intent.putExtra("result", data);
                 intent.putExtra(Constant.KEYWORD, mKeyWord);
