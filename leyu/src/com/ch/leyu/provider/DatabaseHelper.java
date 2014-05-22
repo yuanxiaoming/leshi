@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // 数据库版本升级：1。建立最近搜索表
     private static final int DATABASE_VERSION = 1;
-
+    
     public static final String DATABASE_NAME = "leyu.db";
 
     public static DatabaseHelper getInstance() {

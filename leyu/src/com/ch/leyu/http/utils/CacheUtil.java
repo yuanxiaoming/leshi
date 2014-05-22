@@ -1,7 +1,7 @@
 package com.ch.leyu.http.utils;
 
-import com.ch.leyu.http.cacheservice.DBOpenHelper;
-import com.ch.leyu.http.cacheservice.DBOpenHelperManager;
+import com.ch.leyu.http.cacheservice.CacheDatabaseHelper;
+import com.ch.leyu.http.cacheservice.CacheManager;
 
 import android.content.Context;
 
@@ -17,11 +17,11 @@ public class CacheUtil {
     * @return 文件的大小
     */
     public static String getCacheSize(Context context) {
-        File file = new File(context.getCacheDir().getParentFile().getAbsolutePath() + "/databases/" + DBOpenHelper.DB_NAME);
+        File file = new File(context.getCacheDir().getParentFile().getAbsolutePath() + "/databases/" + CacheDatabaseHelper.DB_NAME);
         return FileUtil.getFileSize(file);
     }
 
     public static void deleteCache(Context context) {
-        DBOpenHelperManager.getInstance(context).deleteCache();
+        CacheManager.getInstance(context).deleteCache();
     }
 }

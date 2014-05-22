@@ -2,7 +2,7 @@ package com.ch.leyu.http.work;
 
 import com.ch.leyu.http.cacheimpl.DefaultHttpCache;
 import com.ch.leyu.http.cacheinterface.HttpCache;
-import com.ch.leyu.http.cacheservice.DBOpenHelperManager;
+import com.ch.leyu.http.cacheservice.CacheManager;
 import com.ch.leyu.http.cacheservice.ServerDataCache;
 import com.ch.leyu.http.httplibrary.AsyncHttpClient;
 import com.ch.leyu.http.httplibrary.AsyncHttpResponseHandler;
@@ -72,7 +72,7 @@ public class JHttpClient {
     }
 
     private static <T> void getCache(Context context, BaseParser<T> baseParser, final DataCallback<T> dataCallback, String cacheUrl) {
-        ServerDataCache cacheData = DBOpenHelperManager.getInstance(context).findCacheByUrl(cacheUrl);
+        ServerDataCache cacheData = CacheManager.getInstance(context).findCacheByUrl(cacheUrl);
         if(cacheData != null){
             try {
                 T parse = baseParser.parse(cacheData.getServerData());
