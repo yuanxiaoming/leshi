@@ -84,8 +84,7 @@ public class LOLVedioFragment extends BaseFragment {
         RequestParams mParams = new RequestParams();
         mParams.put(Constant.GMAE_ID, gameId);
         mParams.put(Constant.KEYWORD, keyWord);
-        JHttpClient.get(getActivity(), url, mParams, VideoBankResponse.class,
-                new DataCallback<VideoBankResponse>() {
+        JHttpClient.get(getActivity(), url, mParams, VideoBankResponse.class,new DataCallback<VideoBankResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {

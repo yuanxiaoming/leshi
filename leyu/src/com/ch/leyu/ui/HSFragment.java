@@ -8,7 +8,6 @@ import com.ch.leyu.adapter.RecommendGridAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
-import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;

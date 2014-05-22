@@ -3,8 +3,6 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 
-import android.view.View;
-
 /***
  * 反馈
  *
