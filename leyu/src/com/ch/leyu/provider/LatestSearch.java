@@ -3,7 +3,11 @@ package com.ch.leyu.provider;
 
 import com.ch.leyu.http.work.JacksonParser;
 import com.ch.leyu.responseparse.VideoSearchResponse;
-
+/**
+ * @ClassName: LatestSearch
+ * @author xiaoming.yuan
+ * @date 2014-5-22 上午10:40:33
+ */
 public class LatestSearch {
 
     private static final String TAG = "LatestSearch";

@@ -5,9 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-
 /**
- * Created by jwb on 13-12-26.
+ *
+ * @ClassName: LatestSearchManager
+ * @author xiaoming.yuan
+ * @date 2014-5-22 上午10:40:55
  */
 public class LatestSearchManager {
     private static DatabaseHelper mLatestSearchHelper = DatabaseHelper.getInstance();

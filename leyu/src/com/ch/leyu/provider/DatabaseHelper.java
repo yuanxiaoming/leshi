@@ -7,11 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created with IntelliJ IDEA.
- * User: chen
- * Date: 7/22/13
- * Time: 2:14 PM
- * To change this template use File | Settings | File Templates.
+ * @ClassName: DatabaseHelper
+ * @author xiaoming.yuan
+ * @date 2014-5-22 上午10:40:44
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
