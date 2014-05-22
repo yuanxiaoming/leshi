@@ -66,7 +66,10 @@ public class LatestSearchManager {
 
     public static void updateSearch(LatestSearch latestSearch) {
         SQLiteDatabase db = mLatestSearchHelper.getWritableDatabase();
-        db.execSQL("update "+LatestSearchTable.TABLE_NAME+ " set  "+LatestSearchTable.DATA+ " = ?  where "+LatestSearchTable.KEYWORD+ " = ?", new Object[] { latestSearch.getmVideoSearchResponseString(), latestSearch.getKeyword() });
+        db.execSQL("update " + LatestSearchTable.TABLE_NAME + " set  " + LatestSearchTable.DATA
+                + " = ?  where " + LatestSearchTable.KEYWORD + " = ?", new Object[] {
+                latestSearch.getmVideoSearchResponseString(), latestSearch.getKeyword()
+        });
         db.close();
     }
 

@@ -1,4 +1,3 @@
-
 /**
  * @Title: LatesSerachAdapter.java
  * @Package com.ch.leyu.adapter
@@ -31,17 +30,19 @@ import java.util.ArrayList;
  */
 
 public class LatestSearchAdapter extends BaseAdapter {
-    private static final String TAG = "LatestSearchAdapter";
+
     private ArrayList<LatestSearch> mLatestSearchsArrayList;
+
     private Context mContext;
-    public LatestSearchAdapter(ArrayList<LatestSearch> latestSearchsArrayList){
-        this.mLatestSearchsArrayList=latestSearchsArrayList;
-        this.mContext=AppContext.getInstance();
+
+    public LatestSearchAdapter(ArrayList<LatestSearch> latestSearchsArrayList) {
+        this.mLatestSearchsArrayList = latestSearchsArrayList;
+        this.mContext = AppContext.getInstance();
 
     }
 
     public void chargeArrayList(ArrayList<LatestSearch> latestSearchsArrayList) {
-        this.mLatestSearchsArrayList=latestSearchsArrayList;
+        this.mLatestSearchsArrayList = latestSearchsArrayList;
         notifyDataSetChanged();
     }
 
@@ -59,29 +60,29 @@ public class LatestSearchAdapter extends BaseAdapter {
     }
 
     /**
-    * Title: getCount
-    * Description:
-    * @return
-    * @see android.widget.Adapter#getCount()
-    */
+     * Title: getCount Description:
+     * 
+     * @return
+     * @see android.widget.Adapter#getCount()
+     */
     @Override
     public int getCount() {
-        if(mLatestSearchsArrayList==null||mLatestSearchsArrayList.size()==0){
+        if (mLatestSearchsArrayList == null || mLatestSearchsArrayList.size() == 0) {
             return 0;
         }
         return mLatestSearchsArrayList.size();
     }
 
     /**
-    * Title: getItem
-    * Description:
-    * @param position
-    * @return
-    * @see android.widget.Adapter#getItem(int)
-    */
+     * Title: getItem Description:
+     * 
+     * @param position
+     * @return
+     * @see android.widget.Adapter#getItem(int)
+     */
     @Override
     public Object getItem(int position) {
-        if(mLatestSearchsArrayList==null||mLatestSearchsArrayList.size()==0){
+        if (mLatestSearchsArrayList == null || mLatestSearchsArrayList.size() == 0) {
             return null;
         }
         return mLatestSearchsArrayList.get(position).getKeyword();
@@ -89,26 +90,27 @@ public class LatestSearchAdapter extends BaseAdapter {
     }
 
     /**
-    * Title: getItemId
-    * Description:
-    * @param position
-    * @return
-    * @see android.widget.Adapter#getItemId(int)
-    */
+     * Title: getItemId Description:
+     * 
+     * @param position
+     * @return
+     * @see android.widget.Adapter#getItemId(int)
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
     /**
-    * Title: getView
-    * Description:
-    * @param position
-    * @param convertView
-    * @param parent
-    * @return
-    * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
-    */
+     * Title: getView Description:
+     * 
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     * @see android.widget.Adapter#getView(int, android.view.View,
+     *      android.view.ViewGroup)
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
@@ -129,4 +131,3 @@ public class LatestSearchAdapter extends BaseAdapter {
         TextView textView;
     }
 }
-

@@ -21,7 +21,9 @@
     <string name="search_newst">最新</string>
     <string name="search_hottest">最热</string>
     <string name="search_result_no">o(︶︿︶)o ，没有搜索到您要的结果</string>
-
+     <string name="search_hint">请输入您要搜索的内容</string>
+ <string name="search_hint_null">没有搜索相关视频资料</string>
+ 
     <!-- 炉石传说攻略 -->
     <string name="hsnews_ngc">炉石攻略</string>
 

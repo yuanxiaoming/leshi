@@ -7,8 +7,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class LatestSearch {
 
-    private static final String TAG = "LatestSearch";
-
     private String keyword ;
 
     private static ObjectMapper sObjectMapper;

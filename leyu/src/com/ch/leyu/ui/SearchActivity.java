@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 /***
  * 搜索activity
- *
+ * 
  * @author L
  */
 public class SearchActivity extends BaseActivity {
@@ -47,8 +47,9 @@ public class SearchActivity extends BaseActivity {
 
     /** 热门搜索，历史记录 */
     private GridView mHots;
-    /* 历史记录 */
-    private LYGridView  mHistory;
+
+    /** 历史记录 */
+    private LYGridView mHistory;
 
     /** 没有搜索结果 */
     private TextView mResult;
@@ -56,7 +57,7 @@ public class SearchActivity extends BaseActivity {
     /** 搜索 */
     private Button mSearch;
 
-    private  String mKeyWord="";
+    private String mKeyWord = "";
 
     private Context mContext;
 
@@ -66,7 +67,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void getExtraParams() {
-        mContext=this;
+        mContext = this;
 
     }
 
@@ -84,21 +85,18 @@ public class SearchActivity extends BaseActivity {
         mResult = (TextView) findViewById(R.id.act_search_tv_result);
         mSearch = (Button) findViewById(R.id.act_search_bt_search);
         mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();
-        if(mLatestSearchArrayList!=null&&mLatestSearchArrayList.size()!=0){
+        mLatestSearchAdapter = new LatestSearchAdapter(mLatestSearchArrayList);
+        mHistory.setAdapter(mLatestSearchAdapter);
+        if (mLatestSearchArrayList != null && mLatestSearchArrayList.size() != 0) {
             mHistory.setVisibility(View.VISIBLE);
             mResult.setVisibility(View.GONE);
-            mLatestSearchAdapter=new LatestSearchAdapter(mLatestSearchArrayList);
-            mHistory.setAdapter(mLatestSearchAdapter);
-        }else{
-            //TODO 提示没有最近搜索记录
-            Toast.makeText(mContext, "没有最近搜索记录", Toast.LENGTH_LONG).show();
+        } else {
             mHistory.setVisibility(View.GONE);
             mResult.setVisibility(View.VISIBLE);
         }
 
     }
-
-
+    
 
     @Override
     protected void setListener() {
@@ -106,7 +104,7 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                if(mLatestSearchAdapter!=null){
+                if (mLatestSearchAdapter != null) {
                     mLatestSearchAdapter.chargeArrayList(null);
                     LatestSearchManager.deleteSearch();
                     mHistory.setVisibility(View.GONE);
@@ -121,33 +119,32 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mKeyWord = mDetail.getText().toString();
-                if(TextUtils.isEmpty(mKeyWord)){
-                    Toast.makeText(mContext, "请输入搜索关键字", Toast.LENGTH_LONG).show();
-                }else{
+                if (TextUtils.isEmpty(mKeyWord)) {
+                    Toast.makeText(mContext, R.string.search_hint, Toast.LENGTH_LONG).show();
+                } else {
                     RequestParams params = new RequestParams();
                     params.put(Constant.KEYWORD, mKeyWord);
-                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,VideoSearchResponse.class,mSearchDataCallback );
+                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,VideoSearchResponse.class, mSearchDataCallback);
                 }
             }
         });
+      
         mHots.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
             }
-
 
         });
         mHistory.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LatestSearchAdapter latestSearchAdapter=(LatestSearchAdapter) parent.getAdapter();
-                if(latestSearchAdapter!=null){
-                    LatestSearch latestSearch=(LatestSearch)( latestSearchAdapter.getArrayList().get(position));
-                    Intent intent = new Intent(mContext,SearchListActivity.class);
+                LatestSearchAdapter latestSearchAdapter = (LatestSearchAdapter) parent.getAdapter();
+                if (latestSearchAdapter != null) {
+                    LatestSearch latestSearch = (LatestSearch) (latestSearchAdapter.getArrayList().get(position));
+                    Intent intent = new Intent(mContext, SearchListActivity.class);
                     intent.putExtra("result", latestSearch.getmVideoSearchResponse());
                     intent.putExtra(Constant.KEYWORD, latestSearch.getKeyword());
                     startActivity(intent);
@@ -161,27 +158,28 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void processLogic() {
 
-        JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,mHotSearchDataCallback);
+        JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,
+                mHotSearchDataCallback);
     }
 
-
     /*
-    * 关键字搜索
-    */
-    DataCallback<VideoSearchResponse> mSearchDataCallback=new DataCallback<VideoSearchResponse>(){
+     * 关键字搜索
+     */
+    DataCallback<VideoSearchResponse> mSearchDataCallback = new DataCallback<VideoSearchResponse>() {
 
         @Override
         public void onStart() {
+            mHttpLoadingView.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
 
             if (data != null) {
-                LatestSearch latestSearch=new LatestSearch(mKeyWord, data);
+                LatestSearch latestSearch = new LatestSearch(mKeyWord, data);
                 LatestSearchManager.insertOrUpdateSearch(latestSearch);
-                if(mLatestSearchAdapter!=null){
-                    if(mHistory.getVisibility()!=View.VISIBLE){
+                if (mLatestSearchAdapter != null) {
+                    if (mHistory.getVisibility() != View.VISIBLE) {
                         mHistory.setVisibility(View.VISIBLE);
                         mResult.setVisibility(View.GONE);
                     }
@@ -189,37 +187,33 @@ public class SearchActivity extends BaseActivity {
                 }
                 mDetail.setText(null);
 
-                Intent intent = new Intent(mContext,SearchListActivity.class);
+                Intent intent = new Intent(mContext, SearchListActivity.class);
                 intent.putExtra("result", data);
                 intent.putExtra(Constant.KEYWORD, mKeyWord);
                 startActivity(intent);
-            }else{
-                Toast.makeText(mContext, "没有搜索相应的视频资料", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(mContext, R.string.search_hint_null, Toast.LENGTH_LONG).show();
 
             }
         }
 
         @Override
-        public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
-
+        public void onFailure(int statusCode, Header[] headers, String responseString,
+                Exception exception) {
 
         }
 
         @Override
         public void onFinish() {
-
-
+            mHttpLoadingView.setVisibility(View.GONE);
         }
-
 
     };
 
-
-
     /**
-    *热门搜索
-    */
-    DataCallback<SearchResponse> mHotSearchDataCallback=new DataCallback<SearchResponse>(){
+     * 热门搜索
+     */
+    DataCallback<SearchResponse> mHotSearchDataCallback = new DataCallback<SearchResponse>() {
 
         @Override
         public void onStart() {
@@ -228,20 +222,20 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, SearchResponse data) {
-            if(data!=null){
+            if (data != null) {
                 mHots.setAdapter(new SearchAdapter(mContext, data.getHot()));
             }
         }
 
         @Override
-        public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
+        public void onFailure(int statusCode, Header[] headers, String responseString,
+                Exception exception) {
         }
 
         @Override
         public void onFinish() {
             mHttpLoadingView.setVisibility(View.GONE);
         }
-
 
     };
 
