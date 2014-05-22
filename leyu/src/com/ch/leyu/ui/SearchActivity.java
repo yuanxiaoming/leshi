@@ -84,11 +84,11 @@ public class SearchActivity extends BaseActivity {
         mResult = (TextView) findViewById(R.id.act_search_tv_result);
         mSearch = (Button) findViewById(R.id.act_search_bt_search);
         mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();
+        mLatestSearchAdapter=new LatestSearchAdapter(mLatestSearchArrayList);
+        mHistory.setAdapter(mLatestSearchAdapter);
         if(mLatestSearchArrayList!=null&&mLatestSearchArrayList.size()!=0){
             mHistory.setVisibility(View.VISIBLE);
             mResult.setVisibility(View.GONE);
-            mLatestSearchAdapter=new LatestSearchAdapter(mLatestSearchArrayList);
-            mHistory.setAdapter(mLatestSearchAdapter);
         }else{
             //TODO 提示没有最近搜索记录
             Toast.makeText(mContext, "没有最近搜索记录", Toast.LENGTH_LONG).show();
