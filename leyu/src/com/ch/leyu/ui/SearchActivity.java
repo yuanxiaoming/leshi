@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -90,13 +91,14 @@ public class SearchActivity extends BaseActivity {
         if (mLatestSearchArrayList != null && mLatestSearchArrayList.size() != 0) {
             mHistory.setVisibility(View.VISIBLE);
             mResult.setVisibility(View.GONE);
+
         } else {
+            // TODO 提示没有最近搜索记录
             mHistory.setVisibility(View.GONE);
             mResult.setVisibility(View.VISIBLE);
         }
 
     }
-    
 
     @Override
     protected void setListener() {
@@ -118,6 +120,9 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+               //隐藏键盘
+                ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(SearchActivity.this.getCurrentFocus().
+                                getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 mKeyWord = mDetail.getText().toString();
                 if (TextUtils.isEmpty(mKeyWord)) {
                     Toast.makeText(mContext, R.string.search_hint, Toast.LENGTH_LONG).show();
@@ -128,7 +133,7 @@ public class SearchActivity extends BaseActivity {
                 }
             }
         });
-      
+
         mHots.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -186,11 +191,11 @@ public class SearchActivity extends BaseActivity {
                     mLatestSearchAdapter.chargeArrayList(LatestSearchManager.findLatestSearchAll());
                 }
                 mDetail.setText(null);
-
                 Intent intent = new Intent(mContext, SearchListActivity.class);
                 intent.putExtra("result", data);
                 intent.putExtra(Constant.KEYWORD, mKeyWord);
                 startActivity(intent);
+                
             } else {
                 Toast.makeText(mContext, R.string.search_hint_null, Toast.LENGTH_LONG).show();
 

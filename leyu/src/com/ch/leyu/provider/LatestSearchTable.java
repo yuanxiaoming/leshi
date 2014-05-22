@@ -3,7 +3,10 @@ package com.ch.leyu.provider;
 import android.provider.BaseColumns;
 
 /**
- * Created by jwb on 13-12-26.
+ *
+ * @ClassName: LatestSearchTable
+ * @author xiaoming.yuan
+ * @date 2014-5-22 上午10:41:05
  */
 public class LatestSearchTable implements BaseColumns {
 

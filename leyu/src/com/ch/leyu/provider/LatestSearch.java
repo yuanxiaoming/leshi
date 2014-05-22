@@ -1,16 +1,16 @@
 
 package com.ch.leyu.provider;
 
+import com.ch.leyu.http.work.JacksonParser;
 import com.ch.leyu.responseparse.VideoSearchResponse;
-
-import org.codehaus.jackson.map.ObjectMapper;
-
+/**
+ * @ClassName: LatestSearch
+ * @author xiaoming.yuan
+ * @date 2014-5-22 上午10:40:33
+ */
 public class LatestSearch {
 
     private String keyword ;
-
-    private static ObjectMapper sObjectMapper;
-
     private String mVideoSearchResponseString;
 
 
@@ -38,16 +38,8 @@ public class LatestSearch {
     }
 
     public VideoSearchResponse getmVideoSearchResponse() {
-
-        if (sObjectMapper == null) {
-            sObjectMapper = new ObjectMapper();
-            sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
-            sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES, false);
-        }
-
         try {
-            return this.sObjectMapper.readValue(mVideoSearchResponseString, VideoSearchResponse.class);
+            return  JacksonParser.getInstance().readValue(mVideoSearchResponseString, VideoSearchResponse.class);
         } catch (Exception e) {
             return null;
         }
@@ -60,14 +52,8 @@ public class LatestSearch {
 
 
     public void setmVideoSearchResponse(VideoSearchResponse mVideoSearchResponse) {
-        if (sObjectMapper == null) {
-            sObjectMapper = new ObjectMapper();
-            sObjectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
-            sObjectMapper.configure(org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES, false);
-        }
         try {
-            this.mVideoSearchResponseString = sObjectMapper.writeValueAsString(mVideoSearchResponse);
+            this.mVideoSearchResponseString = JacksonParser.getInstance().writeValueAsString(mVideoSearchResponse);
         } catch (Exception e) {
            this.mVideoSearchResponseString="{}";
         };
