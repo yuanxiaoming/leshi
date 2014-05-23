@@ -65,6 +65,9 @@ public class VideoPlayActivity extends BaseActivity {
         mViewPager = (LYViewPager) findViewById(R.id.act_videodetail_viewpager);
         mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videodetail_pagertab);
         mDetailFragment = new DetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(Constant.UID, mId);
+        mDetailFragment.setArguments(args);
     }
 
     @Override
@@ -78,7 +81,6 @@ public class VideoPlayActivity extends BaseActivity {
         mViewPager.setAdapter(mLyViewPagerAdapter);
         mSlideTabIndicator.setViewPager(mViewPager);
         mSlideTabIndicator.setTextSize(24);
-        requestData(mId, Constant.URL+Constant.VIDEO_URL+Constant.VIDEO_DETAIL);
     }
 
     private ArrayList<Fragment> addFragment(){
@@ -100,37 +102,4 @@ public class VideoPlayActivity extends BaseActivity {
     }
 
 
-    private void requestData(String mid,String url){
-        RequestParams params = new RequestParams();
-        params.put("id",mid);
-        JHttpClient.get(this, url, params, VideoPlayResponse.class, new DataCallback<VideoPlayResponse>() {
-
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, VideoPlayResponse data) {
-                if(data!=null){
-                    Bundle args = new Bundle();
-                    args.putSerializable(Constant.DATA, data.getVideoInfo());
-                    new DetailFragment() .setArguments(args);
-                    Log.d("tag", data.getVideoInfo().getTitle()+"-----------");
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        });
-    }
     }

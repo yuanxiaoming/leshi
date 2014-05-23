@@ -79,8 +79,7 @@ public class LOLFragment extends BaseFragment {
                             mfocusViewPager.startAutoScroll(2000);
                             mfocusViewPager.setCurrentItem(data.getFocus().size() * 10000);
                             mPageIndicator.setPageCount(data.getFocus().size());
-                            mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(
-                                    getActivity(), data.getFocus()));
+                            mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                             mPageIndicator.setViewPager(mfocusViewPager);
                         }
 
