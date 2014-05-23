@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 /**
  * 视频播放界面--详情
- * 
+ *
  * @author Administrator
  */
 public class DetailFragment extends BaseFragment {
@@ -26,13 +26,9 @@ public class DetailFragment extends BaseFragment {
     private TextView mLabel;
 
     private TextView mIntro;
-    
+
     private VideoDetailResponse mVideoDetailResponse ;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -70,7 +66,7 @@ public class DetailFragment extends BaseFragment {
             mLabel.setText(mVideoDetailResponse.getTag());
             mIntro.setText(mVideoDetailResponse.getDetail());
         }
-       
+
     }
 
 }

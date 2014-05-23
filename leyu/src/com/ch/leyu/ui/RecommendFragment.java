@@ -11,10 +11,6 @@ import android.view.View;
  */
 public class RecommendFragment extends BaseFragment {
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

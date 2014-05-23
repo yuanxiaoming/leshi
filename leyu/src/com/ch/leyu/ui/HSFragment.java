@@ -19,16 +19,17 @@ import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 /***
  * 首页--炉石传说
- * 
+ *
  * @author L
  */
-public class HSFragment extends BaseFragment {
+public class HSFragment extends BaseFragment implements OnClickListener {
 
     /** 新闻 */
     private ListView mNewsListView;
@@ -65,10 +66,10 @@ public class HSFragment extends BaseFragment {
             case R.id.hs_bt_videos:
                 intent = new Intent(getActivity(), VideosActivity.class);
                 startActivity(intent);
-                
+
                 break;
             case R.id.hs_bt_raiders:
-                
+
 //                CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, new NewsFragment(), "");
                 break;
 

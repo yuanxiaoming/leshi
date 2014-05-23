@@ -17,7 +17,7 @@ import android.widget.GridView;
 
 /***
  * 炉石传说 视频库
- * 
+ *
  * @author L
  */
 public class VideoBankFragment extends BaseFragment {
@@ -30,10 +30,6 @@ public class VideoBankFragment extends BaseFragment {
 
     private GridViewAdapter mGridViewAdapter;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

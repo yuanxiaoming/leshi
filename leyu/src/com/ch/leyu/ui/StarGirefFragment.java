@@ -19,7 +19,7 @@ import com.ch.leyu.widget.xlistview.XListView;
 
 /***
  * 首页--明星解说
- * 
+ *
  * @author L
  */
 public class StarGirefFragment extends BaseFragment {
@@ -28,10 +28,6 @@ public class StarGirefFragment extends BaseFragment {
 
     private StarListAdapter mAdapter;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

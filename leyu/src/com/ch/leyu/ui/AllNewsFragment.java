@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  * 新闻资讯---全部
- * 
+ *
  * @author L
  */
 @SuppressLint("SimpleDateFormat")
@@ -42,11 +42,6 @@ public class AllNewsFragment extends BaseFragment {
     private AutoScrollViewPager mAutoScrollViewPager;
 
     private CircleLoopPageIndicator mCircleLoopPageIndicator;
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

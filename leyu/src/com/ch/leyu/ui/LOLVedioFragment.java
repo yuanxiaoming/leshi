@@ -21,7 +21,7 @@ import android.widget.GridView;
 
 /**
  * LOL视频库
- * 
+ *
  * @author L
  */
 public class LOLVedioFragment extends BaseFragment implements OnItemClickListener {
@@ -34,10 +34,6 @@ public class LOLVedioFragment extends BaseFragment implements OnItemClickListene
 
     private int position;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -98,7 +94,7 @@ public class LOLVedioFragment extends BaseFragment implements OnItemClickListene
                         if (data != null) {
                             mAdapter = new GridViewAdapter(data.getVideoList(), getActivity());
                             mGridView.setAdapter(mAdapter);
-                           
+
                         }
                     }
 
@@ -127,7 +123,7 @@ public class LOLVedioFragment extends BaseFragment implements OnItemClickListene
         Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
         intent.putExtra(Constant.UID, videoId);
         startActivity(intent);
-        
+
     }
 
 }

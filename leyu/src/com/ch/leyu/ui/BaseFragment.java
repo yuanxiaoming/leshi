@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
-public abstract class BaseFragment extends Fragment implements OnClickListener {
+public abstract class BaseFragment extends Fragment {
     public View mContentView;
     public LayoutInflater mInflater;
     private int mResouce_id = 0;

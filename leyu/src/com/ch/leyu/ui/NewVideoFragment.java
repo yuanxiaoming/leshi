@@ -16,7 +16,7 @@ import android.widget.GridView;
 
 /**
  * 明星视频--最新上传
- * 
+ *
  * @author L
  */
 public class NewVideoFragment extends BaseFragment {
@@ -27,10 +27,6 @@ public class NewVideoFragment extends BaseFragment {
 
     private GridViewAdapter mAdapter;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

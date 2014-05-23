@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /***
  * 首页--新闻资讯
- * 
+ *
  * @author L
  */
 public class NewsFragment extends BaseFragment {
@@ -26,10 +26,6 @@ public class NewsFragment extends BaseFragment {
 
     private ArrayList<Fragment> mFragmentList;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

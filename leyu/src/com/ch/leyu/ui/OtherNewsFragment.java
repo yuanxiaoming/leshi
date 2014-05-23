@@ -15,17 +15,12 @@ import android.view.View;
 
 /***
  * 其他新闻资讯
- * 
+ *
  * @author L
  */
 public class OtherNewsFragment extends BaseFragment {
 
     private XListView mListView;
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -40,7 +35,7 @@ public class OtherNewsFragment extends BaseFragment {
     @Override
     protected void findViewById() {
         mListView = (XListView) findViewById(R.id.othernews_listview_cly);
-        
+
     }
 
     @Override
@@ -69,7 +64,7 @@ public class OtherNewsFragment extends BaseFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-                
+
             }
         });
     }

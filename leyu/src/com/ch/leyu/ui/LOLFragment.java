@@ -19,7 +19,7 @@ import android.view.View;
 
 /***
  * 首页--英雄联盟
- * 
+ *
  * @author L
  */
 public class LOLFragment extends BaseFragment {
@@ -37,11 +37,6 @@ public class LOLFragment extends BaseFragment {
     private LOLViewPagerAdapter mPagerAdapter;
 
     private View mView;
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {

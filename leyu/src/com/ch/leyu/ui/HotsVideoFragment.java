@@ -16,7 +16,7 @@ import android.widget.GridView;
 
 /**
  * 明星视频--最热播放
- * 
+ *
  * @author L
  */
 public class HotsVideoFragment extends BaseFragment {
@@ -27,10 +27,6 @@ public class HotsVideoFragment extends BaseFragment {
 
     private GridViewAdapter mAdapter;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
