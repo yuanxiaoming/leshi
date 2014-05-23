@@ -6,13 +6,17 @@ import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 /**
@@ -20,7 +24,7 @@ import android.widget.GridView;
  * 
  * @author L
  */
-public class LOLVedioFragment extends BaseFragment {
+public class LOLVedioFragment extends BaseFragment implements OnItemClickListener {
 
     private GridView mGridView;
 
@@ -55,24 +59,27 @@ public class LOLVedioFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mGridView.setOnItemClickListener(this);
     }
 
     @Override
     protected void processLogic() {
-        String url = Constant.URL + Constant.VEDIO_URL;
+        String url = Constant.URL + Constant.VIDEO_URL;
+        //全部视频
         if (position == 0) {
             requestData(21, null, url);
         }
+        //本周热门
         if (position == 1) {
 
             requestData(21, null, Constant.LOL_HOT);
         }
+        //教学
         if (position == 2) {
             String keyWord = "精彩,教学,原创";
             requestData(21, keyWord, url);
         }
-
+        //解说
         if (position == 3) {
             String keyWord = "解说,搞笑,排位";
             requestData(21, keyWord, url);
@@ -91,7 +98,7 @@ public class LOLVedioFragment extends BaseFragment {
                         if (data != null) {
                             mAdapter = new GridViewAdapter(data.getVideoList(), getActivity());
                             mGridView.setAdapter(mAdapter);
-
+                           
                         }
                     }
 
@@ -111,6 +118,16 @@ public class LOLVedioFragment extends BaseFragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        String videoId = item.getId();
+        Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+        intent.putExtra(Constant.UID, videoId);
+        startActivity(intent);
+        
     }
 
 }

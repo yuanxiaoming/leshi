@@ -4,6 +4,7 @@ package com.ch.leyu.view;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -38,6 +39,8 @@ public class BaseScrollView extends ScrollView {
 
     // 在手指滑动的过程中记录是否移动了布局
     private boolean isMoved = false;
+    
+    private int oldY,newY;
 
     public BaseScrollView(Context context) {
         super(context);
@@ -164,5 +167,6 @@ public class BaseScrollView extends ScrollView {
     public boolean isCanPullUp() {
         return contentView.getHeight() <= getHeight() + getScrollY();
     }
+
 
 }

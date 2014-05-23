@@ -56,15 +56,14 @@ public class VideosActivity extends BaseActivity {
     protected void processLogic() {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
-        JHttpClient.get(this, Constant.URL + Constant.VEDIO_URL, params, VideoBankResponse.class,
+        JHttpClient.get(this, Constant.URL + Constant.VIDEO_URL, params, VideoBankResponse.class,
                 new DataCallback<VideoBankResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers,
                             final VideoBankResponse data) {
                         if (data != null) {
-                            mVideobankPagerAdapter = new VideobankPagerAdapter(
-                                    getSupportFragmentManager(), data);
+                            mVideobankPagerAdapter = new VideobankPagerAdapter(getSupportFragmentManager(), data);
                             mViewPager.setAdapter(mVideobankPagerAdapter);
 
                             mSlideTabIndicator.setViewPager(mViewPager);

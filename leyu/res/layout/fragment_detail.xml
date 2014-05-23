@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/fragment_detail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/fragment_detail_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fragment_detail_title"
+        android:text="@string/detail_author" />
+
+    <TextView
+        android:id="@+id/fragment_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/fragment_detail_author"
+        android:layout_alignBottom="@+id/fragment_detail_author"
+        android:layout_marginLeft="24dp"
+        android:layout_toRightOf="@+id/fragment_detail_author"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/fragment_detail_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fragment_detail_author"
+        android:text="@string/detail_play" />
+
+    <TextView
+        android:id="@+id/fragment_detail_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/fragment_detail_number"
+        android:layout_alignBottom="@+id/fragment_detail_number"
+        android:layout_alignRight="@+id/fragment_detail_name"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/fragment_detail_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fragment_detail_number"
+        android:text="@string/detail_lable" />
+
+    <TextView
+        android:id="@+id/fragment_detail_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fragment_detail_label"
+        android:text="@string/detail_content" />
+
+    <TextView
+        android:id="@+id/fragment_detail_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fragment_detail_introduce"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/fragment_detail_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fragment_detail_introduce"
+        android:layout_alignLeft="@+id/fragment_detail_count"
+        android:text="TextView" />
+
+</RelativeLayout>

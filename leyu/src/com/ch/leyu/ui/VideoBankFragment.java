@@ -72,7 +72,7 @@ public class VideoBankFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, gameId);
         params.put(Constant.KEYWORD, keyword);
-        JHttpClient.get(getActivity(), Constant.URL+Constant.VEDIO_URL, params, VideoBankResponse.class,new DataCallback<VideoBankResponse>() {
+        JHttpClient.get(getActivity(), Constant.URL+Constant.VIDEO_URL, params, VideoBankResponse.class,new DataCallback<VideoBankResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers,final VideoBankResponse data) {

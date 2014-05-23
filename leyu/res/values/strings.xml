@@ -26,5 +26,11 @@
  
     <!-- 炉石传说攻略 -->
     <string name="hsnews_ngc">炉石攻略</string>
+    
+    <!--视频详细-->
+<string name="detail_author">作者：</string>
+<string name="detail_play">播放：</string>
+<string name="detail_lable">标签：</string>
+<string name="detail_content">作品介绍：</string>
 
 </resources>
