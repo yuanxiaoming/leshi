@@ -6,8 +6,9 @@
 
     <com.ch.leyu.widget.xlistview.XListView
         android:id="@+id/star_xistview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:footerDividersEnabled="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
     </com.ch.leyu.widget.xlistview.XListView>

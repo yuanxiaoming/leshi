@@ -6,12 +6,16 @@ import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 /**
@@ -19,7 +23,7 @@ import android.widget.GridView;
  *
  * @author L
  */
-public class NewVideoFragment extends BaseFragment {
+public class NewVideoFragment extends BaseFragment implements OnItemClickListener {
 
     private GridView mGridView;
 
@@ -45,15 +49,14 @@ public class NewVideoFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mGridView.setOnItemClickListener(this);
     }
 
     @Override
     protected void processLogic() {
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
-                StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+        JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
@@ -80,6 +83,17 @@ public class NewVideoFragment extends BaseFragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Property item = (Property) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+                if(item!=null){
+                    intent.putExtra(Constant.UID , item.getId());
+                    startActivity(intent);
+                }
+              
     }
 
 }

@@ -100,8 +100,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
                        if(data!=null){
                            mName.setText(data.getUserInfo().getNickname());
-                           ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(),
-                                   mImageView, ImageLoaderUtil.getImageLoaderOptions());
+                           ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(), mImageView, ImageLoaderUtil.getImageLoaderOptions());
                            mDetail.setText(data.getUserInfo().getDetail());
                        }
                     }

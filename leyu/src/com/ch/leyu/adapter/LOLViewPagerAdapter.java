@@ -1,7 +1,7 @@
 
 package com.ch.leyu.adapter;
 
-import com.ch.leyu.ui.LOLVedioFragment;
+import com.ch.leyu.ui.LOLVideoFragment;
 import com.ch.leyu.utils.Constant;
 
 import android.os.Bundle;
@@ -20,7 +20,7 @@ public class LOLViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<String> mStrings;
 
-    private LOLVedioFragment mFragment;
+    private LOLVideoFragment mFragment;
 
     public LOLViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -29,7 +29,7 @@ public class LOLViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        mFragment = new LOLVedioFragment();
+        mFragment = new LOLVideoFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Constant.POSITION, position);
         mFragment.setArguments(bundle);

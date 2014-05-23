@@ -24,7 +24,7 @@ import android.widget.GridView;
  *
  * @author L
  */
-public class LOLVedioFragment extends BaseFragment implements OnItemClickListener {
+public class LOLVideoFragment extends BaseFragment implements OnItemClickListener {
 
     private GridView mGridView;
 
@@ -60,6 +60,9 @@ public class LOLVedioFragment extends BaseFragment implements OnItemClickListene
 
     @Override
     protected void processLogic() {
+        mAdapter = new GridViewAdapter(null, getActivity());
+        mGridView.setAdapter(mAdapter);
+        
         String url = Constant.URL + Constant.VIDEO_URL;
         //全部视频
         if (position == 0) {
@@ -92,8 +95,7 @@ public class LOLVedioFragment extends BaseFragment implements OnItemClickListene
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
                         if (data != null) {
-                            mAdapter = new GridViewAdapter(data.getVideoList(), getActivity());
-                            mGridView.setAdapter(mAdapter);
+                            mAdapter.chargeArrayList(data.getVideoList());
 
                         }
                     }
@@ -119,10 +121,13 @@ public class LOLVedioFragment extends BaseFragment implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Property item = (Property) parent.getAdapter().getItem(position);
-        String videoId = item.getId();
         Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-        intent.putExtra(Constant.UID, videoId);
-        startActivity(intent);
+        if(item!=null){
+            String videoId = item.getId();
+            intent.putExtra(Constant.UID, videoId);
+            startActivity(intent);
+        }
+     
 
     }
 
