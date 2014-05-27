@@ -14,12 +14,11 @@ import com.ch.leyu.view.PagerSlidingTabStrip;
 import org.apache.http.Header;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
 /***
- * 视频详情
+ * 视频播放
  * 
  * @author L
  */
@@ -64,6 +63,7 @@ public class VideoPlayActivity extends BaseActivity {
     @Override
     protected void processLogic() {
         requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
+        
     }
 
     private void requestData(String mid, String url) {

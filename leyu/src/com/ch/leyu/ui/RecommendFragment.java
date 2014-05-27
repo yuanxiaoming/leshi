@@ -6,6 +6,7 @@ import com.ch.leyu.adapter.RecommendListAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.VideoDetailResponse;
 import com.ch.leyu.responseparse.VideoSearchResponse;
 import com.ch.leyu.utils.Constant;
@@ -13,14 +14,18 @@ import com.ch.leyu.widget.xlistview.XListView;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * 视频播放界面--相关推荐
  * 
  * @author L
  */
-public class RecommendFragment extends BaseFragment {
+public class RecommendFragment extends BaseFragment implements OnItemClickListener {
    
     private XListView mXListView;
 
@@ -50,7 +55,7 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mXListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -99,6 +104,19 @@ public class RecommendFragment extends BaseFragment {
             
         }
     };
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+      Property item = (Property) parent.getAdapter().getItem(position);
+      if(item!=null){
+          Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+          String videoId = item.getId();
+          intent.putExtra(Constant.UID, videoId);
+          startActivity(intent);
+          getActivity().finish();
+      }
+        
+    }
     
     
     

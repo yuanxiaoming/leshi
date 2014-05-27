@@ -6,6 +6,7 @@ import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.VideoSearchResponse;
 import com.ch.leyu.utils.Constant;
 
@@ -14,6 +15,8 @@ import org.apache.http.Header;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -26,7 +29,7 @@ import android.widget.TextView;
  *
  * @author L
  */
-public class SearchListActivity extends BaseActivity implements OnClickListener {
+public class SearchListActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
 
     /** 最新 */
     private Button mNewst;
@@ -47,11 +50,12 @@ public class SearchListActivity extends BaseActivity implements OnClickListener 
     private VideoSearchResponse mResponse;
 
     private String keyWord;
+    
+    private GridViewAdapter mAdapter;
 
     @Override
     public void onClick(View v) {
         RequestParams params = null;
-
         if (v.getId() == R.id.act_searchlist_bt_search) {
             keyWord = mEditText.getText().toString();
             params = new RequestParams();
@@ -72,8 +76,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
                         if(data!=null){
-                            mGridView.setAdapter(new GridViewAdapter(data.getVideoList(),
-                                    SearchListActivity.this));
+                            mAdapter.chargeArrayList(data.getVideoList());
                         }
                     }
 
@@ -93,6 +96,8 @@ public class SearchListActivity extends BaseActivity implements OnClickListener 
 
                     }
                 });
+        
+     
 
     }
 
@@ -118,6 +123,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener 
         mResult = (TextView) findViewById(R.id.act_searchlist_tv_count);
         mEditText = (EditText) findViewById(R.id.act_searchlist_et_detail);
         mSearch = (Button) findViewById(R.id.act_searchlist_bt_search);
+        mGridView.setOnItemClickListener(this);
     }
 
     @Override
@@ -129,7 +135,22 @@ public class SearchListActivity extends BaseActivity implements OnClickListener 
 
     @Override
     protected void processLogic() {
-        mGridView.setAdapter(new GridViewAdapter(mResponse.getVideoList(), this));
+        mAdapter = new GridViewAdapter(null, this);
+        mGridView.setAdapter(mAdapter);
+        mAdapter.chargeArrayList(mResponse.getVideoList());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        Intent intent ;
+        if(item!=null){
+            String videoId = item.getId();
+            intent  = new Intent(this, VideoPlayActivity.class);
+            intent .putExtra(Constant.UID, videoId);
+            startActivity(intent);
+        }
+        
     }
 
 }

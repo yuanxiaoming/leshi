@@ -78,7 +78,6 @@
             android:name="com.ch.leyu.ui.VideoPlayActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan" >
         </activity>
     </application>

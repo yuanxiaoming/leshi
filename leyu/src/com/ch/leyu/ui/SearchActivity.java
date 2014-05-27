@@ -93,7 +93,7 @@ public class SearchActivity extends BaseActivity {
             mResult.setVisibility(View.GONE);
 
         } else {
-            // TODO 提示没有最近搜索记录
+            //  提示没有最近搜索记录
             mHistory.setVisibility(View.GONE);
             mResult.setVisibility(View.VISIBLE);
         }

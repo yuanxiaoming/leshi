@@ -61,7 +61,7 @@ public class LOLFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        
     }
 
     @Override

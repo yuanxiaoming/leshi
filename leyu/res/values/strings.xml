@@ -33,4 +33,6 @@
 <string name="detail_lable">标签：</string>
 <string name="detail_content">作品介绍：</string>
 
+    <!--popupwindow-->
+<string name="pop_title">炉石传说视频分类</string>
 </resources>

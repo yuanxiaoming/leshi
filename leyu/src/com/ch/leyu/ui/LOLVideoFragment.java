@@ -121,8 +121,8 @@ public class LOLVideoFragment extends BaseFragment implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Property item = (Property) parent.getAdapter().getItem(position);
-        Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
         if(item!=null){
+            Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
             String videoId = item.getId();
             intent.putExtra(Constant.UID, videoId);
             startActivity(intent);
