@@ -23,13 +23,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 /***
- * 搜索结果列表显示
- *
- * 暂未处理没有结果时的显示情况
- *
+ * 搜索结果列表显示 暂未处理没有结果时的显示情况
+ * 
  * @author L
  */
-public class SearchListActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
+public class SearchListActivity extends BaseActivity implements OnClickListener,
+        OnItemClickListener {
 
     /** 最新 */
     private Button mNewst;
@@ -50,7 +49,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
     private VideoSearchResponse mResponse;
 
     private String keyWord;
-    
+
     private GridViewAdapter mAdapter;
 
     @Override
@@ -75,7 +74,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
-                        if(data!=null){
+                        if (data != null) {
                             mAdapter.chargeArrayList(data.getVideoList());
                         }
                     }
@@ -96,8 +95,6 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
 
                     }
                 });
-        
-     
 
     }
 
@@ -143,14 +140,14 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Property item = (Property) parent.getAdapter().getItem(position);
-        Intent intent ;
-        if(item!=null){
+        Intent intent;
+        if (item != null) {
             String videoId = item.getId();
-            intent  = new Intent(this, VideoPlayActivity.class);
-            intent .putExtra(Constant.UID, videoId);
+            intent = new Intent(this, VideoPlayActivity.class);
+            intent.putExtra(Constant.UID, videoId);
             startActivity(intent);
         }
-        
+
     }
 
 }

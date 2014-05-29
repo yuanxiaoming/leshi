@@ -4,12 +4,15 @@
     android:layout_height="match_parent" >
 
     <GridView
+        android:paddingTop="10dp"
         android:id="@+id/lolvedio_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:numColumns="2" 
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth">
     </GridView>
 

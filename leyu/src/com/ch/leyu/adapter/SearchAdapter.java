@@ -25,10 +25,10 @@ public class SearchAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(mlist!=null){
+        if (mlist != null) {
             return mlist.size();
         }
-        
+
         return 0;
     }
 

@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/***
+ * 明星解说适配器
+ * 
+ * @author Administrator
+ */
 public class StarListAdapter extends ArrayAdapter<Info> {
 
     public StarListAdapter(Context context, List<Info> objects) {
