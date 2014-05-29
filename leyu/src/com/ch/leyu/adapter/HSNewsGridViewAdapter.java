@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,10 +28,13 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
     private ArrayList<Property> arrayList;
 
     private LayoutInflater mInflater;
+    
+    private Context mContext;
 
     public HSNewsGridViewAdapter(ArrayList<Property> arrayList, Context context) {
         this.arrayList = arrayList;
         mInflater = LayoutInflater.from(context);
+        this.mContext = context;
     }
 
     @Override
@@ -68,6 +73,7 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 5));
         ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
         holder.textView.setText(arrayList.get(position).getTitle());

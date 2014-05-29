@@ -19,6 +19,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/***
+ * 炉石传说首页--小编推荐列表适配器
+ * 
+ * @author Administrator
+ */
 public class RecommendGridAdapter extends BaseAdapter {
 
     private ArrayList<Property> mNewsList;
@@ -61,10 +66,11 @@ public class RecommendGridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        
-        holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2 , CommonUtil.getWidthMetrics(mContext) / 2));
-        holder.img.setScaleType(ScaleType.FIT_XY) ;
-        
+
+        holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil
+                .getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 3));
+        holder.img.setScaleType(ScaleType.FIT_XY);
+
         ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
                 ImageLoaderUtil.getImageLoaderOptions());
         holder.title.setText(mNewsList.get(position).getTitle());
@@ -74,6 +80,7 @@ public class RecommendGridAdapter extends BaseAdapter {
 
     class ViewHolder {
         ImageView img;
+
         TextView title;
     }
 

@@ -56,7 +56,10 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/act_searchlist_bt_latest"
         android:layout_marginTop="15dp"
-        android:numColumns="2" >
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:paddingTop="10dp"
+        android:verticalSpacing="10dp" >
     </GridView>
 
 </RelativeLayout>

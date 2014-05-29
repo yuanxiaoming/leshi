@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/***
+ * 视频播放---相关推荐列表适配器
+ * 
+ * @author Administrator
+ */
 public class RecommendListAdapter extends BaseAdapter {
 
     private ArrayList<Property> mArrayList;
