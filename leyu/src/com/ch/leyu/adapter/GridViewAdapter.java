@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class GridViewAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.gridview_item, null);
             holder.imageView = (ImageView) convertView.findViewById(R.id.gd_img1);
+            holder.textView = (TextView) convertView.findViewById(R.id.gd_tv1);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -55,12 +57,14 @@ public class GridViewAdapter extends BaseAdapter {
 
         ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
-
+        holder.textView.setText(arrayList.get(position).getTitle());
         return convertView;
     }
 
     class ViewHolder {
         ImageView imageView;
+
+        TextView textView;
     }
 
 }

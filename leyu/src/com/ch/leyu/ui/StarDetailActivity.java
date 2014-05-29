@@ -18,9 +18,9 @@ import org.apache.http.Header;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,8 +29,10 @@ import java.util.ArrayList;
  * 
  * @author L
  */
-public class StarDetailActivity extends BaseActivity {
 
+public class StarDetailActivity extends BaseActivity implements OnClickListener {
+
+    /** 明星ID */
     private String uid;
 
     /** 明星头像 */
@@ -89,7 +91,7 @@ public class StarDetailActivity extends BaseActivity {
                 addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
         mTabStrip.setTextSize(24);
-        
+
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,
@@ -132,7 +134,7 @@ public class StarDetailActivity extends BaseActivity {
     private ArrayList<Fragment> addFragment() {
         mFragments = new ArrayList<Fragment>();
         mFragments.add(new NewVideoFragment());
-        mFragments.add(new AllFragment());
+        mFragments.add(new HotsVideoFragment());
         return mFragments;
     }
 

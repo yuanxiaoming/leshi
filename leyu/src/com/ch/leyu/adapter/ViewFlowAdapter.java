@@ -7,7 +7,6 @@ import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

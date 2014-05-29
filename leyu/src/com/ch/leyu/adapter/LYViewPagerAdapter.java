@@ -22,6 +22,7 @@ public class LYViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        
         return mFragments.get(position);
     }
 
@@ -34,5 +35,6 @@ public class LYViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mStrings.get(position);
     }
-
+    
+    
 }

@@ -5,29 +5,28 @@ import com.ch.leyu.R;
 import com.ch.leyu.adapter.AutoScrollerPagerAdapter;
 import com.ch.leyu.adapter.NewsListAdapter;
 import com.ch.leyu.adapter.RecommendGridAdapter;
-import com.ch.leyu.adapter.ViewFlowAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleFlowIndicator;
 import com.ch.leyu.view.CircleLoopPageIndicator;
 import com.ch.leyu.view.LYGridView;
-import com.ch.leyu.view.LYViewFlow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 /***
  * 首页--炉石传说
- *
- *
+ * 
  * @author L
  */
 public class HSFragment extends BaseFragment {
@@ -44,13 +43,39 @@ public class HSFragment extends BaseFragment {
     /** Hot */
     private LYGridView mHotGrid;
 
-    private AutoScrollViewPager mAtuoScrollViewPager ;
+    private AutoScrollViewPager mAtuoScrollViewPager;
 
-    private CircleLoopPageIndicator mCircleLoopPageIndicator ;
+    private CircleLoopPageIndicator mCircleLoopPageIndicator;
+
+    /** 赛事专区 */
+    private Button mMatch;
+
+    /** 视频库 */
+    private Button mVideos;
+
+    /** 高玩攻略 */
+    private Button mRaiders;
 
     @Override
     public void onClick(View v) {
+        Intent intent = null ;
+        switch (v.getId()) {
+            case R.id.hs_bt_match:
 
+                break;
+            case R.id.hs_bt_videos:
+                intent = new Intent(getActivity(), VideosActivity.class);
+                startActivity(intent);
+                
+                break;
+            case R.id.hs_bt_raiders:
+                
+//                CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, new NewsFragment(), "");
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override
@@ -60,8 +85,13 @@ public class HSFragment extends BaseFragment {
         mBigImg2 = (ImageView) findViewById(R.id.hs_img_bigRecommend2);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
+        mMatch = (Button) findViewById(R.id.hs_bt_match);
+        mVideos = (Button) findViewById(R.id.hs_bt_videos);
+        mRaiders = (Button) findViewById(R.id.hs_bt_raiders);
 
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
+        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
+        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
 
     }
@@ -81,12 +111,13 @@ public class HSFragment extends BaseFragment {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
 
-                    	mAtuoScrollViewPager.startAutoScroll(2000);
-                    	AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity() , data.getFocus());
-                    	mAtuoScrollViewPager.setAdapter(adapter);
-                    	mAtuoScrollViewPager.setCurrentItem(data.getFocus().size()*10000);
-                    	mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                    	mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
+                        mAtuoScrollViewPager.startAutoScroll(2000);
+                        AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(
+                                getActivity(), data.getFocus());
+                        mAtuoScrollViewPager.setAdapter(adapter);
+                        mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                        mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                        mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
 
                         mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
                         mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
@@ -122,7 +153,9 @@ public class HSFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mMatch.setOnClickListener(this);
+        mVideos.setOnClickListener(this);
+        mRaiders.setOnClickListener(this);
     }
 
     @Override

@@ -73,6 +73,7 @@ public class ExitAppUtils {
 				activity.finish();
 			}
 		}
+		System.exit(0);
 	}
 
 	/**

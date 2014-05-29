@@ -1,12 +1,19 @@
 
 package com.ch.leyu.responseparse;
 
+import java.io.Serializable;
+
 /***
- * 新闻详情&&炉石传说
+ * 新闻详情&&炉石传说&&搜索--title&&createTime--全部新闻
  * 
  * @author Administrator
  */
-public class Property {
+public class Property implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7501646692922101207L;
+
     private String id;
 
     private String title;
@@ -14,6 +21,16 @@ public class Property {
     private String imageSrc;
 
     private String linkUrl;
+
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public String getLinkUrl() {
         return linkUrl;
