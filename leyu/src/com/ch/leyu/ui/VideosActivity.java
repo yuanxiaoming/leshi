@@ -45,7 +45,9 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
 
     private VideobankPagerAdapter mVideobankPagerAdapter;
 
-    private ArrayList<TagResponse> mTitle;
+    private ArrayList<TagResponse> mTitleList;
+    
+    private PopGridViewAdapter mPopAdapter = null;
 
     @Override
     protected void getExtraParams() {
@@ -84,7 +86,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
                             mSlideTabIndicator.setViewPager(mViewPager);
                             mSlideTabIndicator.setTextSize(24);
 
-                            mTitle = data.getTags();
+                            mTitleList = data.getTags();
                         }
                     }
 
@@ -109,11 +111,11 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     public void showPop() {
         final View popView = LayoutInflater.from(this).inflate(R.layout.popupwindow, null);
         GridView gridView = (GridView) popView.findViewById(R.id.pop_gridview);
-        PopGridViewAdapter adapter = null;
-        if (mTitle != null) {
-            adapter = new PopGridViewAdapter(mTitle, this);
+      
+        if (mTitleList != null) {
+            mPopAdapter = new PopGridViewAdapter(mTitleList, this);
         }
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(mPopAdapter);
 
         final PopupWindow popWindow = new PopupWindow(popView);
         popWindow.setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);

@@ -2,12 +2,13 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.AutoScrollerPagerAdapter;
+import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.adapter.NewsListAdapter;
 import com.ch.leyu.adapter.RecommendGridAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;
@@ -20,6 +21,8 @@ import org.apache.http.Header;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,7 +32,7 @@ import android.widget.ListView;
  *
  * @author L
  */
-public class HSFragment extends BaseFragment implements OnClickListener {
+public class HSFragment extends BaseFragment implements OnClickListener, OnItemClickListener {
 
     /** 新闻 */
     private ListView mNewsListView;
@@ -55,6 +58,10 @@ public class HSFragment extends BaseFragment implements OnClickListener {
 
     /** 高玩攻略 */
     private Button mRaiders;
+    
+    private String bigImgId1="";
+    
+    private String bigImgId2="";
 
     @Override
     public void onClick(View v) {
@@ -73,6 +80,21 @@ public class HSFragment extends BaseFragment implements OnClickListener {
 //                CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, new NewsFragment(), "");
                 break;
 
+            case R.id.hs_img_bigRecommend1:
+                if(!bigImgId1.equals("")){
+                    intent = new Intent(getActivity(), VideoPlayActivity.class);
+                    intent.putExtra(Constant.UID , bigImgId1);
+                    startActivity(intent);
+                }
+                
+                break;
+            case R.id.hs_img_bigRecommend2:
+                if(!bigImgId1.equals("")){
+                    intent = new Intent(getActivity(), VideoPlayActivity.class);
+                    intent.putExtra(Constant.UID , bigImgId2);
+                    startActivity(intent);
+                }
+                break;
             default:
                 break;
         }
@@ -90,8 +112,8 @@ public class HSFragment extends BaseFragment implements OnClickListener {
         mRaiders = (Button) findViewById(R.id.hs_bt_raiders);
 
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
-        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
-        mAtuoScrollViewPager.setCycle(true);
+//        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
+//        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
 
     }
@@ -112,7 +134,9 @@ public class HSFragment extends BaseFragment implements OnClickListener {
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
                         if(data!=null){
                             mAtuoScrollViewPager.startAutoScroll(2000);
-                            AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
+                           // AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
+                            HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus());
+                            
                             mAtuoScrollViewPager.setAdapter(adapter);
                             mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                             mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
@@ -122,7 +146,9 @@ public class HSFragment extends BaseFragment implements OnClickListener {
                             mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
                                     getActivity()));
                             mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
-
+                            
+                            bigImgId1 = data.getBigRecommend().get(0).getId();
+                            bigImgId2 = data.getBigRecommend().get(1).getId();
                             ImageLoader.getInstance().displayImage(
                                     data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
                                     ImageLoaderUtil.getImageLoaderOptions());
@@ -156,11 +182,27 @@ public class HSFragment extends BaseFragment implements OnClickListener {
         mMatch.setOnClickListener(this);
         mVideos.setOnClickListener(this);
         mRaiders.setOnClickListener(this);
+        mNewsListView.setOnItemClickListener(this);
+        mBigImg1.setOnClickListener(this);
+        mBigImg2.setOnClickListener(this);
+        mRecommendGrid.setOnItemClickListener(this);
+        mHotGrid.setOnItemClickListener(this);
     }
 
     @Override
     protected void getExtraParams() {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        if(item!=null){
+            Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+            intent.putExtra(Constant.UID , item.getId());
+            startActivity(intent);
+        }
+        
     }
 
 }

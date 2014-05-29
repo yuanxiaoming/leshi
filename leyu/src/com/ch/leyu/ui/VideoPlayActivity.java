@@ -8,14 +8,17 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.VideoPlayResponse;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.LYViewPager;
 import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 /***
  * 视频播放
@@ -28,7 +31,7 @@ public class VideoPlayActivity extends BaseActivity {
 
     private PagerSlidingTabStrip mSlideTabIndicator;
 
-    private WebView mWebView;
+    private ImageView mImg;
 
     private String mId;
 
@@ -50,7 +53,7 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     protected void findViewById() {
-        mWebView = (WebView) findViewById(R.id.act_videodetail_webview);
+        mImg = (ImageView) findViewById(R.id.act_videodetail_img);
         mViewPager = (LYViewPager) findViewById(R.id.act_videodetail_viewpager);
         mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videodetail_pagertab);
     }
@@ -83,6 +86,9 @@ public class VideoPlayActivity extends BaseActivity {
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
                             mSlideTabIndicator.setTextSize(24);
+                            
+                            ImageLoader.getInstance().displayImage(data.getVideoInfo().getImageSrc(), mImg,
+                                    ImageLoaderUtil.getImageLoaderOptions());
                         }
 
                     }

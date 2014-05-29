@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <WebView
-        android:id="@+id/act_videodetail_webview"
+    <ImageView
+        android:id="@+id/act_videodetail_img"
         android:layout_width="fill_parent"
         android:layout_height="150dp" />
 

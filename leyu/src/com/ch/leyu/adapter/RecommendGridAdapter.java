@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,11 @@ public class RecommendGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mNewsList.size();
+        if (mNewsList != null) {
+            return mNewsList.size();
+        }
+        return 0;
+
     }
 
     @Override
@@ -48,6 +53,7 @@ public class RecommendGridAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.recommend_grid_item, null);
             holder.img = (ImageView) convertView.findViewById(R.id.rec_img);
+            holder.title = (TextView) convertView.findViewById(R.id.rec_title);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -55,12 +61,14 @@ public class RecommendGridAdapter extends BaseAdapter {
 
         ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
                 ImageLoaderUtil.getImageLoaderOptions());
+        holder.title.setText(mNewsList.get(position).getTitle());
 
         return convertView;
     }
 
     class ViewHolder {
         ImageView img;
+        TextView title;
     }
 
 }
