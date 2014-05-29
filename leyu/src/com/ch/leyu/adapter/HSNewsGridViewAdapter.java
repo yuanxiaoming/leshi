@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 /***
  * 新闻资讯--炉石传说
+ * 
  * @author L
- *
  */
 public class HSNewsGridViewAdapter extends BaseAdapter {
 
@@ -34,12 +34,20 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        if (arrayList != null) {
+            arrayList.size();
+        }
+
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return arrayList.get(position);
+        if (arrayList != null) {
+            return arrayList.get(position);
+        }
+        
+        return null;
     }
 
     @Override

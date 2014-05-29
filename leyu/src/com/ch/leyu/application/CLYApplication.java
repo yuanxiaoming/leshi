@@ -1,6 +1,6 @@
 package com.ch.leyu.application;
 
-import static com.ch.leyu.http.cacheservice.DBOpenHelper.DB_NAME;
+import static com.ch.leyu.http.cacheservice.CacheDatabaseHelper.DB_NAME;
 
 import com.ch.leyu.ui.AppContext;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;

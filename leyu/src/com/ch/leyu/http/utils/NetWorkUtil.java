@@ -1,8 +1,6 @@
 
 package com.ch.leyu.http.utils;
 
-import com.ch.leyu.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -164,7 +162,7 @@ public class NetWorkUtil {
         if (!isConnected(activity)) {
             TextView msg = new TextView(activity);
             msg.setText("当前没有可以使用的网络，请设置网络!");
-            new AlertDialog.Builder(activity).setIcon(R.drawable.ic_launcher).setTitle("网络状态提示").setView(msg).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(activity).setIcon(android.R.drawable.ic_dialog_info).setTitle("网络状态提示").setView(msg).setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int whichButton) {
                     // 跳转到设置界面

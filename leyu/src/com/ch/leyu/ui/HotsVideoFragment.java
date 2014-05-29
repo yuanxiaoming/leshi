@@ -6,31 +6,30 @@ import com.ch.leyu.adapter.GridViewAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.utils.Constant;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 /**
  * 明星视频--最热播放
- * 
+ *
  * @author L
  */
-public class HotsVideoFragment extends BaseFragment {
+public class HotsVideoFragment extends BaseFragment implements OnItemClickListener {
 
     private GridView mGridView;
 
     private String uid;
 
     private GridViewAdapter mAdapter;
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -49,7 +48,7 @@ public class HotsVideoFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mGridView.setOnItemClickListener(this);
     }
 
     @Override
@@ -63,8 +62,10 @@ public class HotsVideoFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
-                        mAdapter = new GridViewAdapter(data.getVideoList().getData(), getActivity());
-                        mGridView.setAdapter(mAdapter);
+                        if(data!=null){
+                            mAdapter = new GridViewAdapter(data.getVideoList().getData(), getActivity());
+                            mGridView.setAdapter(mAdapter);
+                        }
 
                     }
 
@@ -84,6 +85,17 @@ public class HotsVideoFragment extends BaseFragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+        if(item!=null){
+            intent.putExtra(Constant.UID , item.getId());
+            startActivity(intent);
+        }
+        
     }
 
 }

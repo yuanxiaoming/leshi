@@ -19,7 +19,7 @@ import com.ch.leyu.widget.xlistview.XListView;
 
 /***
  * 首页--明星解说
- * 
+ *
  * @author L
  */
 public class StarGirefFragment extends BaseFragment {
@@ -28,10 +28,6 @@ public class StarGirefFragment extends BaseFragment {
 
     private StarListAdapter mAdapter;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -57,10 +53,12 @@ public class StarGirefFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Info info = (Info) parent.getAdapter().getItem(position);
-                String uid = info.getUid();
-                Intent intent = new Intent(getActivity(), StarDetailActivity.class);
-                intent.putExtra(Constant.UID, uid);
-                startActivity(intent);
+               if(info!=null){
+                   String uid = info.getUid();
+                   Intent intent = new Intent(getActivity(), StarDetailActivity.class);
+                   intent.putExtra(Constant.UID, uid);
+                   startActivity(intent);
+               }
             }
         });
     }
@@ -72,8 +70,10 @@ public class StarGirefFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, final StarResponse data) {
-                        mAdapter = new StarListAdapter(getActivity(), data.getUserInfo());
-                        mXListView.setAdapter(mAdapter);
+                        if(data!=null){
+                            mAdapter = new StarListAdapter(getActivity(), data.getUserInfo());
+                            mXListView.setAdapter(mAdapter);
+                        }
                     }
 
                     @Override

@@ -15,7 +15,7 @@ import android.widget.RadioButton;
 /***
  * 导航页
  *
- * @author Administrator
+ * @author L
  */
 public class MainActivity extends BaseActivity implements OnClickListener {
 

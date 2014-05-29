@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.ch.leyu.http.parserinterface.BaseParser;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
@@ -14,7 +15,7 @@ public class FastJsonParser<T> extends BaseParser<T> {
     public static final String TAG = "FastJsonParser";
 
     @Override
-    public T parse(String rsp) throws Exception {
+    public T parse(String rsp) throws JSONException {
         switch (parseType(rsp)) {
         case BaseParserJSONObject:
             JSONObject  paramObject = new JSONObject(rsp);

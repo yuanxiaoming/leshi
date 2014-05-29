@@ -8,7 +8,6 @@ import com.ch.leyu.adapter.RecommendGridAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
-import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;
@@ -20,16 +19,17 @@ import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 /***
  * 首页--炉石传说
- * 
+ *
  * @author L
  */
-public class HSFragment extends BaseFragment {
+public class HSFragment extends BaseFragment implements OnClickListener {
 
     /** 新闻 */
     private ListView mNewsListView;
@@ -66,10 +66,10 @@ public class HSFragment extends BaseFragment {
             case R.id.hs_bt_videos:
                 intent = new Intent(getActivity(), VideosActivity.class);
                 startActivity(intent);
-                
+
                 break;
             case R.id.hs_bt_raiders:
-                
+
 //                CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, new NewsFragment(), "");
                 break;
 
@@ -110,26 +110,26 @@ public class HSFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
+                        if(data!=null){
+                            mAtuoScrollViewPager.startAutoScroll(2000);
+                            AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
+                            mAtuoScrollViewPager.setAdapter(adapter);
+                            mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                            mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
 
-                        mAtuoScrollViewPager.startAutoScroll(2000);
-                        AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(
-                                getActivity(), data.getFocus());
-                        mAtuoScrollViewPager.setAdapter(adapter);
-                        mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                        mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                        mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
+                            mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
+                            mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
+                                    getActivity()));
+                            mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
 
-                        mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
-                        mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
-                                getActivity()));
-                        mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
-
-                        ImageLoader.getInstance().displayImage(
-                                data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
-                                ImageLoaderUtil.getImageLoaderOptions());
-                        ImageLoader.getInstance().displayImage(
-                                data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
-                                ImageLoaderUtil.getImageLoaderOptions());
+                            ImageLoader.getInstance().displayImage(
+                                    data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
+                                    ImageLoaderUtil.getImageLoaderOptions());
+                            ImageLoader.getInstance().displayImage(
+                                    data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
+                                    ImageLoaderUtil.getImageLoaderOptions());
+                        }
 
                     }
 

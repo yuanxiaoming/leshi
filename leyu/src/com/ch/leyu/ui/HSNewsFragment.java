@@ -19,25 +19,21 @@ import android.widget.GridView;
 
 /***
  * 新闻资讯--炉石攻略
- * 
+ *
  * @author Administrator
  */
 public class HSNewsFragment extends BaseFragment {
-    
-    private GridView mGridView ;
-    
-    private AutoScrollViewPager mViewPager ;
-    
-    private CircleLoopPageIndicator mPageIndicator;
-    
-    private View layout;
-    
-    private HSNewsGridViewAdapter maAdapter ;
-    
-    @Override
-    public void onClick(View v) {
 
-    }
+    private GridView mGridView ;
+
+    private AutoScrollViewPager mViewPager ;
+
+    private CircleLoopPageIndicator mPageIndicator;
+
+    private View layout;
+
+    private HSNewsGridViewAdapter maAdapter ;
+
 
     @Override
     protected void getExtraParams() {
@@ -70,15 +66,18 @@ public class HSNewsFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-                mViewPager.startAutoScroll(2000);
-                mViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                mPageIndicator.setPageCount(data.getFocus().size());
-                mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
-                mPageIndicator.setViewPager(mViewPager);
-                
-//                maAdapter = new HSNewsGridViewAdapter(data.getNewsList(), getActivity());
-//                mGridView.setAdapter(maAdapter);
-                
+               if(data!=null){
+                   mViewPager.startAutoScroll(2000);
+                   mViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                   mPageIndicator.setPageCount(data.getFocus().size());
+                   mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
+                   mPageIndicator.setViewPager(mViewPager);
+
+//                   maAdapter = new HSNewsGridViewAdapter(data.getNewsList(), getActivity());
+//                   mGridView.setAdapter(maAdapter);
+               }
+
+
             }
 
             @Override
@@ -94,7 +93,7 @@ public class HSNewsFragment extends BaseFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-                
+
             }
         });
 

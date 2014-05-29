@@ -17,11 +17,13 @@ public interface Constant {
 
     public static final String KEYWORD = "keyword";
 
+    public static final String POSITION = "position";
+    
+    /** 实体类传输key */
+    public static final String DATA = "data";
+
     /** 游戏id */
     public static final String GMAE_ID = "gameId";
-
-    // 测试接口
-    public static final String A_URL = "http://manhua.haomee.net/?android_version=203&m=Api&a=listByType&limit=15&id=57&order=3&page=1";
 
     /** url */
     public static final String URL = "http://www.legames.cn/app/api/";
@@ -36,7 +38,7 @@ public interface Constant {
     public static final String LOL_URL = "game.php?gameId=21";
 
     /** 视频接口 */
-    public static final String LOL_VEDIO_URL = "video.php?";
+    public static final String VIDEO_URL = "video.php?";
 
     /** 明星详情 */
     public static final String STAR_DETAIL = "user.php?";
@@ -49,9 +51,13 @@ public interface Constant {
 
     /** 全部新闻 */
     public static final String ALL_NEWS = "news.php?";
-    
+
     /** 其他新闻 */
     public static final String RESTS_NEWS = "action=list";
-    
 
+    /** LOL最热 */
+    public static final String LOL_HOT = "http://www.legames.cn/app/api/video.php?action=rank&day=7";
+
+    /** 视频详情 */
+    public static final String VIDEO_DETAIL= "action=info";
 }

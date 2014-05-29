@@ -44,8 +44,7 @@ public class CLYAdapter extends ArrayAdapter<Property> {
             if(item.getImageSrc()==null||item.getImageSrc().equals("")){
                 holder.img.setVisibility(View.GONE);
             }else {
-                ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img,
-                        ImageLoaderUtil.getImageLoaderOptions());
+                ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img , ImageLoaderUtil.getImageLoaderOptions());
             }
            
         }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <WebView
+        android:id="@+id/act_videodetail_webview"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp" />
+
+    <com.ch.leyu.view.PagerSlidingTabStrip
+        android:id="@+id/act_videodetail_pagertab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_weight="0"
+        app:pstsIndicatorColor="#339933"
+        app:pstsIndicatorHeight="6dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabPaddingLeftRight="12dp"
+        app:pstsUnderlineColor="#339933" />
+
+    <com.ch.leyu.view.LYViewPager
+        android:id="@+id/act_videodetail_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

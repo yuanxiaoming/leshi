@@ -2,8 +2,11 @@
 package com.ch.leyu.adapter;
 
 import com.ch.leyu.responseparse.TagResponse;
-import com.ch.leyu.ui.StarGirefFragment;
+import com.ch.leyu.responseparse.VideoBankResponse;
+import com.ch.leyu.ui.VideoBankFragment;
+import com.ch.leyu.utils.Constant;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,27 +15,35 @@ import java.util.ArrayList;
 
 public class VideobankPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<TagResponse> mStrings;
+    private VideoBankResponse mVideoBankResponse;
 
-    public VideobankPagerAdapter(FragmentManager fm, ArrayList<TagResponse> mStrings) {
+    private VideoBankFragment videoBankFragment;
+
+    private ArrayList<TagResponse> mTagResponse;
+
+    public VideobankPagerAdapter(FragmentManager fm, VideoBankResponse videoBankResponse) {
         super(fm);
-        this.mStrings = mStrings;
+        this.mVideoBankResponse = videoBankResponse;
+        mTagResponse = mVideoBankResponse.getTags();
+
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        return new StarGirefFragment();
+        videoBankFragment = new VideoBankFragment();
+        Bundle bundle = new Bundle();
+        bundle.putCharSequence(Constant.POSITION, mTagResponse.get(position).getKeyword());
+        videoBankFragment.setArguments(bundle);
+        return videoBankFragment;
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return mVideoBankResponse.getTags().size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mStrings.get(position).getTag();
+        return mTagResponse.get(position).getTag();
     }
-
 }

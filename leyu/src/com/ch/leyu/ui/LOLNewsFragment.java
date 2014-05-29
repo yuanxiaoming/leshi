@@ -16,17 +16,13 @@ import android.view.View;
 
 /***
  * LOL新闻资讯
- * 
+ *
  * @author L
  */
 public class LOLNewsFragment extends BaseFragment {
 
     private XListView mListView;
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -41,7 +37,7 @@ public class LOLNewsFragment extends BaseFragment {
     @Override
     protected void findViewById() {
         mListView = (XListView) findViewById(R.id.lolnews_listview_cly);
-        
+
     }
 
     @Override
@@ -54,7 +50,9 @@ public class LOLNewsFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-                mListView.setAdapter(new CLYAdapter(getActivity(), data.getNewsList()));
+               if(data!=null){
+                   mListView.setAdapter(new CLYAdapter(getActivity(), data.getNewsList()));
+               }
             }
 
             @Override
@@ -70,7 +68,7 @@ public class LOLNewsFragment extends BaseFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-                
+
             }
         });
     }

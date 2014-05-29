@@ -4,8 +4,6 @@ package com.ch.leyu.adapter;
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
 
-import org.xmlpull.v1.XmlPullParser;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +25,19 @@ public class SearchAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mlist.size();
+        if(mlist!=null){
+            return mlist.size();
+        }
+        
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return mlist.get(position);
+        if (mlist != null) {
+            return mlist.get(position);
+        }
+        return null;
     }
 
     @Override

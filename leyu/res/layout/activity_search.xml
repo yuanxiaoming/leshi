@@ -12,15 +12,77 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/act_search_bt_search"
-        android:background="@drawable/login_edittext_bg" />
+        android:background="@drawable/login_edittext_bg"
+        android:hint="请输入关键字搜索" />
+
+    <Button
+        android:id="@+id/act_search_bt_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/act_search_et_detail"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/act_seacrh_img_del"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/act_search_bt_search"
+        android:layout_marginTop="5dp"
+        android:text="搜索历史"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/act_seacrh_img_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/act_search_et_detail"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/biz_pc_list_offline_btn_pressed" />
+
+    <LinearLayout
+        android:id="@+id/act_search_linearlayout_history"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/act_seacrh_img_del"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+
+        <com.ch.leyu.view.LYGridView
+            android:id="@+id/act_search_gd_history"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:numColumns="2"
+            android:visibility="visible" >
+        </com.ch.leyu.view.LYGridView>
+
+        <TextView
+            android:id="@+id/act_search_tv_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/search_result_no"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:visibility="visible" />
+    </LinearLayout>
 
     <View
         android:id="@+id/view2"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/act_search_gd_history"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
+        android:layout_below="@+id/act_search_linearlayout_history"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:background="#000000" />
 
     <TextView
@@ -28,28 +90,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/view2"
+        android:layout_marginTop="15dp"
         android:text="热门搜索"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <GridView
-        android:id="@+id/act_search_gd_history"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/act_seacrh_img_del"
-        android:numColumns="2"
-        
-        android:visibility="visible" >
-    </GridView>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/act_search_bt_search"
-        android:text="搜索历史"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <GridView
@@ -58,36 +101,8 @@
         android:layout_height="150dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
+        android:layout_marginTop="10dp"
         android:numColumns="2" >
     </GridView>
-
-    <ImageView
-        android:id="@+id/act_seacrh_img_del"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/act_search_et_detail"
-        android:src="@drawable/biz_pc_list_offline_btn_pressed" />
-
-    <Button
-        android:id="@+id/act_search_bt_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/act_search_tv_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/act_seacrh_img_del"
-        android:layout_above="@+id/view2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/search_result_no"
-        android:visibility="gone"
-/>
 
 </RelativeLayout>
