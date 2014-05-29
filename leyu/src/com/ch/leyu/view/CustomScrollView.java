@@ -6,138 +6,101 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 
 public class CustomScrollView extends ScrollView {
+	private View inner; // 孩子View
+	private static final int DEFAULT_POSITION = -1;
+	private float y = DEFAULT_POSITION;// 点击时y的坐标
+	private Rect normal = new Rect();
 
-	private View inner;// 孩子View
-
-	private float y;// 点击时y坐标
-
-	private Rect normal = new Rect();// 矩形(这里只是个形式，只是用于判断是否需要动画.)
-
-	private boolean isCount = false;// 是否开始计算
-
-	private boolean isMoveing = false;// 是否开始移动.
-
-	private ImageView imageView;
-
-	private int initTop, initbottom;// 初始高度
-	private int top, bottom;// 拖动时时高度。
-
-	public void setImageView(ImageView imageView) {
-		this.imageView = imageView;
-	}
+	// 滑动距离及坐标
+	private float xDistance, yDistance, xLast, yLast;
 
 	public CustomScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	/***
-	 * 根据 XML 生成视图工作完成.该函数在生成视图的最后调用，在所有子视图添加完之后. 即使子类覆盖了 onFinishInflate
-	 * 方法，也应该调用父类的方法，使该方法得以执行.
+	/**
+	 * 根据XML生成视图工作完成，该函数在生成视图的最后调用，在所有子视图添加完成之后， 即使子类覆盖了onFinishInflate
+	 * 方法，也应该调用父类的方法， 使得该方法得以执行
 	 */
 	@Override
 	protected void onFinishInflate() {
 		if (getChildCount() > 0) {
 			inner = getChildAt(0);
+
 		}
 	}
 
-	/** touch 事件处理 **/
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		if (inner != null) {
+		if (inner == null) {
+			return super.onTouchEvent(ev);
+		} else {
 			commOnTouchEvent(ev);
 		}
+
 		return super.onTouchEvent(ev);
 	}
 
-	/***
-	 * 触摸事件
-	 * 
-	 * @param ev
-	 */
 	public void commOnTouchEvent(MotionEvent ev) {
 		int action = ev.getAction();
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-			top = initTop = imageView.getTop();
-			bottom = initbottom = imageView.getBottom();
+			y = ev.getY();
 			break;
-
 		case MotionEvent.ACTION_UP:
 
-			isMoveing = false;
-			// 手指松开.
 			if (isNeedAnimation()) {
-
 				animation();
-
 			}
+			
+			//加入额外代码
+			if(mAutoScrollViewPager != null)
+			{
+				mAutoScrollViewPager.startAutoScroll();
+			}
+
+			y = DEFAULT_POSITION;
 			break;
-		/***
-		 * 排除出第一次移动计算，因为第一次无法得知y坐标， 在MotionEvent.ACTION_DOWN中获取不到，
-		 * 因为此时是MyScrollView的touch事件传递到到了LIstView的孩子item上面.所以从第二次计算开始.
-		 * 然而我们也要进行初始化，就是第一次移动的时候让滑动距离归0. 之后记录准确了就正常执行.
+
+		/**
+		 * 排除第一次移动计算，因为第一次无法得知y左边，在MotionEvent.ACTION_DOWN中获取不到，
+		 * 因为此时是MyScrollView的Tocuh时间传递到了ListView的孩子item上面。所以从第二次开始计算
+		 * 然而我们也要进行初始化，就是第一次移动的时候让滑动距离归零，之后记录准确了就正常执行
 		 */
 		case MotionEvent.ACTION_MOVE:
-
-			final float preY = y;// 按下时的y坐标
-
-			float nowY = ev.getY();// 时时y坐标
-			int deltaY = (int) (nowY - preY);// 滑动距离
-			if (!isCount) {
-				deltaY = 0; // 在这里要归0.
+			float preY = y;
+			float nowY = ev.getY();
+			if (isDefaultPosition(y)) {
+				preY = nowY;
 			}
-
-			if (deltaY < 0 && top <= initTop)
-				return;
-
+			int deltaY = (int) (preY - nowY);
+			scrollBy(0, deltaY);
+			y = nowY;
 			// 当滚动到最上或者最下时就不会再滚动，这时移动布局
-			isNeedMove();
-
-			if (isMoveing) {
-				// 初始化头部矩形
+			if (isNeedMove()) {
 				if (normal.isEmpty()) {
 					// 保存正常的布局位置
 					normal.set(inner.getLeft(), inner.getTop(),
 							inner.getRight(), inner.getBottom());
+
 				}
-
 				// 移动布局
-				inner.layout(inner.getLeft(), inner.getTop() + deltaY / 3,
-						inner.getRight(), inner.getBottom() + deltaY / 3);
-
-				top += (deltaY / 6);
-				bottom += (deltaY / 6);
-				imageView.layout(imageView.getLeft(), top,
-						imageView.getRight(), bottom);
+				inner.layout(inner.getLeft(), inner.getTop() - deltaY / 2,
+						inner.getRight(), inner.getBottom() - deltaY / 2);
 			}
-
-			isCount = true;
-			y = nowY;
 			break;
 
 		default:
 			break;
-
 		}
 	}
 
-	/***
-	 * 回缩动画
-	 */
+	// 开启动画移动
+
 	public void animation() {
-
-		TranslateAnimation taa = new TranslateAnimation(0, 0, top + 200,
-				initTop + 200);
-		taa.setDuration(200);
-		imageView.startAnimation(taa);
-		imageView.layout(imageView.getLeft(), initTop, imageView.getRight(),
-				initbottom);
-
 		// 开启移动动画
 		TranslateAnimation ta = new TranslateAnimation(0, 0, inner.getTop(),
 				normal.top);
@@ -145,10 +108,8 @@ public class CustomScrollView extends ScrollView {
 		inner.startAnimation(ta);
 		// 设置回到正常的布局位置
 		inner.layout(normal.left, normal.top, normal.right, normal.bottom);
-		normal.setEmpty();
 
-		isCount = false;
-		y = 0;// 手指松开要归0.
+		normal.setEmpty();
 
 	}
 
@@ -157,21 +118,51 @@ public class CustomScrollView extends ScrollView {
 		return !normal.isEmpty();
 	}
 
-	/***
-	 * 是否需要移动布局 inner.getMeasuredHeight():获取的是控件的总高度
-	 * 
-	 * getHeight()：获取的是屏幕的高度
-	 * 
-	 * @return
-	 */
-	public void isNeedMove() {
+	// 是否需要移动布局
+	public boolean isNeedMove() {
+
 		int offset = inner.getMeasuredHeight() - getHeight();
 		int scrollY = getScrollY();
-		// Log.e("jj", "scrolly=" + scrollY);
-		// 0是顶部，后面那个是底部
 		if (scrollY == 0 || scrollY == offset) {
-			isMoveing = true;
+			return true;
 		}
+		return false;
+	}
+
+	// 检查是否处于默认位置
+	private boolean isDefaultPosition(float position) {
+		return position == DEFAULT_POSITION;
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			xDistance = yDistance = 0f;
+			xLast = ev.getX();
+			yLast = ev.getY();
+			break;
+		case MotionEvent.ACTION_MOVE:
+			final float curX = ev.getX();
+			final float curY = ev.getY();
+
+			xDistance += Math.abs(curX - xLast);
+			yDistance += Math.abs(curY - yLast);
+			xLast = curX;
+			yLast = curY;
+
+			if (xDistance > yDistance) {
+				return false;
+			}
+		}
+
+		return super.onInterceptTouchEvent(ev);
+	}
+	
+	private AutoScrollViewPager mAutoScrollViewPager ;
+	
+	public void setAutoScrollViewPager(AutoScrollViewPager autoScrollViewPager){
+		mAutoScrollViewPager = autoScrollViewPager ;
 	}
 
 }

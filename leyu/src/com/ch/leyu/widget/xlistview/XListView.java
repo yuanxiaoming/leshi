@@ -10,6 +10,7 @@
 package com.ch.leyu.widget.xlistview;
 
 import com.ch.leyu.R;
+import com.ch.leyu.view.AutoScrollViewPager;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -337,6 +338,12 @@ public class XListView extends ListView implements OnScrollListener {
 				}
 				resetFooterHeight();
 			}
+			
+			//加入额外代码
+			if(mAutoScrollViewPager != null)
+			{
+				mAutoScrollViewPager.startAutoScroll();
+			}
 			break;
 		}
 		return super.onTouchEvent(ev);
@@ -425,4 +432,11 @@ public class XListView extends ListView implements OnScrollListener {
 		}
 		return super.onInterceptTouchEvent(ev);
 	}
+	
+	private AutoScrollViewPager mAutoScrollViewPager ;
+	
+	public void setAutoScrollViewPager(AutoScrollViewPager autoScrollViewPager){
+		mAutoScrollViewPager = autoScrollViewPager ;
+	}
+	
 }
