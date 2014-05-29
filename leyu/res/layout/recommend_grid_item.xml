@@ -13,6 +13,18 @@
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true" 
+        android:src="@drawable/launcher_first_bg"/>
+
+    <TextView
+        android:id="@+id/rec_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rec_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="TextView" />
 
 </RelativeLayout>
