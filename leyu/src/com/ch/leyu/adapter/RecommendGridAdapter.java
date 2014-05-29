@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -58,7 +61,10 @@ public class RecommendGridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        
+        holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2 , CommonUtil.getWidthMetrics(mContext) / 2));
+        holder.img.setScaleType(ScaleType.FIT_XY) ;
+        
         ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
                 ImageLoaderUtil.getImageLoaderOptions());
         holder.title.setText(mNewsList.get(position).getTitle());

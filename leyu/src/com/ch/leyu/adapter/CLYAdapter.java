@@ -83,9 +83,9 @@ public class CLYAdapter extends BaseAdapter {
             holder.time.setText(item.getCreateTime());
             if (item.getImageSrc() == null || item.getImageSrc().equals("")) {
                 holder.img.setVisibility(View.GONE);
-            } else {
-                ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img,
-                        ImageLoaderUtil.getImageLoaderOptions());
+
+            }else {
+                ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img , ImageLoaderUtil.getImageLoaderOptions());
             }
 
         }

@@ -12,6 +12,7 @@
         android:layout_weight="0"
         app:pstsIndicatorColor="#339933"
         app:pstsIndicatorHeight="6dp"
+        app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="25dp"
         app:pstsUnderlineColor="#339933" />
 

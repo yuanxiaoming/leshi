@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -10,9 +11,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import java.util.ArrayList;
 
@@ -21,10 +25,13 @@ public class GridViewAdapter extends BaseAdapter {
     private ArrayList<Property> mArrayList;
 
     private LayoutInflater mInflater;
+    
+    private Context mContext ;
 
     public GridViewAdapter(ArrayList<Property> arrayList, Context context) {
         this.mArrayList = arrayList;
         mInflater = LayoutInflater.from(context);
+        mContext = context ;
     }
 
     public void chargeArrayList(ArrayList<Property> arrayList) {
@@ -74,6 +81,9 @@ public class GridViewAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 2 + 10));
+        holder.imageView.setScaleType(ScaleType.FIT_XY) ;
 
         ImageLoader.getInstance().displayImage(mArrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());

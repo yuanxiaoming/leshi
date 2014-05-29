@@ -9,6 +9,7 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;
@@ -25,6 +26,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 /***
@@ -149,6 +152,12 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                             
                             bigImgId1 = data.getBigRecommend().get(0).getId();
                             bigImgId2 = data.getBigRecommend().get(1).getId();
+                            
+                            mBigImg1.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , CommonUtil.getWidthMetrics(getActivity()) / 2));
+                            mBigImg2.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , CommonUtil.getWidthMetrics(getActivity()) / 2));
+                            mBigImg1.setScaleType(ScaleType.FIT_XY);
+                            mBigImg2.setScaleType(ScaleType.FIT_XY);
+                            
                             ImageLoader.getInstance().displayImage(
                                     data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
                                     ImageLoaderUtil.getImageLoaderOptions());

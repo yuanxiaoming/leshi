@@ -11,7 +11,14 @@ public class ImageLoaderUtil {
 
 	public static DisplayImageOptions getImageLoaderOptions() {
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.abc_ab_bottom_solid_dark_holo).showImageForEmptyUri(R.drawable.abc_ab_bottom_solid_dark_holo)
-				.showImageOnFail(R.drawable.abc_ab_bottom_solid_dark_holo).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)).bitmapConfig(Bitmap.Config.RGB_565).build();
+				.showImageOnFail(R.drawable.abc_ab_bottom_solid_dark_holo).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(0)).bitmapConfig(Bitmap.Config.ARGB_8888).build();
+
+		return options;
+	}
+	
+	public static DisplayImageOptions getImageLoaderOptions(int roundDegree) {
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.abc_ab_bottom_solid_dark_holo).showImageForEmptyUri(R.drawable.abc_ab_bottom_solid_dark_holo)
+				.showImageOnFail(R.drawable.abc_ab_bottom_solid_dark_holo).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(roundDegree)).bitmapConfig(Bitmap.Config.ARGB_8888).build();
 
 		return options;
 	}
