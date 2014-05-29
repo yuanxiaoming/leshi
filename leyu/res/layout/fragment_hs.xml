@@ -92,16 +92,17 @@
                 <ImageView
                     android:id="@+id/hs_img_bigRecommend1"
                     android:layout_width="fill_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingRight="5dp" />
+                    android:paddingRight="10dp"
+                    />
 
                 <ImageView
                     android:id="@+id/hs_img_bigRecommend2"
                     android:layout_width="fill_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="5dp" />
+                    />
             </LinearLayout>
 
             <com.ch.leyu.view.LYGridView
@@ -109,7 +110,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:numColumns="2"
-                android:stretchMode="columnWidth" />
+                android:stretchMode="columnWidth"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -131,7 +133,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:numColumns="2"
-                android:stretchMode="columnWidth" />
+                android:stretchMode="columnWidth" 
+                />
         </LinearLayout>
     </RelativeLayout>
 

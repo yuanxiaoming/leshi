@@ -16,7 +16,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/fragment_hsnews_tv_ngc"
-        android:numColumns="3" >
+        android:numColumns="3" 
+        android:stretchMode="columnWidth"
+        >
     </GridView>
 
     <TextView
