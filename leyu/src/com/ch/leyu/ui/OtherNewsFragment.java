@@ -21,6 +21,8 @@ import android.view.View;
 public class OtherNewsFragment extends BaseFragment {
 
     private XListView mListView;
+    
+    private CLYAdapter mAdapter;
 
     @Override
     protected void getExtraParams() {
@@ -35,11 +37,13 @@ public class OtherNewsFragment extends BaseFragment {
     @Override
     protected void findViewById() {
         mListView = (XListView) findViewById(R.id.othernews_listview_cly);
+        mAdapter = new CLYAdapter(getActivity(), null);
 
     }
 
     @Override
     protected void setListener() {
+        mListView.setAdapter(mAdapter);
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
         JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, null, AllNewResponse.class,new DataCallback<AllNewResponse>() {
@@ -47,7 +51,7 @@ public class OtherNewsFragment extends BaseFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
               if(data!=null){
-                  mListView.setAdapter(new CLYAdapter(getActivity(), data.getNewsList()));
+                  mAdapter.addArrayList(data.getNewsList());
               }
             }
 

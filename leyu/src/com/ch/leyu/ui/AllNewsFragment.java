@@ -59,6 +59,7 @@ public class AllNewsFragment extends BaseFragment {
         mAutoScrollViewPager = (AutoScrollViewPager) mListViewHeaderView.findViewById(R.id.all_auto_scroll_viewpager);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) mListViewHeaderView.findViewById(R.id.all_cirle_pageindicator);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
+        mAdapter = new CLYAdapter(getActivity(), null);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class AllNewsFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-
+        mXListView.setAdapter(mAdapter);
         mXListView.addHeaderView(mListViewHeaderView);
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
@@ -92,9 +93,10 @@ public class AllNewsFragment extends BaseFragment {
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                            mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
-
-                           mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
-                           mXListView.setAdapter(mAdapter);
+                           
+                           mAdapter.addArrayList(data.getNewsList());
+//                           mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
+//                           mXListView.setAdapter(mAdapter);
                        }
                     }
 

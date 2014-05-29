@@ -28,6 +28,7 @@ public class HeadofAllFragmentPagerAdapter extends RecyclingPagerAdapter {
 	   this.mList = arrayList ;
 	   this.mContext = context ;
 	}
+	
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup container) {

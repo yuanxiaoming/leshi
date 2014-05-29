@@ -22,6 +22,8 @@ import android.view.View;
 public class LOLNewsFragment extends BaseFragment {
 
     private XListView mListView;
+    
+    private CLYAdapter mAdapter;
 
 
     @Override
@@ -37,13 +39,20 @@ public class LOLNewsFragment extends BaseFragment {
     @Override
     protected void findViewById() {
         mListView = (XListView) findViewById(R.id.lolnews_listview_cly);
-
+        mAdapter = new CLYAdapter(getActivity(), null);
     }
 
     @Override
     protected void setListener() {
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
+        
+    }
+
+    @Override
+    protected void processLogic() {
+        
+        mListView.setAdapter(mAdapter);
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 21);
         JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
@@ -51,7 +60,7 @@ public class LOLNewsFragment extends BaseFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
                if(data!=null){
-                   mListView.setAdapter(new CLYAdapter(getActivity(), data.getNewsList()));
+                   mAdapter.addArrayList(data.getNewsList());
                }
             }
 
@@ -71,11 +80,6 @@ public class LOLNewsFragment extends BaseFragment {
 
             }
         });
-    }
-
-    @Override
-    protected void processLogic() {
-
     }
 
 }

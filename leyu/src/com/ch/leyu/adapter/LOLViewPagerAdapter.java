@@ -60,4 +60,5 @@ public class LOLViewPagerAdapter extends FragmentStatePagerAdapter {
         return mStrings;
     }
 
+    
 }
