@@ -50,21 +50,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="赛事专区" />
+                android:layout_marginRight="10dp"
+                android:background="@drawable/legames_competition" />
 
             <Button
                 android:id="@+id/hs_bt_videos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="视频库" />
+                android:layout_marginRight="10dp"
+                android:background="@drawable/legames_videosbank" />
 
             <Button
                 android:id="@+id/hs_bt_raiders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="高玩攻略" />
+                android:background="@drawable/legames_strategy" />
         </LinearLayout>
 
         <LinearLayout
@@ -79,15 +81,16 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="小编推荐"
-                android:textSize="18dp" />
+                android:textColor="#707070"
+                android:text=" 小编推荐"
+                android:textSize="20dp" 
+                android:drawableLeft="@drawable/legames_label"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                >
+                android:paddingBottom="10dp" >
 
                 <ImageView
                     android:id="@+id/hs_img_bigRecommend1"
@@ -124,17 +127,19 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="今日热播"
-                android:textSize="18dp" />
+                android:text=" 今日热播"
+                android:textColor="#707070"
+                android:drawableLeft="@drawable/legames_label"
+                android:textSize="20dp" />
 
             <com.ch.leyu.view.LYGridView
                 android:id="@+id/hs_gridview_hot"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:horizontalSpacing="10dp"
                 android:numColumns="2"
                 android:stretchMode="columnWidth"
-                android:horizontalSpacing="10dp"
-                android:verticalSpacing="10dp"/>
+                android:verticalSpacing="10dp" />
         </LinearLayout>
     </RelativeLayout>
 

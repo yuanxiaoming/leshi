@@ -7,7 +7,6 @@ import com.ch.leyu.view.PagerSlidingTabStrip;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import java.util.ArrayList;
 
