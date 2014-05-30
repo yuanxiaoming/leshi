@@ -18,7 +18,7 @@
         android:layout_alignBottom="@+id/all_auto_scroll_viewpager"
         android:layout_alignRight="@+id/all_auto_scroll_viewpager"
         android:padding="6dp"
-        app:fillColor="#339933"
+        app:fillColor="#025A9A"
         app:pageColor="@android:color/darker_gray"
         app:snap="true"
         app:strokeColor="@android:color/transparent"

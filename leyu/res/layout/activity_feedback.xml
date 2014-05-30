@@ -41,6 +41,7 @@
         android:layout_below="@+id/act_feed_et_contact"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:background="@drawable/commit_selector"
         android:text="@string/feedback_commit" />
 
     <com.ch.leyu.view.ClearEditText

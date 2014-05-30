@@ -11,31 +11,30 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
 import java.util.ArrayList;
 
-/***
- * 视频播放---相关推荐列表适配器
- * 
- * @author Administrator
- */
-public class RecommendListAdapter extends BaseAdapter {
+public class TestAdapter extends ListAsGridBaseAdapter {
 
     private ArrayList<Property> mArrayList;
 
     private LayoutInflater mInflater;
-    
+
     private Context mContext;
 
-    public RecommendListAdapter(ArrayList<Property> arrayList, Context context) {
+    public TestAdapter(Context context) {
+        super(context);
+    }
+
+    public TestAdapter(ArrayList<Property> arrayList, Context context) {
+        super(context);
         this.mArrayList = arrayList;
         mInflater = LayoutInflater.from(context);
-        this.mContext =context;
+        mContext = context;
     }
 
     public void chargeArrayList(ArrayList<Property> arrayList) {
@@ -53,14 +52,6 @@ public class RecommendListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        if (mArrayList != null) {
-            return mArrayList.size();
-        }
-        return 0;
-    }
-
-    @Override
     public Object getItem(int position) {
         if (mArrayList != null) {
             return mArrayList.get(position);
@@ -74,24 +65,33 @@ public class RecommendListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.recommend_listview_item, null);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.recommend_img_pic);
-            holder.textView = (TextView) convertView.findViewById(R.id.recommend_tv_title);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
+    public int getItemCount() {
+        if (mArrayList != null) {
+            return mArrayList.size();
         }
-        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 4, CommonUtil.getWidthMetrics(mContext) / 5));
-        holder.imageView.setScaleType(ScaleType.FIT_XY) ;
+        return 0;
+    }
+
+    @Override
+    protected View getItemView(int position, View view, ViewGroup parent) {
+        ViewHolder holder;
+        if (view == null) {
+            holder = new ViewHolder();
+            view = mInflater.inflate(R.layout.gridview_item, null);
+            holder.imageView = (ImageView) view.findViewById(R.id.gd_img1);
+            holder.textView = (TextView) view.findViewById(R.id.gd_tv1);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
+        }
         
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 3));
+        holder.imageView.setScaleType(ScaleType.FIT_XY) ;
+
         ImageLoader.getInstance().displayImage(mArrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
         holder.textView.setText(mArrayList.get(position).getTitle());
-        return convertView;
+        return view;
     }
 
     class ViewHolder {
@@ -99,5 +99,4 @@ public class RecommendListAdapter extends BaseAdapter {
 
         TextView textView;
     }
-
 }

@@ -2,37 +2,37 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.GridViewAdapter;
+import com.ch.leyu.adapter.TestAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.GridItemClickListener;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.widget.xlistview.XListView;
 
 import org.apache.http.Header;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 
 /***
  * 炉石传说 视频库
  *
  * @author L
  */
-public class VideoBankFragment extends BaseFragment implements OnItemClickListener {
+public class VideoBankFragment extends BaseFragment implements GridItemClickListener {
 
-    private GridView mGridView;
+    private XListView mXlistView;
 
     private Bundle mBundle;
 
     private String mKeyword;
 
-    private GridViewAdapter mGridViewAdapter;
+    private TestAdapter mAdapter;
+    
+    private VideoBankResponse mBankResponse;
 
 
     @Override
@@ -51,19 +51,20 @@ public class VideoBankFragment extends BaseFragment implements OnItemClickListen
 
     @Override
     protected void findViewById() {
-        mGridView = (GridView) findViewById(R.id.hsvedio_gridview);
-        mGridViewAdapter = new GridViewAdapter(null, getActivity());
-        mGridView.setAdapter(mGridViewAdapter);
-
+        mXlistView = (XListView) findViewById(R.id.hsvideo_xlistview);
+        mAdapter = new TestAdapter(null, getActivity());
+       
     }
 
     @Override
     protected void setListener() {
-        mGridView.setOnItemClickListener(this);
+      mAdapter.setOnGridClickListener(this);
     }
 
     @Override
     protected void processLogic() {
+        mAdapter.setNumColumns(2);
+        mXlistView.setAdapter(mAdapter);
         doDataRefresh(23, mKeyword);
 
     }
@@ -77,7 +78,8 @@ public class VideoBankFragment extends BaseFragment implements OnItemClickListen
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
                         if (data != null) {
-                            mGridViewAdapter.chargeArrayList(data.getVideoList());
+                            mBankResponse = data;
+                            mAdapter.chargeArrayList(data.getVideoList());
                         }
                     }
 
@@ -100,13 +102,15 @@ public class VideoBankFragment extends BaseFragment implements OnItemClickListen
                 });
     }
 
+   
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Property item = (Property) parent.getAdapter().getItem(position);
-        Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-        if(item!=null){
-            intent.putExtra(Constant.UID , item.getId());
-            startActivity(intent);
+    public void onGridItemClicked(View v, int position, long itemId) {
+        if(mBankResponse!=null){
+            String uId = mBankResponse.getVideoList().get(position).getId();
+            Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+                intent.putExtra(Constant.UID , uId);
+                startActivity(intent);
         }
         
     }

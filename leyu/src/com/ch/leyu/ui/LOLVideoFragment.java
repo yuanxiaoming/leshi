@@ -2,38 +2,41 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.GridViewAdapter;
+import com.ch.leyu.adapter.TestAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.GridItemClickListener;
 import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.widget.xlistview.XListView;
 
 import org.apache.http.Header;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 
 /**
  * LOL视频库
  *
  * @author L
  */
-public class LOLVideoFragment extends BaseFragment implements OnItemClickListener {
+public class LOLVideoFragment extends BaseFragment implements GridItemClickListener {
 
-    private GridView mGridView;
-
-    private GridViewAdapter mAdapter;
+//    private GridView mGridView;
+//
+//    private GridViewAdapter mAdapter;
 
     private Bundle mBundle;
 
     private int position;
 
+    private XListView mXListView;
+    
+    private TestAdapter mAdapter;
+    
+    private   VideoBankResponse mResponse;
 
     @Override
     protected void getExtraParams() {
@@ -45,23 +48,29 @@ public class LOLVideoFragment extends BaseFragment implements OnItemClickListene
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.fragment_lol_vedio);
+        setContentView(R.layout.fragment_lol_video);
     }
 
     @Override
     protected void findViewById() {
-        mGridView = (GridView) findViewById(R.id.lolvedio_gridview);
+//        mGridView = (GridView) findViewById(R.id.lolvideo_gridview);
+        mXListView = (XListView) findViewById(R.id.lolvideo_xlistview);
     }
 
     @Override
     protected void setListener() {
-        mGridView.setOnItemClickListener(this);
+//        mGridView.setOnItemClickListener(this);
+        mAdapter.setOnGridClickListener(this);
     }
 
     @Override
     protected void processLogic() {
-        mAdapter = new GridViewAdapter(null, getActivity());
-        mGridView.setAdapter(mAdapter);
+//        mAdapter = new GridViewAdapter(null, getActivity());
+        mAdapter = new TestAdapter(null, getActivity());
+//        mGridView.setAdapter(mAdapter);
+        mAdapter.setNumColumns(2);
+        mXListView.setAdapter(mAdapter);
+        
         
         String url = Constant.URL + Constant.VIDEO_URL;
         //全部视频
@@ -95,6 +104,8 @@ public class LOLVideoFragment extends BaseFragment implements OnItemClickListene
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
                         if (data != null) {
+                            mResponse = data;
+//                            mAdapter.chargeArrayList(data.getVideoList());
                             mAdapter.chargeArrayList(data.getVideoList());
 
                         }
@@ -118,17 +129,28 @@ public class LOLVideoFragment extends BaseFragment implements OnItemClickListene
                 });
     }
 
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Property item = (Property) parent.getAdapter().getItem(position);
+//        if(item!=null){
+//            Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+//            String videoId = item.getId();
+//            intent.putExtra(Constant.UID, videoId);
+//            startActivity(intent);
+//        }
+//     
+//
+//    }
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Property item = (Property) parent.getAdapter().getItem(position);
-        if(item!=null){
+    public void onGridItemClicked(View v, int position, long itemId) {
+        if(mResponse!=null){
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-            String videoId = item.getId();
+            String videoId = mResponse.getVideoList().get(position).getId();
             intent.putExtra(Constant.UID, videoId);
             startActivity(intent);
         }
-     
-
+        
     }
 
 }

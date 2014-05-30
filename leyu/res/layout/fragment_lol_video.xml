@@ -5,7 +5,7 @@
 
     <GridView
         android:paddingTop="10dp"
-        android:id="@+id/lolvedio_gridview"
+        android:id="@+id/lolvideo_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
@@ -13,7 +13,17 @@
         android:numColumns="2" 
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
-        android:stretchMode="columnWidth">
-    </GridView>
+        android:stretchMode="columnWidth"
+        android:visibility="gone"/>
+    
+     <com.ch.leyu.widget.xlistview.XListView
+        android:id="@+id/lolvideo_xlistview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:listSelector="#00000000"
+        android:footerDividersEnabled="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+    </com.ch.leyu.widget.xlistview.XListView>
 
 </RelativeLayout>

@@ -4,15 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <GridView
-        android:paddingTop="10dp"
-        android:id="@+id/newviedo_fragment_gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2" 
-        android:stretchMode="columnWidth"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp">
-    </GridView>
+    <com.ch.leyu.widget.xlistview.XListView
+        android:id="@+id/starviedo_fragment_xlistview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:footerDividersEnabled="false"
+        android:listSelector="#00000000" >
+    </com.ch.leyu.widget.xlistview.XListView>
 
 </LinearLayout>
