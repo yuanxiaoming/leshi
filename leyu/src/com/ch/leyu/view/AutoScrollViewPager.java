@@ -2,6 +2,8 @@ package com.ch.leyu.view;
 
 import java.lang.reflect.Field;
 
+import com.ch.leyu.widget.xlistview.XListView;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
@@ -10,7 +12,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewParent;
 import android.view.animation.Interpolator;
+import android.widget.LinearLayout;
 
 /**
  * Auto Scroll View Pager
@@ -85,8 +89,11 @@ public class AutoScrollViewPager extends ViewPager {
      * start auto scroll, first scroll delay time is {@link #getInterval()}
      */
     public void startAutoScroll() {
-        isAutoScroll = true;
-        sendScrollMessage(interval);
+    	if(isStopByTouch)
+    	{
+	        isAutoScroll = true;
+	        sendScrollMessage(interval);
+    	}
     }
 
     /**
@@ -103,8 +110,10 @@ public class AutoScrollViewPager extends ViewPager {
      * stop auto scroll
      */
     public void stopAutoScroll() {
-        isAutoScroll = false;
-        handler.removeMessages(SCROLL_WHAT);
+    	if(isAutoScroll){
+    		isAutoScroll = false;
+    		handler.removeMessages(SCROLL_WHAT);
+    	}
     }
 
     /**
@@ -169,45 +178,33 @@ public class AutoScrollViewPager extends ViewPager {
      * <li>if event is up, start auto scroll again.</li>
      * </ul>
      */
-
-    private float mStartX, mStartY ;
+    
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+    	if (ev.getAction() == MotionEvent.ACTION_DOWN  && isAutoScroll) {
+    		
+    		 isStopByTouch = true;
+             stopAutoScroll();
+        }  
+    	
+    	if(ev.getAction() == MotionEvent.ACTION_UP)
+    	{
+    		startAutoScroll();
+    	}
+    	return super.dispatchTouchEvent(ev);
+    }
+    
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (stopScrollWhenTouch) {
             if (ev.getAction() == MotionEvent.ACTION_DOWN && isAutoScroll) {
                 isStopByTouch = true;
                 stopAutoScroll();
-                System.out.println("down");
-                mStartX = ev.getX();
-    			mStartY = ev.getY();
+                return true ;
             }  
             
-            if(ev.getAction() == MotionEvent.ACTION_MOVE && isStopByTouch ){
-            }
-
-            if(ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch)
-            {
-            	float curX = ev.getX();
-    			float curY = ev.getY();
-
-    			float deltaX = curX - mStartX ;
-    			float deltaY = curY - mStartY ;
-
-    			System.out.println("deltaX = " + deltaX);
-    			System.out.println("deltaY = " + deltaY);
-    			
-    			if(Math.abs(deltaY) > Math.abs(deltaX) )
-    			{
-    				MotionEvent obtain = MotionEvent.obtain(ev);
-    				obtain.setAction(MotionEvent.ACTION_UP);
-    				onTouchEvent(obtain);
-    				obtain.recycle();
-    			}
-            }
-
             if (ev.getAction() == MotionEvent.ACTION_UP && isStopByTouch) {
                 startAutoScroll();
-                System.out.println("up");
             }
         }
 

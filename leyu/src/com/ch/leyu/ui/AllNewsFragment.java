@@ -95,6 +95,7 @@ public class AllNewsFragment extends BaseFragment {
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
                            
                            mAdapter.addArrayList(data.getNewsList());
+                           mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
 //                           mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
 //                           mXListView.setAdapter(mAdapter);
                        }

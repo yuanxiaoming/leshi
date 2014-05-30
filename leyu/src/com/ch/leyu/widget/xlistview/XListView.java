@@ -10,6 +10,7 @@
 package com.ch.leyu.widget.xlistview;
 
 import com.ch.leyu.R;
+import com.ch.leyu.view.AutoScrollViewPager;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -337,6 +338,12 @@ public class XListView extends ListView implements OnScrollListener {
 				}
 				resetFooterHeight();
 			}
+			
+			//加入额外代码
+			if(mAutoScrollViewPager != null)
+			{
+				mAutoScrollViewPager.startAutoScroll();
+			}
 			break;
 		}
 		return super.onTouchEvent(ev);
@@ -401,28 +408,35 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 //	// 解决与ViewPager时间引发的冲突
-//	private float mStartX, mStartY ;
-//
-//	@Override
-//	public boolean onInterceptTouchEvent(MotionEvent ev) {
-//		switch (ev.getAction()) {
-//		case MotionEvent.ACTION_DOWN:
-//			mStartX = ev.getX();
-//			mStartY = ev.getY();
-//			break;
-//
-//		case MotionEvent.ACTION_MOVE:
-//			float curX = ev.getX();
-//			float curY = ev.getY();
-//			
-//			float deltaX = curX - mStartX ;
-//			float deltaY = curY - mStartY ;
-//			if (Math.abs(deltaY) > Math.abs(deltaX)) {
-//				return true;
-//			}
-//			break;
-//			
-//		}
-//		return super.onInterceptTouchEvent(ev);
-//	}
+	private float mStartX, mStartY ;
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			mStartX = ev.getX();
+			mStartY = ev.getY();
+			break ;
+
+		case MotionEvent.ACTION_MOVE:
+			float curX = ev.getX();
+			float curY = ev.getY();
+			
+			float deltaX = curX - mStartX ;
+			float deltaY = curY - mStartY ;
+			if (Math.abs(deltaY) < Math.abs(deltaX)) {
+				return false;
+			}
+			break;
+			
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
+	
+	private AutoScrollViewPager mAutoScrollViewPager ;
+	
+	public void setAutoScrollViewPager(AutoScrollViewPager autoScrollViewPager){
+		mAutoScrollViewPager = autoScrollViewPager ;
+	}
+	
 }

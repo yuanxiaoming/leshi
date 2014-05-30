@@ -167,6 +167,31 @@ public class BaseScrollView extends ScrollView {
     public boolean isCanPullUp() {
         return contentView.getHeight() <= getHeight() + getScrollY();
     }
+    
+    private float mStartX, mStartY ;
+    
+    @Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			mStartX = ev.getX();
+			mStartY = ev.getY();
+			break ;
+
+		case MotionEvent.ACTION_MOVE:
+			float curX = ev.getX();
+			float curY = ev.getY();
+			
+			float deltaX = curX - mStartX ;
+			float deltaY = curY - mStartY ;
+			if (Math.abs(deltaY) < Math.abs(deltaX)) {
+				return false;
+			}
+			break;
+			
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
 
 
 }

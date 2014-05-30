@@ -14,6 +14,7 @@ import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.view.AutoScrollViewPager;
 import com.ch.leyu.view.CircleLoopPageIndicator;
+import com.ch.leyu.view.CustomScrollView;
 import com.ch.leyu.view.LYGridView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -37,6 +38,8 @@ import android.widget.ListView;
  */
 public class HSFragment extends BaseFragment implements OnClickListener, OnItemClickListener {
 
+	private CustomScrollView mCustomScrollView ;
+	
     /** 新闻 */
     private ListView mNewsListView;
 
@@ -118,6 +121,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 //        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
 //        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
+        
+        mCustomScrollView = (CustomScrollView) findViewById(R.id.hs_custom_scrollview);
 
     }
 
@@ -137,6 +142,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
                         if(data!=null){
                             mAtuoScrollViewPager.startAutoScroll(2000);
+                            mCustomScrollView.setAutoScrollViewPager(mAtuoScrollViewPager);
                            // AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
                             HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus());
                             
