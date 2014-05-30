@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TestAdapter extends ListAsGridBaseAdapter {
+public class ListChangeGridAdapter extends ListAsGridBaseAdapter {
 
     private ArrayList<Property> mArrayList;
 
@@ -26,11 +26,11 @@ public class TestAdapter extends ListAsGridBaseAdapter {
 
     private Context mContext;
 
-    public TestAdapter(Context context) {
+    public ListChangeGridAdapter(Context context) {
         super(context);
     }
 
-    public TestAdapter(ArrayList<Property> arrayList, Context context) {
+    public ListChangeGridAdapter(ArrayList<Property> arrayList, Context context) {
         super(context);
         this.mArrayList = arrayList;
         mInflater = LayoutInflater.from(context);

@@ -2,7 +2,7 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.TestAdapter;
+import com.ch.leyu.adapter.ListChangeGridAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.GridItemClickListener;
@@ -34,7 +34,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     private XListView mXListView;
     
-    private TestAdapter mAdapter;
+    private ListChangeGridAdapter mAdapter;
     
     private   VideoBankResponse mResponse;
 
@@ -66,7 +66,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
     @Override
     protected void processLogic() {
 //        mAdapter = new GridViewAdapter(null, getActivity());
-        mAdapter = new TestAdapter(null, getActivity());
+        mAdapter = new ListChangeGridAdapter(null, getActivity());
 //        mGridView.setAdapter(mAdapter);
         mAdapter.setNumColumns(2);
         mXListView.setAdapter(mAdapter);

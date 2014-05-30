@@ -83,7 +83,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:textColor="#707070"
-                android:text=" 小编推荐"
+                android:text="@string/hs_tips_recommed"
                 android:textSize="20dp" 
                 android:drawableLeft="@drawable/legames_label"/>
 
@@ -98,13 +98,16 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingRight="10dp" />
+                    android:paddingRight="5dp" 
+                    android:background="@drawable/background_tab"/>
 
                 <ImageView
                     android:id="@+id/hs_img_bigRecommend2"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1" 
+                    android:background="@drawable/background_tab"/>
             </LinearLayout>
 
             <com.ch.leyu.view.LYGridView
@@ -128,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text=" 今日热播"
+                android:text="@string/hs_hot_play"
                 android:textColor="#707070"
                 android:drawableLeft="@drawable/legames_label"
                 android:textSize="20dp" />

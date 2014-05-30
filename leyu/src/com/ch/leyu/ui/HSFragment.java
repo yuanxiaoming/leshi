@@ -159,8 +159,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                             bigImgId1 = data.getBigRecommend().get(0).getId();
                             bigImgId2 = data.getBigRecommend().get(1).getId();
                             
-                            mBigImg1.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , CommonUtil.getWidthMetrics(getActivity()) / 2));
-                            mBigImg2.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , CommonUtil.getWidthMetrics(getActivity()) / 2));
+                            mBigImg1.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , (int) (CommonUtil.getWidthMetrics(getActivity()) / 1.5)));
+                            mBigImg2.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , (int) (CommonUtil.getWidthMetrics(getActivity()) / 1.5)));
                             mBigImg1.setScaleType(ScaleType.FIT_XY);
                             mBigImg2.setScaleType(ScaleType.FIT_XY);
                             

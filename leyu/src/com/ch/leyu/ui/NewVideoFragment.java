@@ -2,7 +2,7 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.TestAdapter;
+import com.ch.leyu.adapter.ListChangeGridAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.GridItemClickListener;
@@ -28,7 +28,7 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
 
     private String uid;
 
-    private TestAdapter mAdapter;
+    private ListChangeGridAdapter mAdapter;
     
     private VideoListResponse mResponse ;
 
@@ -46,7 +46,7 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
     @Override
     protected void findViewById() {
         mXListView = (XListView) findViewById(R.id.starviedo_fragment_xlistview);
-        mAdapter = new TestAdapter(null, getActivity());
+        mAdapter = new ListChangeGridAdapter(null, getActivity());
     }
 
     @Override

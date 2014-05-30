@@ -35,4 +35,8 @@
 
     <!--popupwindow-->
 <string name="pop_title">炉石传说视频分类</string>
+
+<!-- 炉石传说首页 -->
+<string name = "hs_tips_recommed">小编推荐</string>
+<string name = "hs_hot_play">今日热播</string>
 </resources>

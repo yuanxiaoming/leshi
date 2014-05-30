@@ -2,7 +2,7 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.TestAdapter;
+import com.ch.leyu.adapter.ListChangeGridAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.GridItemClickListener;
@@ -30,7 +30,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
 
     private String mKeyword;
 
-    private TestAdapter mAdapter;
+    private ListChangeGridAdapter mAdapter;
     
     private VideoBankResponse mBankResponse;
 
@@ -52,7 +52,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     @Override
     protected void findViewById() {
         mXlistView = (XListView) findViewById(R.id.hsvideo_xlistview);
-        mAdapter = new TestAdapter(null, getActivity());
+        mAdapter = new ListChangeGridAdapter(null, getActivity());
        
     }
 
