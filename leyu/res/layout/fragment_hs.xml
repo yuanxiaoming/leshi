@@ -75,7 +75,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hs_ll_video"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,13 +100,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingRight="10dp" />
+                    android:paddingRight="10dp"/>
 
                 <ImageView
                     android:id="@+id/hs_img_bigRecommend2"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" 
+                    />
             </LinearLayout>
 
             <com.ch.leyu.view.LYGridView
@@ -121,7 +124,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hs_ll_edit"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
