@@ -19,6 +19,7 @@ package com.ch.leyu.view;
 import java.util.Locale;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -87,7 +88,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 	private int dividerWidth = 1;
 
 	private int tabTextSize = 12;
-	private int tabTextColor = 0xFF666666;
+	private int tabTextColor ;
 	private Typeface tabTypeface = null;
 	private int tabTypefaceStyle = Typeface.BOLD;
 
@@ -150,6 +151,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		shouldExpand = a.getBoolean(R.styleable.PagerSlidingTabStrip_pstsShouldExpand, shouldExpand);
 		scrollOffset = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsScrollOffset, scrollOffset);
 		textAllCaps = a.getBoolean(R.styleable.PagerSlidingTabStrip_pstsTextAllCaps, textAllCaps);
+		
+		tabTextColor = a.getResourceId(R.styleable.PagerSlidingTabStrip_pstsTextColor, R.drawable.slide_tabindicator_selector);
 
 		a.recycle();
 
@@ -268,7 +271,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 				TextView tab = (TextView) v;
 				tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
 				tab.setTypeface(tabTypeface, tabTypefaceStyle);
-				tab.setTextColor(tabTextColor);
+				ColorStateList cls = getResources().getColorStateList(tabTextColor);
+				tab.setTextColor(cls);
 
 				// setAllCaps() is only available from API 14, so the upper case is made manually if we are on a
 				// pre-ICS-build
@@ -291,7 +295,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		}
 
 		int newScrollX = tabsContainer.getChildAt(position).getLeft() + offset;
-
+		
+		tabsContainer.getChildAt(currentPosition).setSelected(true);
+		
 		if (position > 0 || offset > 0) {
 			newScrollX -= scrollOffset;
 		}
@@ -319,6 +325,13 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 		// default: line below current tab
 		View currentTab = tabsContainer.getChildAt(currentPosition);
+		  final int tabCount = tabsContainer.getChildCount();
+	        for (int i = 0; i < tabCount; i++) {
+	            final View child = tabsContainer.getChildAt(i);
+	            final boolean isSelected = (i == currentPosition);
+	            child.setSelected(isSelected);
+	        }
+		
 		float lineLeft = currentTab.getLeft();
 		float lineRight = currentTab.getRight();
 
@@ -366,8 +379,11 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 			}
 		}
 
+		private int mScrollState ;
+		
 		@Override
 		public void onPageScrollStateChanged(int state) {
+			mScrollState = state ;
 			if (state == ViewPager.SCROLL_STATE_IDLE) {
 				scrollToChild(pager.getCurrentItem(), 0);
 			}
@@ -379,12 +395,19 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 		@Override
 		public void onPageSelected(int position) {
+			if(mScrollState == ViewPager.SCROLL_STATE_IDLE)
+			{
+				currentPosition = position;
+				currentPositionOffset = 0 ;
+			}
+			
 			if (delegatePageListener != null) {
 				delegatePageListener.onPageSelected(position);
 			}
 		}
 
 	}
+	
 
 	public void setIndicatorColor(int indicatorColor) {
 		this.indicatorColor = indicatorColor;
