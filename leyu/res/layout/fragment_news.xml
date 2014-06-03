@@ -10,11 +10,11 @@
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:layout_weight="0"
-        app:pstsIndicatorColor="#339933"
-        app:pstsIndicatorHeight="6dp"
+ 	 app:pstsIndicatorColor="#025A9A"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsUnderlineHeight="3dp" 
         app:pstsShouldExpand="true"
-        app:pstsTabPaddingLeftRight="0dp"
-        app:pstsUnderlineColor="#339933" />
+        app:pstsTabPaddingLeftRight="0dp"/>
 
     <com.ch.leyu.view.LYViewPager
         android:id="@+id/newsfragment_viewpager"

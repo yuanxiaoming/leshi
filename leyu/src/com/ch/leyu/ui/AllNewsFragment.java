@@ -89,6 +89,7 @@ public class AllNewsFragment extends BaseFragment {
                     public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
                        if(data!=null){
                            mAutoScrollViewPager.startAutoScroll(2000);
+                           mAutoScrollViewPager.setInterval(4000);
                            mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                            mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));

@@ -68,6 +68,7 @@ public class HSNewsFragment extends BaseFragment {
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
                if(data!=null){
                    mViewPager.startAutoScroll(2000);
+                   mViewPager.setInterval(4000);
                    mViewPager.setCurrentItem(data.getFocus().size() * 10000);
                    mPageIndicator.setPageCount(data.getFocus().size());
                    mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));

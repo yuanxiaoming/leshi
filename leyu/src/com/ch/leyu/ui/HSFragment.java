@@ -116,12 +116,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
         mMatch = (Button) findViewById(R.id.hs_bt_match);
         mVideos = (Button) findViewById(R.id.hs_bt_videos);
         mRaiders = (Button) findViewById(R.id.hs_bt_raiders);
-
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
-//        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
-//        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
-        
         mCustomScrollView = (CustomScrollView) findViewById(R.id.hs_custom_scrollview);
 
     }
@@ -142,8 +138,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
                         if(data!=null){
                             mAtuoScrollViewPager.startAutoScroll(2000);
+                            mAtuoScrollViewPager.setInterval(4000);
                             mCustomScrollView.setAutoScrollViewPager(mAtuoScrollViewPager);
-                           // AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
                             HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus());
                             
                             mAtuoScrollViewPager.setAdapter(adapter);

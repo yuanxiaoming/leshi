@@ -31,7 +31,7 @@ public class DetailFragment extends BaseFragment {
     protected void getExtraParams() {
 
         Bundle bundle = getArguments();
-        if(bundle!=null){
+        if (bundle != null) {
             mVideoDetailResponse = (VideoDetailResponse) bundle.getSerializable(Constant.DATA);
         }
     }
@@ -57,7 +57,7 @@ public class DetailFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-     
+
         if (mVideoDetailResponse != null) {
             mTitle.setText(mVideoDetailResponse.getTitle());
             mName.setText(mVideoDetailResponse.getNickname());
@@ -66,12 +66,6 @@ public class DetailFragment extends BaseFragment {
             mIntro.setText(mVideoDetailResponse.getDetail());
         }
 
-    }
-    
-    @Override
-    public void onResume() {
-        super.onResume();
-        
     }
 
 }

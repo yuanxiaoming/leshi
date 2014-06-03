@@ -16,11 +16,12 @@
         android:layout_height="48dp"
         android:layout_below="@+id/fragment_lol_include"
         android:layout_weight="0"
-        app:pstsIndicatorColor="#339933"
-        app:pstsIndicatorHeight="6dp"
+        app:pstsIndicatorColor="#025A9A"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsUnderlineHeight="3dp" 
         app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="12dp"
-        app:pstsUnderlineColor="#339933" />
+/>
 
     <com.ch.leyu.view.LYViewPager
         android:id="@+id/fragment_lol_viewpager"
