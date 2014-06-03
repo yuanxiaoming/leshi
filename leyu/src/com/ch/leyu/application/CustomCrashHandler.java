@@ -115,7 +115,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         } else {
             // Sleep一会后结束程序
             try {
-                Thread.sleep(10000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 Log.e(TAG, "Error : ", e);
             }
