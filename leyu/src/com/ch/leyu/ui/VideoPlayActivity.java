@@ -82,7 +82,7 @@ public class VideoPlayActivity extends BaseActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoPlayResponse data) {
                         if (data != null) {
-                            mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo());
+                            mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
                             mSlideTabIndicator.setTextSize(24);

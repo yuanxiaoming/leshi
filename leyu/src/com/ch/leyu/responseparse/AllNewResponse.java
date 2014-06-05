@@ -4,7 +4,7 @@ package com.ch.leyu.responseparse;
 import java.util.ArrayList;
 
 /***
- * 新闻
+ * 新闻  && career为炉石传说的属性。
  * 
  * @author Administrator
  */
@@ -12,6 +12,16 @@ public class AllNewResponse {
     private ArrayList<Property> focus;
 
     private ArrayList<Property> newsList;
+    
+    private ArrayList<Property> career ;
+    
+    public ArrayList<Property> getCareer() {
+        return career;
+    }
+
+    public void setCareer(ArrayList<Property> career) {
+        this.career = career;
+    }
 
     public ArrayList<Property> getFocus() {
         return focus;
