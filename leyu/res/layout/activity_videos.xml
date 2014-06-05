@@ -25,7 +25,7 @@
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="@drawable/biz_widget_next_btn" />
+            android:background="@drawable/more_btn_selector" />
     </LinearLayout>
 
     <com.ch.leyu.view.LYViewPager

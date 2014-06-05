@@ -23,6 +23,16 @@ public class Property implements Serializable {
     private String linkUrl;
 
     private String createTime;
+    
+    private String cid ;
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
 
     public String getCreateTime() {
         return createTime;

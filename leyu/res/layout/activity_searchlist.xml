@@ -27,35 +27,58 @@
         android:id="@+id/act_searchlist_tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/act_searchlist_et_detail"
-        android:layout_below="@+id/act_searchlist_bt_search"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/search_radiogroup"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/act_searchlist_bt_latest"
+    <RadioGroup
+        android:id="@+id/search_radiogroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/act_searchlist_bt_search"
-        android:layout_toLeftOf="@+id/act_searchlist_bt_search"
-        android:text="@string/search_newst" />
-
-    <Button
-        android:id="@+id/act_searchlist_bt_hots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/act_searchlist_bt_latest"
-        android:layout_alignBottom="@+id/act_searchlist_bt_latest"
         android:layout_alignParentRight="true"
-        android:text="@string/search_hottest" />
+        android:layout_below="@+id/act_searchlist_bt_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/act_search_rb_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/navi_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/search_newst"
+            android:textColor="@drawable/radiobutton_textcolor"
+            android:layout_weight="1"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/act_search_rb_hots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/navi_selector"
+            android:button="@null"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="@string/search_hottest"
+            android:textColor="@drawable/radiobutton_textcolor"
+            android:textSize="13sp" />
+    </RadioGroup>
 
     <GridView
         android:id="@+id/act_searchlist_gd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/act_searchlist_bt_latest"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/search_radiogroup"
+        android:layout_marginTop="16dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
         android:paddingTop="10dp"
