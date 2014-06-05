@@ -26,11 +26,11 @@ import android.widget.TextView;
 
 /***
  * 搜索结果列表显示 暂未处理没有结果时的显示情况
- * 
+ *
  * @author L
  */
 public class SearchListActivity extends BaseActivity implements OnClickListener,
-        OnItemClickListener {
+OnItemClickListener {
 
     /** 最新 */
     private RadioButton mNewst;
@@ -69,36 +69,36 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
             params.put(Constant.SORT, "click");
             params.put(Constant.KEYWORD, keyWord);
         }
-        if (v.getId() == R.id.act_searchlist_bt_latest) {
+        if (v.getId() == R.id.act_search_rb_hots) {
             params = new RequestParams();
             params.put(Constant.KEYWORD, keyWord);
         }
         JHttpClient.get(this, Constant.URL + Constant.SEARCH, params, VideoSearchResponse.class,
                 new DataCallback<VideoSearchResponse>() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
-                        if (data != null) {
-                            mAdapter.chargeArrayList(data.getVideoList());
-                        }
-                    }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
+                if (data != null) {
+                    mAdapter.chargeArrayList(data.getVideoList());
+                }
+            }
 
-                    @Override
-                    public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
-                    }
+            @Override
+            public void onStart() {
+                mHttpLoadingView.setVisibility(View.VISIBLE);
+            }
 
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
-                            Exception exception) {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    Exception exception) {
 
-                    }
-                });
+            }
+        });
 
     }
 
@@ -119,13 +119,13 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
     @Override
     protected void findViewById() {
         mGroup = (RadioGroup) findViewById(R.id.search_radiogroup);
-        mNewst = (RadioButton) mGroup.findViewById(R.id.act_searchlist_bt_latest);
-        mHottest = (RadioButton) mGroup.findViewById(R.id.act_search_rb_news);
+        mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
+        mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
         mGridView = (GridView) findViewById(R.id.act_searchlist_gd);
         mResult = (TextView) findViewById(R.id.act_searchlist_tv_count);
         mEditText = (EditText) findViewById(R.id.act_searchlist_et_detail);
         mSearch = (Button) findViewById(R.id.act_searchlist_bt_search);
-      
+
     }
 
     @Override
