@@ -5,6 +5,7 @@ import com.ch.leyu.R;
 import com.ch.leyu.responseparse.CommentDetail;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +102,8 @@ public class CommentListAdapter extends BaseAdapter {
         settings.setJavaScriptEnabled(true);
         // 设置处理客户端
         holder.detail.setWebViewClient(new WebViewClient());
+        holder.detail.setBackgroundColor(Color.parseColor("#F0F0F0"));
+        
         holder.detail.loadDataWithBaseURL("", mArrayList.get(position).getComment(), "text/html",
                 "UTF-8", "");
 
