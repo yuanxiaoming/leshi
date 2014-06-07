@@ -14,7 +14,6 @@ import com.ch.leyu.widget.xlistview.XListView;
 import org.apache.http.Header;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +21,7 @@ import android.widget.RelativeLayout;
 
 /**
  * 视频播放--评论界面
- * 
+ *
  * @author L
  */
 public class CommentFragment extends BaseFragment {
@@ -78,10 +77,9 @@ public class CommentFragment extends BaseFragment {
     protected void processLogic() {
         mListView.setAdapter(mAdapter);
         mListView.addHeaderView(mListViewHeaderView);
-        String url = Constant.COMMENT_LIST;
         RequestParams params = new RequestParams();
         params.put("cid", mId);
-        JHttpClient.get(getActivity(), url, params, CommentResponse.class,new DataCallback<CommentResponse>() {
+        JHttpClient.get(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
                     @Override
                     public void onStart() {
@@ -93,7 +91,7 @@ public class CommentFragment extends BaseFragment {
                         if (data != null) {
                             mListView.setVisibility(View.VISIBLE);
                             mAdapter.addArrayList(data.getComment());
-                            
+
                         }
                     }
 
