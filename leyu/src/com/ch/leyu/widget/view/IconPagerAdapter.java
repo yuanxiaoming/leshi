@@ -1,4 +1,4 @@
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
 public interface IconPagerAdapter {
     /**

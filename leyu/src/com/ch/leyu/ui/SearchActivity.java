@@ -12,7 +12,7 @@ import com.ch.leyu.provider.LatestSearchManager;
 import com.ch.leyu.responseparse.SearchResponse;
 import com.ch.leyu.responseparse.VideoSearchResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.LYGridView;
+import com.ch.leyu.widget.view.LYGridView;
 
 import org.apache.http.Header;
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/comment_head_et_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

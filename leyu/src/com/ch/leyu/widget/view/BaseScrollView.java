@@ -1,10 +1,9 @@
 
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -39,7 +38,7 @@ public class BaseScrollView extends ScrollView {
 
     // 在手指滑动的过程中记录是否移动了布局
     private boolean isMoved = false;
-    
+
     private int oldY,newY;
 
     public BaseScrollView(Context context) {
@@ -167,31 +166,31 @@ public class BaseScrollView extends ScrollView {
     public boolean isCanPullUp() {
         return contentView.getHeight() <= getHeight() + getScrollY();
     }
-    
-    private float mStartX, mStartY ;
-    
-    @Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		switch (ev.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			mStartX = ev.getX();
-			mStartY = ev.getY();
-			break ;
 
-		case MotionEvent.ACTION_MOVE:
-			float curX = ev.getX();
-			float curY = ev.getY();
-			
-			float deltaX = curX - mStartX ;
-			float deltaY = curY - mStartY ;
-			if (Math.abs(deltaY) < Math.abs(deltaX)) {
-				return false;
-			}
-			break;
-			
-		}
-		return super.onInterceptTouchEvent(ev);
-	}
+    private float mStartX, mStartY ;
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            mStartX = ev.getX();
+            mStartY = ev.getY();
+            break ;
+
+        case MotionEvent.ACTION_MOVE:
+            float curX = ev.getX();
+            float curY = ev.getY();
+
+            float deltaX = curX - mStartX ;
+            float deltaY = curY - mStartY ;
+            if (Math.abs(deltaY) < Math.abs(deltaX)) {
+                return false;
+            }
+            break;
+
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
 
 
 }

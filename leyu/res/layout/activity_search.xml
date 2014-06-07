@@ -6,7 +6,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true" >
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/act_search_et_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical" >
 
-        <com.ch.leyu.view.LYGridView
+        <com.ch.leyu.widget.view.LYGridView
             android:id="@+id/act_search_gd_history"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -62,8 +62,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:numColumns="2"
-            android:visibility="visible" >
-        </com.ch.leyu.view.LYGridView>
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/act_search_tv_result"

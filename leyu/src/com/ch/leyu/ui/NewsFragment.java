@@ -3,7 +3,7 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.LYViewPagerAdapter;
-import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;

@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:background="@color/color_light_gray">
+    android:layout_height="match_parent"
+    android:background="@color/color_light_gray" >
 
     <ImageView
         android:id="@+id/star_act_img"
@@ -35,24 +35,23 @@
         android:maxLines="6"
         android:text="detail" />
 
-    <com.ch.leyu.view.PagerSlidingTabStrip
+    <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/star_act_pagertab"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_below="@+id/star_act_img"
         android:layout_weight="0"
-         app:pstsIndicatorColor="#025A9A"
+        app:pstsIndicatorColor="#025A9A"
         app:pstsIndicatorHeight="3dp"
-        app:pstsUnderlineHeight="3dp" 
         app:pstsShouldExpand="true"
-        app:pstsTabPaddingLeftRight="12dp"/>
+        app:pstsTabPaddingLeftRight="12dp"
+        app:pstsUnderlineHeight="3dp" />
 
-    <com.ch.leyu.view.LYViewPager
+    <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/star_act_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/star_act_pagertab" >
-    </com.ch.leyu.view.LYViewPager>
+        android:layout_below="@+id/star_act_pagertab" />
 
 </RelativeLayout>

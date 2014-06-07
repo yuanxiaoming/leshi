@@ -4,7 +4,7 @@ import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.ui.VideoPlayActivity;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
-import com.ch.leyu.view.RecyclingPagerAdapter;
+import com.ch.leyu.widget.view.RecyclingPagerAdapter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;

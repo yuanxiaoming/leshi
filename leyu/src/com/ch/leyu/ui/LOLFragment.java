@@ -8,10 +8,10 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleLoopPageIndicator;
-import com.ch.leyu.view.LYViewPager;
-import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.widget.view.AutoScrollViewPager;
+import com.ch.leyu.widget.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.view.LYViewPager;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 

@@ -1,7 +1,8 @@
 
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
-import com.ch.leyu.view.ViewFlow.ViewSwitchListener;
+import com.ch.leyu.widget.view.ViewFlow.ViewSwitchListener;
+
 
 /**
  * An interface which defines the contract between a ViewFlow and a

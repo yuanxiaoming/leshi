@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ch.leyu.view.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ch.leyu.widget.view.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:id="@+id/hs_custom_scrollview"
     android:layout_width="fill_parent"
@@ -10,15 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <com.ch.leyu.view.AutoScrollViewPager
+        <com.ch.leyu.widget.view.AutoScrollViewPager
             android:id="@+id/hs_auto_scroll_viewpager"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:focusable="true"
-            android:focusableInTouchMode="true" >
-        </com.ch.leyu.view.AutoScrollViewPager>
+            android:focusableInTouchMode="true" />
 
-        <com.ch.leyu.view.CircleLoopPageIndicator
+        <com.ch.leyu.widget.view.CircleLoopPageIndicator
             android:id="@+id/hs_cirle_pageindicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,7 +118,7 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
-            <com.ch.leyu.view.LYGridView
+            <com.ch.leyu.widget.view.LYGridView
                 android:id="@+id/hs_gridview_recommend"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -147,7 +146,7 @@
                 android:textColor="#707070"
                 android:textSize="20dp" />
 
-            <com.ch.leyu.view.LYGridView
+            <com.ch.leyu.widget.view.LYGridView
                 android:id="@+id/hs_gridview_hot"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -158,4 +157,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</com.ch.leyu.view.CustomScrollView>
+</com.ch.leyu.widget.view.CustomScrollView>

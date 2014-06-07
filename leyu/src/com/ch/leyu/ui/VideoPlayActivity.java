@@ -9,8 +9,8 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.VideoPlayResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
-import com.ch.leyu.view.LYViewPager;
-import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.widget.view.LYViewPager;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;

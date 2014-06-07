@@ -8,7 +8,7 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.CommentResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.ClearEditText;
+import com.ch.leyu.widget.view.ClearEditText;
 import com.ch.leyu.widget.xlistview.XListView;
 
 import org.apache.http.Header;

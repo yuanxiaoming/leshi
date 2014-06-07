@@ -10,8 +10,8 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.TagResponse;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.LYViewPager;
-import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.widget.view.LYViewPager;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
