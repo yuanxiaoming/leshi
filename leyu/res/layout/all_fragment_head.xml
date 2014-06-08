@@ -5,20 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.ch.leyu.view.AutoScrollViewPager
+    <com.ch.leyu.widget.view.AutoScrollViewPager
         android:id="@+id/all_auto_scroll_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="180dp" >
-    </com.ch.leyu.view.AutoScrollViewPager>
+        android:layout_height="180dp" />
 
-    <com.ch.leyu.view.CircleLoopPageIndicator
+    <com.ch.leyu.widget.view.CircleLoopPageIndicator
         android:id="@+id/all_cirle_pageindicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/all_auto_scroll_viewpager"
         android:layout_alignRight="@+id/all_auto_scroll_viewpager"
         android:padding="6dp"
-        app:fillColor="#339933"
+        app:fillColor="#025A9A"
         app:pageColor="@android:color/darker_gray"
         app:snap="true"
         app:strokeColor="@android:color/transparent"

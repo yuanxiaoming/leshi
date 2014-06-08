@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import java.util.ArrayList;
 
@@ -26,10 +29,13 @@ public class RecommendListAdapter extends BaseAdapter {
     private ArrayList<Property> mArrayList;
 
     private LayoutInflater mInflater;
+    
+    private Context mContext;
 
     public RecommendListAdapter(ArrayList<Property> arrayList, Context context) {
         this.mArrayList = arrayList;
         mInflater = LayoutInflater.from(context);
+        this.mContext =context;
     }
 
     public void chargeArrayList(ArrayList<Property> arrayList) {
@@ -79,7 +85,9 @@ public class RecommendListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 4, CommonUtil.getWidthMetrics(mContext) / 5));
+        holder.imageView.setScaleType(ScaleType.FIT_XY) ;
+        
         ImageLoader.getInstance().displayImage(mArrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
         holder.textView.setText(mArrayList.get(position).getTitle());

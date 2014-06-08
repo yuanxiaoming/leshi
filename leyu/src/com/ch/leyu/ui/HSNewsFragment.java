@@ -9,11 +9,12 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.view.AutoScrollViewPager;
+import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 
 import org.apache.http.Header;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
@@ -67,16 +68,16 @@ public class HSNewsFragment extends BaseFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
                if(data!=null){
+                   maAdapter = new HSNewsGridViewAdapter(data.getCareer(), getActivity());
+                   mGridView.setAdapter(maAdapter);
                    mViewPager.startAutoScroll(2000);
+                   mViewPager.setInterval(4000);
                    mViewPager.setCurrentItem(data.getFocus().size() * 10000);
                    mPageIndicator.setPageCount(data.getFocus().size());
                    mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                    mPageIndicator.setViewPager(mViewPager);
-
-//                   maAdapter = new HSNewsGridViewAdapter(data.getNewsList(), getActivity());
-//                   mGridView.setAdapter(maAdapter);
+                  
                }
-
 
             }
 

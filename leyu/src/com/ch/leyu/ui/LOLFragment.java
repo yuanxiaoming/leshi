@@ -8,10 +8,10 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleLoopPageIndicator;
-import com.ch.leyu.view.LYViewPager;
-import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.widget.view.AutoScrollViewPager;
+import com.ch.leyu.widget.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.view.LYViewPager;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
@@ -77,6 +77,7 @@ public class LOLFragment extends BaseFragment {
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
                         if (data != null) {
                             mfocusViewPager.startAutoScroll(2000);
+                            mfocusViewPager.setInterval(4000);
                             mfocusViewPager.setCurrentItem(data.getFocus().size() * 10000);
                             mPageIndicator.setPageCount(data.getFocus().size());
                             mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));

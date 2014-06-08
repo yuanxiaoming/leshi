@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/color_light_gray" >
 
     <TextView
         android:id="@+id/act_feed_tv_detail"
@@ -12,7 +13,7 @@
         android:text="@string/txt_problem_description1"
         android:textColor="#FD2B2B" />
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/act_feed_et_detail"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -41,9 +42,10 @@
         android:layout_below="@+id/act_feed_et_contact"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:background="@drawable/commit_selector"
         android:text="@string/feedback_commit" />
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/act_feed_et_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +56,7 @@
         android:ems="10"
         android:hint="@string/feedback_phone" />
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/act_feed_et_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

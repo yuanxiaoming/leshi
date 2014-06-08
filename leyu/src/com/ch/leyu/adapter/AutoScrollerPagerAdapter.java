@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.ImageLoaderUtil;
-import com.ch.leyu.view.RecyclingPagerAdapter;
+import com.ch.leyu.widget.view.RecyclingPagerAdapter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class AutoScrollerPagerAdapter extends RecyclingPagerAdapter {

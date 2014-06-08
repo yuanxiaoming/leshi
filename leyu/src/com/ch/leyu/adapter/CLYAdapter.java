@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import java.util.ArrayList;
 
@@ -81,6 +84,8 @@ public class CLYAdapter extends BaseAdapter {
         if (item != null) {
             holder.title.setText(item.getTitle());
             holder.time.setText(item.getCreateTime());
+            holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 4, CommonUtil.getWidthMetrics(mContext) / 5));
+            holder.img.setScaleType(ScaleType.FIT_XY) ;
             if (item.getImageSrc() == null || item.getImageSrc().equals("")) {
                 holder.img.setVisibility(View.GONE);
 

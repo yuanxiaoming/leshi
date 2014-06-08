@@ -1,71 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ch.leyu.view.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ch.leyu.widget.view.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
+    android:id="@+id/hs_custom_scrollview"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:id="@+id/hs_custom_scrollview">
+    android:layout_height="fill_parent" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <com.ch.leyu.view.AutoScrollViewPager
+        <com.ch.leyu.widget.view.AutoScrollViewPager
             android:id="@+id/hs_auto_scroll_viewpager"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:focusable="true"
-            android:focusableInTouchMode="true" >
-        </com.ch.leyu.view.AutoScrollViewPager>
+            android:focusableInTouchMode="true" />
 
-        <com.ch.leyu.view.CircleLoopPageIndicator
+        <com.ch.leyu.widget.view.CircleLoopPageIndicator
             android:id="@+id/hs_cirle_pageindicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/hs_auto_scroll_viewpager"
             android:layout_alignRight="@+id/hs_auto_scroll_viewpager"
             android:padding="6dp"
-            app:fillColor="#339933"
+            app:fillColor="#025A9A"
             app:pageColor="@android:color/darker_gray"
             app:snap="true"
             app:strokeColor="@android:color/transparent"
             app:vpiradius="5dp" />
 
-        <ListView
-            android:id="@+id/hs_listview_news"
+        <LinearLayout
+            android:id="@+id/hs_ll_bg"
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/hs_auto_scroll_viewpager"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp" />
+            android:background="@drawable/legames_hs_gl_bg" >
+
+            <ListView
+                android:id="@+id/hs_listview_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#00000000"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/hs_ll_video"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/hs_listview_news"
-            android:orientation="horizontal" >
+            android:layout_below="@+id/hs_ll_bg"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <Button
                 android:id="@+id/hs_bt_match"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="赛事专区" />
+                android:background="@drawable/legames_competition" />
 
             <Button
                 android:id="@+id/hs_bt_videos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="视频库" />
+                android:background="@drawable/legames_videosbank" />
 
             <Button
                 android:id="@+id/hs_bt_raiders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="高玩攻略" />
+                android:background="@drawable/legames_strategy" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,22 +84,25 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hs_ll_video"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/legames_label"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="小编推荐"
-                android:textSize="18dp" />
+                android:text="@string/hs_tips_recommed"
+                android:textColor="#707070"
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                >
+                android:paddingBottom="10dp" >
 
                 <ImageView
                     android:id="@+id/hs_img_bigRecommend1"
@@ -104,7 +118,7 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
-            <com.ch.leyu.view.LYGridView
+            <com.ch.leyu.widget.view.LYGridView
                 android:id="@+id/hs_gridview_recommend"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -118,25 +132,29 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hs_ll_edit"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/legames_label"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="今日热播"
-                android:textSize="18dp" />
+                android:text="@string/hs_hot_play"
+                android:textColor="#707070"
+                android:textSize="20dp" />
 
-            <com.ch.leyu.view.LYGridView
+            <com.ch.leyu.widget.view.LYGridView
                 android:id="@+id/hs_gridview_hot"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:horizontalSpacing="10dp"
                 android:numColumns="2"
                 android:stretchMode="columnWidth"
-                android:horizontalSpacing="10dp"
-                android:verticalSpacing="10dp"/>
+                android:verticalSpacing="10dp" />
         </LinearLayout>
     </RelativeLayout>
 
-</com.ch.leyu.view.CustomScrollView>
+</com.ch.leyu.widget.view.CustomScrollView>

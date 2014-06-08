@@ -12,10 +12,10 @@ import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
-import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleLoopPageIndicator;
-import com.ch.leyu.view.CustomScrollView;
-import com.ch.leyu.view.LYGridView;
+import com.ch.leyu.widget.view.AutoScrollViewPager;
+import com.ch.leyu.widget.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.view.CustomScrollView;
+import com.ch.leyu.widget.view.LYGridView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
@@ -38,8 +38,8 @@ import android.widget.ListView;
  */
 public class HSFragment extends BaseFragment implements OnClickListener, OnItemClickListener {
 
-	private CustomScrollView mCustomScrollView ;
-	
+    private CustomScrollView mCustomScrollView ;
+
     /** 新闻 */
     private ListView mNewsListView;
 
@@ -64,9 +64,9 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 
     /** 高玩攻略 */
     private Button mRaiders;
-    
+
     private String bigImgId1="";
-    
+
     private String bigImgId2="";
 
     @Override
@@ -92,7 +92,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                     intent.putExtra(Constant.UID , bigImgId1);
                     startActivity(intent);
                 }
-                
+
                 break;
             case R.id.hs_img_bigRecommend2:
                 if(!bigImgId1.equals("")){
@@ -116,12 +116,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
         mMatch = (Button) findViewById(R.id.hs_bt_match);
         mVideos = (Button) findViewById(R.id.hs_bt_videos);
         mRaiders = (Button) findViewById(R.id.hs_bt_raiders);
-
         mAtuoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.hs_auto_scroll_viewpager);
-//        mAtuoScrollViewPager.setStopScrollWhenTouch(false);
-//        mAtuoScrollViewPager.setCycle(true);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) findViewById(R.id.hs_cirle_pageindicator);
-        
         mCustomScrollView = (CustomScrollView) findViewById(R.id.hs_custom_scrollview);
 
     }
@@ -142,10 +138,10 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                     public void onSuccess(int statusCode, Header[] headers, HSResponse data) {
                         if(data!=null){
                             mAtuoScrollViewPager.startAutoScroll(2000);
+                            mAtuoScrollViewPager.setInterval(4000);
                             mCustomScrollView.setAutoScrollViewPager(mAtuoScrollViewPager);
-                           // AutoScrollerPagerAdapter adapter = new AutoScrollerPagerAdapter(getActivity(), data.getFocus());
                             HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus());
-                            
+
                             mAtuoScrollViewPager.setAdapter(adapter);
                             mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                             mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
@@ -155,15 +151,15 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                             mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
                                     getActivity()));
                             mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
-                            
+
                             bigImgId1 = data.getBigRecommend().get(0).getId();
                             bigImgId2 = data.getBigRecommend().get(1).getId();
-                            
-                            mBigImg1.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , CommonUtil.getWidthMetrics(getActivity()) / 2));
-                            mBigImg2.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , CommonUtil.getWidthMetrics(getActivity()) / 2));
+
+                            mBigImg1.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , (int) (CommonUtil.getWidthMetrics(getActivity()) / 1.5)));
+                            mBigImg2.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , (int) (CommonUtil.getWidthMetrics(getActivity()) / 1.5)));
                             mBigImg1.setScaleType(ScaleType.FIT_XY);
                             mBigImg2.setScaleType(ScaleType.FIT_XY);
-                            
+
                             ImageLoader.getInstance().displayImage(
                                     data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
                                     ImageLoaderUtil.getImageLoaderOptions());
@@ -217,7 +213,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
             intent.putExtra(Constant.UID , item.getId());
             startActivity(intent);
         }
-        
+
     }
 
 }

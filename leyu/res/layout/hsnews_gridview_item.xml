@@ -13,8 +13,7 @@
         android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/base_article_smallimage" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/hsnews_gd_tv1"

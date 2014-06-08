@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /***
- * 新闻资讯--炉石传说
+ * 新闻资讯--炉石传说适配器
  * 
  * @author L
  */
@@ -27,20 +27,17 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
 
     private ArrayList<Property> arrayList;
 
-    private LayoutInflater mInflater;
-    
     private Context mContext;
 
     public HSNewsGridViewAdapter(ArrayList<Property> arrayList, Context context) {
         this.arrayList = arrayList;
-        mInflater = LayoutInflater.from(context);
         this.mContext = context;
     }
 
     @Override
     public int getCount() {
         if (arrayList != null) {
-            arrayList.size();
+            return arrayList.size();
         }
 
         return 0;
@@ -51,7 +48,7 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
         if (arrayList != null) {
             return arrayList.get(position);
         }
-        
+
         return null;
     }
 
@@ -65,7 +62,8 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.hsnews_gridview_item, null);
+            convertView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.hsnews_gridview_item, null);
             holder.imageView = (ImageView) convertView.findViewById(R.id.hsnews_gd_img1);
             holder.textView = (TextView) convertView.findViewById(R.id.hsnews_gd_tv1);
             convertView.setTag(holder);
@@ -73,7 +71,8 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 5));
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil
+                .getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 5));
         ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
         holder.textView.setText(arrayList.get(position).getTitle());

@@ -10,24 +10,21 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.TagResponse;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.LYViewPager;
-import com.ch.leyu.view.PagerSlidingTabStrip;
+import com.ch.leyu.widget.view.LYViewPager;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
