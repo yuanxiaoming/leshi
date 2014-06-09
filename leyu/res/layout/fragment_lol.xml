@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         layout="@layout/all_fragment_head" />
 
-    <com.ch.leyu.view.PagerSlidingTabStrip
+    <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/fragment_lol_pagertab"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -18,17 +18,15 @@
         android:layout_weight="0"
         app:pstsIndicatorColor="#025A9A"
         app:pstsIndicatorHeight="3dp"
-        app:pstsUnderlineHeight="3dp" 
         app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="12dp"
-/>
+        app:pstsUnderlineHeight="3dp" />
 
-    <com.ch.leyu.view.LYViewPager
+    <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/fragment_lol_viewpager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/fragment_lol_pagertab" >
-    </com.ch.leyu.view.LYViewPager>
+        android:layout_below="@+id/fragment_lol_pagertab" />
 
 </RelativeLayout>

@@ -1,5 +1,5 @@
 
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -102,7 +102,7 @@ public class ClearEditText extends EditText implements OnFocusChangeListener, Te
             setClearIconVisible(false);
             if (autoAnimation) {
                 if (TextUtils.isEmpty(contentString)) {
-                    setShakeAnimation();
+//                    setShakeAnimation();
                 }
             }
         }
@@ -139,12 +139,12 @@ public class ClearEditText extends EditText implements OnFocusChangeListener, Te
         contentString = s.toString();
     }
 
-    /**
-     * 设置晃动动画
-     */
-    public void setShakeAnimation() {
-        this.setAnimation(shakeAnimation(5));
-    }
+//    /**
+//     * 设置晃动动画
+//     */
+//    public void setShakeAnimation() {
+//        this.setAnimation(shakeAnimation(5));
+//    }
 
 
     /**

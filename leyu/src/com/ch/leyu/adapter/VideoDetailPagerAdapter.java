@@ -44,6 +44,7 @@ public class VideoDetailPagerAdapter extends FragmentStatePagerAdapter {
         if (position == 0) {
             args = new Bundle();
             args.putString(Constant.GMAE_ID, mid);
+            args.putString(Constant.NICKNAME, mResponse.getNickname());
             commentFragment.setArguments(args);
         }
         if (position == 1) {

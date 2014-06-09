@@ -35,6 +35,12 @@
 
     <!-- popupwindow -->
     <string name="pop_title">炉石传说视频分类</string>
+    
+    <!-- 评论 -->
+    <string name="comment_publish">发表</string>
+    <string name="comment_tips">还没人评论，赶紧评论吧！</string>
+    <string name="comment_toast_tips">请输入评论内容</string>
+    
 
     <!-- 炉石传说首页 -->
     <string name="hs_tips_recommed">小编推荐</string>

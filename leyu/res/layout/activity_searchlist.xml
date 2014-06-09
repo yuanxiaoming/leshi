@@ -6,7 +6,7 @@
     android:background="@color/color_light_gray"
     android:focusableInTouchMode="true" >
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/act_searchlist_et_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

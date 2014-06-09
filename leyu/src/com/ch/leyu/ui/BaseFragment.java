@@ -2,12 +2,14 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -63,6 +65,12 @@ public abstract class BaseFragment extends Fragment {
     public void setContentView(int resId) {
         this.mResouce_id = resId;
     }
+
+    public void hidden(){
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);  
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);  
+        
+      }
 
 
     public View findViewById(int resId) {

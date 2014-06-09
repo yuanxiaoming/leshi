@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
 import java.util.Locale;
 import android.annotation.SuppressLint;

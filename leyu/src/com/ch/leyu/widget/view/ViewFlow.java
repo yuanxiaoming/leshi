@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 Patrik Åkerfeldt
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
 import com.ch.leyu.R;
 
@@ -30,7 +30,6 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.View.MeasureSpec;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AbsListView;
 import android.widget.Adapter;
@@ -115,7 +114,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
         /**
          * This method is called when a new View has been scrolled to.
-         * 
+         *
          * @param view the {@link View} currently in focus.
          * @param position The position in the adapter of the {@link View}
          *            currently in focus.
@@ -470,7 +469,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
     /**
      * Scroll to the {@link View} in the view buffer specified by the index.
-     * 
+     *
      * @param indexInBuffer Index of the view in the view buffer.
      */
     private void setVisibleView(int indexInBuffer, boolean uiThread) {
@@ -489,7 +488,7 @@ public class ViewFlow extends AdapterView<Adapter> {
     /**
      * Set the listener that will receive notifications every time the {code
      * ViewFlow} scrolls.
-     * 
+     *
      * @param l the scroll listener
      */
     public void setOnViewSwitchListener(ViewSwitchListener l) {
@@ -537,7 +536,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
     /**
      * Set the FlowIndicator
-     * 
+     *
      * @param flowIndicator
      */
     public void setFlowIndicator(FlowIndicator flowIndicator) {

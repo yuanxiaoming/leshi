@@ -1,4 +1,4 @@
-package com.ch.leyu.view;
+package com.ch.leyu.widget.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

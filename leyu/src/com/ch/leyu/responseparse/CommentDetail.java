@@ -8,7 +8,7 @@ public class CommentDetail {
 
     private String comment;
 
-    private String createTime;
+    private long createTime;
 
     public String getNickname() {
         return nickname;
@@ -34,11 +34,13 @@ public class CommentDetail {
         this.comment = comment;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
+
+   
 }

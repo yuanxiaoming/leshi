@@ -2,6 +2,7 @@
 package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
+import com.ch.leyu.http.utils.LeUtils;
 import com.ch.leyu.responseparse.CommentDetail;
 
 import android.content.Context;
@@ -86,7 +87,7 @@ public class CommentListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.name.setText(mArrayList.get(position).getNickname());
-        holder.time.setText(mArrayList.get(position).getCreateTime());
+        holder.time.setText(LeUtils.toDate(mArrayList.get(position).getCreateTime()));
         WebSettings settings = holder.detail.getSettings();
         // 设置布局算法
         settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);

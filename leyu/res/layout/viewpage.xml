@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.ch.leyu.view.LYViewPager
+    <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/includ_eviewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -14,6 +14,6 @@
             android:id="@+id/includ_pagertab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </com.ch.leyu.view.LYViewPager>
+    </com.ch.leyu.widget.view.LYViewPager>
 
 </LinearLayout>
