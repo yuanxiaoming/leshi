@@ -8,65 +8,13 @@
         android:id="@+id/fragment_comment_xistview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_gravity="center"
         android:footerDividersEnabled="false"
-        android:visibility="gone" />
+        android:gravity="center" />
 
-    <RelativeLayout
-        android:id="@+id/fragment_comment_tips"
+    <include
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal"
-        android:visibility="visible" >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp" >
-
-            <com.ch.leyu.widget.view.ClearEditText
-                android:id="@+id/comment_et_detail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_toLeftOf="@+id/comment_bt_commit"
-                android:background="@drawable/login_edittext_bg"
-                android:ems="10" />
-
-            <Button
-                android:id="@+id/comment_bt_commit"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_alignBaseline="@+id/comment_et_detail"
-                android:layout_alignBottom="@+id/comment_et_detail"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/comment_selector"
-                android:text="@string/comment_publish"
-                android:textColor="@android:color/white"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="180dp"
-            android:gravity="center"
-            android:text="@string/comment_tips"
-            android:textColor="#C1C1C1"
-            android:textSize="18dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/legames_tips" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        layout="@layout/comment_listview_emptyview" />
 
 </LinearLayout>
