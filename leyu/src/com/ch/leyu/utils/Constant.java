@@ -62,5 +62,5 @@ public interface Constant {
     public static final String VIDEO_DETAIL = "action=info";
 
     /**评论列表*/
-    public static final String COMMENT_LIST = "comment.php?action=appGet&type=2";
+    public static final String COMMENT_LIST = "http://www.legames.cn/apps/comment.php?action=appGet&type=2";
 }

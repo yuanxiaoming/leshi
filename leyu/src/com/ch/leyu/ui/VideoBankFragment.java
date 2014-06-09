@@ -2,10 +2,10 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.ListAsGridBaseAdapter.GridItemClickListener;
 import com.ch.leyu.adapter.ListChangeGridAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.GridItemClickListener;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
@@ -16,6 +16,7 @@ import org.apache.http.Header;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 
 /***
  * 炉石传说 视频库

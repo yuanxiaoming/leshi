@@ -8,6 +8,36 @@
         android:id="@+id/fragment_comment_xistview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:footerDividersEnabled="false" />
+        android:footerDividersEnabled="false"
+        android:visibility="gone"
+  />
+
+    <RelativeLayout
+        android:id="@+id/fragment_comment_tips"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" >
+
+        <include layout="@layout/comment_head" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="17dp"
+            android:src="@drawable/legames_tips" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="195dp"
+            android:gravity="center"
+            android:text="还没人评论，赶紧评论吧！" />
+    </RelativeLayout>
 
 </LinearLayout>

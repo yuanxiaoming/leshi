@@ -31,19 +31,27 @@
             app:strokeColor="@android:color/transparent"
             app:vpiradius="5dp" />
 
-        <ListView
-            android:id="@+id/hs_listview_news"
+        <LinearLayout
+            android:id="@+id/hs_ll_bg"
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/hs_auto_scroll_viewpager"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp" />
+            android:background="@drawable/legames_hs_gl_bg" >
+
+            <ListView
+                android:id="@+id/hs_listview_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#00000000"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/hs_ll_video"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/hs_listview_news"
+            android:layout_below="@+id/hs_ll_bg"
             android:orientation="horizontal"
             android:paddingLeft="5dp"
             android:paddingRight="5dp" >

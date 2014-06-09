@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.ch.leyu.view.ClearEditText
+        android:id="@+id/comment_head_et_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/comment_head_bt_commit"
+        android:layout_alignBottom="@+id/comment_head_bt_commit"
+        android:layout_toLeftOf="@+id/comment_head_bt_commit"
+        android:background="@drawable/login_edittext_bg"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/comment_head_bt_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="发表" />
+
+</RelativeLayout>
