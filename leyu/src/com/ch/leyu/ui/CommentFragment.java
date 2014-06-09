@@ -98,6 +98,7 @@ public class CommentFragment extends BaseFragment {
         mTipsLayout = findViewById(R.id.comment_emptyview_layout);
         mListView.setEmptyView(mTipsLayout);
         mListView.addHeaderView(mListViewHeaderView);
+        mListView.setHeaderDividersEnabled(false);
         mAdapter = new CommentListAdapter(null, getActivity());
         mListView.setAdapter(mAdapter);
     }
