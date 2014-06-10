@@ -57,7 +57,7 @@ public class LaunchActivity extends BaseActivity {
     private void showWelcomePage() {
         setContentView(R.layout.launch_layout);
         mStartAPPbtn=(Button) findViewById(R.id.start_app_btn);
-        mAppVersion=(TextView) findViewById(R.id.app_version);
+//        mAppVersion=(TextView) findViewById(R.id.app_version);
 
         mStartAPPbtn.setOnClickListener(new OnClickListener() {
 
@@ -74,7 +74,7 @@ public class LaunchActivity extends BaseActivity {
             }
         });
 
-        mAppVersion.setText(getResources().getString(R.string.launch_app_version_txt)+VersionUtil.getVersionName());
+//        mAppVersion.setText(getResources().getString(R.string.launch_app_version_txt)+VersionUtil.getVersionName());
 
     }
 
