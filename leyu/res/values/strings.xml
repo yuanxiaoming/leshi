@@ -40,6 +40,8 @@
     <string name="comment_publish">发表</string>
     <string name="comment_tips">还没人评论，赶紧评论吧！</string>
     <string name="comment_toast_tips">请输入评论内容</string>
+    <string name="comment_win">评论成功</string>
+     <string name="comment_lose">评论失败</string>
     
 
     <!-- 炉石传说首页 -->

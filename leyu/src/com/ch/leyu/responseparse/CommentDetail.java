@@ -10,6 +10,26 @@ public class CommentDetail {
 
     private long createTime;
 
+    private String replyNickname;
+
+    private String replyUid;
+
+    public String getReplyUid() {
+        return replyUid;
+    }
+
+    public void setReplyUid(String replyUid) {
+        this.replyUid = replyUid;
+    }
+
+    public String getReplyNickname() {
+        return replyNickname;
+    }
+
+    public void setReplyNickname(String replyNickname) {
+        this.replyNickname = replyNickname;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -42,5 +62,4 @@ public class CommentDetail {
         this.createTime = createTime;
     }
 
-   
 }

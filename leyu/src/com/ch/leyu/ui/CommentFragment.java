@@ -3,6 +3,7 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CommentListAdapter;
+import com.ch.leyu.adapter.CommentListAdapter.LyOnClickListener;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
@@ -11,6 +12,7 @@ import com.ch.leyu.responseparse.CommentResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.ClearEditText;
 import com.ch.leyu.widget.xlistview.XListView;
+import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
@@ -45,6 +47,9 @@ public class CommentFragment extends BaseFragment {
 
     /** 评论内容 */
     public static final String COMMENT = "comment";
+    
+    /**评论某人*/
+    private static final String REPLYNICKNAME = "replyNickname";
 
     private XListView mListView;
 
@@ -71,6 +76,14 @@ public class CommentFragment extends BaseFragment {
 
     /** 小贴士 */
     private View mTipsLayout;
+    
+    private String mReplyName = "";
+    
+    private int page = 0 ;
+    
+    /**总页数*/
+    private int mTotalPage ;
+    
 
     @Override
     protected void getExtraParams() {
@@ -78,6 +91,7 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
+            mCid = "275";
         }
     }
 
@@ -117,8 +131,8 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setComment(comment);
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
+                    commentDetail.setReplyNickname(mReplyName);
                     publishComment(0,commentDetail);
-                    mDetail.setText("");
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
@@ -146,12 +160,34 @@ public class CommentFragment extends BaseFragment {
                 }
             }
         });
+        
+        mAdapter.setOnReplyClickListener(new LyOnClickListener() {
+            
+            @Override
+            public void onReplyClick(View v, String uName) {
+                mDetail.setText("");
+                mDetail.setFocusable(true);
+                mDetail.setFocusableInTouchMode(true);
+                mDetail.requestFocus();
+                hidden();  
+               
+            }
+        });
+        
+        mListView.setXListViewListener(mIXListViewListenerImp);
     }
 
+    
     @Override
     protected void processLogic() {
+        requestData(1);
+    }
+    
+    
+    public void requestData(int page){
         RequestParams params = new RequestParams();
         params.put("cid", mCid);
+        params.put("page", page);
         JHttpClient.get(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
             @Override
@@ -163,12 +199,12 @@ public class CommentFragment extends BaseFragment {
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
                 if (data != null) {
                     mAdapter.addArrayList(data.getComment());
+                    mTotalPage = data.getTotalPage();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
+            public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
 
             }
 
@@ -177,8 +213,10 @@ public class CommentFragment extends BaseFragment {
                 mHttpLoadingView.setVisibility(View.GONE);
             }
         });
+        
     }
-
+    
+    
     /**
     * @param uid 用户id
     * @param nickname 视频名字
@@ -193,6 +231,7 @@ public class CommentFragment extends BaseFragment {
         params.put(TYPE, 2);
         params.put(CID, mCid);
         params.put(COMMENT, commentDetail.getComment());
+        params.put(REPLYNICKNAME, commentDetail.getReplyNickname());
         JHttpClient.post(getActivity(), Constant.COMMENT_PUBLISH, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
             @Override
@@ -205,12 +244,12 @@ public class CommentFragment extends BaseFragment {
                 ArrayList<CommentDetail> mDetailsList = new ArrayList<CommentDetail>();
                 mDetailsList.add(commentDetail);
                 mAdapter.addArrayList(mDetailsList);
-                Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.comment_win, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
-                Toast.makeText(getActivity(), "评论失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.comment_lose, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -220,5 +259,22 @@ public class CommentFragment extends BaseFragment {
 
         });
     }
+    
+    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+        // 下拉刷新
+        @Override
+        public void onRefresh() {
+            
+        }
+
+        // 上拉加载
+        @Override
+        public void onLoadMore() {
+            if(page<mTotalPage){
+                requestData(page++);
+            }
+         
+        }
+    };
 
 }

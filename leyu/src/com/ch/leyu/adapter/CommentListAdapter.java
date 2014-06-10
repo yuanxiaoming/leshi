@@ -7,8 +7,11 @@ import com.ch.leyu.utils.LeUtils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -28,6 +31,12 @@ public class CommentListAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 
 	private Context mContext;
+	
+	private LyOnClickListener mLyOnClickListener;
+	
+	public void setOnReplyClickListener(LyOnClickListener lyOnClickListener){
+	    this.mLyOnClickListener = lyOnClickListener;
+	}
 
 	public CommentListAdapter(ArrayList<CommentDetail> arrayList, Context context) {
 		if(arrayList==null){
@@ -80,7 +89,7 @@ public class CommentListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -95,7 +104,17 @@ public class CommentListAdapter extends BaseAdapter {
 
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.name.setText(mArrayList.get(position).getNickname());
+		
+		
+		if(mArrayList.get(position).getReplyNickname().equals("")){
+		    holder.name.setText(mArrayList.get(position).getNickname());
+		}else {
+		  String s1 = "<font color=\"#818181\">回复</font> ";
+		  String s = "<font color=\"#3F74A7\">"+mArrayList.get(position).getNickname()+"</font> ";
+		  String s2 = "<font color=\"#3F74A7\">"+mArrayList.get(position).getReplyNickname()+"</font> ";
+		  holder.name.setText(Html.fromHtml(s+s1+s2));
+		}
+		
 
 		holder.time.setText(LeUtils.toDate(mArrayList.get(position).getCreateTime()));
 		WebSettings settings = holder.detail.getSettings();
@@ -114,9 +133,18 @@ public class CommentListAdapter extends BaseAdapter {
 		// 设置处理客户端
 		holder.detail.setWebViewClient(new WebViewClient());
 		holder.detail.setBackgroundColor(Color.parseColor("#F0F0F0"));
-
 		holder.detail.loadDataWithBaseURL("", mArrayList.get(position).getComment(), "text/html",
 				"UTF-8", "");
+		
+		holder.reply.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                if(mLyOnClickListener!=null){
+                    mLyOnClickListener.onReplyClick(v,mArrayList.get(position).getNickname());
+                }
+            }
+        });
 
 		return convertView;
 	}
@@ -130,6 +158,11 @@ public class CommentListAdapter extends BaseAdapter {
 
 		TextView reply;
 
+	}
+	
+ public interface LyOnClickListener {
+	  
+     public void onReplyClick(View v,String uName);
 	}
 
 }
