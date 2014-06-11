@@ -44,7 +44,7 @@ public class JHttpClient {
         mAsyncHttpClient.setCookieStore(cookieStore);
     }
 
-    private static String getUrlWithQueryString(String url, RequestParams params) {
+    public static String getUrlWithQueryString(String url, RequestParams params) {
         return AsyncHttpClient.getUrlWithQueryString(true, url, params);
     }
 

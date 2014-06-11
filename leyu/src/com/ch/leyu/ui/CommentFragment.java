@@ -24,7 +24,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * 视频播放--评论界面
@@ -47,13 +49,15 @@ public class CommentFragment extends BaseFragment {
 
     /** 评论内容 */
     public static final String COMMENT = "comment";
-    
+
     /**评论某人*/
     private static final String REPLYNICKNAME = "replyNickname";
 
     private XListView mListView;
 
     private CommentListAdapter mAdapter;
+
+    private SimpleDateFormat mSimpleDateFormat;
 
     private String mCid;
 
@@ -76,14 +80,16 @@ public class CommentFragment extends BaseFragment {
 
     /** 小贴士 */
     private View mTipsLayout;
-    
+
     private String mReplyName = "";
-    
-    private int page = 0 ;
-    
+
+    private int mPage = 1 ;
+
     /**总页数*/
     private int mTotalPage ;
-    
+
+    private boolean mStop;
+
 
     @Override
     protected void getExtraParams() {
@@ -113,8 +119,12 @@ public class CommentFragment extends BaseFragment {
         mListView.setEmptyView(mTipsLayout);
         mListView.addHeaderView(mListViewHeaderView);
         mListView.setHeaderDividersEnabled(false);
+        mListView.setPullLoadEnable(true);
+        mListView.setPullLoadEnable(true);
         mAdapter = new CommentListAdapter(null, getActivity());
         mListView.setAdapter(mAdapter);
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
     @Override
@@ -160,30 +170,30 @@ public class CommentFragment extends BaseFragment {
                 }
             }
         });
-        
+
         mAdapter.setOnReplyClickListener(new LyOnClickListener() {
-            
+
             @Override
             public void onReplyClick(View v, String uName) {
                 mDetail.setText("");
                 mDetail.setFocusable(true);
                 mDetail.setFocusableInTouchMode(true);
                 mDetail.requestFocus();
-                hidden();  
-               
+                hidden();
+
             }
         });
-        
+
         mListView.setXListViewListener(mIXListViewListenerImp);
     }
 
-    
+
     @Override
     protected void processLogic() {
-        requestData(1);
+        requestData(mPage);
     }
-    
-    
+
+
     public void requestData(int page){
         RequestParams params = new RequestParams();
         params.put("cid", mCid);
@@ -192,14 +202,25 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onStart() {
-                mHttpLoadingView.setVisibility(View.VISIBLE);
+                if(mListView!=null){
+                    onLoad();
+                }
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
                 if (data != null) {
-                    mAdapter.addArrayList(data.getComment());
                     mTotalPage = data.getTotalPage();
+                    if(mPage==1){
+                        mAdapter.chargeArrayList(data.getComment());
+                    }else{
+                        mAdapter.addArrayList(data.getComment());
+                    }
+                    mPage++;
+                    if(mPage>mTotalPage){
+                        mStop=true;
+                    }else{
+                        mStop=false;
+                    }
                 }
             }
 
@@ -210,20 +231,20 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onFinish() {
-                mHttpLoadingView.setVisibility(View.GONE);
+
             }
         });
-        
+
     }
-    
-    
+
+
     /**
-    * @param uid 用户id
-    * @param nickname 视频名字
-    * @param cid 视频id
-    * @param comment 评论内容
-    * @param index 1代表无评论时，2代表有评论时
-    */
+     * @param uid 用户id
+     * @param nickname 视频名字
+     * @param cid 视频id
+     * @param comment 评论内容
+     * @param index 1代表无评论时，2代表有评论时
+     */
     private void publishComment(int uid, final CommentDetail  commentDetail) {
         RequestParams params = new RequestParams();
         params.put(UID, uid);
@@ -259,22 +280,33 @@ public class CommentFragment extends BaseFragment {
 
         });
     }
-    
+
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         // 下拉刷新
         @Override
         public void onRefresh() {
-            
+            mPage=1;
+            requestData(mPage);
         }
 
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if(page<mTotalPage){
-                requestData(page++);
+            if(mStop){
+                mListView.setPullLoadEnable(false);
+            }else{
+                requestData(mPage);
             }
-         
+
         }
     };
+
+    // 加载中时间监听
+    private void onLoad() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
 
 }
