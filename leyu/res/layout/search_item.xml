@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-       android:textColor="@color/black"
+       android:textColor="#A4A4A4"
        android:textSize="20sp"/>
 
 </RelativeLayout>

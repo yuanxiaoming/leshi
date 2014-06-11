@@ -21,13 +21,12 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +38,6 @@ import java.util.ArrayList;
  * @author L
  */
 public class SearchActivity extends BaseActivity {
-
-    /** 删除历史搜索内容 */
-    private TextView mDelete;
 
     /** 输入内容 */
     private EditText mDetail;
@@ -66,6 +62,11 @@ public class SearchActivity extends BaseActivity {
 
     private ArrayList<LatestSearch> mLatestSearchArrayList;
 
+    private RelativeLayout mLayout;
+
+    /** 删除历史搜索内容 */
+    private RelativeLayout mDel;
+
     @Override
     protected void getExtraParams() {
         mContext = this;
@@ -79,12 +80,13 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void findViewById() {
+        mDel = (RelativeLayout) findViewById(R.id.search_del_include);
+        mLayout = (RelativeLayout) findViewById(R.id.search_include);
         mHistory = (LYGridView) findViewById(R.id.act_search_gd_history);
         mHots = (GridView) findViewById(R.id.act_search_gd_hots);
-        mDetail = (EditText) findViewById(R.id.act_search_et_detail);
-        mDelete = (TextView) findViewById(R.id.act_seacrh_img_del);
+        mDetail = (EditText) mLayout.findViewById(R.id.comment_head_et_detail);
         mResult = (TextView) findViewById(R.id.act_search_tv_result);
-        mSearch = (Button) findViewById(R.id.act_search_bt_search);
+        mSearch = (Button) mLayout.findViewById(R.id.comment_head_bt_commit);
         mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();
         mLatestSearchAdapter = new LatestSearchAdapter(mLatestSearchArrayList);
         mHistory.setAdapter(mLatestSearchAdapter);
@@ -93,7 +95,7 @@ public class SearchActivity extends BaseActivity {
             mResult.setVisibility(View.GONE);
 
         } else {
-            //  提示没有最近搜索记录
+            // 提示没有最近搜索记录
             mHistory.setVisibility(View.GONE);
             mResult.setVisibility(View.VISIBLE);
         }
@@ -102,7 +104,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
-        mDelete.setOnClickListener(new OnClickListener() {
+        mDel.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -127,7 +129,8 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     RequestParams params = new RequestParams();
                     params.put(Constant.KEYWORD, mKeyWord);
-                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,VideoSearchResponse.class, mSearchDataCallback);
+                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,
+                            VideoSearchResponse.class, mSearchDataCallback);
                 }
             }
         });
@@ -146,7 +149,8 @@ public class SearchActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LatestSearchAdapter latestSearchAdapter = (LatestSearchAdapter) parent.getAdapter();
                 if (latestSearchAdapter != null) {
-                    LatestSearch latestSearch = (LatestSearch) (latestSearchAdapter.getArrayList().get(position));
+                    LatestSearch latestSearch = (LatestSearch) (latestSearchAdapter.getArrayList()
+                            .get(position));
                     Intent intent = new Intent(mContext, SearchListActivity.class);
                     intent.putExtra("result", latestSearch.getmVideoSearchResponse());
                     intent.putExtra(Constant.KEYWORD, latestSearch.getKeyword());
@@ -193,7 +197,7 @@ public class SearchActivity extends BaseActivity {
                 intent.putExtra("result", data);
                 intent.putExtra(Constant.KEYWORD, mKeyWord);
                 startActivity(intent);
-                
+
             } else {
                 Toast.makeText(mContext, R.string.search_hint_null, Toast.LENGTH_LONG).show();
 
