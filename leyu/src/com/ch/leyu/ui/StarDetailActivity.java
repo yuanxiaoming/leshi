@@ -61,7 +61,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     protected void getExtraParams() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            uid = bundle.getString(Constant.UID);
+            uid = bundle.getString(Constant.CID);
         }
     }
 
@@ -93,7 +93,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mTabStrip.setTextSize(24);
 
         RequestParams params = new RequestParams();
-        params.put(Constant.UID, uid);
+        params.put(Constant.CID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override

@@ -147,7 +147,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         if(mResponse!=null){
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
             String videoId = mResponse.getVideoList().get(position).getId();
-            intent.putExtra(Constant.UID, videoId);
+            intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
         

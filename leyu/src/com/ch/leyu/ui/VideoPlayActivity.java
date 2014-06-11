@@ -41,7 +41,7 @@ public class VideoPlayActivity extends BaseActivity {
     protected void getExtraParams() {
         Intent intent = getIntent();
         if (intent != null) {
-            mId = intent.getStringExtra(Constant.UID);
+            mId = intent.getStringExtra(Constant.CID);
         }
 
     }
