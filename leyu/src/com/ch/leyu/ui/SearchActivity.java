@@ -41,7 +41,7 @@ import java.util.ArrayList;
 public class SearchActivity extends BaseActivity {
 
     /** 删除历史搜索内容 */
-    private ImageView mDelete;
+    private TextView mDelete;
 
     /** 输入内容 */
     private EditText mDetail;
@@ -82,7 +82,7 @@ public class SearchActivity extends BaseActivity {
         mHistory = (LYGridView) findViewById(R.id.act_search_gd_history);
         mHots = (GridView) findViewById(R.id.act_search_gd_hots);
         mDetail = (EditText) findViewById(R.id.act_search_et_detail);
-        mDelete = (ImageView) findViewById(R.id.act_seacrh_img_del);
+        mDelete = (TextView) findViewById(R.id.act_seacrh_img_del);
         mResult = (TextView) findViewById(R.id.act_search_tv_result);
         mSearch = (Button) findViewById(R.id.act_search_bt_search);
         mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();

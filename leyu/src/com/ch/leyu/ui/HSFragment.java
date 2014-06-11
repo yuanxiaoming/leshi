@@ -89,7 +89,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
             case R.id.hs_img_bigRecommend1:
                 if(!bigImgId1.equals("")){
                     intent = new Intent(getActivity(), VideoPlayActivity.class);
-                    intent.putExtra(Constant.UID , bigImgId1);
+                    intent.putExtra(Constant.CID , bigImgId1);
                     startActivity(intent);
                 }
 
@@ -97,7 +97,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
             case R.id.hs_img_bigRecommend2:
                 if(!bigImgId1.equals("")){
                     intent = new Intent(getActivity(), VideoPlayActivity.class);
-                    intent.putExtra(Constant.UID , bigImgId2);
+                    intent.putExtra(Constant.CID , bigImgId2);
                     startActivity(intent);
                 }
                 break;
@@ -210,7 +210,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
         Property item = (Property) parent.getAdapter().getItem(position);
         if(item!=null){
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-            intent.putExtra(Constant.UID , item.getId());
+            intent.putExtra(Constant.CID , item.getId());
             startActivity(intent);
         }
 

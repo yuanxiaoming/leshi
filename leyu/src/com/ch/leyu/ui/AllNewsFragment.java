@@ -7,6 +7,7 @@ import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
@@ -16,8 +17,11 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 import org.apache.http.Header;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +32,7 @@ import java.util.Date;
  * @author L
  */
 @SuppressLint("SimpleDateFormat")
-public class AllNewsFragment extends BaseFragment {
+public class AllNewsFragment extends BaseFragment implements OnItemClickListener {
 
     private XListView mXListView;
 
@@ -64,7 +68,7 @@ public class AllNewsFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mXListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -97,8 +101,6 @@ public class AllNewsFragment extends BaseFragment {
                            
                            mAdapter.addArrayList(data.getNewsList());
                            mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
-//                           mAdapter = new CLYAdapter(getActivity(), data.getNewsList());
-//                           mXListView.setAdapter(mAdapter);
                        }
                     }
 
@@ -134,4 +136,14 @@ public class AllNewsFragment extends BaseFragment {
 
         }
     };
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        if(item!=null){
+            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+            intent.putExtra(Constant.CID, item.getId());
+            startActivity(intent);
+        }
+    }
 }

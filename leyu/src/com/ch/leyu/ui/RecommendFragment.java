@@ -111,7 +111,7 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
       if(item!=null){
           Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
           String videoId = item.getId();
-          intent.putExtra(Constant.UID, videoId);
+          intent.putExtra(Constant.CID, videoId);
           startActivity(intent);
           getActivity().finish();
       }

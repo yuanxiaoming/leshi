@@ -17,23 +17,20 @@ import org.apache.http.Header;
 import android.content.Intent;
 import android.view.View;
 
-
-
 /**
  * 明星视频--最热播放
- *
+ * 
  * @author L
  */
-public class HotsVideoFragment extends BaseFragment implements GridItemClickListener  {
+public class HotsVideoFragment extends BaseFragment implements GridItemClickListener {
 
     private XListView mXListView;
 
     private String uid;
 
     private ListChangeGridAdapter mAdapter;
-    
-    private VideoListResponse mResponse ;
 
+    private VideoListResponse mResponse;
 
     @Override
     protected void getExtraParams() {
@@ -61,17 +58,18 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
         mAdapter.setNumColumns(2);
         mXListView.setAdapter(mAdapter);
         RequestParams params = new RequestParams();
-        params.put(Constant.UID, uid);
-     // 如果是最多播放添加如下参数
+        params.put(Constant.CID, uid);
+        // 如果是最多播放添加如下参数
         params.put(Constant.SORT, "click");
-        JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+        JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
+                StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
-                       if(data!=null){
-                           mResponse = data.getVideoList();
-                           mAdapter.addArrayList(data.getVideoList().getData());
-                       }
+                        if (data != null) {
+                            mResponse = data.getVideoList();
+                            mAdapter.addArrayList(data.getVideoList().getData());
+                        }
 
                     }
 
@@ -93,17 +91,15 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
                 });
     }
 
-  
-
     @Override
     public void onGridItemClicked(View v, int position, long itemId) {
-            if(mResponse!=null){
-                String uId = mResponse.getData().get(position).getId();
-                Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-                intent.putExtra(Constant.UID ,uId);
-                startActivity(intent);
-            }
-       
+        if (mResponse != null) {
+            String cId = mResponse.getData().get(position).getId();
+            Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+            intent.putExtra(Constant.CID, cId);
+            startActivity(intent);
+        }
+
     }
 
 }

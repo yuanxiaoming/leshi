@@ -6,19 +6,23 @@ import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /***
  * 其他新闻资讯
  *
  * @author L
  */
-public class OtherNewsFragment extends BaseFragment {
+public class OtherNewsFragment extends BaseFragment implements OnItemClickListener {
 
     private XListView mListView;
     
@@ -43,6 +47,11 @@ public class OtherNewsFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
+       mListView.setOnItemClickListener(this);
+    }
+
+    @Override
+    protected void processLogic() {
         mListView.setAdapter(mAdapter);
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
@@ -74,8 +83,14 @@ public class OtherNewsFragment extends BaseFragment {
     }
 
     @Override
-    protected void processLogic() {
-
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        if(item!=null){
+            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+            intent.putExtra(Constant.CID, item.getId());
+            startActivity(intent);
+        }
+        
     }
 
 }
