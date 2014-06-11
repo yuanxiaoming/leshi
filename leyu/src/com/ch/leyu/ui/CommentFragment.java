@@ -198,8 +198,6 @@ public class CommentFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.put("cid", mCid);
         params.put("page", page);
-        String urlWithQueryString = JHttpClient.getUrlWithQueryString(Constant.COMMENT_LIST, params);
-        System.out.println(urlWithQueryString);
         JHttpClient.get(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
             @Override
