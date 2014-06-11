@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_tab"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp" >
+
+    <TextView
+        android:id="@+id/comment_list_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="XX玩家"
+        android:textColor="#3F74A7" />
+
+    <WebView
+        android:id="@+id/comment_list_web_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/comment_list_tv_name"
+        android:layout_below="@+id/comment_list_tv_name" />
+
+    <TextView
+        android:id="@+id/comment_list_tv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/comment_list_tv_time"
+        android:layout_alignBottom="@+id/comment_list_tv_time"
+        android:layout_alignParentRight="true"
+        android:text="回复"
+        android:textColor="@color/slt_btn_text_color"/>
+
+    <TextView
+        android:id="@+id/comment_list_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/comment_list_web_detail"
+        android:layout_below="@+id/comment_list_web_detail"
+        android:text="时间"
+        android:textColor="#C1C1C1" />
+
+</RelativeLayout>

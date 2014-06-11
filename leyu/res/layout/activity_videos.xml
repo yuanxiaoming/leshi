@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_light_gray"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <com.ch.leyu.view.PagerSlidingTabStrip
+        <com.ch.leyu.widget.view.PagerSlidingTabStrip
             android:id="@+id/act_videos_tabstrip"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -25,10 +26,10 @@
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="@drawable/biz_widget_next_btn" />
+            android:background="@drawable/more_btn_selector" />
     </LinearLayout>
 
-    <com.ch.leyu.view.LYViewPager
+    <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/act_videos_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

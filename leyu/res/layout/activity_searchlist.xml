@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
+    android:background="@color/color_light_gray"
     android:focusableInTouchMode="true" >
 
-    <com.ch.leyu.view.ClearEditText
+    <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/act_searchlist_et_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/act_searchlist_bt_latest"
+        android:layout_toLeftOf="@+id/act_searchlist_bt_search"
         android:background="@drawable/login_edittext_bg"
         android:ems="10" />
 
@@ -27,39 +28,68 @@
         android:id="@+id/act_searchlist_tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/act_searchlist_et_detail"
-        android:layout_below="@+id/act_searchlist_bt_search"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/search_radiogroup"
         android:text="TextView" />
-
-    <Button
-        android:id="@+id/act_searchlist_bt_latest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/act_searchlist_bt_search"
-        android:layout_toLeftOf="@+id/act_searchlist_bt_search"
-        android:text="@string/search_newst" />
-
-    <Button
-        android:id="@+id/act_searchlist_bt_hots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/act_searchlist_bt_latest"
-        android:layout_alignBottom="@+id/act_searchlist_bt_latest"
-        android:layout_alignParentRight="true"
-        android:text="@string/search_hottest" />
 
     <GridView
         android:id="@+id/act_searchlist_gd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/act_searchlist_bt_latest"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/search_radiogroup"
+        android:layout_marginTop="16dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
         android:paddingTop="10dp"
         android:verticalSpacing="10dp" >
     </GridView>
+
+    <RadioGroup
+        android:id="@+id/search_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/act_searchlist_bt_search"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/act_search_rb_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/search_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/search_newst"
+            android:textColor="#959595"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/act_search_rb_hots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/search_selector"
+            android:button="@null"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:textColor="#959595"
+            android:text="@string/search_hottest"
+            android:textSize="15sp" />
+    </RadioGroup>
 
 </RelativeLayout>

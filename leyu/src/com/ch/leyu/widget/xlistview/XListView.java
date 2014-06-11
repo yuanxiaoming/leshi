@@ -10,7 +10,7 @@
 package com.ch.leyu.widget.xlistview;
 
 import com.ch.leyu.R;
-import com.ch.leyu.view.AutoScrollViewPager;
+import com.ch.leyu.widget.view.AutoScrollViewPager;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.ch.leyu.view.PagerSlidingTabStrip
+    <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/newsfragment_tab_indicator"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
@@ -16,7 +16,7 @@
         app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="0dp"/>
 
-    <com.ch.leyu.view.LYViewPager
+    <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/newsfragment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

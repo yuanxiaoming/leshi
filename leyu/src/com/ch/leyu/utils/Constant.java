@@ -12,13 +12,15 @@ public interface Constant {
     public static final int ID_NUMBER = 3;
 
     public static final String UID = "uid";
+    
+    public static final String NICKNAME = "nickname";
 
     public static final String SORT = "sort";
 
     public static final String KEYWORD = "keyword";
 
     public static final String POSITION = "position";
-    
+
     /** 实体类传输key */
     public static final String DATA = "data";
 
@@ -59,5 +61,12 @@ public interface Constant {
     public static final String LOL_HOT = "http://www.legames.cn/app/api/video.php?action=rank&day=7";
 
     /** 视频详情 */
-    public static final String VIDEO_DETAIL= "action=info";
+    public static final String VIDEO_DETAIL = "action=info";
+
+    /** 评论列表 */
+    public static final String COMMENT_LIST = "http://www.legames.cn/apps/comment.php?action=appGet&type=2";
+
+    /** 发表评论接口 */
+    public static final String COMMENT_PUBLISH = "http://www.legames.cn/apps/comment.php";
+
 }

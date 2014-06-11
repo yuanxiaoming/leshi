@@ -19,7 +19,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 /**
- * Http get请求缓存数据
+ * Http请求数据
  *
  * @Time 2014-4-21 上午10:00:21
  */
@@ -30,7 +30,7 @@ public class JHttpClient {
 
     public static final String POST = "post";
 
-    public static AsyncHttpClient mAsyncHttpClient = new AsyncHttpClient();
+    private static AsyncHttpClient mAsyncHttpClient = new AsyncHttpClient();
 
     private static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         mAsyncHttpClient.post(url, params, responseHandler);

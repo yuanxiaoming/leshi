@@ -8,8 +8,8 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.AutoScrollViewPager;
-import com.ch.leyu.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.view.AutoScrollViewPager;
+import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 

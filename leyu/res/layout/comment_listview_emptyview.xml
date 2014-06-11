@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/comment_emptyview_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/comment_head" />
+
+    <TextView
+        android:id="@+id/comment_emptyview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:drawablePadding="20dp"
+        android:drawableTop="@drawable/legames_tips"
+        android:gravity="center"
+        android:text="@string/comment_tips"
+        android:textColor="#C1C1C1"
+        android:textSize="18dp" />
+
+</LinearLayout>

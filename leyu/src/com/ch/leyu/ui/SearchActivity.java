@@ -12,7 +12,7 @@ import com.ch.leyu.provider.LatestSearchManager;
 import com.ch.leyu.responseparse.SearchResponse;
 import com.ch.leyu.responseparse.VideoSearchResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.view.LYGridView;
+import com.ch.leyu.widget.view.LYGridView;
 
 import org.apache.http.Header;
 
@@ -120,9 +120,7 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-               //隐藏键盘
-                ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(SearchActivity.this.getCurrentFocus().
-                                getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                hidden();
                 mKeyWord = mDetail.getText().toString();
                 if (TextUtils.isEmpty(mKeyWord)) {
                     Toast.makeText(mContext, R.string.search_hint, Toast.LENGTH_LONG).show();
@@ -167,7 +165,7 @@ public class SearchActivity extends BaseActivity {
                 mHotSearchDataCallback);
     }
 
-    /*
+    /**
      * 关键字搜索
      */
     DataCallback<VideoSearchResponse> mSearchDataCallback = new DataCallback<VideoSearchResponse>() {

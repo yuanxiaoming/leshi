@@ -25,10 +25,15 @@ public class VideoDetailPagerAdapter extends FragmentStatePagerAdapter {
     private RecommendFragment recommendFragment;
 
     private VideoDetailResponse mResponse;
+    
+    private CommentFragment commentFragment;
+    
+    private String mid;
 
-    public VideoDetailPagerAdapter(FragmentManager fm, VideoDetailResponse Response) {
+    public VideoDetailPagerAdapter(FragmentManager fm, VideoDetailResponse Response,String mid) {
         super(fm);
         this.mResponse = Response;
+        this.mid = mid;
         addFragment();
         addTitle();
     }
@@ -36,6 +41,12 @@ public class VideoDetailPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Bundle args = null;
+        if (position == 0) {
+            args = new Bundle();
+            args.putString(Constant.GMAE_ID, mid);
+            args.putString(Constant.NICKNAME, mResponse.getNickname());
+            commentFragment.setArguments(args);
+        }
         if (position == 1) {
             args = new Bundle();
             args.putSerializable(Constant.DATA, mResponse);
@@ -63,8 +74,9 @@ public class VideoDetailPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Fragment> addFragment() {
         detailFragment = new DetailFragment();
         recommendFragment = new RecommendFragment();
+        commentFragment = new CommentFragment();
         mFragments = new ArrayList<Fragment>();
-        mFragments.add(new CommentFragment());
+        mFragments.add(commentFragment);
         mFragments.add(detailFragment);
         mFragments.add(recommendFragment);
 

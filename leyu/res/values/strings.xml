@@ -18,25 +18,34 @@
     <string name="launch_app_version_txt">v</string>
 
     <!-- 视频搜索结果 -->
-    <string name="search_newst">最新</string>
-    <string name="search_hottest">最热</string>
+    <string name="search_newst">最新上传</string>
+    <string name="search_hottest">最多播放</string>
     <string name="search_result_no">o(︶︿︶)o ，没有搜索到您要的结果</string>
-     <string name="search_hint">请输入您要搜索的内容</string>
- <string name="search_hint_null">没有搜索相关视频资料</string>
- 
+    <string name="search_hint">请输入您要搜索的内容</string>
+    <string name="search_hint_null">没有搜索相关视频资料</string>
+
     <!-- 炉石传说攻略 -->
     <string name="hsnews_ngc">炉石攻略</string>
+
+    <!-- 视频详细 -->
+    <string name="detail_author">作者：</string>
+    <string name="detail_play">播放：</string>
+    <string name="detail_lable">标签：</string>
+    <string name="detail_content">作品介绍：</string>
+
+    <!-- popupwindow -->
+    <string name="pop_title">炉石传说视频分类</string>
     
-    <!--视频详细-->
-<string name="detail_author">作者：</string>
-<string name="detail_play">播放：</string>
-<string name="detail_lable">标签：</string>
-<string name="detail_content">作品介绍：</string>
+    <!-- 评论 -->
+    <string name="comment_publish">发表</string>
+    <string name="comment_tips">还没人评论，赶紧评论吧！</string>
+    <string name="comment_toast_tips">请输入评论内容</string>
+    <string name="comment_win">评论成功</string>
+     <string name="comment_lose">评论失败</string>
+    
 
-    <!--popupwindow-->
-<string name="pop_title">炉石传说视频分类</string>
+    <!-- 炉石传说首页 -->
+    <string name="hs_tips_recommed">小编推荐</string>
+    <string name="hs_hot_play">今日热播</string>
 
-<!-- 炉石传说首页 -->
-<string name = "hs_tips_recommed">小编推荐</string>
-<string name = "hs_hot_play">今日热播</string>
 </resources>

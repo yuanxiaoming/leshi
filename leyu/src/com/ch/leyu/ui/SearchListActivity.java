@@ -20,21 +20,25 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /***
  * 搜索结果列表显示 暂未处理没有结果时的显示情况
- * 
+ *
  * @author L
  */
 public class SearchListActivity extends BaseActivity implements OnClickListener,
-        OnItemClickListener {
+OnItemClickListener {
 
     /** 最新 */
-    private Button mNewst;
+    private RadioButton mNewst;
 
     /** 最热 */
-    private Button mHottest;
+    private RadioButton mHottest;
+
+    private RadioGroup mGroup;
 
     private GridView mGridView;
 
@@ -60,41 +64,41 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
             params = new RequestParams();
             params.put(Constant.KEYWORD, keyWord);
         }
-        if (v.getId() == R.id.act_searchlist_bt_hots) {
+        if (v.getId() == R.id.act_search_rb_news) {
             params = new RequestParams();
             params.put(Constant.SORT, "click");
             params.put(Constant.KEYWORD, keyWord);
         }
-        if (v.getId() == R.id.act_searchlist_bt_latest) {
+        if (v.getId() == R.id.act_search_rb_hots) {
             params = new RequestParams();
             params.put(Constant.KEYWORD, keyWord);
         }
         JHttpClient.get(this, Constant.URL + Constant.SEARCH, params, VideoSearchResponse.class,
                 new DataCallback<VideoSearchResponse>() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
-                        if (data != null) {
-                            mAdapter.chargeArrayList(data.getVideoList());
-                        }
-                    }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
+                if (data != null) {
+                    mAdapter.chargeArrayList(data.getVideoList());
+                }
+            }
 
-                    @Override
-                    public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
-                    }
+            @Override
+            public void onStart() {
+                mHttpLoadingView.setVisibility(View.VISIBLE);
+            }
 
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
-                            Exception exception) {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    Exception exception) {
 
-                    }
-                });
+            }
+        });
 
     }
 
@@ -114,13 +118,14 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
 
     @Override
     protected void findViewById() {
-        mNewst = (Button) findViewById(R.id.act_searchlist_bt_latest);
-        mHottest = (Button) findViewById(R.id.act_searchlist_bt_hots);
+        mGroup = (RadioGroup) findViewById(R.id.search_radiogroup);
+        mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
+        mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
         mGridView = (GridView) findViewById(R.id.act_searchlist_gd);
         mResult = (TextView) findViewById(R.id.act_searchlist_tv_count);
         mEditText = (EditText) findViewById(R.id.act_searchlist_et_detail);
         mSearch = (Button) findViewById(R.id.act_searchlist_bt_search);
-        mGridView.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -128,6 +133,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
         mSearch.setOnClickListener(this);
         mNewst.setOnClickListener(this);
         mHottest.setOnClickListener(this);
+        mGridView.setOnItemClickListener(this);
     }
 
     @Override
