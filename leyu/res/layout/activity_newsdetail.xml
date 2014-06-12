@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/activity_newsdetail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Medium Text"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#045B9A" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/activity_newsdetail_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="感谢" />
+
+        <TextView
+            android:id="@+id/activity_newsdetail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  time"
+            android:textColor="#8F8F8F" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#D3D3D3" />
+
+    <WebView
+        android:id="@+id/activity_newsdetail_content"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

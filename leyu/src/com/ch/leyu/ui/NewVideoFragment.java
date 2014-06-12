@@ -59,7 +59,7 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
         mAdapter.setNumColumns(2);
         mXListView.setAdapter(mAdapter);
         RequestParams params = new RequestParams();
-        params.put(Constant.UID, uid);
+        params.put(Constant.CID, uid);
         JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
@@ -96,7 +96,7 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
             if(mResponse!=null){
                 String uId = mResponse.getData().get(position).getId();
                 Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-                intent.putExtra(Constant.UID ,uId);
+                intent.putExtra(Constant.CID ,uId);
                 startActivity(intent);
             }
        

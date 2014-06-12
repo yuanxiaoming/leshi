@@ -55,7 +55,7 @@ public class HeadofAllFragmentPagerAdapter extends RecyclingPagerAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, VideoPlayActivity.class);
-                intent.putExtra(Constant.UID,mList.get(position % mList.size()).getId());
+                intent.putExtra(Constant.CID,mList.get(position % mList.size()).getId());
                 mContext.startActivity(intent);
             }
         });

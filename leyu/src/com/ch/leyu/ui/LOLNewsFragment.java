@@ -7,19 +7,23 @@ import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /***
  * LOL新闻资讯
  *
  * @author L
  */
-public class LOLNewsFragment extends BaseFragment {
+public class LOLNewsFragment extends BaseFragment implements OnItemClickListener {
 
     private XListView mListView;
     
@@ -46,6 +50,7 @@ public class LOLNewsFragment extends BaseFragment {
     protected void setListener() {
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
+        mListView.setOnItemClickListener(this);
         
     }
 
@@ -80,6 +85,17 @@ public class LOLNewsFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Property item = (Property) parent.getAdapter().getItem(position);
+        if(item!=null){
+            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+            intent.putExtra(Constant.CID, item.getId());
+            startActivity(intent);
+        }
+        
     }
 
 }

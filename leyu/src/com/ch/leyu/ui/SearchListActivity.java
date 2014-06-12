@@ -150,7 +150,7 @@ OnItemClickListener {
         if (item != null) {
             String videoId = item.getId();
             intent = new Intent(this, VideoPlayActivity.class);
-            intent.putExtra(Constant.UID, videoId);
+            intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
 

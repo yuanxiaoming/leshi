@@ -10,6 +10,7 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
+import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
@@ -17,26 +18,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * LOL视频库
- *
+ * 
  * @author L
  */
 public class LOLVideoFragment extends BaseFragment implements GridItemClickListener {
-
-//    private GridView mGridView;
-//
-//    private GridViewAdapter mAdapter;
 
     private Bundle mBundle;
 
     private int position;
 
     private XListView mXListView;
-    
+
     private ListChangeGridAdapter mAdapter;
-    
-    private   VideoBankResponse mResponse;
+
+    private VideoBankResponse mResponse;
+
+    private int mPage = 1;
+
+    /** 总页数 */
+    private int mTotalPage;
+
+    private boolean mStop;
+
+    private SimpleDateFormat mSimpleDateFormat;
+
+    private String url = Constant.URL + Constant.VIDEO_URL;
 
     @Override
     protected void getExtraParams() {
@@ -53,60 +64,70 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     @Override
     protected void findViewById() {
-//        mGridView = (GridView) findViewById(R.id.lolvideo_gridview);
+        // mGridView = (GridView) findViewById(R.id.lolvideo_gridview);
         mXListView = (XListView) findViewById(R.id.lolvideo_xlistview);
     }
 
     @Override
     protected void setListener() {
-//        mGridView.setOnItemClickListener(this);
         mAdapter.setOnGridClickListener(this);
+        mXListView.setXListViewListener(mIXListViewListenerImp);
     }
 
     @Override
     protected void processLogic() {
-//        mAdapter = new GridViewAdapter(null, getActivity());
         mAdapter = new ListChangeGridAdapter(null, getActivity());
-//        mGridView.setAdapter(mAdapter);
         mAdapter.setNumColumns(2);
         mXListView.setAdapter(mAdapter);
-        
-        
-        String url = Constant.URL + Constant.VIDEO_URL;
-        //全部视频
+
+        // 全部视频
         if (position == 0) {
-            requestData(21, null, url);
+            requestData(21, null, url, mPage);
         }
-        //本周热门
+        // 本周热门
         if (position == 1) {
 
-            requestData(21, null, Constant.LOL_HOT);
+            requestData(21, null, Constant.LOL_HOT, mPage);
         }
-        //教学
+        // 教学
         if (position == 2) {
             String keyWord = "精彩,教学,原创";
-            requestData(21, keyWord, url);
+            requestData(21, keyWord, url, mPage);
         }
-        //解说
+        // 解说
         if (position == 3) {
             String keyWord = "解说,搞笑,排位";
-            requestData(21, keyWord, url);
+            requestData(21, keyWord, url, mPage);
         }
 
     }
 
-    private void requestData(int gameId, String keyWord, String url) {
+    private void requestData(int gameId, String keyWord, String url, int page) {
         RequestParams mParams = new RequestParams();
         mParams.put(Constant.GMAE_ID, gameId);
         mParams.put(Constant.KEYWORD, keyWord);
-        JHttpClient.get(getActivity(), url, mParams, VideoBankResponse.class,new DataCallback<VideoBankResponse>() {
+        mParams.put(Constant.PAGE, page);
+        JHttpClient.get(getActivity(), url, mParams, VideoBankResponse.class,
+                new DataCallback<VideoBankResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
                         if (data != null) {
+                            mTotalPage = data.getTotalPage();
+
                             mResponse = data;
-//                            mAdapter.chargeArrayList(data.getVideoList());
-                            mAdapter.chargeArrayList(data.getVideoList());
+
+                            if (mPage == 1) {
+                                mAdapter.chargeArrayList(data.getVideoList());
+                            } else {
+                                mAdapter.addArrayList(data.getVideoList());
+                            }
+                            mPage++;
+                            if (mPage > mTotalPage) {
+                                mStop = true;
+                            } else {
+                                mStop = false;
+                            }
 
                         }
                     }
@@ -114,6 +135,9 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
                     @Override
                     public void onStart() {
                         mHttpLoadingView.setVisibility(View.VISIBLE);
+                        if(mXListView!=null){
+                            onLoad();
+                        }
                     }
 
                     @Override
@@ -129,28 +153,79 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
                 });
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Property item = (Property) parent.getAdapter().getItem(position);
-//        if(item!=null){
-//            Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-//            String videoId = item.getId();
-//            intent.putExtra(Constant.UID, videoId);
-//            startActivity(intent);
-//        }
-//     
-//
-//    }
-
     @Override
     public void onGridItemClicked(View v, int position, long itemId) {
-        if(mResponse!=null){
+        if (mResponse != null) {
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
             String videoId = mResponse.getVideoList().get(position).getId();
-            intent.putExtra(Constant.UID, videoId);
+            intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
-        
+
+    }
+
+    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+        // 下拉刷新
+        @Override
+        public void onRefresh() {
+            mPage = 1;
+            // 全部视频
+            if (position == 0) {
+                requestData(21, null, url, mPage);
+            }
+            // 本周热门
+            if (position == 1) {
+
+                requestData(21, null, Constant.LOL_HOT, mPage);
+            }
+            // 教学
+            if (position == 2) {
+                String keyWord = "精彩,教学,原创";
+                requestData(21, keyWord, url, mPage);
+            }
+            // 解说
+            if (position == 3) {
+                String keyWord = "解说,搞笑,排位";
+                requestData(21, keyWord, url, mPage);
+            }
+        }
+
+        // 上拉加载
+        @Override
+        public void onLoadMore() {
+            if (mStop) {
+                mXListView.setPullLoadEnable(false);
+            } else {
+                // 全部视频
+                if (position == 0) {
+                    requestData(21, null, url, mPage);
+                }
+                // 本周热门
+                if (position == 1) {
+
+                    requestData(21, null, Constant.LOL_HOT, mPage);
+                }
+                // 教学
+                if (position == 2) {
+                    String keyWord = "精彩,教学,原创";
+                    requestData(21, keyWord, url, mPage);
+                }
+                // 解说
+                if (position == 3) {
+                    String keyWord = "解说,搞笑,排位";
+                    requestData(21, keyWord, url, mPage);
+                }
+            }
+
+        }
+    };
+
+    // 加载中时间监听
+    private void onLoad() {
+        mXListView.stopRefresh();
+        mXListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
 }
