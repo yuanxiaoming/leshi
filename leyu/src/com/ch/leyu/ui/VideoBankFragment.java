@@ -43,8 +43,6 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     /** 总页数 */
     private int mTotalPage;
 
-    private boolean mStop;
-
     private SimpleDateFormat mSimpleDateFormat;
 
     @Override
@@ -102,9 +100,9 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
                     }
                     mPage++;
                     if (mPage > mTotalPage) {
-                        mStop = true;
+                        mXlistView.setPullLoadEnable(false);
                     } else {
-                        mStop = false;
+                        mXlistView.setPullLoadEnable(true);
                     }
 
                 }
@@ -121,7 +119,8 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
 
             @Override
             public void onFinish() {
-                mHttpLoadingView.setVisibility(View.GONE);
+
+
             }
 
             @Override
@@ -155,12 +154,8 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if (mStop) {
-                mXlistView.setPullLoadEnable(false);
-            } else {
-                mXlistView.setPullLoadEnable(true);
-                requestData(23, mKeyword, mPage);
-            }
+            requestData(23, mKeyword, mPage);
+
 
         }
     };
