@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /***
  * 明星详情
- * 
+ *
  * @author L
  */
 
@@ -61,7 +61,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     protected void getExtraParams() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            uid = bundle.getString(Constant.CID);
+            uid = bundle.getString(Constant.UID);
         }
     }
 
@@ -93,7 +93,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mTabStrip.setTextSize(24);
 
         RequestParams params = new RequestParams();
-        params.put(Constant.CID, uid);
+        params.put(Constant.UID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override

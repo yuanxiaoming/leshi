@@ -19,7 +19,7 @@ import android.view.View;
 
 /**
  * 明星视频--最热播放
- * 
+ *
  * @author L
  */
 public class HotsVideoFragment extends BaseFragment implements GridItemClickListener {
@@ -58,7 +58,7 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
         mAdapter.setNumColumns(2);
         mXListView.setAdapter(mAdapter);
         RequestParams params = new RequestParams();
-        params.put(Constant.CID, uid);
+        params.put(Constant.UID, uid);
         // 如果是最多播放添加如下参数
         params.put(Constant.SORT, "click");
         JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
