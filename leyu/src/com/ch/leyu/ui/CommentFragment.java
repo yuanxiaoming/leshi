@@ -97,6 +97,7 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
+            mCid="275";
         }
     }
 
@@ -119,7 +120,7 @@ public class CommentFragment extends BaseFragment {
         mListView.addHeaderView(mListViewHeaderView);
         mListView.setHeaderDividersEnabled(false);
         mListView.setPullLoadEnable(true);
-        mListView.setPullLoadEnable(true);
+        mListView.setPullRefreshEnable(true);
         mAdapter = new CommentListAdapter(null, getActivity());
         mListView.setAdapter(mAdapter);
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -294,6 +295,7 @@ public class CommentFragment extends BaseFragment {
             if(mStop){
                 mListView.setPullLoadEnable(false);
             }else{
+                mListView.setPullLoadEnable(true);
                 requestData(mPage);
             }
 
