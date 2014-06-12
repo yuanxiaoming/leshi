@@ -12,6 +12,8 @@ public interface Constant {
     public static final int ID_NUMBER = 3;
 
     public static final String CID = "cid";
+    
+    public static final String PAGE = "page";
 
     public static final String NICKNAME = "nickname";
 

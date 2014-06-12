@@ -97,7 +97,6 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
-            mCid = "275";
         }
     }
 
@@ -196,8 +195,8 @@ public class CommentFragment extends BaseFragment {
 
     public void requestData(int page){
         RequestParams params = new RequestParams();
-        params.put("cid", mCid);
-        params.put("page", page);
+        params.put(Constant.CID, mCid);
+        params.put(Constant.PAGE, page);
         JHttpClient.get(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
             @Override
