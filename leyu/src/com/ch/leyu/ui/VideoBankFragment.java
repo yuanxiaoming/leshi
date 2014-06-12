@@ -23,7 +23,7 @@ import java.util.Date;
 
 /***
  * 炉石传说 视频库
- * 
+ *
  * @author L
  */
 public class VideoBankFragment extends BaseFragment implements GridItemClickListener {
@@ -77,6 +77,8 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     @Override
     protected void processLogic() {
         mAdapter.setNumColumns(2);
+        mXlistView.setPullLoadEnable(true);
+        mXlistView.setPullRefreshEnable(true);
         mXlistView.setAdapter(mAdapter);
         requestData(23, mKeyword, mPage);
 
@@ -88,47 +90,47 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
         params.put(Constant.KEYWORD, keyword);
         JHttpClient.get(getActivity(), Constant.URL + Constant.VIDEO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
-                        if (data != null) {
-                            mBankResponse = data;
-                            mTotalPage = data.getTotalPage();
-                            if (mPage == 1) {
-                                mAdapter.chargeArrayList(data.getVideoList());
-                            } else {
-                                mAdapter.addArrayList(data.getVideoList());
-                            }
-                            mPage++;
-                            if (mPage > mTotalPage) {
-                                mStop = true;
-                            } else {
-                                mStop = false;
-                            }
-
-                        }
-
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
+                if (data != null) {
+                    mBankResponse = data;
+                    mTotalPage = data.getTotalPage();
+                    if (mPage == 1) {
+                        mAdapter.chargeArrayList(data.getVideoList());
+                    } else {
+                        mAdapter.addArrayList(data.getVideoList());
+                    }
+                    mPage++;
+                    if (mPage > mTotalPage) {
+                        mStop = true;
+                    } else {
+                        mStop = false;
                     }
 
-                    @Override
-                    public void onStart() {
-                        if (mXlistView != null) {
-                            onLoad();
-                        }
+                }
 
-                    }
+            }
 
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onStart() {
+                if (mXlistView != null) {
+                    onLoad();
+                }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
+            }
+
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
 
-                    }
+            }
 
-                });
+        });
     }
 
     @Override
@@ -156,6 +158,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
             if (mStop) {
                 mXlistView.setPullLoadEnable(false);
             } else {
+                mXlistView.setPullLoadEnable(true);
                 requestData(23, mKeyword, mPage);
             }
 
