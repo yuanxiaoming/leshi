@@ -64,7 +64,6 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     @Override
     protected void findViewById() {
-        // mGridView = (GridView) findViewById(R.id.lolvideo_gridview);
         mXListView = (XListView) findViewById(R.id.lolvideo_xlistview);
     }
 
@@ -136,7 +135,9 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
                     @Override
                     public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
+                        if(mPage==1){
+                            mHttpLoadingView.setVisibility(View.VISIBLE);
+                        }
                         if(mXListView!=null){
                             onLoad();
                         }

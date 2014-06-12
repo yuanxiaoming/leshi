@@ -10,13 +10,18 @@ import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
+import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /***
  * LOL新闻资讯
@@ -29,7 +34,12 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
     
     private CLYAdapter mAdapter;
 
+    private int mPage = 1;
 
+    private int mTotalPage;
+
+    private SimpleDateFormat mSimpleDateFormat;
+    
     @Override
     protected void getExtraParams() {
 
@@ -51,27 +61,52 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
         mListView.setOnItemClickListener(this);
+        mListView.setXListViewListener(mIXListViewListenerImp);
         
     }
 
     @Override
     protected void processLogic() {
-        
         mListView.setAdapter(mAdapter);
+        requestData(mPage);
+        
+    }
+    
+    public void requestData(int page) {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 21);
+        params.put(Constant.PAGE, page);
         JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
                if(data!=null){
-                   mAdapter.addArrayList(data.getNewsList());
+                   mTotalPage = data.getTotalPage();
+                   if (mPage == 1) {
+                       mAdapter.chargeArrayList(data.getNewsList());
+                   } else {
+                       mAdapter.addArrayList(data.getNewsList());
+                   }
+                   
+                   mPage++;
+                   if (mPage > mTotalPage) {
+                       mListView.setPullLoadEnable(false);
+                   } else {
+                       mListView.setPullLoadEnable(true);
+                   }
                }
+              
             }
 
             @Override
             public void onStart() {
-                mHttpLoadingView.setVisibility(View.VISIBLE);
+                if(mPage==1){
+                    mHttpLoadingView.setVisibility(View.VISIBLE);
+                }
+               
+                if (mListView != null) {
+                    onLoad();
+                }
             }
 
             @Override
@@ -80,12 +115,12 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
 
             }
         });
     }
+    
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,6 +131,29 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
             startActivity(intent);
         }
         
+    }
+    
+    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+        @Override
+        public void onRefresh() {
+            mPage = 1;
+            requestData(mPage);
+        }
+
+        @Override
+        public void onLoadMore() {
+            requestData(mPage);
+
+        }
+    };
+
+    // 加载中时间监听
+    @SuppressLint("SimpleDateFormat")
+    private void onLoad() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
 }

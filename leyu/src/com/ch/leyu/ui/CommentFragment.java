@@ -88,8 +88,6 @@ public class CommentFragment extends BaseFragment {
     /**总页数*/
     private int mTotalPage ;
 
-    private boolean mStop;
-
 
     @Override
     protected void getExtraParams() {
@@ -217,9 +215,9 @@ public class CommentFragment extends BaseFragment {
                     }
                     mPage++;
                     if(mPage>mTotalPage){
-                        mStop=true;
+                        mListView.setPullLoadEnable(false);
                     }else{
-                        mStop=false;
+                        mListView.setPullLoadEnable(true);
                     }
                 }
             }
@@ -292,13 +290,7 @@ public class CommentFragment extends BaseFragment {
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if(mStop){
-                mListView.setPullLoadEnable(false);
-            }else{
-                mListView.setPullLoadEnable(true);
-                requestData(mPage);
-            }
-
+            requestData(mPage);
         }
     };
 
