@@ -77,12 +77,14 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     @Override
     protected void processLogic() {
         mAdapter.setNumColumns(2);
+        mXlistView.setPullLoadEnable(true);
+        mXlistView.setPullRefreshEnable(true);
         mXlistView.setAdapter(mAdapter);
-        requestData(23, mKeyword, mPage);
+        requestData("23", mKeyword, mPage);
 
     }
 
-    public void requestData(int gameId, String keyword, int page) {
+    public void requestData(String gameId, String keyword, int page) {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, gameId);
         params.put(Constant.KEYWORD, keyword);
@@ -114,7 +116,6 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
                         if (mXlistView != null) {
                             onLoad();
                         }
-
                     }
 
                     @Override
@@ -147,7 +148,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
         @Override
         public void onRefresh() {
             mPage = 1;
-            requestData(23, mKeyword, mPage);
+            requestData("23", mKeyword, mPage);
         }
 
         // 上拉加载
@@ -156,7 +157,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
             if (mStop) {
                 mXlistView.setPullLoadEnable(false);
             } else {
-                requestData(23, mKeyword, mPage);
+                requestData("23", mKeyword, mPage);
             }
 
         }
