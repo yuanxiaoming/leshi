@@ -10,6 +10,16 @@ public class StarDetailResponse {
     private Info userInfo;
 
     private VideoListResponse videoList;
+    
+    private int totalPage ;
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
 
     public Info getUserInfo() {
         return userInfo;

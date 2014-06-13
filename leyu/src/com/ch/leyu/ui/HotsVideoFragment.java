@@ -11,11 +11,15 @@ import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.responseparse.VideoListResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
+import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 明星视频--最热播放
@@ -31,6 +35,12 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
     private ListChangeGridAdapter mAdapter;
 
     private VideoListResponse mResponse;
+    
+    private int mPage = 1;
+
+    private int mTotalPage;
+
+    private SimpleDateFormat mSimpleDateFormat;
 
     @Override
     protected void getExtraParams() {
@@ -51,31 +61,53 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
     @Override
     protected void setListener() {
         mAdapter.setOnGridClickListener(this);
+        mXListView.setXListViewListener(mIXListViewListenerImp);
     }
 
     @Override
     protected void processLogic() {
         mAdapter.setNumColumns(2);
+        mXListView.setPullLoadEnable(true);
+        mXListView.setPullRefreshEnable(true);
         mXListView.setAdapter(mAdapter);
+        requestData(mPage);
+    }
+    
+    private void requestData(int page) {
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        // 如果是最多播放添加如下参数
         params.put(Constant.SORT, "click");
-        JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,
-                StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+        params.put(Constant.PAGE, page);
+        JHttpClient.get(getActivity(), Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
                         if (data != null) {
                             mResponse = data.getVideoList();
-                            mAdapter.addArrayList(data.getVideoList().getData());
+                            mTotalPage = data.getTotalPage();
+                            if (mPage == 1) {
+                                mAdapter.chargeArrayList(data.getVideoList().getData());
+                            } else {
+                                mAdapter.addArrayList(data.getVideoList().getData());
+                            }
+                            
+                            mPage++;
+                            if (mPage > mTotalPage) {
+                                mXListView.setPullLoadEnable(false);
+                            } else {
+                                mXListView.setPullLoadEnable(true);
+                            }
                         }
-
                     }
 
                     @Override
                     public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
+                        if(mPage==1){
+                            mHttpLoadingView.setVisibility(View.VISIBLE);
+                        }
+                        if (mXListView != null) {
+                            onLoad();
+                        }
                     }
 
                     @Override
@@ -86,11 +118,36 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-
+                       
                     }
                 });
+        
     }
+    
+    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+        // 下拉刷新
+        @Override
+        public void onRefresh() {
+            mPage = 1;
+            requestData(mPage);
+        }
 
+        // 上拉加载
+        @Override
+        public void onLoadMore() {
+            requestData(mPage);
+
+        }
+    };
+
+    // 加载中时间监听
+    private void onLoad() {
+        mXListView.stopRefresh();
+        mXListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
+    
     @Override
     public void onGridItemClicked(View v, int position, long itemId) {
         if (mResponse != null) {

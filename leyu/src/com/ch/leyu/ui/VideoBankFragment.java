@@ -115,11 +115,11 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
             public void onStart() {
                 if(mPage==1){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
+                    
                 }
                 if (mXlistView != null) {
                     onLoad();
                 }
-
             }
 
             @Override
@@ -131,7 +131,6 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-
             }
 
         });
