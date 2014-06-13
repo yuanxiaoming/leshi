@@ -87,6 +87,8 @@ public class CommentFragment extends BaseFragment {
 
     /**总页数*/
     private int mTotalPage ;
+    
+    private boolean mFlag = false;
 
 
     @Override
@@ -95,7 +97,7 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
-            mCid="275";
+            mCid = "275";
         }
     }
 
@@ -200,6 +202,9 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onStart() {
+                if(mPage==1&&mFlag==false){
+                    mHttpLoadingView.setVisibility(View.VISIBLE);
+                }
                 if(mListView!=null){
                     onLoad();
                 }
@@ -229,7 +234,7 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onFinish() {
-
+                mHttpLoadingView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -283,6 +288,7 @@ public class CommentFragment extends BaseFragment {
         // 下拉刷新
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage=1;
             requestData(mPage);
         }

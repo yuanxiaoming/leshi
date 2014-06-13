@@ -9,8 +9,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:footerDividersEnabled="false"
+        android:divider="#FFCC00"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </com.ch.leyu.widget.xlistview.XListView>
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

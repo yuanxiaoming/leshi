@@ -44,6 +44,8 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     private int mTotalPage;
 
     private SimpleDateFormat mSimpleDateFormat;
+    
+    private boolean mFlag = false;
 
     @Override
     protected void getExtraParams() {
@@ -113,7 +115,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
 
             @Override
             public void onStart() {
-                if(mPage==1){
+                if(mPage==1&&mFlag==false){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                     
                 }
@@ -151,6 +153,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
         // 下拉刷新
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage = 1;
             requestData("23", mKeyword, mPage);
         }

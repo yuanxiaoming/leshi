@@ -3,10 +3,14 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.ui.VideoPlayActivity;
+import com.ch.leyu.utils.Constant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -40,7 +44,7 @@ public class NewsListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
@@ -51,6 +55,15 @@ public class NewsListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.txt.setText(mNewsList.get(position).getTitle());
+        holder.txt.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(mContext, VideoPlayActivity.class);
+                    intent.putExtra(Constant.CID , mNewsList.get(position).getId());
+                    mContext.startActivity(intent);
+            }
+        });
 
         return convertView;
     }

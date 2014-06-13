@@ -40,6 +40,8 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
 
     private SimpleDateFormat mSimpleDateFormat;
     
+    private boolean mFlag;
+    
     @Override
     protected void getExtraParams() {
 
@@ -100,7 +102,7 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
 
             @Override
             public void onStart() {
-                if(mPage==1){
+                if(mPage==1&&mFlag==false){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                 }
                
@@ -136,6 +138,7 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage = 1;
             requestData(mPage);
         }

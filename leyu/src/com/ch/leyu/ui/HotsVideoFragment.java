@@ -16,10 +16,12 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 import org.apache.http.Header;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  * 明星视频--最热播放
@@ -41,6 +43,8 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
     private int mTotalPage;
 
     private SimpleDateFormat mSimpleDateFormat;
+    
+    private boolean mFlag = false;
 
     @Override
     protected void getExtraParams() {
@@ -84,7 +88,8 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
                         if (data != null) {
                             mResponse = data.getVideoList();
-                            mTotalPage = data.getTotalPage();
+                            mTotalPage = data.getVideoList().getTotalPage();
+                            Log.d("tag", mTotalPage+"----");
                             if (mPage == 1) {
                                 mAdapter.chargeArrayList(data.getVideoList().getData());
                             } else {
@@ -102,7 +107,7 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
 
                     @Override
                     public void onStart() {
-                        if(mPage==1){
+                        if(mPage==1&&mFlag==false){
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
                         if (mXListView != null) {
@@ -128,6 +133,7 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
         // 下拉刷新
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage = 1;
             requestData(mPage);
         }

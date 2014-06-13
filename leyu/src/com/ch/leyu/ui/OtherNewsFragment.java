@@ -39,6 +39,8 @@ public class OtherNewsFragment extends BaseFragment implements OnItemClickListen
     private int mTotalPage;
 
     private SimpleDateFormat mSimpleDateFormat;
+    
+    private boolean mFlag ;
 
     @Override
     protected void getExtraParams() {
@@ -98,7 +100,7 @@ public class OtherNewsFragment extends BaseFragment implements OnItemClickListen
 
             @Override
             public void onStart() {
-                if(mPage==1){
+                if(mPage==1&&mFlag==false){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                 }
                 if (mListView != null) {
@@ -135,6 +137,7 @@ public class OtherNewsFragment extends BaseFragment implements OnItemClickListen
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage = 1;
             requestData(mPage);
         }

@@ -44,6 +44,8 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
     private int mTotalPage;
 
     private boolean mStop;
+    
+    private boolean mFlag = false;
 
     private SimpleDateFormat mSimpleDateFormat;
 
@@ -125,9 +127,9 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
                             }
                             mPage++;
                             if (mPage > mTotalPage) {
-                                mStop = true;
+                                mXListView.setPullLoadEnable(false);
                             } else {
-                                mStop = false;
+                                mXListView.setPullLoadEnable(true);
                             }
 
                         }
@@ -135,10 +137,10 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
                     @Override
                     public void onStart() {
-                        if(mPage==1){
+                        if(mPage==1&&mFlag==false){
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
-                        if(mXListView!=null){
+                        if (mXListView != null) {
                             onLoad();
                         }
                     }
@@ -172,6 +174,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         @Override
         public void onRefresh() {
             mPage = 1;
+            mFlag = true ;
             // 全部视频
             if (position == 0) {
                 requestData("21", null, url, mPage);
@@ -196,9 +199,6 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if (mStop) {
-                mXListView.setPullLoadEnable(false);
-            } else {
                 // 全部视频
                 if (position == 0) {
                     requestData("21", null, url, mPage);
@@ -220,7 +220,6 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
                 }
             }
 
-        }
     };
 
     // 加载中时间监听

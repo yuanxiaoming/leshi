@@ -5,41 +5,56 @@
     android:layout_height="match_parent"
     android:background="@color/color_light_gray" >
 
-    <ImageView
-        android:id="@+id/star_act_img"
-        android:layout_width="150dp"
-        android:layout_height="170dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:paddingBottom="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:src="@drawable/base_article_smallimage" />
-
-    <TextView
-        android:id="@+id/star_act_tv_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/star_act_layout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:layout_toRightOf="@+id/star_act_img"
-        android:text="name" />
+        android:background="#FFFFFF"
+        android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
 
-    <TextView
-        android:id="@+id/star_act_tv_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/star_act_tv_name"
-        android:layout_below="@+id/star_act_tv_name"
-        android:layout_marginTop="14dp"
-        android:maxLines="6"
-        android:text="detail" />
+        <ImageView
+            android:id="@+id/star_act_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/base_article_smallimage" />
+
+        <TextView
+            android:id="@+id/star_act_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="5dp"
+            android:layout_toRightOf="@+id/star_act_img"
+            android:text="name"
+            android:textColor="#025A9A" />
+
+        <TextView
+            android:id="@+id/star_act_tv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/star_act_tv_name"
+            android:layout_below="@+id/star_act_tv_name"
+            android:maxLines="5"
+            android:textColor="#707070"
+            android:text="detail" />
+    </RelativeLayout>
 
     <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/star_act_pagertab"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@+id/star_act_img"
+        android:layout_below="@+id/star_act_layout"
         android:layout_weight="0"
         app:pstsIndicatorColor="#025A9A"
         app:pstsIndicatorHeight="3dp"

@@ -9,6 +9,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:divider="#FFCC00"
         android:footerDividersEnabled="false"
         android:listSelector="#00000000" />
 

@@ -52,7 +52,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
 
     private int mTotalPage;
 
-
+    private boolean mFlag;
 
     @Override
     protected void getExtraParams() {
@@ -123,7 +123,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
 
                     @Override
                     public void onStart() {
-                        if(mPage==1){
+                        if(mPage==1&&mFlag==false){
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
                        
@@ -150,6 +150,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
        
         @Override
         public void onRefresh() {
+            mFlag = true;
             mPage = 1;
             requestData(mPage);
         }

@@ -7,6 +7,7 @@ import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.VideoPlayResponse;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.widget.view.LYViewPager;
@@ -17,8 +18,12 @@ import org.apache.http.Header;
 
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ImageView.ScaleType;
 
 /***
  * 视频播放
@@ -65,6 +70,8 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
+        mImg.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
+        mImg.setScaleType(ScaleType.FIT_XY);
         requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
         
     }
@@ -86,7 +93,6 @@ public class VideoPlayActivity extends BaseActivity {
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
                             mSlideTabIndicator.setTextSize(24);
-                            
                             ImageLoader.getInstance().displayImage(data.getVideoInfo().getImageSrc(), mImg,
                                     ImageLoaderUtil.getImageLoaderOptions());
                         }
