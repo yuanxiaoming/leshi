@@ -18,6 +18,7 @@ import org.apache.http.Header;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,11 +86,12 @@ public class CommentFragment extends BaseFragment {
 
     private int mPage = 1 ;
 
-    /**总页数*/
     private int mTotalPage ;
     
     private boolean mFlag = false;
-
+    
+    private  ArrayList<CommentDetail> mDetailsList ;
+    
 
     @Override
     protected void getExtraParams() {
@@ -97,7 +99,7 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
-            mCid = "275";
+            Log.d("tag", "mCid:"+mCid);
         }
     }
 
@@ -142,7 +144,8 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
                     commentDetail.setReplyNickname(mReplyName);
-                    publishComment(0,commentDetail);
+                    publishComment(0,commentDetail,2);
+                    mDetail.setText("");
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
@@ -162,7 +165,7 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setComment(comment);
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
-                    publishComment(0,commentDetail);
+                    publishComment(0,commentDetail,1);
                     mDetail_EmptyView.setText("");
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
@@ -212,7 +215,10 @@ public class CommentFragment extends BaseFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
                 if (data != null) {
+                    mDetailsList = data.getComment();
                     mTotalPage = data.getTotalPage();
+                  
+                    Log.d("tag", data.getTotalPage()+"----data.getTotalPage()");
                     if(mPage==1){
                         mAdapter.chargeArrayList(data.getComment());
                     }else{
@@ -234,7 +240,7 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onFinish() {
-                mHttpLoadingView.setVisibility(View.VISIBLE);
+                mHttpLoadingView.setVisibility(View.GONE);
             }
         });
 
@@ -248,7 +254,7 @@ public class CommentFragment extends BaseFragment {
      * @param comment 评论内容
      * @param index 1代表无评论时，2代表有评论时
      */
-    private void publishComment(int uid, final CommentDetail  commentDetail) {
+    private void publishComment(int uid, final CommentDetail commentDetail,final int flag) {
         RequestParams params = new RequestParams();
         params.put(UID, uid);
         params.put(NICKNAME, commentDetail.getNickname());
@@ -265,9 +271,17 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
-                ArrayList<CommentDetail> mDetailsList = new ArrayList<CommentDetail>();
-                mDetailsList.add(commentDetail);
-                mAdapter.addArrayList(mDetailsList);
+                if(flag==1){
+                    mDetailsList = new ArrayList<CommentDetail>();
+                    mDetailsList.add(commentDetail);
+                    mAdapter.addArrayList(mDetailsList);
+                }
+                if(flag ==2){
+                    if(mDetailsList!=null){
+                        mDetailsList.add(0, commentDetail);
+                        mAdapter.chargeArrayList(mDetailsList);
+                    }
+                }
                 Toast.makeText(getActivity(), R.string.comment_win, Toast.LENGTH_SHORT).show();
             }
 
