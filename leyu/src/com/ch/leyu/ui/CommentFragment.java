@@ -201,7 +201,7 @@ public class CommentFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.put(Constant.CID, mCid);
         params.put(Constant.PAGE, page);
-        JHttpClient.get(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
+        JHttpClient.getFromServer(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
             @Override
             public void onStart() {

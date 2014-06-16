@@ -47,5 +47,8 @@
     <!-- 炉石传说首页 -->
     <string name="hs_tips_recommed">小编推荐</string>
     <string name="hs_hot_play">今日热播</string>
+    
+    <!-- 分享 -->
+    <string name="menu_share">分享到：</string>
 
 </resources>

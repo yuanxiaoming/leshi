@@ -106,7 +106,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     }
 
     public void showPop() {
-        final View popView = LayoutInflater.from(this).inflate(R.layout.popupwindow, null);
+        final View popView = LayoutInflater.from(this).inflate(R.layout.videos_popupwindow, null);
         GridView gridView = (GridView) popView.findViewById(R.id.pop_gridview);
       
         if (mTitleList != null) {
