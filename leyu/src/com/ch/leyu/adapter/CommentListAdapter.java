@@ -106,13 +106,13 @@ public class CommentListAdapter extends BaseAdapter {
         }
 
 
-        if(mArrayList.get(position).getReplyNickname()!=null&&mArrayList.get(position).getReplyNickname().equals("")){
+        if(mArrayList.get(position).getReplyNickname()==null||mArrayList.get(position).getReplyNickname().equals("")){
             holder.name.setText(mArrayList.get(position).getNickname());
         }else {
-        String s1 = "<font color=\"#818181\">回复</font> ";
-        String s = "<font color=\"#3F74A7\">"+mArrayList.get(position).getNickname()+"</font> ";
-        String s2 = "<font color=\"#3F74A7\">"+mArrayList.get(position).getReplyNickname()+"</font> ";
-        holder.name.setText(Html.fromHtml(s+s1+s2));
+            String s = "<font color=\"#3F74A7\">"+mArrayList.get(position).getNickname()+"</font> ";
+            String s1 = "<font color=\"#818181\">回复</font> ";
+            String s2 = "<font color=\"#3F74A7\">"+mArrayList.get(position).getReplyNickname()+"</font> ";
+            holder.name.setText(Html.fromHtml(s+s1+s2));
         }
 
 
@@ -160,9 +160,9 @@ public class CommentListAdapter extends BaseAdapter {
 
     }
 
- public interface LyOnClickListener {
+    public interface LyOnClickListener {
 
-     public void onReplyClick(View v,String uName);
+        public void onReplyClick(View v,String uName);
     }
 
 }

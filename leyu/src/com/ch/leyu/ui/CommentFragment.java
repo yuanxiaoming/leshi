@@ -273,7 +273,12 @@ public class CommentFragment extends BaseFragment {
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
                 mDetailsList = new ArrayList<CommentDetail>();
                 mDetailsList.add(commentDetail);
-                mAdapter.addArrayList(mDetailsList);
+                if(mAdapter.getArrayList()!=null){
+                    mAdapter.getArrayList().addAll(0,mDetailsList);
+                    mAdapter.notifyDataSetChanged();
+                }else{
+                    mAdapter.addArrayList(mDetailsList);
+                }
                 Toast.makeText(getActivity(), R.string.comment_win, Toast.LENGTH_SHORT).show();
             }
 
