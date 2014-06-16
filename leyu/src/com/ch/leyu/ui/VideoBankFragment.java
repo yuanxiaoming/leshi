@@ -20,6 +20,7 @@ import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /***
  * 炉石传说 视频库
@@ -84,7 +85,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
 
     public void requestData(int gameId, String keyword, int page) {
         RequestParams params = new RequestParams();
-        params.put(Constant.GMAE_ID, gameId);
+        params.put(Constant.GMAE_ID, gameId+"");
         params.put(Constant.KEYWORD, keyword);
         JHttpClient.get(getActivity(), Constant.URL + Constant.VIDEO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
@@ -166,7 +167,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     private void onLoad() {
         mXlistView.stopRefresh();
         mXlistView.stopLoadMore();
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.CHINA);
         mXlistView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 }
