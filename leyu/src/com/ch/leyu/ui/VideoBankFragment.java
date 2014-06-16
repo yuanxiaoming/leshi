@@ -24,7 +24,7 @@ import java.util.Locale;
 
 /***
  * 炉石传说 视频库
- * 
+ *
  * @author L
  */
 public class VideoBankFragment extends BaseFragment implements GridItemClickListener {
@@ -44,9 +44,9 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     /** 总页数 */
     private int mTotalPage;
 
-    private boolean mStop;
-
     private SimpleDateFormat mSimpleDateFormat;
+    
+    private boolean mFlag = false;
 
     @Override
     protected void getExtraParams() {
@@ -78,58 +78,65 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     @Override
     protected void processLogic() {
         mAdapter.setNumColumns(2);
+        mXlistView.setPullLoadEnable(true);
+        mXlistView.setPullRefreshEnable(true);
         mXlistView.setAdapter(mAdapter);
-        requestData(23, mKeyword, mPage);
+        requestData("23", mKeyword, mPage);
 
     }
 
-    public void requestData(int gameId, String keyword, int page) {
+    public void requestData(String gameId, String keyword, int page) {
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, gameId+"");
         params.put(Constant.KEYWORD, keyword);
+        params.put(Constant.PAGE, page);
         JHttpClient.get(getActivity(), Constant.URL + Constant.VIDEO_URL, params,VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
-                        if (data != null) {
-                            mBankResponse = data;
-                            mTotalPage = data.getTotalPage();
-                            if (mPage == 1) {
-                                mAdapter.chargeArrayList(data.getVideoList());
-                            } else {
-                                mAdapter.addArrayList(data.getVideoList());
-                            }
-                            mPage++;
-                            if (mPage > mTotalPage) {
-                                mStop = true;
-                            } else {
-                                mStop = false;
-                            }
-
-                        }
-
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
+                if (data != null) {
+                    mBankResponse = data;
+                    mTotalPage = data.getTotalPage();
+                    if (mPage == 1) {
+                        mAdapter.chargeArrayList(data.getVideoList());
+                    } else {
+                        mAdapter.addArrayList(data.getVideoList());
                     }
-
-                    @Override
-                    public void onStart() {
-                        if (mXlistView != null) {
-                            onLoad();
-                        }
-
+                    
+                    mPage++;
+                    if (mPage > mTotalPage) {
+                        mXlistView.setPullLoadEnable(false);
+                    } else {
+                        mXlistView.setPullLoadEnable(true);
                     }
+                  
+                }
 
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
+            }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
+            @Override
+            public void onStart() {
+                if(mPage==1&&mFlag==false){
+                    mHttpLoadingView.setVisibility(View.VISIBLE);
+                    
+                }
+                if (mXlistView != null) {
+                    onLoad();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
+            }
 
-                    }
-
-                });
+        });
     }
 
     @Override
@@ -147,18 +154,15 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
         // 下拉刷新
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage = 1;
-            requestData(23, mKeyword, mPage);
+            requestData("23", mKeyword, mPage);
         }
 
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if (mStop) {
-                mXlistView.setPullLoadEnable(false);
-            } else {
-                requestData(23, mKeyword, mPage);
-            }
+            requestData("23", mKeyword, mPage);
 
         }
     };

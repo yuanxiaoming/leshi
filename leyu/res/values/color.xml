@@ -12,6 +12,8 @@
      <color name="color_blue">#025A9A</color>
      <color name="color_yellow">#FFA85A</color>
      <color name="color_light_gray">#F0F0F0</color>
+     <color name="text_color">#707070</color>
+     <color name="text_title_color">#025a9a</color>
     
     <drawable name="screen_background_light">#ffffffff</drawable>
     <drawable name="screen_background_dark">#ff000000</drawable>

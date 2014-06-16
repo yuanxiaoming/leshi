@@ -6,7 +6,9 @@
     android:paddingBottom="5dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
-    android:paddingTop="5dp" >
+    android:paddingTop="5dp" 
+    
+    >
 
     <TextView
         android:id="@+id/news_lvitem_tv"
@@ -15,7 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="Large Text"
+		android:textColor="@color/slt_btn_text_color"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

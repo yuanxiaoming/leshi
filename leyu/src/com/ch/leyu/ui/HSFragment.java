@@ -193,7 +193,6 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
         mMatch.setOnClickListener(this);
         mVideos.setOnClickListener(this);
         mRaiders.setOnClickListener(this);
-        mNewsListView.setOnItemClickListener(this);
         mBigImg1.setOnClickListener(this);
         mBigImg2.setOnClickListener(this);
         mRecommendGrid.setOnItemClickListener(this);

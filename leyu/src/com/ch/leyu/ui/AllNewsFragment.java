@@ -4,6 +4,7 @@ package com.ch.leyu.ui;
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
+import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
@@ -46,6 +47,12 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
     private AutoScrollViewPager mAutoScrollViewPager;
 
     private CircleLoopPageIndicator mCircleLoopPageIndicator;
+    
+    private int mPage = 1;
+
+    private int mTotalPage;
+
+    private boolean mFlag;
 
     @Override
     protected void getExtraParams() {
@@ -78,16 +85,14 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
         mXListView.setXListViewListener(mIXListViewListenerImp);
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
-
-        loadData();
+        requestData(mPage);
 
     }
 
-    private void loadData() {
-        JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS, null,
-                AllNewResponse.class, new DataCallback<AllNewResponse>() {
+    private void requestData(int page) {
+        RequestParams mParams = new RequestParams();
+        mParams.put(Constant.PAGE, page);
+        JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS, mParams, AllNewResponse.class, new DataCallback<AllNewResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
@@ -98,15 +103,33 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                            mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
-                           
-                           mAdapter.addArrayList(data.getNewsList());
                            mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
+                          
+                           mTotalPage = data.getTotalPage();
+                           if (mPage == 1) {
+                               mAdapter.chargeArrayList(data.getNewsList());
+                           } else {
+                               mAdapter.addArrayList(data.getNewsList());
+                           }
+                           mPage++;
+                           if (mPage > mTotalPage) {
+                               mXListView.setPullLoadEnable(false);
+                           } else {
+                               mXListView.setPullLoadEnable(true);
+                           }
+                           
                        }
                     }
 
                     @Override
                     public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
+                        if(mPage==1&&mFlag==false){
+                            mHttpLoadingView.setVisibility(View.VISIBLE);
+                        }
+                       
+                        if (mXListView != null) {
+                            onLoad();
+                        }
                     }
 
                     @Override
@@ -124,15 +147,17 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
     }
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
-        // 下拉刷新
+       
         @Override
         public void onRefresh() {
-
+            mFlag = true;
+            mPage = 1;
+            requestData(mPage);
         }
 
-        // 上拉加载
         @Override
         public void onLoadMore() {
+            requestData(mPage);
 
         }
     };
@@ -145,5 +170,13 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
             intent.putExtra(Constant.CID, item.getId());
             startActivity(intent);
         }
+    }
+    
+    // 加载中时间监听
+    private void onLoad() {
+        mXListView.stopRefresh();
+        mXListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 }

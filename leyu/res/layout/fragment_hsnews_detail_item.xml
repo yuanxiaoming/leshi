@@ -5,31 +5,30 @@
     android:padding="16dp" >
 
     <ImageView
-        android:id="@+id/allnews_item_img"
+        android:id="@+id/hsnews_detail_item_img"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
     <TextView
-        android:id="@+id/allnews_item_title"
+        android:id="@+id/hsnews_detail_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/allnews_item_img"
+        android:layout_alignTop="@+id/hsnews_detail_item_img"
         android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/allnews_item_img"
+        android:layout_toRightOf="@+id/hsnews_detail_item_img"
         android:text="Medium Text"
         android:maxLines="1"
-        android:textColor="#025A9A"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/allnews_item_time"
+        android:id="@+id/hsnews_detail_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/allnews_item_img"
-        android:layout_alignLeft="@+id/allnews_item_title"
-        android:layout_below="@+id/allnews_item_title"
+        android:layout_alignBottom="@+id/hsnews_detail_item_img"
+        android:layout_alignLeft="@+id/hsnews_detail_item_title"
+        android:layout_below="@+id/hsnews_detail_item_title"
         android:layout_marginTop="10dp"
         android:textColor="#C6C6C6"
         android:text="TextView" />

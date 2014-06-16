@@ -44,6 +44,8 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
     private int mTotalPage;
 
     private boolean mStop;
+    
+    private boolean mFlag = false;
 
     private SimpleDateFormat mSimpleDateFormat;
 
@@ -64,7 +66,6 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     @Override
     protected void findViewById() {
-        // mGridView = (GridView) findViewById(R.id.lolvideo_gridview);
         mXListView = (XListView) findViewById(R.id.lolvideo_xlistview);
     }
 
@@ -78,31 +79,33 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
     protected void processLogic() {
         mAdapter = new ListChangeGridAdapter(null, getActivity());
         mAdapter.setNumColumns(2);
+        mXListView.setPullLoadEnable(true);
+        mXListView.setPullRefreshEnable(true);
         mXListView.setAdapter(mAdapter);
 
         // 全部视频
         if (position == 0) {
-            requestData(21, null, url, mPage);
+            requestData("21", null, url, mPage);
         }
         // 本周热门
         if (position == 1) {
 
-            requestData(21, null, Constant.LOL_HOT, mPage);
+            requestData("21", null, Constant.LOL_HOT, mPage);
         }
         // 教学
         if (position == 2) {
             String keyWord = "精彩,教学,原创";
-            requestData(21, keyWord, url, mPage);
+            requestData("21", keyWord, url, mPage);
         }
         // 解说
         if (position == 3) {
             String keyWord = "解说,搞笑,排位";
-            requestData(21, keyWord, url, mPage);
+            requestData("21", keyWord, url, mPage);
         }
 
     }
 
-    private void requestData(int gameId, String keyWord, String url, int page) {
+    private void requestData(String gameId, String keyWord, String url, int page) {
         RequestParams mParams = new RequestParams();
         mParams.put(Constant.GMAE_ID, gameId);
         mParams.put(Constant.KEYWORD, keyWord);
@@ -124,9 +127,9 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
                             }
                             mPage++;
                             if (mPage > mTotalPage) {
-                                mStop = true;
+                                mXListView.setPullLoadEnable(false);
                             } else {
-                                mStop = false;
+                                mXListView.setPullLoadEnable(true);
                             }
 
                         }
@@ -134,8 +137,10 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
                     @Override
                     public void onStart() {
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
-                        if(mXListView!=null){
+                        if(mPage==1&&mFlag==false){
+                            mHttpLoadingView.setVisibility(View.VISIBLE);
+                        }
+                        if (mXListView != null) {
                             onLoad();
                         }
                     }
@@ -169,55 +174,52 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         @Override
         public void onRefresh() {
             mPage = 1;
+            mFlag = true ;
             // 全部视频
             if (position == 0) {
-                requestData(21, null, url, mPage);
+                requestData("21", null, url, mPage);
             }
             // 本周热门
             if (position == 1) {
 
-                requestData(21, null, Constant.LOL_HOT, mPage);
+                requestData("21", null, Constant.LOL_HOT, mPage);
             }
             // 教学
             if (position == 2) {
                 String keyWord = "精彩,教学,原创";
-                requestData(21, keyWord, url, mPage);
+                requestData("21", keyWord, url, mPage);
             }
             // 解说
             if (position == 3) {
                 String keyWord = "解说,搞笑,排位";
-                requestData(21, keyWord, url, mPage);
+                requestData("21", keyWord, url, mPage);
             }
         }
 
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if (mStop) {
-                mXListView.setPullLoadEnable(false);
-            } else {
                 // 全部视频
                 if (position == 0) {
-                    requestData(21, null, url, mPage);
+                    requestData("21", null, url, mPage);
                 }
                 // 本周热门
                 if (position == 1) {
 
-                    requestData(21, null, Constant.LOL_HOT, mPage);
+                    requestData("21", null, Constant.LOL_HOT, mPage);
                 }
                 // 教学
                 if (position == 2) {
                     String keyWord = "精彩,教学,原创";
-                    requestData(21, keyWord, url, mPage);
+                    requestData("21", keyWord, url, mPage);
                 }
                 // 解说
                 if (position == 3) {
                     String keyWord = "解说,搞笑,排位";
-                    requestData(21, keyWord, url, mPage);
+                    requestData("21", keyWord, url, mPage);
                 }
             }
 
-        }
     };
 
     // 加载中时间监听

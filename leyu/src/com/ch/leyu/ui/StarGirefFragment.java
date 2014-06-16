@@ -56,7 +56,7 @@ public class StarGirefFragment extends BaseFragment {
                if(info!=null){
                    String uid = info.getUid();
                    Intent intent = new Intent(getActivity(), StarDetailActivity.class);
-                   intent.putExtra(Constant.CID, uid);
+                   intent.putExtra(Constant.UID, uid);
                    startActivity(intent);
                }
             }

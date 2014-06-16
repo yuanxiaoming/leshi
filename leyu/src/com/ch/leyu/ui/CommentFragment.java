@@ -18,6 +18,7 @@ import org.apache.http.Header;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,11 +86,12 @@ public class CommentFragment extends BaseFragment {
 
     private int mPage = 1 ;
 
-    /**总页数*/
     private int mTotalPage ;
-
-    private boolean mStop;
-
+    
+    private boolean mFlag = false;
+    
+    private  ArrayList<CommentDetail> mDetailsList ;
+    
 
     @Override
     protected void getExtraParams() {
@@ -97,6 +99,7 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
+            Log.d("tag", "mCid:"+mCid);
         }
     }
 
@@ -119,7 +122,7 @@ public class CommentFragment extends BaseFragment {
         mListView.addHeaderView(mListViewHeaderView);
         mListView.setHeaderDividersEnabled(false);
         mListView.setPullLoadEnable(true);
-        mListView.setPullLoadEnable(true);
+        mListView.setPullRefreshEnable(true);
         mAdapter = new CommentListAdapter(null, getActivity());
         mListView.setAdapter(mAdapter);
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -141,7 +144,8 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
                     commentDetail.setReplyNickname(mReplyName);
-                    publishComment(0,commentDetail);
+                    publishComment(0,commentDetail,2);
+                    mDetail.setText("");
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
@@ -161,7 +165,7 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setComment(comment);
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
-                    publishComment(0,commentDetail);
+                    publishComment(0,commentDetail,1);
                     mDetail_EmptyView.setText("");
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
@@ -197,10 +201,13 @@ public class CommentFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.put(Constant.CID, mCid);
         params.put(Constant.PAGE, page);
-        JHttpClient.get(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
+        JHttpClient.getFromServer(getActivity(), Constant.COMMENT_LIST, params, CommentResponse.class,new DataCallback<CommentResponse>() {
 
             @Override
             public void onStart() {
+                if(mPage==1&&mFlag==false){
+                    mHttpLoadingView.setVisibility(View.VISIBLE);
+                }
                 if(mListView!=null){
                     onLoad();
                 }
@@ -208,7 +215,10 @@ public class CommentFragment extends BaseFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
                 if (data != null) {
+                    mDetailsList = data.getComment();
                     mTotalPage = data.getTotalPage();
+                  
+                    Log.d("tag", data.getTotalPage()+"----data.getTotalPage()");
                     if(mPage==1){
                         mAdapter.chargeArrayList(data.getComment());
                     }else{
@@ -216,9 +226,9 @@ public class CommentFragment extends BaseFragment {
                     }
                     mPage++;
                     if(mPage>mTotalPage){
-                        mStop=true;
+                        mListView.setPullLoadEnable(false);
                     }else{
-                        mStop=false;
+                        mListView.setPullLoadEnable(true);
                     }
                 }
             }
@@ -230,7 +240,7 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onFinish() {
-
+                mHttpLoadingView.setVisibility(View.GONE);
             }
         });
 
@@ -244,7 +254,7 @@ public class CommentFragment extends BaseFragment {
      * @param comment 评论内容
      * @param index 1代表无评论时，2代表有评论时
      */
-    private void publishComment(int uid, final CommentDetail  commentDetail) {
+    private void publishComment(int uid, final CommentDetail commentDetail,final int flag) {
         RequestParams params = new RequestParams();
         params.put(UID, uid);
         params.put(NICKNAME, commentDetail.getNickname());
@@ -261,9 +271,17 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
-                ArrayList<CommentDetail> mDetailsList = new ArrayList<CommentDetail>();
-                mDetailsList.add(commentDetail);
-                mAdapter.addArrayList(mDetailsList);
+                if(flag==1){
+                    mDetailsList = new ArrayList<CommentDetail>();
+                    mDetailsList.add(commentDetail);
+                    mAdapter.addArrayList(mDetailsList);
+                }
+                if(flag ==2){
+                    if(mDetailsList!=null){
+                        mDetailsList.add(0, commentDetail);
+                        mAdapter.chargeArrayList(mDetailsList);
+                    }
+                }
                 Toast.makeText(getActivity(), R.string.comment_win, Toast.LENGTH_SHORT).show();
             }
 
@@ -284,6 +302,7 @@ public class CommentFragment extends BaseFragment {
         // 下拉刷新
         @Override
         public void onRefresh() {
+            mFlag = true ;
             mPage=1;
             requestData(mPage);
         }
@@ -291,12 +310,7 @@ public class CommentFragment extends BaseFragment {
         // 上拉加载
         @Override
         public void onLoadMore() {
-            if(mStop){
-                mListView.setPullLoadEnable(false);
-            }else{
-                requestData(mPage);
-            }
-
+            requestData(mPage);
         }
     };
 

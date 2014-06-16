@@ -5,12 +5,9 @@
     android:orientation="vertical" >
 
     <com.ch.leyu.widget.xlistview.XListView
-        android:id="@+id/star_xistview"
+        android:id="@+id/hsnews_detail_listview_cly"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:footerDividersEnabled="false"
-        android:divider="#FFCC00"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

@@ -129,8 +129,7 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     RequestParams params = new RequestParams();
                     params.put(Constant.KEYWORD, mKeyWord);
-                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,
-                            VideoSearchResponse.class, mSearchDataCallback);
+                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,VideoSearchResponse.class, mSearchDataCallback);
                 }
             }
         });
@@ -149,8 +148,7 @@ public class SearchActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LatestSearchAdapter latestSearchAdapter = (LatestSearchAdapter) parent.getAdapter();
                 if (latestSearchAdapter != null) {
-                    LatestSearch latestSearch = (LatestSearch) (latestSearchAdapter.getArrayList()
-                            .get(position));
+                    LatestSearch latestSearch = (LatestSearch) (latestSearchAdapter.getArrayList().get(position));
                     Intent intent = new Intent(mContext, SearchListActivity.class);
                     intent.putExtra("result", latestSearch.getmVideoSearchResponse());
                     intent.putExtra(Constant.KEYWORD, latestSearch.getKeyword());
@@ -205,8 +203,7 @@ public class SearchActivity extends BaseActivity {
         }
 
         @Override
-        public void onFailure(int statusCode, Header[] headers, String responseString,
-                Exception exception) {
+        public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
 
         }
 
@@ -235,8 +232,7 @@ public class SearchActivity extends BaseActivity {
         }
 
         @Override
-        public void onFailure(int statusCode, Header[] headers, String responseString,
-                Exception exception) {
+        public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
         }
 
         @Override

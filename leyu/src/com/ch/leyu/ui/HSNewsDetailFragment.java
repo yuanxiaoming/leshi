@@ -3,6 +3,7 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CLYAdapter;
+import com.ch.leyu.adapter.HSNewsDetailListAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
@@ -24,15 +25,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /***
- * LOL新闻资讯
- *
- * @author L
+ * 炉石传说新闻内页
+ * 
+ * @author Administrator
  */
-public class LOLNewsFragment extends BaseFragment implements OnItemClickListener {
+public class HSNewsDetailFragment extends BaseFragment implements OnItemClickListener {
+    private XListView mXListView;
 
-    private XListView mListView;
-    
-    private CLYAdapter mAdapter;
+    private HSNewsDetailListAdapter mAdapter;
 
     private int mPage = 1;
 
@@ -40,8 +40,8 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
 
     private SimpleDateFormat mSimpleDateFormat;
     
-    private boolean mFlag;
-    
+    private String mCid ;
+
     @Override
     protected void getExtraParams() {
 
@@ -49,64 +49,61 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
 
     @Override
     protected void loadViewLayout() {
-        setContentView(R.layout.fragment_lolnews);
+        setContentView(R.layout.fragment_hsnews_detail);
     }
 
     @Override
     protected void findViewById() {
-        mListView = (XListView) findViewById(R.id.lolnews_listview_cly);
-        mAdapter = new CLYAdapter(getActivity(), null);
+        mXListView = (XListView) findViewById(R.id.hsnews_detail_listview_cly);
+        mAdapter = new HSNewsDetailListAdapter(getActivity(), null);
     }
 
     @Override
     protected void setListener() {
-        mListView.setPullRefreshEnable(true);
-        mListView.setPullLoadEnable(true);
-        mListView.setOnItemClickListener(this);
-        mListView.setXListViewListener(mIXListViewListenerImp);
-        
+        mXListView.setPullRefreshEnable(true);
+        mXListView.setPullLoadEnable(true);
+        mXListView.setOnItemClickListener(this);
+        mXListView.setXListViewListener(mIXListViewListenerImp);
     }
 
     @Override
     protected void processLogic() {
-        mListView.setAdapter(mAdapter);
+        mXListView.setAdapter(mAdapter);
         requestData(mPage);
-        
     }
     
-    public void requestData(int page) {
+    private void requestData(int page) {
         RequestParams params = new RequestParams();
-        params.put(Constant.GMAE_ID, 21);
+        params.put(Constant.GMAE_ID, "23");
+        params.put(Constant.CID, mCid);
         params.put(Constant.PAGE, page);
         JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-               if(data!=null){
-                   mTotalPage = data.getTotalPage();
-                   if (mPage == 1) {
-                       mAdapter.chargeArrayList(data.getNewsList());
-                   } else {
-                       mAdapter.addArrayList(data.getNewsList());
-                   }
-                   
-                   mPage++;
-                   if (mPage > mTotalPage) {
-                       mListView.setPullLoadEnable(false);
-                   } else {
-                       mListView.setPullLoadEnable(true);
-                   }
-               }
-              
+              if(data!=null){
+                  mTotalPage = data.getTotalPage();
+                  if (mPage == 1) {
+                      mAdapter.chargeArrayList(data.getNewsList());
+                  } else {
+                      mAdapter.addArrayList(data.getNewsList());
+                  }
+                  
+                  mPage++;
+                  if (mPage > mTotalPage) {
+                      mXListView.setPullLoadEnable(false);
+                  } else {
+                      mXListView.setPullLoadEnable(true);
+                  }
+              }
             }
 
             @Override
             public void onStart() {
-                if(mPage==1&&mFlag==false){
+                if(mPage==1){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                 }
-               
-                if (mListView != null) {
+                if (mXListView != null) {
                     onLoad();
                 }
             }
@@ -117,10 +114,40 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
-
+            public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
+           
             }
         });
+        
+    }
+    
+    
+    /**
+     * 上拉加载，下拉刷新
+     */
+    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+        @Override
+        public void onRefresh() {
+            mPage = 1;
+            requestData(mPage);
+        }
+
+        @Override
+        public void onLoadMore() {
+            requestData(mPage);
+
+        }
+    };
+
+    /**
+     * 时间监听
+     */
+    @SuppressLint("SimpleDateFormat")
+    private void onLoad() {
+        mXListView.stopRefresh();
+        mXListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
     
 
@@ -133,30 +160,6 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
             startActivity(intent);
         }
         
-    }
-    
-    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
-        @Override
-        public void onRefresh() {
-            mFlag = true ;
-            mPage = 1;
-            requestData(mPage);
-        }
-
-        @Override
-        public void onLoadMore() {
-            requestData(mPage);
-
-        }
-    };
-
-    // 加载中时间监听
-    @SuppressLint("SimpleDateFormat")
-    private void onLoad() {
-        mListView.stopRefresh();
-        mListView.stopLoadMore();
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        mListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
 
 }

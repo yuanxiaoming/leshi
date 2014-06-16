@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/legames_competition" />
+                android:background="@drawable/hs_competition_btn_selector" />
 
             <Button
                 android:id="@+id/hs_bt_videos"
@@ -69,14 +69,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/legames_videosbank" />
+                android:background="@drawable/hs_vedios_btn_selector" />
 
             <Button
                 android:id="@+id/hs_bt_raiders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/legames_strategy" />
+                android:background="@drawable/hs_star_btn_selector" />
         </LinearLayout>
 
         <LinearLayout

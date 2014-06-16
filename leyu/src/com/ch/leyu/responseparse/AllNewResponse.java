@@ -15,6 +15,16 @@ public class AllNewResponse {
     
     private ArrayList<Property> career ;
     
+    private int totalPage ;
+    
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
     public ArrayList<Property> getCareer() {
         return career;
     }
