@@ -87,11 +87,11 @@ public class CommentFragment extends BaseFragment {
     private int mPage = 1 ;
 
     private int mTotalPage ;
-    
+
     private boolean mFlag = false;
-    
+
     private  ArrayList<CommentDetail> mDetailsList ;
-    
+
 
     @Override
     protected void getExtraParams() {
@@ -144,8 +144,8 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
                     commentDetail.setReplyNickname(mReplyName);
-                    publishComment(0,commentDetail,2);
                     mDetail.setText("");
+                    publishComment(0,commentDetail);
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
@@ -165,8 +165,8 @@ public class CommentFragment extends BaseFragment {
                     commentDetail.setComment(comment);
                     commentDetail.setCreateTime(System.currentTimeMillis());
                     commentDetail.setNickname(nickName);
-                    publishComment(0,commentDetail,1);
                     mDetail_EmptyView.setText("");
+                    publishComment(0,commentDetail);
                 }else {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
@@ -217,7 +217,7 @@ public class CommentFragment extends BaseFragment {
                 if (data != null) {
                     mDetailsList = data.getComment();
                     mTotalPage = data.getTotalPage();
-                  
+
                     Log.d("tag", data.getTotalPage()+"----data.getTotalPage()");
                     if(mPage==1){
                         mAdapter.chargeArrayList(data.getComment());
@@ -248,13 +248,13 @@ public class CommentFragment extends BaseFragment {
 
 
     /**
-     * @param uid 用户id
-     * @param nickname 视频名字
-     * @param cid 视频id
-     * @param comment 评论内容
-     * @param index 1代表无评论时，2代表有评论时
-     */
-    private void publishComment(int uid, final CommentDetail commentDetail,final int flag) {
+    * @param uid 用户id
+    * @param nickname 视频名字
+    * @param cid 视频id
+    * @param comment 评论内容
+    * @param index 1代表无评论时，2代表有评论时
+    */
+    private void publishComment(int uid, final CommentDetail commentDetail) {
         RequestParams params = new RequestParams();
         params.put(UID, uid);
         params.put(NICKNAME, commentDetail.getNickname());
@@ -271,17 +271,9 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
-                if(flag==1){
-                    mDetailsList = new ArrayList<CommentDetail>();
-                    mDetailsList.add(commentDetail);
-                    mAdapter.addArrayList(mDetailsList);
-                }
-                if(flag ==2){
-                    if(mDetailsList!=null){
-                        mDetailsList.add(0, commentDetail);
-                        mAdapter.chargeArrayList(mDetailsList);
-                    }
-                }
+                mDetailsList = new ArrayList<CommentDetail>();
+                mDetailsList.add(commentDetail);
+                mAdapter.addArrayList(mDetailsList);
                 Toast.makeText(getActivity(), R.string.comment_win, Toast.LENGTH_SHORT).show();
             }
 
