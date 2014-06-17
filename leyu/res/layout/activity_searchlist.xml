@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
     android:background="@color/color_light_gray"
+    android:focusable="true"
     android:focusableInTouchMode="true" >
 
     <com.ch.leyu.widget.view.ClearEditText
@@ -87,8 +87,8 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            android:textColor="#959595"
             android:text="@string/search_hottest"
+            android:textColor="#959595"
             android:textSize="15sp" />
     </RadioGroup>
 

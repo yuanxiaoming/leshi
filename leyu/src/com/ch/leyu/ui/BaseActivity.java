@@ -3,7 +3,9 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.application.ExitAppUtils;
+import com.ch.leyu.widget.view.CustomProgressDialog;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -27,6 +29,7 @@ public abstract class BaseActivity extends ActionBarActivity{
     protected ViewStub mHttpLoading, mHttpError;
     protected View mHttpLoadingView=null;
     protected View mHttpErrorView=null;
+    protected CustomProgressDialog mProgressDialog;
 
 
 
@@ -79,7 +82,7 @@ public abstract class BaseActivity extends ActionBarActivity{
     public String getResourceString(int resId) {
         return getResources().getString(resId);
     }
-    
+
     public void hidden(){
       //隐藏键盘
         ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mContext.getCurrentFocus().
@@ -118,6 +121,39 @@ public abstract class BaseActivity extends ActionBarActivity{
         super.onDestroy();
         ExitAppUtils.getInstance().delActivity(this);
 
+    }
+
+    /**
+     * @return void 返回类型
+     * @Title: showProgressDialog(设置进度条)
+     * @author xiaoming.yuan
+     * @data 2013-7-12 下午10:09:36
+     */
+    protected void showProgressDialog() {
+        if ((!isFinishing()) && this.mProgressDialog == null) {
+            this.mProgressDialog = new CustomProgressDialog(this);
+        }
+        // 设置ProgressDialog 的进度条style
+        this.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        // this.mProgressDialog.setTitle("提示");
+        this.mProgressDialog.setMessage("加载中...");
+        // 设置ProgressDialog 的进度条是否不明确
+        this.mProgressDialog.setIndeterminate(false);
+        // 设置ProgressDialog 的进度条是否不明确
+        this.mProgressDialog.setCancelable(false);
+        this.mProgressDialog.setCanceledOnTouchOutside(false);
+        this.mProgressDialog.show();
+    }
+
+    /**
+     * @return void 返回类型
+     * @Title: closeProgressDialog(关闭进度条)
+     * @author xiaoming.yuan
+     * @data 2013-7-12 下午10:09:30
+     */
+    protected void closeProgressDialog() {
+        if (this.mProgressDialog != null && this.mProgressDialog.isShowing())
+            this.mProgressDialog.dismiss();
     }
 
 }
