@@ -34,6 +34,7 @@
             android:id="@+id/hs_ll_bg"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:padding="0dp"
             android:layout_below="@+id/hs_auto_scroll_viewpager"
             android:background="@drawable/legames_hs_gl_bg" >
 

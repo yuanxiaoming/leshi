@@ -9,6 +9,7 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
@@ -111,9 +112,6 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
                HSNewsDetailFragment detailFragment = new HSNewsDetailFragment();
                bundle.putString(Constant.CID, item.getCid());
                detailFragment.setArguments(bundle);
-               FragmentTransaction transaction = getFragmentManager().beginTransaction();
-               transaction.show(detailFragment);
-               transaction.commit();
            }
     }
 
