@@ -3,10 +3,13 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.LYViewPagerAdapter;
+import com.ch.leyu.application.CLYApplication;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.animation.Animation;
 
 import java.util.ArrayList;
 
@@ -28,7 +31,8 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void getExtraParams() {
-
+       Bundle bundle = getArguments();
+        
     }
 
     @Override
@@ -74,4 +78,20 @@ public class NewsFragment extends BaseFragment {
         return mFragmentList;
 
     }
+    
+    
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if(enter){
+            if(((CLYApplication)getActivity().getApplication()).ismFlag()==false){
+                mViewPager.setCurrentItem(1);
+            }else {
+                mViewPager.setCurrentItem(0);
+            }
+        }
+        
+        return super.onCreateAnimation(transit, enter, nextAnim);
+        
+    }
+    
 }
