@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 /***
  * 搜索activity
- * 
+ *
  * @author L
  */
 public class SearchActivity extends BaseActivity {
@@ -59,6 +59,8 @@ public class SearchActivity extends BaseActivity {
     private Context mContext;
 
     private LatestSearchAdapter mLatestSearchAdapter;
+
+    private SearchAdapter mSearchAdapter;
 
     private ArrayList<LatestSearch> mLatestSearchArrayList;
 
@@ -119,17 +121,16 @@ public class SearchActivity extends BaseActivity {
         });
 
         mSearch.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 hidden();
-                mKeyWord = mDetail.getText().toString();
-                if (TextUtils.isEmpty(mKeyWord)) {
-                    Toast.makeText(mContext, R.string.search_hint, Toast.LENGTH_LONG).show();
-                } else {
+                if (!TextUtils.isEmpty(mDetail.getText().toString())) {
+                    mKeyWord = mDetail.getText().toString();
                     RequestParams params = new RequestParams();
                     params.put(Constant.KEYWORD, mKeyWord);
                     JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,VideoSearchResponse.class, mSearchDataCallback);
+                } else {
+                    Toast.makeText(mContext, R.string.search_hint, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -138,6 +139,15 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mSearchAdapter.getArrayList()!=null&&mSearchAdapter.getArrayList().get(position)!=null&&!TextUtils.isEmpty(mSearchAdapter.getArrayList().get(position).getTitle())){
+                    mKeyWord= mSearchAdapter.getArrayList().get(position).getTitle();
+                    RequestParams params = new RequestParams();
+                    params.put(Constant.KEYWORD, mKeyWord);
+                    JHttpClient.get(mContext, Constant.URL + Constant.SEARCH, params,VideoSearchResponse.class, mSearchDataCallback);
+                }else {
+                    Toast.makeText(mContext, R.string.search_hint, Toast.LENGTH_LONG).show();
+                }
+
 
             }
 
@@ -162,9 +172,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
-
-        JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,
-                mHotSearchDataCallback);
+        JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,mHotSearchDataCallback);
     }
 
     /**
@@ -174,7 +182,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onStart() {
-            mHttpLoadingView.setVisibility(View.VISIBLE);
+            showProgressDialog();
         }
 
         @Override
@@ -209,7 +217,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            mHttpLoadingView.setVisibility(View.GONE);
+            closeProgressDialog();
         }
 
     };
@@ -227,7 +235,8 @@ public class SearchActivity extends BaseActivity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, SearchResponse data) {
             if (data != null) {
-                mHots.setAdapter(new SearchAdapter(mContext, data.getHot()));
+                mSearchAdapter = new SearchAdapter(mContext, data.getHot());
+                mHots.setAdapter(mSearchAdapter);
             }
         }
 
