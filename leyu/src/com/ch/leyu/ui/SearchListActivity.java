@@ -29,8 +29,7 @@ import android.widget.TextView;
  *
  * @author L
  */
-public class SearchListActivity extends BaseActivity implements OnClickListener,
-OnItemClickListener {
+public class SearchListActivity extends BaseActivity implements OnClickListener,OnItemClickListener {
 
     /** 最新 */
     private RadioButton mNewst;
@@ -56,51 +55,6 @@ OnItemClickListener {
 
     private GridViewAdapter mAdapter;
 
-    @Override
-    public void onClick(View v) {
-        RequestParams params = null;
-        if (v.getId() == R.id.act_searchlist_bt_search) {
-            keyWord = mEditText.getText().toString();
-            params = new RequestParams();
-            params.put(Constant.KEYWORD, keyWord);
-        }
-        if (v.getId() == R.id.act_search_rb_news) {
-            params = new RequestParams();
-            params.put(Constant.SORT, "click");
-            params.put(Constant.KEYWORD, keyWord);
-        }
-        if (v.getId() == R.id.act_search_rb_hots) {
-            params = new RequestParams();
-            params.put(Constant.KEYWORD, keyWord);
-        }
-        JHttpClient.get(this, Constant.URL + Constant.SEARCH, params, VideoSearchResponse.class,
-                new DataCallback<VideoSearchResponse>() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
-                if (data != null) {
-                    mAdapter.chargeArrayList(data.getVideoList());
-                }
-            }
-
-            @Override
-            public void onStart() {
-                mHttpLoadingView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onFinish() {
-                mHttpLoadingView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
-
-            }
-        });
-
-    }
 
     @Override
     protected void getExtraParams() {
@@ -144,12 +98,59 @@ OnItemClickListener {
     }
 
     @Override
+    public void onClick(View v) {
+        RequestParams params = null;
+        if (v.getId() == R.id.act_searchlist_bt_search) {
+            keyWord = mEditText.getText().toString();
+            params = new RequestParams();
+            params.put(Constant.KEYWORD, keyWord);
+        }
+        if (v.getId() == R.id.act_search_rb_news) {
+            params = new RequestParams();
+            params.put(Constant.SORT, "click");
+            params.put(Constant.KEYWORD, keyWord);
+        }
+        if (v.getId() == R.id.act_search_rb_hots) {
+            params = new RequestParams();
+            params.put(Constant.KEYWORD, keyWord);
+        }
+        JHttpClient.get(this, Constant.URL + Constant.SEARCH, params, VideoSearchResponse.class,
+                        new DataCallback<VideoSearchResponse>() {
+
+            @Override
+            public void onStart() {
+                showProgressDialog();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
+                if (data != null) {
+                    mAdapter.chargeArrayList(data.getVideoList());
+                }
+            }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                closeProgressDialog();
+            }
+        });
+
+    }
+
+
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Property item = (Property) parent.getAdapter().getItem(position);
-        Intent intent;
         if (item != null) {
             String videoId = item.getId();
-            intent = new Intent(this, VideoPlayActivity.class);
+            Intent  intent = new Intent(this, VideoPlayActivity.class);
             intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
