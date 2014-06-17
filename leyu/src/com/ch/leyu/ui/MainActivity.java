@@ -2,6 +2,7 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.application.CLYApplication;
 import com.ch.leyu.utils.CommonUtil;
 
 

@@ -11,6 +11,7 @@ import com.ch.leyu.responseparse.VideoPlayResponse;
 import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
+import com.ch.leyu.view.SharePopupWindow;
 import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -135,29 +136,26 @@ public class VideoPlayActivity extends BaseActivity {
                 break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
     
     
     public void showPopup() {
-        View popView = LayoutInflater.from(this).inflate(R.layout.play_popopwindow, null);
-        GridView gridView = (GridView) popView.findViewById(R.id.menu_pop_gridview);
-        ShareGridViewAdapter shareGridViewAdapter = new ShareGridViewAdapter();
-        gridView.setAdapter(shareGridViewAdapter);
-
-        PopupWindow popWindow = new PopupWindow(popView);
-        popWindow.setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);
-        popWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
-        popWindow.setBackgroundDrawable(new BitmapDrawable());
-        popWindow.setFocusable(true);
-        popWindow.setTouchable(true);
-        popWindow.setOutsideTouchable(true);
-        popWindow.setAnimationStyle(R.style.popwindow_anim_style);
-        popWindow.showAtLocation(mImg, Gravity.BOTTOM|Gravity.LEFT, 0, 0);
+//        View popView = LayoutInflater.from(this).inflate(R.layout.play_popopwindow, null);
+//        GridView gridView = (GridView) popView.findViewById(R.id.menu_pop_gridview);
+//        ShareGridViewAdapter shareGridViewAdapter = new ShareGridViewAdapter();
+//        gridView.setAdapter(shareGridViewAdapter);
+//
+//        PopupWindow popWindow = new PopupWindow(popView);
+//        popWindow.setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        popWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        popWindow.setBackgroundDrawable(new BitmapDrawable());
+//        popWindow.setFocusable(true);
+//        popWindow.setTouchable(true);
+//        popWindow.setOutsideTouchable(true);
+//        popWindow.setAnimationStyle(R.style.popwindow_anim_style);
+    	SharePopupWindow popupWindow = new SharePopupWindow(mContext, CommonUtil.getWidthMetrics(mContext));
+    	popupWindow.showAtLocation(mViewPager, Gravity.BOTTOM|Gravity.CENTER, 0, 0);
     }
-    
-    
-    
-    
     
 }

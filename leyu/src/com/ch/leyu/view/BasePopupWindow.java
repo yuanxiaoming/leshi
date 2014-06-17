@@ -6,14 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
-import com.ch.leyu.utils.CommonUtil;
+import com.ch.leyu.R;
 
 public abstract class BasePopupWindow extends PopupWindow implements View.OnClickListener{
 	protected Context mContext ;
 	protected View mContentView  ;
-	public BasePopupWindow(Context context) {
+	public BasePopupWindow(Context context,int width) {
 		super(context);
-		init(context);
+		init(context,width);
 	}
 //
 //	public BasePopupWindow(Context context ,View contentView, int width, int height) {
@@ -21,16 +21,16 @@ public abstract class BasePopupWindow extends PopupWindow implements View.OnClic
 //		init(context);
 //	}
 
-	private void init(Context context) {
+	private void init(Context context,int width ) {
 		mContext = context ;
 		setFocusable(true);
 		setOutsideTouchable(true);
-//		setAnimationStyle(R.style.popwindow_anim_style);
+		setAnimationStyle(R.style.popwindow_anim_style);
 		setBackgroundDrawable(new ColorDrawable());
 		setTouchable(true);
 		loadViewLayout();
 
-		setWidth(CommonUtil.getWidthMetrics(context));
+		setWidth(width);
 		setHeight(LayoutParams.WRAP_CONTENT);
 
 		findViewById();
