@@ -106,7 +106,7 @@ public class CommentListAdapter extends BaseAdapter {
 		}
 		
 		
-		if(mArrayList.get(position).getReplyNickname().equals("")){
+		if(mArrayList.get(position).getReplyNickname().equals("")||mArrayList.get(position).getReplyNickname()==null){
 		    holder.name.setText(mArrayList.get(position).getNickname());
 		}else {
 		  String s1 = "<font color=\"#818181\">回复</font> ";

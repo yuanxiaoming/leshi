@@ -128,7 +128,6 @@ public class VideoPlayActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                showPopup();
                 break;
 
             default:
@@ -137,27 +136,6 @@ public class VideoPlayActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
-    
-    public void showPopup() {
-        View popView = LayoutInflater.from(this).inflate(R.layout.play_popopwindow, null);
-        GridView gridView = (GridView) popView.findViewById(R.id.menu_pop_gridview);
-        ShareGridViewAdapter shareGridViewAdapter = new ShareGridViewAdapter();
-        gridView.setAdapter(shareGridViewAdapter);
-
-        PopupWindow popWindow = new PopupWindow(popView);
-        popWindow.setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);
-        popWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
-        popWindow.setBackgroundDrawable(new BitmapDrawable());
-        popWindow.setFocusable(true);
-        popWindow.setTouchable(true);
-        popWindow.setOutsideTouchable(true);
-        popWindow.setAnimationStyle(R.style.popwindow_anim_style);
-        popWindow.showAtLocation(mImg, Gravity.BOTTOM|Gravity.LEFT, 0, 0);
-    }
-    
-    
-    
     
     
 }
