@@ -14,10 +14,8 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -131,7 +129,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
      * @param ex
      * @return true:如果处理了该异常信息;否则返回false.
      */
-    private boolean handleException(Throwable ex) {
+    private boolean handleException(final Throwable ex) {
 
         if (ex == null) {
             return true;
@@ -142,13 +140,13 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
             public void run() {
                 Looper.prepare();
                 showToast(mContext, "程序出错，即将退出");
+                saveCrashInfoToFile(mContext,ex);
+                // 保存错误报告文件
+                // 发送错误报告到服务器
+                //     sendCrashReportsToServer(mContext);
                 Looper.loop();
             }
         }.start();
-        // 保存错误报告文件
-        saveCrashInfoToFile(mContext,ex);
-        // 发送错误报告到服务器
-        //     sendCrashReportsToServer(mContext);
 
         return true;
     }
@@ -237,45 +235,6 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
      * @return
      */
     private void saveCrashInfoToFile(final Context context,final Throwable ex) {
-        new Thread(){
-            public void run() {
-                collectCrashDeviceInfo(context);
-                Writer info = new StringWriter();
-                PrintWriter printWriter = new PrintWriter(info);
-                ex.printStackTrace(printWriter);
-                Throwable cause = ex.getCause();
-                while (cause != null) {
-                    cause.printStackTrace(printWriter);
-                    cause = cause.getCause();
-                }
-                String result = info.toString();
-                printWriter.close();
-                Log.e(TAG, result);
-                mProperties.put(STACK_TRACE, result);
-                String fileName = paserTime(System.currentTimeMillis())+"_crash"+ CRASH_REPORTER_EXTENSION;
-                try {
-                    FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE|Context.MODE_APPEND);
-                    mProperties.store(trace, null);
-                    trace.flush();
-                    trace.close();
-                    Log.e(TAG, "writing report " + fileName+" file over");
-                }catch (Exception e) {
-                    Log.e(TAG, "an error occured while writing report " + fileName+" file " +e.getLocalizedMessage());
-                }
-
-            };
-
-        }.start();
-
-
-    }
-
-    /**
-     * 收集程序崩溃的设备信息
-     *
-     * @param context
-     */
-    private void collectCrashDeviceInfo(Context context) {
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
@@ -290,7 +249,31 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         mProperties.put("SDK_INT",String.valueOf(Build.VERSION.SDK_INT));
         mProperties.put("PRODUCT", Build.PRODUCT);
 
+        Writer info = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(info);
+        ex.printStackTrace(printWriter);
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        String result = info.toString();
+        printWriter.close();
+        Log.e(TAG, result);
+        mProperties.put(STACK_TRACE, result);
+        String fileName = paserTime(System.currentTimeMillis())+"_crash"+ CRASH_REPORTER_EXTENSION;
+        try {
+            FileOutputStream trace = mContext.openFileOutput(fileName, Context.MODE_PRIVATE|Context.MODE_APPEND);
+            mProperties.store(trace, null);
+            trace.flush();
+            trace.close();
+            Log.e(TAG, "writing report " + fileName+" file over");
+        }catch (Exception e) {
+            Log.e(TAG, "an error occured while writing report " + fileName+" file " +e.getLocalizedMessage());
+        }
     }
+
+
     /**
      * 将毫秒数转换成yyyy-MM-dd-HH-mm-ss的格式
      *
@@ -301,7 +284,7 @@ public class CustomCrashHandler implements UncaughtExceptionHandler {
         // System.setProperty("user.timezone", "Asia/Guangzhou");
         // TimeZone tz = TimeZone.getTimeZone("Asia/Guangzhou");
         // TimeZone.setDefault(tz);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String times = format.format(new Date(milliseconds));
         return times;
     }

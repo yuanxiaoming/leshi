@@ -21,14 +21,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class CLYApplication extends Application {
-    private CustomCrashHandler mCustomCrashHandler;
     public SparseArray<Fragment> mCurrent_fragment_array;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mCustomCrashHandler = CustomCrashHandler.getInstance();
-        mCustomCrashHandler.init(getApplicationContext());
+        CustomCrashHandler.getInstance().init(getApplicationContext());
         initImageLoader(getApplicationContext());
         mCurrent_fragment_array = new SparseArray<Fragment>();
 
