@@ -101,10 +101,8 @@ public class CommentListAdapter extends BaseAdapter {
 
             convertView.setTag(holder);
         } else {
-
             holder = (ViewHolder) convertView.getTag();
         }
-
 
         if(mArrayList.get(position).getReplyNickname()==null||mArrayList.get(position).getReplyNickname().equals("")){
             holder.name.setText(mArrayList.get(position).getNickname());

@@ -8,14 +8,18 @@ import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
+import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 
 import org.apache.http.Header;
 
-import android.util.Log;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 /***
@@ -23,7 +27,7 @@ import android.widget.GridView;
  *
  * @author Administrator
  */
-public class HSNewsFragment extends BaseFragment {
+public class HSNewsFragment extends BaseFragment implements OnItemClickListener {
 
     private GridView mGridView ;
 
@@ -56,7 +60,7 @@ public class HSNewsFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mGridView.setOnItemClickListener(this);
     }
 
     @Override
@@ -92,12 +96,25 @@ public class HSNewsFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
 
             }
         });
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+           Property item = (Property) parent.getAdapter().getItem(position);
+           if(item!=null){
+               Bundle bundle = new Bundle();
+               HSNewsDetailFragment detailFragment = new HSNewsDetailFragment();
+               bundle.putString(Constant.CID, item.getCid());
+               detailFragment.setArguments(bundle);
+               FragmentTransaction transaction = getFragmentManager().beginTransaction();
+               transaction.show(detailFragment);
+               transaction.commit();
+           }
     }
 
 }

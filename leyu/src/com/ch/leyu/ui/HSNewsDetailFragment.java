@@ -2,7 +2,6 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.adapter.HSNewsDetailListAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;

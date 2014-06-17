@@ -3,8 +3,10 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
+import com.ch.leyu.adapter.HotGridAdapter;
 import com.ch.leyu.adapter.NewsListAdapter;
 import com.ch.leyu.adapter.RecommendGridAdapter;
+import com.ch.leyu.application.CLYApplication;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
@@ -82,8 +84,9 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 
                 break;
             case R.id.hs_bt_raiders:
-
-//                CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, new NewsFragment(), "");
+                ((CLYApplication)getActivity().getApplication()).setmFlag(false);
+                CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, new NewsFragment(), "");
+                ((MainActivity)getActivity()).setFoucs(true);
                 break;
 
             case R.id.hs_img_bigRecommend1:
@@ -150,7 +153,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                             mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
                             mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
                                     getActivity()));
-                            mHotGrid.setAdapter(new RecommendGridAdapter(data.getHot(), getActivity()));
+                            mHotGrid.setAdapter(new HotGridAdapter(data.getHot(), getActivity()));
 
                             bigImgId1 = data.getBigRecommend().get(0).getId();
                             bigImgId2 = data.getBigRecommend().get(1).getId();
