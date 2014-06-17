@@ -86,9 +86,9 @@ public class SearchActivity extends BaseActivity {
         mLayout = (RelativeLayout) findViewById(R.id.search_include);
         mHistory = (LYGridView) findViewById(R.id.act_search_gd_history);
         mHots = (GridView) findViewById(R.id.act_search_gd_hots);
-        mDetail = (EditText) mLayout.findViewById(R.id.comment_head_et_detail);
+        mDetail = (EditText) mLayout.findViewById(R.id.search_head_et_detail);
         mResult = (TextView) findViewById(R.id.act_search_tv_result);
-        mSearch = (Button) mLayout.findViewById(R.id.comment_head_bt_commit);
+        mSearch = (Button) mLayout.findViewById(R.id.search_head_bt_commit);
         mLatestSearchArrayList = LatestSearchManager.findLatestSearchAll();
         mLatestSearchAdapter = new LatestSearchAdapter(mLatestSearchArrayList);
         mHistory.setAdapter(mLatestSearchAdapter);

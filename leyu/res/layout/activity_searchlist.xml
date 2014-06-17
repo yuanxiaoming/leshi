@@ -6,23 +6,11 @@
     android:focusable="true"
     android:focusableInTouchMode="true" >
 
-    <com.ch.leyu.widget.view.ClearEditText
-        android:id="@+id/act_searchlist_et_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/act_searchlist_bt_search"
-        android:background="@drawable/login_edittext_bg"
-        android:ems="10" />
-
-    <Button
-        android:id="@+id/act_searchlist_bt_search"
+    <include
+        android:id="@+id/searchlist_include"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Button" />
+        layout="@layout/search_head" />
 
     <TextView
         android:id="@+id/act_searchlist_tv_count"
@@ -50,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/act_searchlist_bt_search"
+        android:layout_below="@+id/searchlist_include"
         android:layout_marginRight="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >

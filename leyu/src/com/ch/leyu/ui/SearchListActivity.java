@@ -22,14 +22,16 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /***
  * 搜索结果列表显示 暂未处理没有结果时的显示情况
- *
+ * 
  * @author L
  */
-public class SearchListActivity extends BaseActivity implements OnClickListener,OnItemClickListener {
+public class SearchListActivity extends BaseActivity implements OnClickListener,
+        OnItemClickListener {
 
     /** 最新 */
     private RadioButton mNewst;
@@ -55,6 +57,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
 
     private GridViewAdapter mAdapter;
 
+    private RelativeLayout mLayout;
 
     @Override
     protected void getExtraParams() {
@@ -72,13 +75,14 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
 
     @Override
     protected void findViewById() {
+        mLayout = (RelativeLayout) findViewById(R.id.searchlist_include);
         mGroup = (RadioGroup) findViewById(R.id.search_radiogroup);
         mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
         mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
         mGridView = (GridView) findViewById(R.id.act_searchlist_gd);
         mResult = (TextView) findViewById(R.id.act_searchlist_tv_count);
-        mEditText = (EditText) findViewById(R.id.act_searchlist_et_detail);
-        mSearch = (Button) findViewById(R.id.act_searchlist_bt_search);
+        mEditText = (EditText) mLayout.findViewById(R.id.search_head_et_detail);
+        mSearch = (Button) mLayout.findViewById(R.id.search_head_bt_commit);
 
     }
 
@@ -100,7 +104,7 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onClick(View v) {
         RequestParams params = null;
-        if (v.getId() == R.id.act_searchlist_bt_search) {
+        if (v.getId() == R.id.search_head_bt_commit) {
             keyWord = mEditText.getText().toString();
             params = new RequestParams();
             params.put(Constant.KEYWORD, keyWord);
@@ -115,42 +119,40 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
             params.put(Constant.KEYWORD, keyWord);
         }
         JHttpClient.get(this, Constant.URL + Constant.SEARCH, params, VideoSearchResponse.class,
-                        new DataCallback<VideoSearchResponse>() {
+                new DataCallback<VideoSearchResponse>() {
 
-            @Override
-            public void onStart() {
-                showProgressDialog();
-            }
+                    @Override
+                    public void onStart() {
+                        showProgressDialog();
+                    }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
-                if (data != null) {
-                    mAdapter.chargeArrayList(data.getVideoList());
-                }
-            }
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
+                        if (data != null) {
+                            mAdapter.chargeArrayList(data.getVideoList());
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString,
+                            Exception exception) {
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
+                    }
 
-            }
-
-            @Override
-            public void onFinish() {
-                closeProgressDialog();
-            }
-        });
+                    @Override
+                    public void onFinish() {
+                        closeProgressDialog();
+                    }
+                });
 
     }
-
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Property item = (Property) parent.getAdapter().getItem(position);
         if (item != null) {
             String videoId = item.getId();
-            Intent  intent = new Intent(this, VideoPlayActivity.class);
+            Intent intent = new Intent(this, VideoPlayActivity.class);
             intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }

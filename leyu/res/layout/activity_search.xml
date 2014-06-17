@@ -8,7 +8,7 @@
         android:id="@+id/search_include"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        layout="@layout/comment_head" />
+        layout="@layout/search_head" />
 
     <View
         android:id="@+id/view32"
@@ -29,6 +29,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:drawableLeft="@drawable/legames_label"
+            android:drawablePadding="5dp"
             android:text="搜索历史"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#5F5F5F"
@@ -96,6 +97,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
         android:drawableLeft="@drawable/legames_label"
+        android:drawablePadding="5dp"
         android:text="热门搜索"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#5F5F5F"
