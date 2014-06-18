@@ -37,6 +37,7 @@ public class CLYApplication extends Application {
 	@Override
     public void onCreate() {
         super.onCreate();
+        AppContext.init(getApplicationContext());
         CustomCrashHandler.getInstance().init(getApplicationContext());
         initImageLoader(getApplicationContext());
         mCurrent_fragment_array = new SparseArray<Fragment>();
@@ -47,7 +48,7 @@ public class CLYApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        AppContext.init(this);
+      //  AppContext.init(getApplicationContext());
     }
 
     public void copyDataBase() {
