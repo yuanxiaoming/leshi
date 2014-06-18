@@ -6,7 +6,7 @@
  >
 
     <ImageView
-        android:id="@+id/rec_img"
+        android:id="@+id/hot_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -14,15 +14,16 @@
         android:src="@drawable/launcher_first_bg"/>
 
     <TextView
-        android:id="@+id/rec_title"
+        android:id="@+id/hot_title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/rec_img"
+        android:layout_height="30dp"
         android:layout_alignParentLeft="true"
-        
+        android:layout_below="@+id/hot_img"
+        android:background="#FFFFFF"
         android:maxLines="1"
-        android:background="#70000000"
-        android:textColor="#FFFFFF"
-        android:text="TextView" />
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="TextView"
+        android:textColor="#8C8C8C" />
 
 </RelativeLayout>

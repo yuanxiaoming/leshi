@@ -72,9 +72,9 @@ public class HSNewsDetailListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_allnew_item,
                     parent, false);
             holder = new ViewHolder();
-            holder.img = (ImageView) convertView.findViewById(R.id.hsnews_detail_item_img);
-            holder.title = (TextView) convertView.findViewById(R.id.hsnews_detail_item_title);
-            holder.time = (TextView) convertView.findViewById(R.id.hsnews_detail_item_time);
+            holder.img = (ImageView) convertView.findViewById(R.id.allnews_item_img);
+            holder.title = (TextView) convertView.findViewById(R.id.allnews_item_title);
+            holder.time = (TextView) convertView.findViewById(R.id.allnews_item_time);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

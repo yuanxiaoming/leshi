@@ -1,3 +1,4 @@
+
 package com.ch.leyu.application;
 
 import static com.ch.leyu.http.cacheservice.CacheDatabaseHelper.DB_NAME;
@@ -21,28 +22,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class CLYApplication extends Application {
-    private CustomCrashHandler mCustomCrashHandler;
     public SparseArray<Fragment> mCurrent_fragment_array;
-    
+
+    private boolean mFlag;
+
+    public boolean ismFlag() {
+        return mFlag;
+    }
+
+    public void setmFlag(boolean mFlag) {
+        this.mFlag = mFlag;
+    }
 
 	@Override
     public void onCreate() {
         super.onCreate();
-        mCustomCrashHandler = CustomCrashHandler.getInstance();
-        mCustomCrashHandler.init(getApplicationContext());
+        CustomCrashHandler.getInstance().init(getApplicationContext());
         initImageLoader(getApplicationContext());
         mCurrent_fragment_array = new SparseArray<Fragment>();
 
         // copyDataBase();
     }
 
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         AppContext.init(this);
     }
-
 
     public void copyDataBase() {
         // 复制数据库
@@ -78,12 +84,16 @@ public class CLYApplication extends Application {
     private void initImageLoader(Context context) {
         int width = context.getResources().getDisplayMetrics().widthPixels;
         int height = context.getResources().getDisplayMetrics().heightPixels;
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).memoryCacheExtraOptions(width, height).threadPriority(Thread.NORM_PRIORITY - 2)
-                        .denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).tasksProcessingOrder(QueueProcessingType.LIFO)
-                        // .writeDebugLogs() // Remove for release app
-                        .memoryCache(new LRULimitedMemoryCache(12 * 1024 * 1024)).memoryCacheSize(12 * 1024 * 1024).memoryCacheSizePercentage(50) // default
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                .memoryCacheExtraOptions(width, height).threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                // .writeDebugLogs() // Remove for release app
+                .memoryCache(new LRULimitedMemoryCache(12 * 1024 * 1024))
+                .memoryCacheSize(12 * 1024 * 1024).memoryCacheSizePercentage(50) // default
 
-                        .build();
+                .build();
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
     }

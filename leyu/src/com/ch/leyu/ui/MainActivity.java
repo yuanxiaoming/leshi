@@ -21,7 +21,8 @@ import android.widget.RadioButton;
 public class MainActivity extends BaseActivity implements OnClickListener {
 
     private RadioButton mHs, mLol, mStar, mNews;
-
+    
+    
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -34,16 +35,19 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.act_nav_rb_star:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-                                new StarGirefFragment(), "");
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content,new StarGirefFragment(), "");
                 break;
             case R.id.act_nav_rb_news:
-                CommonUtil
-                .switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
+                ((CLYApplication)this.getApplication()).setmFlag(true);
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
                 break;
             default:
                 break;
         }
+    }
+    
+    public void setFoucs(boolean isChecked){
+        mNews.setChecked(isChecked);
     }
 
     @Override
