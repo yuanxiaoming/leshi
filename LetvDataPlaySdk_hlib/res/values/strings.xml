@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">乐视Sdk</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="letvutil_time01"><xliff:g id="hours">%s</xliff:g>小时<xliff:g id="minutes">%s</xliff:g>分<xliff:g id="seconds">%s</xliff:g>秒</string>
+    <string name="letvutil_time02"><xliff:g id="minutes">%s</xliff:g>分<xliff:g id="seconds">%s</xliff:g>秒</string>
+    <string name="letvutil_time_format">MM月dd日</string>
+    <string name="letvutil_week07">周日</string>
+    <string name="letvutil_week01">周一</string>
+    <string name="letvutil_week02">周二</string>
+    <string name="letvutil_week03">周三</string>
+    <string name="letvutil_week04">周四</string>
+    <string name="letvutil_week05">周五</string>
+    <string name="letvutil_week06">周六</string>
+    <string name="letvutil_week_tody">今天</string>
+    <string name="letvpushservice_title">乐视影视</string>
+    <string name="letvpushservice_live_title">直播预约提醒</string>
+	<string name="letv_user">乐视用户</string>
+
+    <!-- 我的首页 -->
+    <string name="tab_title_local">扫描</string>
+    <string name="tab_title_record">看过</string>
+    <string name="tab_title_download">下载</string>
+    <string name="tab_title_collect">想看</string>
+    <string name="btn_text_finish">完成</string>
+    <string name="btn_text_delete">删除</string>
+    <string name="btn_text_scan">扫描</string>
+    <string name="btn_text_close">关闭</string>
+    <string name="load_data_no_net">网络连接失败，请检查您的网络！</string>
+    <!-- 播放记录/收藏/离线空内容提示 -->
+    <string name="tip_record_null">您还没有观看过视频\n登录后，其它设备的播放记录会出现在这里</string>
+    <string name="tip_download_null_line1">您还没有下载过视频</string>   
+    <string name="tip_download_null_line2">观看视频时，点击&#160;</string>   
+    <string name="tip_download_null_line3">&#160;下载</string>   
+    <string name="tip_collect_null_line1">点击&#160;</string>
+    <string name="tip_collect_null_line2">&#160;可以收藏视频</string>
+    <string name="tip_collect_null_line3">想看的时候就来这里看吧</string>
+    <string name="tip_scan_null_toast">没有本地视频</string>
+    <string name="tip_del_all_dialog">共有
+        <xliff:g id="record_date_over_2_day">%s</xliff:g>集，确定要全部删除？
+	</string>
+	<string name="tip_del_local_all_dialog">确定要删除本地所有视频？</string>
+	<string name="tip_download_error">下载失败</string>
+
+	<!-- 收藏提示字段 -->
+	<string name="toast_favorite_ok">收藏成功</string>
+	<string name="toast_favorite_failed">收藏失败</string>
+    <string name="toast_favorite_cancel">成功取消收藏</string>
+    <string name="toast_favorite_cancel_failed">取消收藏失败</string>
+    <string name="record_date_yesterday">昨天</string>
+    <string name="record_date_before_yesterday">前天</string>
+    <string name="record_date_now">刚刚</string>
+    <string name="record_date_over_2_day">
+        <xliff:g id="record_date_over_2_day">%s</xliff:g>天前
+	</string>
+    <string name="record_date_over_1_hour">
+        <xliff:g id="record_date_over_1_hour">%s</xliff:g>小时前
+	</string>
+    <string name="record_date_over_1_minute">
+        <xliff:g id="record_date_over_1_minute">%s</xliff:g>分钟前
+	</string>
+    <string name="record_date_in_60_second">
+        <xliff:g id="record_date_in_60_second">%s</xliff:g>秒前
+	</string>
+    <string name="collect_album_isEnd">
+        "共"<xliff:g id="collect_album_isEnd">%s</xliff:g>"集"
+	</string>
+    <string name="collect_album_nonEnd">
+        "更新至"<xliff:g id="collect_album_nonEnd">%s</xliff:g>"集"
+	</string>
+	<!-- 下载提示字段 -->
+	<string name="download_local_title">本地视频</string>
+	<string name="download_local_scan_num">
+	    <xliff:g id="download_local_scan_num">%s</xliff:g>"个"
+	</string>
+	<string name="download_local_availabe_capacity">
+	    "空间可用"<xliff:g id="download_local_availabe_capacity">%s</xliff:g>"G"
+	</string>
+	<string name="download_local_total_capacity">
+	    "(共"<xliff:g id="download_local_total_capacity">%s</xliff:g>"G)"
+	</string>
+	<string name="download_wait_subtitle">
+        "共"<xliff:g id="download_wait_subtitle">%s</xliff:g>"集"
+	</string>
+	<string name="download_loading_subtitle">
+        <xliff:g id="finishEpisode">%s</xliff:g>"集/"<xliff:g id="totalEpisode">%s</xliff:g>"集"
+	</string>
+	<string name="toast_local_file_no">本地文件不存在</string>
+	
+    <!-- 频道列表字段说明 -->
+    <string name="channel_list_new">最新</string>
+    <string name="channel_list_hot">最热</string>
+    <string name="channel_list_best">好评</string>
+    <string name="channel_list_currcount">更新至<xliff:g id="channel_list_currcount">%s</xliff:g>集</string>
+    <string name="channel_list_totalcount"><xliff:g id="channel_list_totalcount">%s</xliff:g>集全</string>
+    <string name="channel_list_foot_loading">加载中...</string>
+    <string name="channel_list_foot_refresh">上拉加载</string><!-- 请求失败，请单击页脚刷新 -->
+    <string name="net_no">网络连接失败,请检查您的网络</string>
+    <string name="net_err">请求网络失败，请点击屏幕刷新</string>
+    <string name="channel_list_null">暂无相关数据</string>
+    <string name="vipchannellistactivity_new">最新</string>
+    <string name="vipchannellistactivity_hot">最热</string>
+    
+    <string name="main_header_title_mine">首页</string>
+    <string name="main_header_title_pingdao">频道</string>
+    <string name="main_header_title_zhibo">直播</string>
+    <string name="main_header_title_jingpin">精品推荐</string>
+    
+    <string name="toast_net_error">网络连接失败，请重新下载</string>
+	<string name="dialog_shack_commit_left">去看看 </string>
+    <string name="dialog_shack_commit_right">不理它</string>
+    <string name="update_finish">下载完成</string>
+	<string name="update_finish_install">下载完成，点击安装</string>
+	<string name="update_asynctask_downloading">正在下载</string>
+	<string name="already_updata">已经开始更新，请等待。</string>
+	<string name="updatedownloadasynctask_download" >正在下载：乐视影视  v<xliff:g id="version">%s</xliff:g>）</string>
+    <!-- 二维码 -->
+	<!-- 系统设置 -->
+	<string name="more_login_tv_bottom_title">扫描一下,将在TV上登录</string>
+	<string name="more_personal_info">我的信息</string>
+	<string name="more_setting_center">设置</string>
+	<string name="more_setting_play_download">播放/下载设置</string>
+	<string name="more_setting_priority_play">播放时优先选择</string>
+	<string name="more_setting_priority_download">下载时优先选择</string>
+	<string name="more_setting_play_skip_head_tail">播放时跳过片头片尾</string>
+	<string name="more_setting_play_download_3g_2g">允许2G/3G网络播放/下载</string>
+	<string name="more_setting_download_path">下载保存目录</string>
+	<string name="more_setting_download_path_set">下载路径</string>
+	<string name="more_setting_remind_set">提醒设置</string>
+	<string name="more_setting_receive_push_msg">接收推送消息</string>
+	<string name="more_setting_scan_qr_code">扫描二维码</string>
+	<string name="more_setting_scan_qr_code_bottom">将二维码图案置于取景框内，软件会自动识别</string>
+	<string name="more_setting_scan_login_tv">可以登录乐视TV，也可以将网页上的视频转到手机上继续观看。</string>
+	<string name="more_setting_shake_to_play">摇一摇随意看</string>
+	<string name="more_setting_software_info">软件信息</string>
+	<string name="more_setting_check_new_version">新版本检测</string>
+	<string name="more_setting_feedback">意见反馈</string>
+	<string name="more_setting_feedback_hint">欢迎反馈任何意见和建议，将有助于改进我们的产品！</string>
+	<string name="more_setting_feedback_submit">提交</string>
+	<string name="more_setting_feedback_textnull">您还没有输入内容！</string>
+	<string name="more_setting_feedback_sexnull">您还没有选择性别！</string>
+	<string name="more_setting_feedback_agenull">您还没有选择年龄！</string>
+	<string name="more_feedback_submit_succeed">提交成功！</string>
+	<string name="more_feedback_submit_fail">提交失败！</string>
+	<string name="feedback_sex">性别</string>
+    <string name="feedback_age">年龄</string>
+	<string name="more_setting_about_us">关于我们</string>
+	<string name="more_setting_download_selected_back">返回上一级</string>
+	
+	<string name="more_aboutus_letvandroid">乐视影视Android V5.0</string>
+	<string name="more_aboutus_letvversion">5.0版</string>
+	<string name="more_feedback_qqgrouptag">QQ群：182187389</string>
+	<string name="moreaboutusactivity_webtitle">乐视网</string>
+	
+	<string name="moreaboutusactivity_num">tel:400-6300-104</string>
+	<string name="more_aboutus_visitletv">访问乐视网</string>
+	<string name="more_aboutus_grade">打分支持下</string>
+	<string name="more_aboutus_callletv">拨打客服电话</string>
+	<string name="more_aboutus_companyname">乐视网信息技术（北京）股份有限公司</string>
+	<string name="more_aboutus_copyright">版权所有</string>
+	<string name="more_setting_model_low">流畅模式</string>
+	<string name="more_setting_model_high">高清模式</string>
+	<string name="more_setting_model_super">超清模式</string>
+	<string name="phone_register">手机注册</string>
+	<string name="email_register">邮箱注册</string>
+	<string name="email">邮箱</string>
+	<string name="email_hint_text">请输入邮箱</string>
+	<string name="phone_number">手机号</string>
+	<string name="phone_number_hint_text">请输入手机号</string>
+	<string name="get_veriycode">获取验证码</string>
+	<string name="register_verifycode">验证码</string>
+	<string name="register_verifycode_hint_text">请输入验证码</string>
+	<string name="password">密码</string>
+	<string name="password_hint_text">请输入密码</string>
+	<string name="password_confirm">确认密码</string>
+	<string name="password_confirm_hint_text">请再次输入密码</string>
+	<string name="letv_agree">同意《乐视服务使用协议》</string>
+	<string name="letv_protol_name">乐视服务使用协议</string>
+	<string name="register">注册</string>
+	<string name="letv_account_login">乐视账号登录</string>
+	<string name="letv_account">账号</string>
+	<string name="letv_account_inhit">邮箱/手机号/用户名</string>
+	<string name="forget_pass">忘记密码</string>
+	<string name="login">登录</string>
+	<string name="find_password">找回密码</string>
+	<string name="find_pass_by_msg">发送短信找回</string>
+	<string name="find_pass_by_email">邮箱找回</string>
+	<string name="find_psw_message">发送短信找回密码</string>
+	<string name="send">请发送</string>
+	<string name="send_message">"pw+新密码" 到10690159292121</string>
+	<string name="send_msg_format">密码格式： 6-16位，英文、数字或符号</string>
+	<string name="send_btn">立即发送</string>
+	<string name="registeractivity_send">已经给您发送验证码短信，请查收</string>
+	<string name="registeractivity_second">秒</string>
+	<string name="registeractivity_repasswordnull">确认密码不能为空</string>
+	<string name="registeractivity_repassworderr">确认密码必须为6-16位字母/数字</string>
+	<string name="registeractivity_check">确认密码与密码不一致</string>
+	<string name="login_title">登录</string>
+	
+	<!-- 详情页 -->
+    <string name="detail_episode" >集数：<xliff:g id="now">%s</xliff:g>集/<xliff:g id="all">%s</xliff:g>集</string>
+    <string name="detail_director" >导演：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_starring" >主演：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_years" >年份：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_type" >类型：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_area" >地区：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_synopsis" >剧情简介：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_tag" >标签：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_total" >总期数：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_duration" >时长：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_lecturer" >讲师：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_school" >学校：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_discipline" >学科：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_language" >语言：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_theme" >主题：<xliff:g id="value">%s</xliff:g></string>
+    <string name="detail_hd">高清</string>
+    <string name="detail_smooth">流畅</string>
+    
+	<!-- 个人信息 -->
+    <string name="pim_pay">续费</string>
+    <string name="pim_vip">Vip</string>
+    <string name="pim_vip_desc">vip图标</string>
+    <string name="pim_expire">有效期至：</string>
+    <string name="pim_consume_record">消费记录</string>
+    <string name="pim_recharge_record">充值记录</string>
+    <string name="pim_shareset">分享设置</string>
+    <string name="pim_telephone">绑定手机</string>
+    <string name="pim_email">绑定邮箱</string>
+    <string name="pim_modify_pwd">修改密码</string>
+    <string name="pim_logout">退出登录</string>
+    <string name="pim_be_vip">成为会员</string>
+    <string name="pim_desc_back">返回标识箭头</string>
+    <string name="pim_consume_name">名称：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pim_consume_price">消费：<xliff:g id="value">%s</xliff:g>乐点</string>
+    <string name="pim_consume_expire">有效期：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pim_recharge_ledian">充入乐点数：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pim_recharge_price">金额：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pim_recharge_type">充值方式：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pim_recharge_date">日期：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pim_bound_email_hint">请输入您常用的邮箱</string>
+    <string name="pim_bound_mobile_hint">请输入您常用的手机号</string>
+    <string name="pim_phone_num">手机号码</string>
+    <string name="pim_email_addr">邮箱地址</string>
+    <string name="pim_pwd_old">旧密码</string>
+    <string name="pim_pwd_new">新密码</string>
+    <string name="pim_pwd_confirm">确认密码</string>
+    <string name="pim_pwd_old_hint">请输入您的密码</string>
+    <string name="pim_pwd_new_hint">6-16位数字或字母</string>
+    <string name="pim_pwd_confirm_hint">请确认新密码</string>
+    <string name="pim_no_consume">您还没有消费过</string>
+    <string name="pim_no_recharge">您还没有充值过</string>
+    <string name="pim_no_login">没有登录</string>
+    <string name="agree_letv_protol">请同意乐视服务使用协议</string>
+    <string name="pim_no_data">没有获取到数据</string>
+    <!-- 分享start -->
+	<string name="share_tab_title">分享</string>
+	<string name="share_tab_notrelevance">关联</string>
+	<string name="share_tab_relevance">已关联</string>
+	<string name="share_notattention">关注</string>
+	<string name="share_attention">已关注</string>
+	<string name="share_null">没有了</string>
+	<string name="share_sina_title_s">新浪微博分享</string>
+	<string name="share_qzone_title">QQ空间分享</string>
+	<string name="share_renren_title">人人网分享</string>
+	<string name="share_weixin_title">微信分享</string>
+	<string name="share_lestar_title">大咔分享</string>
+	<string name="share_qq_title">腾讯微博分享</string>
+	<string name="share_sina_binding">绑定新浪微博</string>
+	<string name="share_qzone_binding">绑定QQ空间</string>
+	<string name="share_renren_binding">绑定人人网</string>
+	<string name="share_weixin_binding">绑定微信</string>
+	<string name="share_lestar_binding">绑定大咔</string>
+	<string name="share_qq_binding">绑定腾讯微博</string>
+	<string name="share_binding">绑定</string>
+	<string name="share_remove_binding_dialog">账号，可以快速分享视频到</string>
+	
+
+	
+
+	<string name="share_max_lenght"><xliff:g id="num">%s</xliff:g>/140</string>
+	<string name="share_title_sina">分享到sina微博</string>
+	<string name="share_title_renren">分享到人人网</string>
+	<string name="share_title_weixin">分享到微信</string>
+	<string name="share_title_letvstar">分享到大咔</string>
+	<string name="share_title_tencent">分享到腾讯微博</string>
+	<string name="share_title_qzoom">分享到QQ空间</string>
+	<string name="share_loading">正在分享...</string>
+	<string name="share_fail">分享失败，请重试！</string>
+	<string name="share_success">分享成功</string>
+	<string name="share_hint">我正在使用#乐视影视#观看#<xliff:g id="name">%s</xliff:g>#<xliff:g id="url">%s</xliff:g></string>
+	<string name="share_content"><xliff:g id="user">%s</xliff:g> （下载软件: http://mobile.letv.com/）</string>
+	<string name="share_content_calculate"><xliff:g id="user">%s</xliff:g> （下载软件: http://t.cn/zOruwGj）</string>
+	<string name="share_rtranspond">转发</string>
+	<string name="share_reply">回复</string>
+	<string name="share_release">发布</string>
+	<string name="share_rtranspond_loading">正在转发...</string>
+	<string name="share_reply_loading">正在回复...</string>
+	<string name="share_release_loading">正在发布...</string>
+	<string name="share_rtranspond_success">转发成功！</string>
+	<string name="share_reply_success">回复成功！</string>
+	<string name="share_release_success">发布成功！</string>
+	<string name="share_rtranspond_fail">转发失败！</string>
+	<string name="share_reply_fail">回复失败！</string>
+	<string name="share_release_fail">发布失败！</string>
+	<string name="share_content_null">请输入内容！</string>
+	<string name="share_content_title">分享内容</string>
+	<string name="share_sina_title">sina微博</string>
+	<string name="share_user_address">地址：</string>
+	<string name="share_sina_intro">介绍：</string>
+	<string name="share_sina_focus">关注</string>
+	<string name="share_sina_fans">粉丝</string>
+	<string name="share_sina_weibo">微博</string>
+	<string name="share_sina_trends">话题</string>
+	<string name="letv_family">乐视大家庭</string>
+	<string name="letv_stars">名人堂</string>
+	<string name="weibo_followers">关注人数：<xliff:g id="num">%s</xliff:g></string>
+	<string name="shareactivity_sina_ok">分享成功</string>
+	<string name="shareactivity_sina_fail">分享失败</string>
+	<string name="shareactivity_tencent_fail">分享失败</string>
+	<string name="shareactivity_tencent_ok">分享成功</string>
+	<string name="shareactivity_qzone_ok">分享成功</string>
+	<string name="shareactivity_qzone_fail">分享失败</string>
+	<string name="shareactivity_renren_fail">分享失败</string>
+	<string name="shareactivity_renren_ok">分享成功</string>
+	<string name="shareactivity_lestar_fail">分享失败</string>
+	<string name="shareactivity_lestar_ok">分享成功</string>
+	
+    <string name="bind">绑定</string>
+   	<string name="share_msg_album_playforsina">我正在看#<xliff:g id="title">%s</xliff:g>#<xliff:g id="playurl">%s</xliff:g>，强烈推荐！最全高清影视剧，尽在【乐视影视】5.0全新版本,下载猛戳http://t.cn/ShR0Hy @乐视无线</string>
+   		<string name="share_msg_album_play">我正在看#<xliff:g id="title">%s</xliff:g>#<xliff:g id="playurl">%s</xliff:g>，强烈推荐！最全高清影视剧，尽在【乐视影视】5.0全新版本,下载猛戳http://t.cn/ShR0Hy </string>
+	<string name="share_msg_album_play_order">抢鲜！#<xliff:g id="title">%s</xliff:g>#第<xliff:g id="order">%s</xliff:g>集，还没看？OUT啦！@乐视无线 走一个！</string>
+	<string name="share_album_play"><xliff:g id="id">%s</xliff:g></string>
+	<string name="share_album_play_order"><xliff:g id="id">%s</xliff:g>/<xliff:g id="order">%s</xliff:g></string>
+    <string name="letv_star_share_msg">大咔暂时只能分享电影，电视剧，娱乐的视频</string>
+	<string name="qzone">QQ空间</string>
+	<string name="weixin">微信</string>
+	<string name="renren">人人</string>
+	<string name="letvstar">大咔</string>
+	<string name="bind_no">未绑定</string>
+	<string name="bind_yes">已绑定</string>
+	<string name="bind_pass">已过期</string>
+	<string name="cancel">取消</string>
+	<string name="sina_weibo_unbind">解除新浪微博账号授权后，您将不能再分享作品到新浪微博了</string>
+	<string name="tencent_weibo_unbind">解除腾讯微博账号授权后，您将不能再分享作品到腾讯微博了</string>
+	<string name="qzone_unbind">解除QQ空间账号授权后，您将不能再分享作品到QQ空间了</string>
+	<string name="weixin_unbind">解除微信账号授权后，您将不能再分享作品到微信了</string>
+	<string name="renren_unbind">解除人人网账号授权后，您将不能再分享作品到人人网了</string>
+	<string name="letvstar_unbind">解除大咔账号授权后，您将不能再分享作品到大咔了</string>
+	<string name="share_no_play">没有视频</string>
+	<string name="share_vip_Cantshare">vip不能分享</string>
+	 <!-- 分享end -->
+	<!-- 消费记录 start -->
+	<string name="rechargerecordadapter_sj">手机话费</string>
+	<string name="rechargerecordadapter_wy">网银</string>
+	<string name="rechargerecordadapter_lk">乐卡</string>
+	<string name="rechargerecordadapter_sjczk">手机充值卡</string>
+	<string name="rechargerecordadapter_zfb">支付宝</string>
+	<string name="rechargerecordadapter_syt">手机收银台</string>
+	<string name="rechargerecordadapter_xyk">信用卡</string>
+	<string name="rechargerecordadapter_jjk">借记卡</string>
+	<string name="rechargerecordadapter_hb">红包</string>
+	<string name="rechargerecordadapter_zjcz">直接充值</string>
+	<string name="rechargerecordadapter_czfb">支付宝充值</string>
+	<string name="rechargerecordadapter_wzfb">支付宝充值</string>
+	<!-- 消费记录 end -->
+    <string name="pim_seletc_vip_package">选择会员套餐</string>
+    <string name="pim_seletc_pay_type">选择支付方式</string>
+    <string name="pim_type_ledian">乐点支付</string>
+    <string name="pim_type_zfb">支付宝客户端支付</string>
+    <string name="pim_type_zfbweb">支付宝网页支付</string>
+    <string name="pim_support_bank">(支持银行卡)</string>
+    <string name="pim_balance">(余额：<xliff:g id="value">%s</xliff:g>)</string>
+    <string name="pim_vip_good_title">开通乐视会员</string>
+    <string name="pim_vip_recharge">续费</string>
+    <string name="pim_now_buy">立即购买</string> 
+    <string name="login_weibo">新浪微博登录</string>
+    <string name="login_qq">腾讯QQ登录</string>
+    <string name="login_letv">乐视账号登录</string>
+    <string name="login_main_findpsw_text">没有乐视账号？ 立即注册</string>
+    <string name="toast_login_ok">登录成功</string>
+    <string name="ledianpayactivity_pay_ok">已支付</string>
+    <string name="personal_center_activity_logout">确认注销吗？</string>
+    <string name="alert_invalid_mail">请输入正确的邮箱</string>
+    <string name="alert_bound_mail_succeed">已成功绑定邮箱</string>
+    <string name="alert_invalid_mobile">请输入正确的手机号</string>
+    <string name="alert_null_mail">输入不能为空</string>
+    <string name="save">保存</string>   
+    <string name="setting_share_bound">已绑定</string>
+    <string name="setting_share_unbound">未绑定</string>
+    <string name="setting_bind_pass">已过期</string>
+    <string name="unbind">解除绑定</string>
+    <string name="share_sina_count">新浪微博</string>
+	<string name="share_tencent_count">腾讯微博</string>
+	<string name="share_qzone_count">QQ空间</string>
+	<string name="share_renren_count">人人网</string>
+	<string name="share_lestar_count">大咔</string>
+	<string name="toast_net_null">没有网络</string>
+    <string name="ledian_insufficient">您的余额不足，请到letv.com充值</string>
+    <string name="pay_success">恭喜，支付成功！</string>
+    <string name="pay_result_alert">刚开通的会员服务可能存在短暂的延时，请稍候再试</string>
+    <string name="look_consume">查看消费记录</string>
+    <string name="async_dialog_title">提示</string>
+    <string name="vip_introduction">会员可以免费观看和下载会员频道的全部内容，会员频道的全部内容是当前热播的最新电影和电视剧。</string>
+    <string name="pay_result_pname">商品名称：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pay_result_expire">有效期：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pay_result_price">商品价格：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pay_result_paytype">支付方式：<xliff:g id="value">%s</xliff:g></string>
+    <string name="pay_failed">抱歉，支付失败</string>
+    <string name="pay_failed_alert">请稍后查看消费记录，或拨打客服电话咨询</string>
+    <string name="service_phone">客服电话：4006-300-104</string>
+    <string name="service_phone_num">4006300104</string>
+    <string name="pay_exception">抱歉，支付异常</string>
+    <string name="pay_success_title">支付完成</string>
+    <string name="pay_failed_title">支付失败</string>
+    <string name="pay_exception_title">支付异常</string>
+    
+    <!-- 修改密码 -->
+    <string name="modifypasswordactivity_oldpassword_null">旧密码不能为空</string>
+    <string name="modifypasswordactivity_oldpassword_err">旧密码必须为6-16位数字/字母</string>
+    <string name="modifypasswordactivity_newpassword_null">新密码不能为空</string>
+    <string name="modifypasswordactivity_newpassword_err">新密码必须为6-16位数字/字母</string>
+    <string name="modifypasswordactivity_repassword_null">确认密码不能为空</string>
+    <string name="modifypasswordactivity_repassword_err">确认密码必须为6-16位数字/字母</string>
+    <string name="modifypasswordactivity_checkpassword_err">确认密码与密码不一致</string>
+    <string name="toast_modification_ok">修改成功</string>
+	<string name="tip_pwd_request_outtime">密码修改超时，请重试</string>
+	<!-- 下载提示 -->
+	<string name="goon">继续</string>
+    <string name="giveup">放弃</string>
+	<string name="download_no_tip">在详情页或播放页点击下载至本地观看</string>
+ 	<string name="download_no_net">网络连接失败,请检查您的网络</string>
+ 	<string name="download_no_wifi">非wifi网络，不能进行视频下载</string>
+ 	<string name="dialog_message_download_mobilenet">您使用2G/3G网络下载，会消耗流量</string>
+ 	<string name="toast_add_download_info_error">下载信息错误！</string>
+ 	<string name="toast_add_download_ok">已加入我的下载</string>
+ 	<string name="toast_net_not_wifi" >当前网络不是wifi环境，可能会消耗较大的流量</string>
+    <string name="toast_sdcard_no">Sdcard不可用</string>
+    <string name="toast_sdcard_low">请释放一些Sdcard空间后继续下载</string>
+    <string name="never_remind">下次不再提醒</string>
+    
+    <string name="liveepgprogramadapter_add">+预定</string>
+    <string name="liveepgprogramadapter_added">已预约</string>
+	<string name="liveepgprogramadapter_playing">正在播放:</string>
+	<string name="liveepgprogramadapter_goplay">去观看</string>
+	<string name="liveepgprogramadapter_del">x取消</string>
+	
+	<!-- 预约管理 -->
+	<string name="live_mybook_remind">预约提醒</string>
+	<string name="livemybook_empty">您还没有预约记录哦，\n快去预约吧~</string>
+	<string name="livemybook_ok">确定</string>
+	<!-- toast 网络异常提示 -->
+	<string name="try_agin">刷新重试</string>
+	<string name="go_download">离线观看</string>
+	<string name="net_error">网络异常，请检查设置</string>
+	<string name="get_data_error">数据加载失败</string>
+	
+    <!-- 三屏互动，1080P TV端  超级电视 -->
+    <string name="dialog_ts_login">推送到TV端，请先登录！</string>
+    <string name="three_screen_video_push">视频推送</string>
+    <string name="three_screen_pushvideo_toplay">是否要将<xliff:g id="title">%s</xliff:g>推送至<xliff:g id="divece">%s</xliff:g>上播放？</string>
+    <string name="three_screen_currvideo_unsupport_push">当前视频不支持三屏推送！</string>
+    <string name="three_screen_currvideo_unsupport_down">当前视频不支持高清速递！</string>
+    <string name="three_screen_select_downcontent">选择速递内容</string>
+    <string name="three_screen_currvideo_nosource">本视频暂时没有推送资源。</string>
+    <string name="three_screen_loading">正在连接服务器请稍等...</string>
+    <string name="three_screen_loading_succeed">服务器连接成功！</string>
+    <!-- <string name="three_screen_init_succeed">初始化成功！</string> -->
+    <string name="three_screen_cannot_find_target">在您的账号下，没有找到可用的设备</string>
+    <!-- <string name="three_screen_cannot_find_target">未找到在线超级电视！</string> -->
+    <string name="three_screen_pushvideo_play_succeed">推送成功！</string>
+    <string name="three_screen_pushvideo_down_succeed">推送成功！</string>
+    <string name="three_screen_pushvideo_down_failed">推送失败！</string>
+    <string name="three_screen_comments_tag">木有更多啦~</string>
+    <string name="three_screen_1080p">1080p</string>
+    <string name="three_screen_SD">超清</string>
+    <string name="three_screen_ok">确定</string>
+    <string name="three_screen_cancel">取消</string>
+    <string name="three_screen_no_net">没有网络！</string>
+    <string name="three_screen_netconnect_failed">网络连接失败。</string>
+    <string name="device_list_loading">正在检索输出设备...</string>
+     <string name="dialog_sure">确认</string>
+    <string name="dialog_cancel">取消</string>
+        <string name="play_ad_second">广告剩余%d秒</string>
+</resources>
