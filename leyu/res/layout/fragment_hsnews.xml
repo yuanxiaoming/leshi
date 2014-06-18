@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/fragment_hsnews_include"
@@ -9,23 +10,38 @@
         android:layout_height="wrap_content"
         layout="@layout/all_fragment_head" />
 
-    <TextView
-        android:id="@+id/fragment_hsnews_tv_ngc"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/fragment_hsnews_include"
-        android:layout_marginTop="16dp"
-        android:text="@string/hsnews_ngc" />
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/fragment_hsnews_tv_ngc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hsnews_ngc"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp"
+            android:src="@drawable/legames_serch_bag" />
+    </LinearLayout>
 
     <GridView
         android:id="@+id/fragment_hsnews_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/fragment_hsnews_tv_ngc"
         android:numColumns="3"
+        android:paddingLeft="5dp"
         android:stretchMode="columnWidth" />
 
-</RelativeLayout>
+</LinearLayout>

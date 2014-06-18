@@ -69,8 +69,7 @@ public class HSNewsDetailListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_allnew_item,
-                    parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_allnew_item,parent, false);
             holder = new ViewHolder();
             holder.img = (ImageView) convertView.findViewById(R.id.allnews_item_img);
             holder.title = (TextView) convertView.findViewById(R.id.allnews_item_title);

@@ -62,8 +62,7 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext)
-                    .inflate(R.layout.hsnews_gridview_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.hsnews_gridview_item, null);
             holder.imageView = (ImageView) convertView.findViewById(R.id.hsnews_gd_img1);
             holder.textView = (TextView) convertView.findViewById(R.id.hsnews_gd_tv1);
             convertView.setTag(holder);

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <com.ch.leyu.widget.view.ClearEditText
+        android:id="@+id/search_head_et_detail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_toLeftOf="@+id/search_head_bt_commit"
+        android:background="@drawable/search_edittext_bg"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/search_head_bt_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/search_head_et_detail"
+        android:layout_alignBottom="@+id/search_head_et_detail"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/search_bt_head_selector" />
+
+</RelativeLayout>

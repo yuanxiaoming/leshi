@@ -16,26 +16,44 @@ import java.util.ArrayList;
 public class SearchAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<Property> mlist;
+    private ArrayList<Property> mArrayList;
 
-    public SearchAdapter(Context mContext, ArrayList<Property> mlist) {
-        this.mContext = mContext;
-        this.mlist = mlist;
+    public SearchAdapter(Context context, ArrayList<Property> arrayList) {
+        this.mContext = context;
+        this.mArrayList = arrayList;
+    }
+
+    public void chargeArrayList(ArrayList<Property> arrayList) {
+        this.mArrayList = arrayList;
+        notifyDataSetChanged();
+    }
+
+    public void addArrayList(ArrayList<Property> arrayList) {
+        if (mArrayList != null) {
+            this.mArrayList.addAll(arrayList);
+            notifyDataSetChanged();
+        } else {
+            chargeArrayList(arrayList);
+        }
+    }
+
+
+    public ArrayList<Property> getArrayList( ) {
+        return mArrayList;
     }
 
     @Override
     public int getCount() {
-        if (mlist != null) {
-            return mlist.size();
+        if (mArrayList != null) {
+            return mArrayList.size();
         }
-
         return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        if (mlist != null) {
-            return mlist.get(position);
+        if (mArrayList != null) {
+            return mArrayList.get(position);
         }
         return null;
     }
@@ -44,6 +62,7 @@ public class SearchAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -56,7 +75,7 @@ public class SearchAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.textView.setText(mlist.get(position).getTitle());
+        holder.textView.setText(mArrayList.get(position).getTitle());
 
         return convertView;
     }
@@ -64,5 +83,7 @@ public class SearchAdapter extends BaseAdapter {
     class ViewHolder {
         TextView textView;
     }
+
+
 
 }
