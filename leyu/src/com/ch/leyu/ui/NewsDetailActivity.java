@@ -70,7 +70,7 @@ public class NewsDetailActivity extends BaseActivity {
     @Override
     protected void processLogic() {
         RequestParams params = new RequestParams();
-        params.put("id", 925);
+        params.put("id", mCid);
         JHttpClient.get(this, Constant.URL+Constant.ALL_NEWS+Constant.VIDEO_DETAIL, params , NewDetailResponse.class, new DataCallback<NewDetailResponse>() {
 
             @Override

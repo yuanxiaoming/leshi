@@ -140,7 +140,6 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-
                     }
 
                 });

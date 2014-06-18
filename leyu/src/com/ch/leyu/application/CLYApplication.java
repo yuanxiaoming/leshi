@@ -3,6 +3,7 @@ package com.ch.leyu.application;
 
 import static com.ch.leyu.http.cacheservice.CacheDatabaseHelper.DB_NAME;
 
+import com.baidu.frontia.FrontiaApplication;
 import com.ch.leyu.ui.AppContext;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
@@ -10,7 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CLYApplication extends Application {
+public class CLYApplication extends FrontiaApplication {
     public SparseArray<Fragment> mCurrent_fragment_array;
 
     private boolean mFlag;
@@ -34,7 +34,7 @@ public class CLYApplication extends Application {
         this.mFlag = mFlag;
     }
 
-	@Override
+    @Override
     public void onCreate() {
         super.onCreate();
         CustomCrashHandler.getInstance().init(getApplicationContext());

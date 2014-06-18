@@ -69,11 +69,10 @@ public class HSNewsDetailListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_allnew_item,parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_hsnews_detail_item,parent, false);
             holder = new ViewHolder();
-            holder.img = (ImageView) convertView.findViewById(R.id.allnews_item_img);
-            holder.title = (TextView) convertView.findViewById(R.id.allnews_item_title);
-            holder.time = (TextView) convertView.findViewById(R.id.allnews_item_time);
+            holder.title = (TextView) convertView.findViewById(R.id.hsnews_detail_item_title);
+            holder.time = (TextView) convertView.findViewById(R.id.hsnews_detail_item_time);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -83,21 +82,12 @@ public class HSNewsDetailListAdapter extends BaseAdapter {
         if (item != null) {
             holder.title.setText(item.getTitle());
             holder.time.setText(item.getCreateTime());
-            holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 4, CommonUtil.getWidthMetrics(mContext) / 5));
-            holder.img.setScaleType(ScaleType.FIT_XY) ;
-            if (item.getImageSrc() == null || item.getImageSrc().equals("")) {
-                holder.img.setVisibility(View.GONE);
-
-            }else {
-                ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img , ImageLoaderUtil.getImageLoaderOptions());
-            }
 
         }
         return convertView;
     }
 
     private final class ViewHolder {
-        public ImageView img;
 
         public TextView title, time;
     }

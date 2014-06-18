@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -91,7 +92,7 @@ public class CommentFragment extends BaseFragment {
     private boolean mFlag = false;
 
     private  ArrayList<CommentDetail> mDetailsList ;
-
+    
 
     @Override
     protected void getExtraParams() {
@@ -178,6 +179,7 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onReplyClick(View v, String uName) {
+                mListView.setSelection(0);
                 mDetail.setText("");
                 mDetail.setFocusable(true);
                 mDetail.setFocusableInTouchMode(true);
@@ -215,10 +217,9 @@ public class CommentFragment extends BaseFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, CommentResponse data) {
                 if (data != null) {
-                    mDetailsList = data.getComment();
+//                    mDetailsList = data.getComment();
                     mTotalPage = data.getTotalPage();
 
-                    Log.d("tag", data.getTotalPage()+"----data.getTotalPage()");
                     if(mPage==1){
                         mAdapter.chargeArrayList(data.getComment());
                     }else{
@@ -252,7 +253,6 @@ public class CommentFragment extends BaseFragment {
     * @param nickname 视频名字
     * @param cid 视频id
     * @param comment 评论内容
-    * @param index 1代表无评论时，2代表有评论时
     */
     private void publishComment(int uid, final CommentDetail commentDetail) {
         RequestParams params = new RequestParams();

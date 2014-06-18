@@ -73,4 +73,6 @@ public interface Constant {
     /** 发表评论接口 */
     public static final String COMMENT_PUBLISH = "http://www.legames.cn/apps/comment.php";
 
+    /** 反馈接口 */
+    public static final String FEED_BACK = "http://www.legames.cn/app/api/feedback.php";
 }

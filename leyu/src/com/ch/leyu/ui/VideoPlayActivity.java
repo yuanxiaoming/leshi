@@ -1,8 +1,13 @@
 
 package com.ch.leyu.ui;
 
+import com.baidu.frontia.Frontia;
+import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
+import com.baidu.frontia.api.FrontiaSocialShare;
+import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
+import com.baidu.frontia.api.FrontiaSocialShareContent;
+import com.baidu.frontia.api.FrontiaSocialShareListener;
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.ShareGridViewAdapter;
 import com.ch.leyu.adapter.VideoDetailPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
@@ -11,7 +16,6 @@ import com.ch.leyu.responseparse.VideoPlayResponse;
 import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
-import com.ch.leyu.view.SharePopupWindow;
 import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,18 +23,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.apache.http.Header;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.net.Uri;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 /***
  * 视频播放
@@ -48,6 +48,12 @@ public class VideoPlayActivity extends BaseActivity {
     private String mId;
 
     private VideoDetailPagerAdapter mAdapter;
+    
+  //百度分享
+    private FrontiaSocialShare mSocialShare;
+    
+    private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
+
 
     @Override
     protected void getExtraParams() {
@@ -72,7 +78,7 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
-
+       
     }
 
     @Override
@@ -80,7 +86,7 @@ public class VideoPlayActivity extends BaseActivity {
         mImg.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
         mImg.setScaleType(ScaleType.FIT_XY);
         requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
-        
+        baiduShareConfig();
     }
 
     private void requestData(String mid, String url) {
@@ -129,6 +135,7 @@ public class VideoPlayActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
+                baiduShare();
                 break;
 
             default:
@@ -138,23 +145,42 @@ public class VideoPlayActivity extends BaseActivity {
         return true;
     }
     
+    private void baiduShare() {
+        mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
+    }
     
-    public void showPopup() {
-//        View popView = LayoutInflater.from(this).inflate(R.layout.play_popopwindow, null);
-//        GridView gridView = (GridView) popView.findViewById(R.id.menu_pop_gridview);
-//        ShareGridViewAdapter shareGridViewAdapter = new ShareGridViewAdapter();
-//        gridView.setAdapter(shareGridViewAdapter);
-//
-//        PopupWindow popWindow = new PopupWindow(popView);
-//        popWindow.setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        popWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        popWindow.setBackgroundDrawable(new BitmapDrawable());
-//        popWindow.setFocusable(true);
-//        popWindow.setTouchable(true);
-//        popWindow.setOutsideTouchable(true);
-//        popWindow.setAnimationStyle(R.style.popwindow_anim_style);
-    	SharePopupWindow popupWindow = new SharePopupWindow(mContext, CommonUtil.getWidthMetrics(mContext));
-    	popupWindow.showAtLocation(mViewPager, Gravity.BOTTOM|Gravity.CENTER, 0, 0);
+    private void baiduShareConfig() {
+        Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
+        mSocialShare = Frontia.getSocialShare();
+        mSocialShare.setContext(this);
+        mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
+        mSocialShare.setClientId(MediaType.QZONE.toString(), "100358052");
+        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "100358052");
+        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "9377");
+        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxd9a39c7122aa6516");
+        mImageContent.setTitle("9377安全中心");
+        mImageContent.setContent("欢迎使用9377安全中心");
+        mImageContent.setLinkUrl("http://www.9377.com");
+        mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
+    }
+    
+    private class ShareListener implements FrontiaSocialShareListener {
+
+        @Override
+        public void onSuccess() {
+            Log.d("Test","share success");
+        }
+
+        @Override
+        public void onFailure(int errCode, String errMsg) {
+            Log.d("Test","share errCode "+errCode);
+        }
+
+        @Override
+        public void onCancel() {
+            Log.d("Test","cancel ");
+        }
+        
     }
     
 }

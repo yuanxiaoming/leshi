@@ -16,6 +16,7 @@ import org.apache.http.Header;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -43,7 +44,10 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 
     @Override
     protected void getExtraParams() {
-
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            mCid = bundle.getString(Constant.CID);
+        }
     }
 
     @Override

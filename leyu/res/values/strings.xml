@@ -35,20 +35,25 @@
 
     <!-- popupwindow -->
     <string name="pop_title">炉石传说视频分类</string>
-    
+
     <!-- 评论 -->
     <string name="comment_publish">发表</string>
     <string name="comment_tips">还没人评论，赶紧评论吧！</string>
     <string name="comment_toast_tips">请输入评论内容</string>
     <string name="comment_win">评论成功</string>
-     <string name="comment_lose">评论失败</string>
-    
+    <string name="comment_lose">评论失败</string>
 
     <!-- 炉石传说首页 -->
     <string name="hs_tips_recommed">小编推荐</string>
     <string name="hs_hot_play">今日热播</string>
-    
+
     <!-- 分享 -->
     <string name="menu_share">分享到：</string>
+
+    <!-- 反馈 -->
+    <string name="feedback_detail_tips">问题描述不能为空</string>
+    <string name="feedback_model_tips">手机型号不能为空</string>
+    <string name="feedback_phone_tips">联系方式不能为空</string>
+    <string name="feedback_commit_tips">提交成功</string>
 
 </resources>
