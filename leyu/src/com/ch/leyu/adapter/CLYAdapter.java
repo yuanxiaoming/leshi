@@ -74,7 +74,7 @@ public class CLYAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.img = (ImageView) convertView.findViewById(R.id.allnews_item_img);
             holder.title = (TextView) convertView.findViewById(R.id.allnews_item_title);
-            holder.time = (TextView) convertView.findViewById(R.id.allnews_item_time);
+            holder.time = (TextView) convertView.findViewById(R.id.allnews_item_time); 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

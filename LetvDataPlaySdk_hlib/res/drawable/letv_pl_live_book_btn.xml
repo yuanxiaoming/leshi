@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">     
+   <item android:state_pressed="true"  android:drawable="@drawable/letv_pl_live_book_btn_sel" />     
+   <item android:state_focused="true"  android:drawable="@drawable/letv_pl_live_book_btn_sel" />  
+   <item android:drawable="@drawable/letv_pl_live_book_btn_nor" />     
+</selector>   

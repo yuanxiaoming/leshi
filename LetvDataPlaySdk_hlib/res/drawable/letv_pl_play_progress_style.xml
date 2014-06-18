@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@android:id/background">
+        <shape>
+            <gradient
+                android:centerColor="@color/letv_color_ff000000"
+                android:endColor="@color/letv_color_ff000000"
+                android:startColor="@color/letv_color_ff000000" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip android:gravity="left" >
+            <shape>
+                <gradient
+                    android:centerColor="@color/letv_color_ff00a0e9"
+                    android:endColor="@color/letv_color_ff00a0e9"
+                    android:startColor="@color/letv_color_ff00a0e9" />
+            </shape>
+        </clip>
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip android:gravity="left" >
+            <shape>
+                <gradient
+                    android:centerColor="@color/letv_color_ff5c5c5c"
+                    android:endColor="@color/letv_color_ff5c5c5c"
+                    android:startColor="@color/letv_color_ff5c5c5c" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

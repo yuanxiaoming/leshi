@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="146dip"
+    android:layout_height="116dip"
+    android:orientation="vertical" 
+    android:background="@drawable/letv_pl_loading_dialog_bg"
+    android:gravity="center">
+    <ImageView 
+        android:id="@+id/tosat_icon"
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"
+        android:src="@drawable/letv_pl_tosat_icon"/>
+    <TextView 
+        android:id="@+id/tosat_msg"
+        android:layout_width="146dip"
+        android:layout_height="wrap_content"
+        style="@style/letv_text_14_ffffffff"
+        android:gravity="center"/>
+</LinearLayout>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="detailplay_half_tabs">
+        <item>简介</item>
+        <item>选集</item>
+        <item>相关</item>
+        <item>分享</item>
+    </string-array>
+    <string-array name="email_suffix">
+        <item>163.com</item>
+        <item>sina.com</item>
+        <item>qq.com</item>
+        <item>sohu.com</item>
+        <item>126.com</item>
+        <item>gmail.com</item>
+        <item>hotmail.com</item>
+        <item>yahoo.com</item>
+    </string-array>
+    <string-array name="feedback_sex">
+        <item>不限</item>
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string-array name="feedback_age">
+        <!-- 
+        <item>18岁以下</item>
+        <item>18-24岁</item>
+        <item>25-30岁</item>
+        <item>31-35岁</item>
+        <item>36-40岁</item>
+        <item>41-50岁</item>
+        <item>51-59岁</item>
+        <item>60岁以上</item>
+         -->
+        <item>不限</item>
+        <item>未成年</item>
+        <item>90后</item>
+        <item>80后</item>
+        <item>70后</item>
+        <item>60后</item>
+    </string-array>
+    <string-array name="liveplay_half_tabs">
+        <item>今天</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+	<string-array name="dialog_msg_arrays">
+	    <item>201</item>
+	    <item>提示</item>
+	    <item>是否确认清空搜索记录？</item>
+	    <item>202</item>
+	    <item>提示</item>
+	    <item>您确定要清空收藏夹吗？</item>
+	    <item>203</item>
+	    <item>提示</item>
+	    <item>此操作将删除所有预定，是否要继续？</item>
+	    <item>205</item>
+	    <item>提示</item>
+	    <item>确认清空播放记录内容？</item>
+	    <item>206</item>
+	    <item>提示</item>
+	    <item>确认要删除所有视频吗？</item>
+	    <item>207</item>
+	    <item>提示</item>
+	    <item>确定要删除本地所有视频？</item>
+	    
+	    <!-- 4-6x -->
+	    
+	    <item>401</item>
+	    <item>  </item>
+	    <item>播放加载失败,请重试</item>
+	    <item>501</item>
+	    <item>  </item>
+	    <item>视频播放出现异常！</item>
+	    <item>602</item>
+	    <item>提示</item>
+	    <item>本视频为VIP内容，需要登录并成为VIP会员才可以观看。</item>
+	    
+	    <!-- 70x -->
+	    
+	    <item>702</item>
+	    <item>  </item>
+	    <item>分享内容不能超过140个字</item>
+	    <item>704</item>
+	    <item>  </item>
+	    <item>您还没有绑定%1$s账号，是否立即去绑定？</item>
+	    <item>705</item>
+	    <item>  </item>
+	    <item>解除%1$s账号授权后，您将不能再分享内容到%2$s了</item>
+	    <item>707</item>
+	    <item>安装提示</item>
+	    <item>您还没有安装微信客户端</item>
+	    
+	    <!-- 90x -->
+	    <item>902</item>
+	    <item>  </item>
+	    <item>发现新版本（%1$s），快来升级体验吧</item>
+	    
+	    <item>1001</item>
+	    <item>  </item>
+	    <item>当前网络不是wifi环境，可能会消耗较大的流量</item>
+	    <item>1002</item>
+	    <item>  </item>
+	    <item>网络异常，下载任务停止</item>
+	    
+	    <!-- 1x0x -->
+	    <item>1101</item>
+	    <item>  </item>
+	    <item>您正在使用2G/3G网络，继续使用会产生大量流量费，是否继续？</item>
+	    <item>1201</item>
+	    <item>  </item>
+	    <item>网络连接失败,请检查您的网络</item>
+	    <item>1301</item>
+	    <item>  </item>
+	    <item>网络连接异常 </item>
+	    <item>1401</item>
+	    <item>  </item>
+	    <item>输入不能为空</item>
+	    <item>1403</item>
+	    <item>  </item>
+	    <item>请输入正确的手机号码</item>
+	    <item>1404</item>
+	    <item>  </item>
+	    <item>验证码不正确</item>
+	    <item>1405</item>
+	    <item>  </item>
+	    <item>获取验证码失败</item>
+	    <item>1406</item>
+	    <item>  </item>
+	    <item>请同意《乐视服务使用协议》</item>
+	    <item>1407</item>
+	    <item>  </item>
+	    <item>密码必须为6-16位数字/字母</item>
+	    <item>1408</item>
+	    <item>  </item>
+	    <item>确认密码与密码不一致</item>
+	    <item>1409</item>
+	    <item>  </item>
+	    <item>请输入正确的邮箱/手机号码</item>
+	    <item>1410</item>
+	    <item>  </item>
+	    <item>邮箱已存在请更换邮箱</item>
+	    
+	    <!-- 15xxx -->
+	    
+	    <item>1501</item>
+	    <item>  </item>
+	    <item>用户名不能为空</item>
+	    <item>1511</item>
+	    <item>  </item>
+	    <item>密码不能为空</item>
+	    <item>1502</item>
+	    <item>  </item>
+	    <item>登录名或者密码不正确</item>
+	    <item>1505</item>
+	    <item>  </item>
+	    <item>用户已被管理员屏蔽了</item>
+	    <item>1506</item>
+	    <item>  </item>
+	    <item>用户邮箱未激活</item>
+	    <!-- 16xx__25xx -->
+	    <item>1601</item>
+	    <item>  </item>
+	    <item>输入不能为空</item>
+	    <item>1602</item>
+	    <item>  </item>
+	    <item>请输入正确的邮箱</item>
+	    <item>2101</item>
+	    <item>  </item>
+	    <item>将前往浏览器查看</item>
+	    <item>2102</item>
+	    <item>  </item>
+	    <item>非常抱歉，当前视频没有海外播放版权</item>
+	    <item>2201</item>
+	    <item>提示</item>
+	    <item>已经是最新版本了</item>
+	    <item>2303</item>
+	    <item>  </item>
+	    <item>该内容暂时调整下线，会尽快恢复，敬请谅解</item>
+	    <item>2401</item>
+	    <item>  </item>
+	    <item>恭喜，本片成功摇给神秘乐视用户</item>
+	    <item>2402</item>	
+	    <item>  </item>
+	    <item>遗憾，本片未能成功摇给神秘乐视用户</item>
+	    <item>2405</item>
+	    <item>提示</item>
+	    <item>收到神秘乐视用户摇来的大片</item>
+	    <item>2501</item>
+	    <item>安装提示</item>
+	    <item>为保证您的交易安全，需要您安装支付宝安全支付服务，才能进行付款。点击确定，立即安装。</item>
+	    
+	    <item>2601</item>
+	    <item>提示</item>
+	    <item>在您的账号下，没有找到可用的设备</item>
+	    <item>2701</item>
+	    <item>提示</item>
+	    <item>在您的账号下，没有找到可用的设备</item>
+	    <item>2702</item>
+	    <item>提示</item>
+	    <item>电视无有效套餐，请购买套餐后再试</item>
+	    <item>2703</item>
+	    <item>提示</item>
+	    <item>因版权限制，此视频无法在TV上观看</item>
+	    <item>2704</item>
+	    <item>速递成功</item>
+	    <item>已添加到下载列表，下载立即开始 </item>
+	    <item>2705</item>
+	    <item>速递失败</item>
+	    <item>添加下载失败，请重试</item>
+	    <item>50102</item>
+	    <item>提示</item>
+	    <item>剩余空间不足，建议您删除观看过的视频，避免下载的所有视频被系统清空</item>
+	    <item>50208</item>
+	    <item>提示</item>
+	    <item>共有%1$s集，确定要全部删除？</item>
+	    <item>50301</item>
+	    <item>提示</item>
+	    <item>抱歉，当前设备无法流畅播放该视频文件</item>
+	    <item>50601</item>
+	    <item>提示</item>
+	    <item>同步登录失败，是否重试？</item>
+	    <item>50602</item>
+	    <item>提示</item>
+	    <item>您需要登录乐视影视才能完成此操作</item>
+	    <item>50902</item>
+	    <item>提示</item>
+	    <item>发现新版本（%1$s），建议立即升级</item>
+	</string-array>
+</resources>
