@@ -18,6 +18,7 @@ import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
+import com.letv.playutils.PlayUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
@@ -28,6 +29,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -53,6 +55,10 @@ public class VideoPlayActivity extends BaseActivity {
     private FrontiaSocialShare mSocialShare;
     
     private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
+    
+    private String vu ;
+    
+    private String title;
 
 
     @Override
@@ -78,6 +84,23 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
+        mImg.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                /**
+                 * @param context
+                 * @param userKey 用户私钥
+                 * @param userUnique 用户ID
+                 * @param videoUnique 视频ID
+                 * @param videoName 视频名称
+                 */
+                Log.d("tag", "vu:"+vu);
+                Log.d("tag", "title:"+title);
+                PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
+                
+            }
+        });
        
     }
 
@@ -102,6 +125,8 @@ public class VideoPlayActivity extends BaseActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, VideoPlayResponse data) {
                         if (data != null) {
+                            vu = data.getVideoInfo().getVu();
+                            title = data.getVideoInfo().getTitle();
                             mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
