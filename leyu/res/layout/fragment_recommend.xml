@@ -7,7 +7,8 @@
     <com.ch.leyu.widget.xlistview.XListView
         android:id="@+id/fragment_recommend_xistview"
         android:layout_width="fill_parent"
-        android:footerDividersEnabled="false"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:divider="#FFCC00"
+        android:footerDividersEnabled="false" />
 
 </LinearLayout>
