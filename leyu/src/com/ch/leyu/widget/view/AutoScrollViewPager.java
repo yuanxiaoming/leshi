@@ -370,5 +370,5 @@ public class AutoScrollViewPager extends ViewPager {
     public boolean isFocused() {
         return true;
     }
-
+    
 }

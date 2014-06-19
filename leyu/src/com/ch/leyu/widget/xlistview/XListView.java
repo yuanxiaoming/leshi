@@ -10,7 +10,10 @@
 package com.ch.leyu.widget.xlistview;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.eventbus.XListViewTouchEventBus;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
+
+import de.greenrobot.event.EventBus;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -301,6 +304,8 @@ public class XListView extends ListView implements OnScrollListener {
                 break;
             case MotionEvent.ACTION_MOVE:
                 final float deltaY = ev.getRawY() - mLastY;
+                
+                EventBus.getDefault().post(new XListViewTouchEventBus(deltaY,this));
                 mLastY = ev.getRawY();
                 if (getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
                     // the first item is showing, header has shown or pull down.
