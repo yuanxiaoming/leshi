@@ -60,6 +60,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:listSelector="@drawable/list_item_selector"
             android:numColumns="3"
             android:visibility="visible" />
 
@@ -108,6 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="10dp"
+        android:listSelector="@drawable/list_item_selector"
         android:numColumns="3" >
     </GridView>
 

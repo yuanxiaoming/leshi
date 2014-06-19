@@ -42,6 +42,7 @@
         android:layout_height="match_parent"
         android:numColumns="3"
         android:paddingLeft="5dp"
+        android:listSelector="@drawable/list_item_selector"
         android:stretchMode="columnWidth" />
 
 </LinearLayout>

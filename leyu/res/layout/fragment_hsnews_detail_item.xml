@@ -2,18 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/list_item_selector"
     android:padding="5dp" >
 
     <TextView
         android:id="@+id/hsnews_detail_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:text="Medium Text"
         android:drawableLeft="@drawable/legames_pr"
         android:drawablePadding="5dp"
-        android:textColor="#424242"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:maxLines="1"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#424242" />
 
     <TextView
         android:id="@+id/hsnews_detail_item_time"
