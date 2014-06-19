@@ -43,6 +43,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/commit_selector"
+        android:textColor="#FFFFFF"
         android:text="@string/feedback_commit" />
 
     <com.ch.leyu.widget.view.ClearEditText

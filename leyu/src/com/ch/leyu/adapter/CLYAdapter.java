@@ -79,7 +79,7 @@ public class CLYAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        
         Property item = (Property) getItem(position);
         if (item != null) {
             holder.title.setText(item.getTitle());
@@ -90,10 +90,14 @@ public class CLYAdapter extends BaseAdapter {
                 holder.img.setVisibility(View.GONE);
 
             }else {
-                ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img , ImageLoaderUtil.getImageLoaderOptions());
+            ImageLoader.getInstance().displayImage(item.getImageSrc(), holder.img , ImageLoaderUtil.getImageLoaderOptions());
+                
+               
             }
 
         }
+        
+      
         return convertView;
     }
 

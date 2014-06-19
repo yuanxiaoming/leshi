@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:paddingLeft="20dp">
+    android:orientation="vertical"
+    android:paddingLeft="20dp" >
 
     <TextView
         android:id="@+id/fragment_detail_title"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Large Text"
         android:textColor="@color/text_title_color"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -30,8 +30,8 @@
             android:id="@+id/fragment_detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:text="刘X" />
+            android:text="刘X"
+            android:textColor="@color/text_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,8 +51,8 @@
             android:id="@+id/fragment_detail_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:text="2300" />
+            android:text="2300"
+            android:textColor="@color/text_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,8 +72,8 @@
             android:id="@+id/fragment_detail_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:text="LOL" />
+            android:text="LOL"
+            android:textColor="@color/text_color" />
     </LinearLayout>
 
     <TextView
@@ -86,7 +86,7 @@
         android:id="@+id/fragment_detail_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:text="你为何这么屌" />
+        android:text="你为何这么屌"
+        android:textColor="@color/text_color" />
 
 </LinearLayout>
