@@ -29,9 +29,9 @@
         android:layout_marginTop="16dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
+        android:listSelector="@drawable/search_grid_item_selector"
         android:paddingTop="10dp"
-        android:verticalSpacing="10dp" >
-    </GridView>
+        android:verticalSpacing="10dp" />
 
     <RadioGroup
         android:id="@+id/search_radiogroup"

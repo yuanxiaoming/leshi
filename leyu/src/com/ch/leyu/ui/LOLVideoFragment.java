@@ -85,7 +85,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         mAdapter = new ListChangeGridAdapter(null, getActivity());
         mAdapter.setNumColumns(2);
         mXListView.setPullLoadEnable(true);
-        mXListView.setPullRefreshEnable(true);
+        mXListView.setPullRefreshEnable(false);
         mXListView.setAdapter(mAdapter);
 
         // 全部视频
