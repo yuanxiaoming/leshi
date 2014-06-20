@@ -7,7 +7,6 @@ proguard/*
 *.class
 *.apk
 .DS_Store
-project.properties
 .idea/
 classes/
 out/
