@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/list_item_selector"
  >
 
     <ImageView
@@ -19,9 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rec_img"
         android:layout_alignParentLeft="true"
-        
         android:maxLines="1"
-        android:background="#70000000"
+        android:background="@drawable/recommend_item_selector"
         android:textColor="#FFFFFF"
         android:text="TextView" />
 

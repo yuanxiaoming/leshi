@@ -69,7 +69,6 @@ public class LOLFragment extends BaseFragment {
 
     @Override
     protected void processLogic() {
-    	
     	//注册EventBus 事件
     	EventBus.getDefault().register(this);
     	

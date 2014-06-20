@@ -118,7 +118,7 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
-
+                mHttpErrorView.setVisibility(View.VISIBLE);
             }
         });
     }

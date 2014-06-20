@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -23,7 +24,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected View mHttpLoadingView=null;
     protected View mHttpErrorView=null;
-
+    public Button mButton;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public abstract class BaseFragment extends Fragment {
         mFragmentContent = (LinearLayout) inflater.inflate(R.layout.fragment_base, container, false);
         mHttpLoading = (ViewStub) mFragmentContent.findViewById(R.id.viewstub_http_loading);
         mHttpError = (ViewStub) mFragmentContent.findViewById(R.id.viewstub_http_error);
+        mButton = (Button) mHttpError.findViewById(R.id.loading_lose_btn);
         if(mHttpLoading!=null){
             mHttpLoadingView=mHttpLoading.inflate();
             mHttpLoadingView.setVisibility(View.GONE);

@@ -28,8 +28,10 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -99,6 +101,26 @@ public class VideoPlayActivity extends BaseActivity {
                 Log.d("tag", "title:"+title);
                 PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
                 
+            }
+        });
+        
+        mImg.setOnTouchListener(new OnTouchListener() {
+            
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mImg.setAlpha(200);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mImg.setAlpha(255);
+                        break;
+
+                    default:
+                        break;
+                }
+                
+                return false;
             }
         });
        

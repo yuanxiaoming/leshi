@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends ActionBarActivity{
     protected View mHttpErrorView=null;
     protected CustomProgressDialog mProgressDialog;
 
+    public Button mButton;
 
 
     @Override
@@ -40,7 +42,7 @@ public abstract class BaseActivity extends ActionBarActivity{
         mActivityContent = (LinearLayout) super.findViewById(R.id.activity_content_base);
         mHttpLoading = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
         mHttpError = (ViewStub) super.findViewById(R.id.viewstub_http_error);
-
+        mButton = (Button) mHttpError.findViewById(R.id.loading_lose_btn);
         if(mHttpLoading!=null){
             mHttpLoadingView=mHttpLoading.inflate();
             mHttpLoadingView.setVisibility(View.GONE);
