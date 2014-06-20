@@ -34,9 +34,9 @@
             android:id="@+id/hs_ll_bg"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="0dp"
             android:layout_below="@+id/hs_auto_scroll_viewpager"
-            android:background="@drawable/legames_hs_gl_bg" >
+            android:background="@drawable/legames_hs_gl_bg"
+            android:padding="0dp" >
 
             <ListView
                 android:id="@+id/hs_listview_news"
@@ -60,24 +60,40 @@
                 android:id="@+id/hs_bt_match"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/hs_competition_btn_selector" />
+                android:background="@drawable/event_bg_selector"
+                android:drawableLeft="@drawable/event_left_selector"
+                android:drawablePadding="-8dp"
+                android:paddingLeft="15dp"
+                android:text="赛事专栏"
+                android:textColor="@color/event_slt_btn_text_color"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/hs_bt_videos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/hs_vedios_btn_selector" />
+                android:background="@drawable/videos_bg_selector"
+                android:drawableLeft="@drawable/videos_left_selector"
+                android:drawablePadding="-20dp"
+                android:paddingLeft="23dp"
+                android:text="视频库"
+                android:textColor="@color/videos_slt_btn_text_color"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/hs_bt_raiders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/hs_star_btn_selector" />
+                android:background="@drawable/star_bg_selector"
+                android:drawableLeft="@drawable/star_left_selector"
+                android:drawablePadding="-8dp"
+                android:paddingLeft="15dp"
+                android:text="高玩攻略"
+                android:textColor="@color/star_slt_btn_text_color"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -142,9 +158,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/legames_label"
+                android:drawablePadding="5dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:drawablePadding="5dp"
                 android:text="@string/hs_hot_play"
                 android:textColor="#707070"
                 android:textSize="18sp" />
@@ -155,8 +171,8 @@
                 android:layout_height="fill_parent"
                 android:horizontalSpacing="10dp"
                 android:numColumns="2"
-                android:stretchMode="columnWidth"
                 android:paddingBottom="10dp"
+                android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" />
         </LinearLayout>
     </RelativeLayout>
