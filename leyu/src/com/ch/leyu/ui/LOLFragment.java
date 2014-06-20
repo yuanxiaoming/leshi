@@ -122,7 +122,7 @@ public class LOLFragment extends BaseFragment {
     }
     
     //onEventMainThread，当使用这种类型时，回调函数会在主线程中执行.
-    public static final float RADIO = 1.2f ;
+    public static final float RADIO = 1.3f ;
 	public void onEventMainThread(XListViewTouchEventBus event) {
 		
 		int deltaY = (int)( event.getDeltaY() / RADIO);

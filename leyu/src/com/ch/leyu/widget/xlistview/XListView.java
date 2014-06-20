@@ -10,12 +10,7 @@
 package com.ch.leyu.widget.xlistview;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.eventbus.XListViewTouchEventBus;
-import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
-
-import de.greenrobot.event.EventBus;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -427,30 +422,6 @@ public class XListView extends ListView implements OnScrollListener {
 
     public void setAutoScrollViewPager(AutoScrollViewPager autoScrollViewPager) {
         mAutoScrollViewPager = autoScrollViewPager;
-    }
-
-    private float mPreY ;
-    
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-    	
-    	switch (ev.getActionMasked()) {
-		case MotionEvent.ACTION_DOWN:
-			mPreY = ev.getY();
-			break;
-
-		case MotionEvent.ACTION_MOVE:
-			float curY = ev.getY();
-			float deltaY = curY - mPreY ;
-			//XListView滑动的时候 禁止掉界面布局的移动
-			EventBus.getDefault().post(new XListViewTouchEventBus(deltaY,this));
-			mPreY = ev.getY();
-			break ;
-		default:
-			break;
-		}
-    	//这里返回false 没作用？
-    	return CommonUtil.getAppliction(getContext()).isScroll() ? super.dispatchTouchEvent(ev) : true ;
     }
     
 }
