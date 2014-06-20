@@ -2,9 +2,13 @@
 package com.ch.leyu.ui;
 
 import org.apache.http.Header;
+
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.adapter.LOLViewPagerAdapter;
@@ -12,12 +16,14 @@ import com.ch.leyu.adapter.eventbus.XListViewTouchEventBus;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.HSResponse;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.ch.leyu.widget.xlistview.XListView;
+
 import de.greenrobot.event.EventBus;
 
 /***
@@ -64,7 +70,7 @@ public class LOLFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-        
+    	
     }
 
     @Override
@@ -116,10 +122,10 @@ public class LOLFragment extends BaseFragment {
     }
     
     //onEventMainThread，当使用这种类型时，回调函数会在主线程中执行.
-    
+    public static final float RADIO = 1.2f ;
 	public void onEventMainThread(XListViewTouchEventBus event) {
-
-		int deltaY = (int)( event.getDeltaY() / 2.0);
+		
+		int deltaY = (int)( event.getDeltaY() / RADIO);
 		XListView listView = event.getListView() ;
 		System.out.println("deltaY = " + deltaY);
 		
@@ -127,27 +133,47 @@ public class LOLFragment extends BaseFragment {
 		RelativeLayout.LayoutParams params = (LayoutParams) mView.getLayoutParams();
 		int newTopMargin = params.topMargin + deltaY;
 		
-		//表示向下拉  并且当前可见的List item 为1 ListView的header为0
-		if(deltaY > 0 )
+		//移动到了 顶部布局刚好被hide
+		if(params.topMargin == - mView.getHeight())
+	    {
+	    	if(deltaY > 0 )  //表示下拉
+	    	{
+	    		//当前可见的Item为 0 才让其下滑
+				if( listView.getFirstVisiblePosition() == 0)
+				{
+					//ListView 禁止滑动 顶部布局移动
+//					listView.canScroll(false);
+					CommonUtil.getAppliction(getActivity()).canScroll(false);
+					if(newTopMargin > 0)
+						newTopMargin = 0 ;
+				}
+				else
+				{
+					//这里表示只有ListView 滑动 顶部布局的topMargin不变化
+					newTopMargin -= deltaY ;
+				}
+	    	}
+	    	else{ //表示上拉 
+	    		//ListView 可以滑动 
+//	    		listView.canScroll(true);
+	    		//下面设置全局变量  保证多个XListView 的一致性
+	    		CommonUtil.getAppliction(getActivity()).canScroll(true);
+	    	}
+	    }
+		
+		//处理顶部布局的移动边界
+		if(deltaY > 0 && newTopMargin > 0)
 		{
-			//当前可见的Item 为1 或者为 0 才让其下滑
-			if(listView.getFirstVisiblePosition() == 1 || listView.getFirstVisiblePosition() == 0)
-			{
-				if(newTopMargin > 0)
-					newTopMargin = 0 ;
-			}
-			else
-			{
-				newTopMargin -= deltaY ;
-			}
+			newTopMargin = 0 ;
 		}
-		//deltaY <= 0 表示向上拉 
-		else if(deltaY < 0 && newTopMargin < -mView.getHeight())
+		
+		//处理顶部布局的移动边界
+	    if(deltaY < 0 && newTopMargin < -mView.getHeight())
 		{
 			//处理topMargin的边界
 			newTopMargin = - mView.getHeight() ;
 		}
-		
+	    
 		params.topMargin = newTopMargin ;
 		mView.setLayoutParams(params);
 		getView().invalidate();
@@ -160,6 +186,5 @@ public class LOLFragment extends BaseFragment {
     	//注销EventBus 事件监听
     	EventBus.getDefault().unregister(this);
     }
-    
 
 }
