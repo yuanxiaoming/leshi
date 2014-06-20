@@ -164,4 +164,8 @@ public class CommonUtil {
 		}
         return false;
     }
+	
+	public static CLYApplication getAppliction(Context context){
+		return ((CLYApplication)context.getApplicationContext());
+	}
 }

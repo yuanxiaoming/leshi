@@ -36,6 +36,10 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
+
+
+
+
 /***
  * 视频播放
  * 
