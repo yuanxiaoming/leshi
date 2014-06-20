@@ -17,6 +17,7 @@ import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 import org.apache.http.Header;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -111,8 +112,11 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
                HSNewsDetailFragment detailFragment = new HSNewsDetailFragment();
                bundle.putString(Constant.CID, item.getCid());
                detailFragment.setArguments(bundle);
-               CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, detailFragment, "");
+               FragmentManager manager = getActivity().getSupportFragmentManager();
+               manager.beginTransaction().add(R.id.fragment_content, detailFragment, "").remove(getParentFragment()).addToBackStack(null).commit();
+//               CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, detailFragment, "");
            }
     }
+    
 
 }
