@@ -1,6 +1,19 @@
 
 package com.ch.leyu.ui;
 
+import org.apache.http.Header;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+
 import com.baidu.frontia.Frontia;
 import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
 import com.baidu.frontia.api.FrontiaSocialShare;
@@ -20,19 +33,6 @@ import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.letv.playutils.PlayUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.apache.http.Header;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 
 /***
  * 视频播放
