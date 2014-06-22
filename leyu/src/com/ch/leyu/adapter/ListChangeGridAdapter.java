@@ -51,6 +51,11 @@ public class ListChangeGridAdapter extends ListAsGridBaseAdapter {
         }
     }
 
+    public ArrayList<Property>  getArrayList() {
+           return mArrayList;
+
+    }
+
     @Override
     public Object getItem(int position) {
         if (mArrayList != null) {
@@ -84,7 +89,7 @@ public class ListChangeGridAdapter extends ListAsGridBaseAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        
+
         holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 3));
         holder.imageView.setScaleType(ScaleType.FIT_XY) ;
 
