@@ -15,13 +15,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 public class XListViewFooter extends LinearLayout {
-    //    public final static int STATE_NORMAL = 0;
-    //
-    //    public final static int STATE_READY = 1;
+    public final static int STATE_NORMAL = 0;
+
+    public final static int STATE_READY = 1;
 
     public final static int STATE_LOADING = 2;
     public final static int STATE_OVER=1;
@@ -54,7 +53,7 @@ public class XListViewFooter extends LinearLayout {
         mProgressBar = moreView.findViewById(R.id.xlistview_footer_progressbar);
         mHintView = (TextView) moreView.findViewById(R.id.xlistview_footer_hint_textview);
         mHintView.setTextColor(Color.BLACK);
-        mHintView.setText("暂时没有更多内容，休息一会儿吧");
+        mHintView.setText("暂无更多");
     }
 
     public void setState(int state) {
@@ -73,12 +72,12 @@ public class XListViewFooter extends LinearLayout {
         case STATE_LOADING:
             mProgressBar.setVisibility(View.VISIBLE);
             mHintView.setVisibility(View.VISIBLE);
-            mHintView.setText("正在加载");
+            mHintView.setText("正在加载更多...");
             break;
 
         case STATE_OVER:
             mHintView.setVisibility(View.VISIBLE);
-            mHintView.setText("暂时没有更多内容，休息一会儿吧");
+            mHintView.setText("暂无更多");
             break;
 
         default:

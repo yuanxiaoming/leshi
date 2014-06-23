@@ -9,19 +9,20 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.responseparse.Property;
-import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
+import com.ch.leyu.widget.view.CustomScrollView;
+import com.ch.leyu.widget.view.LYGridView;
 
 import org.apache.http.Header;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 
 /***
  * 新闻资讯--炉石攻略
@@ -30,7 +31,7 @@ import android.widget.GridView;
  */
 public class HSNewsFragment extends BaseFragment implements OnItemClickListener {
 
-    private GridView mGridView ;
+    private LYGridView mGridView ;
 
     private AutoScrollViewPager mViewPager ;
 
@@ -39,6 +40,8 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
     private View layout;
 
     private HSNewsGridViewAdapter maAdapter ;
+    
+    private CustomScrollView mCustomScrollView;
 
 
     @Override
@@ -53,10 +56,11 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 
     @Override
     protected void findViewById() {
-        mGridView = (GridView) findViewById(R.id.fragment_hsnews_grid);
+        mGridView = (LYGridView) findViewById(R.id.fragment_hsnews_grid);
         layout = findViewById(R.id.fragment_hsnews_include);
         mViewPager = (AutoScrollViewPager)layout. findViewById(R.id.all_auto_scroll_viewpager);
         mPageIndicator = (CircleLoopPageIndicator)layout. findViewById(R.id.all_cirle_pageindicator);
+        mCustomScrollView = (CustomScrollView) findViewById(R.id.customscrollview);
     }
 
     @Override
@@ -66,6 +70,7 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 
     @Override
     protected void processLogic() {
+        mCustomScrollView.setAutoScrollViewPager(mViewPager);
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, "23");
         JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS, params, AllNewResponse.class, new DataCallback<AllNewResponse>() {
@@ -114,7 +119,6 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
                detailFragment.setArguments(bundle);
                FragmentManager manager = getActivity().getSupportFragmentManager();
                manager.beginTransaction().add(R.id.fragment_content, detailFragment, "").remove(getParentFragment()).addToBackStack(null).commit();
-//               CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, detailFragment, "");
            }
     }
     

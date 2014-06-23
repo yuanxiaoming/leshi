@@ -2,6 +2,7 @@
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.BigImgGridAdapter;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.adapter.HotGridAdapter;
 import com.ch.leyu.adapter.NewsListAdapter;
@@ -13,12 +14,10 @@ import com.ch.leyu.responseparse.HSResponse;
 import com.ch.leyu.responseparse.Property;
 import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.utils.ImageLoaderUtil;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 import com.ch.leyu.widget.view.CustomScrollView;
 import com.ch.leyu.widget.view.LYGridView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
@@ -28,9 +27,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 /***
@@ -46,7 +42,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
     private ListView mNewsListView;
 
     /** 大图小编推荐 */
-    private ImageView mBigImg1, mBigImg2;
+    private LYGridView mBigImg;
 
     /** 四张小图小编推荐 */
     private LYGridView mRecommendGrid;
@@ -67,9 +63,6 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
     /** 高玩攻略 */
     private Button mRaiders;
 
-    private String bigImgId1="";
-
-    private String bigImgId2="";
 
     @Override
     public void onClick(View v) {
@@ -89,21 +82,6 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                 ((MainActivity)getActivity()).setFoucs(true);
                 break;
 
-            case R.id.hs_img_bigRecommend1:
-                if(!bigImgId1.equals("")){
-                    intent = new Intent(getActivity(), VideoPlayActivity.class);
-                    intent.putExtra(Constant.CID , bigImgId1);
-                    startActivity(intent);
-                }
-
-                break;
-            case R.id.hs_img_bigRecommend2:
-                if(!bigImgId1.equals("")){
-                    intent = new Intent(getActivity(), VideoPlayActivity.class);
-                    intent.putExtra(Constant.CID , bigImgId2);
-                    startActivity(intent);
-                }
-                break;
             default:
                 break;
         }
@@ -112,8 +90,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
     @Override
     protected void findViewById() {
         mNewsListView = (ListView) findViewById(R.id.hs_listview_news);
-        mBigImg1 = (ImageView) findViewById(R.id.hs_img_bigRecommend1);
-        mBigImg2 = (ImageView) findViewById(R.id.hs_img_bigRecommend2);
+        mBigImg = (LYGridView) findViewById(R.id.hs_big_img);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
         mHotGrid = (LYGridView) findViewById(R.id.hs_gridview_hot);
         mMatch = (Button) findViewById(R.id.hs_bt_match);
@@ -144,31 +121,15 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                             mAtuoScrollViewPager.setInterval(4000);
                             mCustomScrollView.setAutoScrollViewPager(mAtuoScrollViewPager);
                             HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus());
-
                             mAtuoScrollViewPager.setAdapter(adapter);
                             mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                             mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                             mCircleLoopPageIndicator.setViewPager(mAtuoScrollViewPager);
-
                             mNewsListView.setAdapter(new NewsListAdapter(data.getNews(), getActivity()));
-                            mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),
-                                    getActivity()));
+                            mRecommendGrid.setAdapter(new RecommendGridAdapter(data.getRecommend(),getActivity()));
                             mHotGrid.setAdapter(new HotGridAdapter(data.getHot(), getActivity()));
+                            mBigImg.setAdapter(new BigImgGridAdapter(data.getBigRecommend(), getActivity()));
 
-                            bigImgId1 = data.getBigRecommend().get(0).getId();
-                            bigImgId2 = data.getBigRecommend().get(1).getId();
-
-                            mBigImg1.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , (int) (CommonUtil.getWidthMetrics(getActivity()) / 1.5)));
-                            mBigImg2.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(getActivity()) / 2 , (int) (CommonUtil.getWidthMetrics(getActivity()) / 1.5)));
-                            mBigImg1.setScaleType(ScaleType.FIT_XY);
-                            mBigImg2.setScaleType(ScaleType.FIT_XY);
-
-                            ImageLoader.getInstance().displayImage(
-                                    data.getBigRecommend().get(0).getImageSrc(), mBigImg1,
-                                    ImageLoaderUtil.getImageLoaderOptions());
-                            ImageLoader.getInstance().displayImage(
-                                    data.getBigRecommend().get(1).getImageSrc(), mBigImg2,
-                                    ImageLoaderUtil.getImageLoaderOptions());
                         }
 
                     }
@@ -196,10 +157,9 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
         mMatch.setOnClickListener(this);
         mVideos.setOnClickListener(this);
         mRaiders.setOnClickListener(this);
-        mBigImg1.setOnClickListener(this);
-        mBigImg2.setOnClickListener(this);
         mRecommendGrid.setOnItemClickListener(this);
         mHotGrid.setOnItemClickListener(this);
+        mBigImg.setOnItemClickListener(this);
     }
 
     @Override

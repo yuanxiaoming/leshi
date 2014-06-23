@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class CLYAdapter extends BaseAdapter {
 
-    private ArrayList<Property> mArrayList;;
+    private ArrayList<Property> mArrayList;
 
     private Context mContext;
 

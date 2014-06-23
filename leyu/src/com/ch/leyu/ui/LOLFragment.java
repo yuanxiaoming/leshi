@@ -1,13 +1,5 @@
 package com.ch.leyu.ui;
 
-import org.apache.http.Header;
-
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
-
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.adapter.LOLViewPagerAdapter;
@@ -24,6 +16,12 @@ import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.ch.leyu.widget.xlistview.XListView;
 
 import de.greenrobot.event.EventBus;
+
+import org.apache.http.Header;
+
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 /***
  * 首页--英雄联盟

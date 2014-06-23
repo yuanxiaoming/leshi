@@ -57,7 +57,7 @@ public interface Constant {
 
     /** 全部新闻 */
     public static final String ALL_NEWS = "news.php?";
-
+    
     /** 其他新闻 */
     public static final String RESTS_NEWS = "action=list";
 

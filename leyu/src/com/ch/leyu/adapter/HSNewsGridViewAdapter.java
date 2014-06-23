@@ -71,7 +71,7 @@ public class HSNewsGridViewAdapter extends BaseAdapter {
         }
 
         holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil
-                .getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 5));
+                .getWidthMetrics(mContext) / 3, (int) (CommonUtil.getWidthMetrics(mContext) / 2.7)));
         ImageLoader.getInstance().displayImage(arrayList.get(position).getImageSrc(),
                 holder.imageView, ImageLoaderUtil.getImageLoaderOptions());
         holder.textView.setText(arrayList.get(position).getTitle());

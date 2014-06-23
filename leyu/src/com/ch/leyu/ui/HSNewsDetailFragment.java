@@ -17,6 +17,7 @@ import org.apache.http.Header;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -41,12 +42,15 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
     private SimpleDateFormat mSimpleDateFormat;
     
     private String mCid ;
+    
+    public static final String GAMEID="23";
 
     @Override
     protected void getExtraParams() {
         Bundle bundle = getArguments();
         if(bundle!=null){
             mCid = bundle.getString(Constant.CID);
+            Log.d("tag", mCid+"----");
         }
     }
 
@@ -77,7 +81,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
     
     private void requestData(int page) {
         RequestParams params = new RequestParams();
-        params.put(Constant.GMAE_ID, "23");
+        params.put(Constant.GMAE_ID, GAMEID);
         params.put(Constant.CID, mCid);
         params.put(Constant.PAGE, page);
         JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
@@ -99,6 +103,8 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
                       mXListView.setPullLoadEnable(true);
                   }
               }
+              
+              Log.d("tag", "mTotalPage:+"+mTotalPage);
             }
 
             @Override
