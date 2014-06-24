@@ -93,7 +93,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
                 addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
-        mTabStrip.setTextSize(24);
+        mTabStrip.setTextSize(28);
 
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);

@@ -101,8 +101,6 @@ public class VideoPlayActivity extends BaseActivity {
                  * @param videoUnique 视频ID
                  * @param videoName 视频名称
                  */
-                Log.d("tag", "vu:"+vu);
-                Log.d("tag", "title:"+title);
                 PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
                 
             }
@@ -156,7 +154,7 @@ public class VideoPlayActivity extends BaseActivity {
                             mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
-                            mSlideTabIndicator.setTextSize(24);
+                            mSlideTabIndicator.setTextSize(30);
                             ImageLoader.getInstance().displayImage(data.getVideoInfo().getImageSrc(), mImg,
                                     ImageLoaderUtil.getImageLoaderOptions());
                         }

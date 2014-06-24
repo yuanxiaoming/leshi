@@ -33,7 +33,7 @@
         <LinearLayout
             android:id="@+id/hs_ll_bg"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_below="@+id/hs_auto_scroll_viewpager"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -46,6 +46,7 @@
                 android:layout_height="match_parent"
                 android:divider="#00000000"
                 android:paddingBottom="5dp"
+                android:listSelector="@drawable/list_item_selector"
                 android:paddingTop="5dp" />
         </LinearLayout>
 

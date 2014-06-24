@@ -9,10 +9,10 @@
         android:id="@+id/star_act_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"
-		android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
         android:paddingLeft="5dp"
         android:paddingRight="5dp" >
 
@@ -34,8 +34,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:paddingBottom="5dp"
             android:layout_toRightOf="@+id/star_act_img"
+            android:paddingBottom="5dp"
             android:text="name"
             android:textColor="#025A9A" />
 
@@ -45,22 +45,41 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/star_act_tv_name"
             android:layout_below="@+id/star_act_tv_name"
-            android:maxLines="5"
-            android:textColor="#707070"
-            android:text="detail" />
+            android:maxLines="4"
+            android:text="detail"
+            android:textColor="#707070" />
     </RelativeLayout>
+
+    <View
+        android:id="@+id/bg_view1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/star_act_layout"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/legames_serch_bag" />
 
     <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/star_act_pagertab"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@+id/star_act_layout"
+        android:layout_below="@+id/bg_view1"
+        android:layout_marginLeft="8dp"
         android:layout_weight="0"
         app:pstsIndicatorColor="#025A9A"
         app:pstsIndicatorHeight="3dp"
         app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="12dp"
         app:pstsUnderlineHeight="3dp" />
+
+    <View
+        android:id="@+id/bg_view2"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/bg_view1"
+        android:layout_marginTop="45dp"
+        android:layout_toRightOf="@+id/star_act_pagertab"
+        android:background="#D7D7D7" 
+        android:layout_marginRight="8dp"/>
 
     <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/star_act_viewpager"

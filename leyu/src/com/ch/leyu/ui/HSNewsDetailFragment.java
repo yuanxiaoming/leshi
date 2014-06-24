@@ -50,7 +50,6 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
         Bundle bundle = getArguments();
         if(bundle!=null){
             mCid = bundle.getString(Constant.CID);
-            Log.d("tag", mCid+"----");
         }
     }
 
@@ -104,7 +103,6 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
                   }
               }
               
-              Log.d("tag", "mTotalPage:+"+mTotalPage);
             }
 
             @Override
