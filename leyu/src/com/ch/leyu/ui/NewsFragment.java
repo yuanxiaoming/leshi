@@ -5,10 +5,11 @@ import com.ch.leyu.R;
 import com.ch.leyu.adapter.LYViewPagerAdapter;
 import com.ch.leyu.application.CLYApplication;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
-import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.animation.Animation;
+
 import java.util.ArrayList;
 
 /***
@@ -29,7 +30,6 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void getExtraParams() {
-       Bundle bundle = getArguments();
         
     }
 
@@ -50,11 +50,13 @@ public class NewsFragment extends BaseFragment {
 
     }
 
+   
     @Override
     protected void processLogic() {
         mViewPager.setAdapter(new LYViewPagerAdapter(getChildFragmentManager(), addFragment(),addTitle()));
         mSlideTabIndicator.setViewPager(mViewPager);
-        mSlideTabIndicator.setTextSize(24);
+        final int textSize = (int) getActivity().getResources().getDimension(R.dimen.tab_title_size);
+        mSlideTabIndicator.setTextSize(textSize);
     }
 
     private ArrayList<String> addTitle() {

@@ -42,6 +42,7 @@
             android:layout_alignTop="@+id/fragment_c_item_imageView1"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/fragment_c_item_imageView1"
             android:textColor="#707070"
             android:maxLines="4"

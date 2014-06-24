@@ -16,7 +16,7 @@
         android:drawablePadding="5dp"
         android:maxLines="1"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/title_size"
         android:textColor="#424242" />
 
     <TextView

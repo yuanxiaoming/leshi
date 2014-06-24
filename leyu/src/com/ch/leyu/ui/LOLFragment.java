@@ -78,7 +78,8 @@ public class LOLFragment extends BaseFragment {
         mPagerAdapter = new LOLViewPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mSlideTabIndicator.setViewPager(mViewPager);
-        mSlideTabIndicator.setTextSize(24);
+        final int textSize = (int) getActivity().getResources().getDimension(R.dimen.tab_title_size);
+        mSlideTabIndicator.setTextSize(textSize);
         JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_URL, null, HSResponse.class, new DataCallback<HSResponse>() {
 
             @Override

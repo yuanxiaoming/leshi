@@ -82,9 +82,9 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
                    mGridView.setAdapter(maAdapter);
                    mViewPager.startAutoScroll(2000);
                    mViewPager.setInterval(4000);
+                   mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                    mViewPager.setCurrentItem(data.getFocus().size() * 10000);
                    mPageIndicator.setPageCount(data.getFocus().size());
-                   mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                    mPageIndicator.setViewPager(mViewPager);
                   
                }

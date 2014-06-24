@@ -3,19 +3,13 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
-import com.ch.leyu.utils.CommonUtil;
-import com.ch.leyu.utils.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
 import java.util.ArrayList;
 

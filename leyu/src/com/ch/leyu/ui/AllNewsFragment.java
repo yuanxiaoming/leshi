@@ -99,9 +99,9 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                        if(data!=null){
                            mAutoScrollViewPager.startAutoScroll(2000);
                            mAutoScrollViewPager.setInterval(4000);
+                           mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                            mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                           mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
                            mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
                           
