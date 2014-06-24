@@ -10,6 +10,7 @@ import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
+import com.ch.leyu.widget.xlistview.XXListView;
 
 import org.apache.http.Header;
 
@@ -31,7 +32,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     private int position;
 
-    private XListView mXListView;
+    private XXListView mXListView;
 
     private ListChangeGridAdapter mAdapter;
 
@@ -61,7 +62,8 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     @Override
     protected void findViewById() {
-        mXListView = (XListView) findViewById(R.id.lolvideo_xlistview);
+        mXListView = (XXListView) findViewById(R.id.lolvideo_xlistview);
+        mXListView.setViewPager(LOLFragment.mfocusViewPager);
     }
 
     @Override

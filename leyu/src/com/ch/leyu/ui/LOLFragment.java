@@ -31,7 +31,7 @@ import android.widget.RelativeLayout.LayoutParams;
 public class LOLFragment extends BaseFragment {
 
     /** 焦点栏viewpager */
-    private AutoScrollViewPager mfocusViewPager;
+    public static  AutoScrollViewPager mfocusViewPager;
 
     /** 焦点栏ViewPager指示点 */
     private CircleLoopPageIndicator mPageIndicator;

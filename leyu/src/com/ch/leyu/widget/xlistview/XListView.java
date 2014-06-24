@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 public class XListView extends ListView implements OnScrollListener {
 
-    private float mLastY = -1; // save event y
+    protected float mLastY = -1; // save event y
 
     private Scroller mScroller; // used for scroll back
 
