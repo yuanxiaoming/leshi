@@ -110,4 +110,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void reload() {
+        // TODO Auto-generated method stub
+        
+    }
+    
 }

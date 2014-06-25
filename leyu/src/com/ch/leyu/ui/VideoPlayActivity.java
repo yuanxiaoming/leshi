@@ -145,6 +145,7 @@ public class VideoPlayActivity extends BaseActivity {
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
@@ -164,7 +165,7 @@ public class VideoPlayActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-
+                        mHttpErrorView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -230,6 +231,12 @@ public class VideoPlayActivity extends BaseActivity {
         public void onCancel() {
             Log.d("Test","cancel ");
         }
+        
+    }
+
+    @Override
+    protected void reload() {
+      requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
         
     }
     

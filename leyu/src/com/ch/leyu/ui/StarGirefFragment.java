@@ -113,6 +113,7 @@ public class StarGirefFragment extends BaseFragment {
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         if (mPage == 1 && mFlag == false) {
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
@@ -130,7 +131,9 @@ public class StarGirefFragment extends BaseFragment {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-
+                        if(mPage<=1){
+                            mHttpErrorView.setVisibility(View.VISIBLE);
+                        }
                     }
 
                 });
@@ -159,6 +162,11 @@ public class StarGirefFragment extends BaseFragment {
         mXListView.stopLoadMore();
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
+
+    @Override
+    protected void reload() {
+        requestData(mPage);
     }
 
 }

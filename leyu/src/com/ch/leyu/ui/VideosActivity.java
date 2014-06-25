@@ -93,17 +93,18 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
 
                     @Override
                     public void onStart() {
-
+                        mHttpErrorView.setVisibility(View.GONE);
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFinish() {
-
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-
+                        mHttpErrorView.setVisibility(View.VISIBLE);
                     }
                 });
          
@@ -141,5 +142,10 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         showPop();
         
+    }
+
+    @Override
+    protected void reload() {
+        requestData();
     }
 }

@@ -93,5 +93,10 @@ public class NewsFragment extends BaseFragment {
         return super.onCreateAnimation(transit, enter, nextAnim);
         
     }
+
+    @Override
+    protected void reload() {
+        
+    }
     
 }

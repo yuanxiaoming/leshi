@@ -117,6 +117,12 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
       }
         
     }
+
+    @Override
+    protected void reload() {
+        // TODO Auto-generated method stub
+        
+    }
     
     
     

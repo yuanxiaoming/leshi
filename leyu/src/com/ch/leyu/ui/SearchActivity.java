@@ -172,9 +172,13 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
-        JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,mHotSearchDataCallback);
+       requestData();
     }
 
+    private void requestData() {
+        JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,mHotSearchDataCallback);
+    }
+    
     /**
      * 关键字搜索
      */
@@ -229,6 +233,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onStart() {
+            mHttpErrorView.setVisibility(View.GONE);
             mHttpLoadingView.setVisibility(View.VISIBLE);
         }
 
@@ -242,6 +247,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
+            mHttpErrorView.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -250,5 +256,10 @@ public class SearchActivity extends BaseActivity {
         }
 
     };
+
+    @Override
+    protected void reload() {
+        
+    }
 
 }

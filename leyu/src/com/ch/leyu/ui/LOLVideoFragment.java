@@ -130,6 +130,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
             @Override
             public void onStart() {
+                mHttpErrorView.setVisibility(View.GONE);
                 if (mPage == 1 && mFlag == false) {
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                 }
@@ -146,7 +147,9 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-
+                if(mPage<=1){
+                    mHttpErrorView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -222,6 +225,29 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         mXListView.stopLoadMore();
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
+
+    @Override
+    protected void reload() {
+        // 全部视频
+        if (position == 0) {
+            requestData("21", null, url, mPage);
+        }
+        // 本周热门
+        if (position == 1) {
+
+            requestData("21", null, Constant.LOL_HOT, mPage);
+        }
+        // 教学
+        if (position == 2) {
+            String keyWord = "精彩,教学,原创";
+            requestData("21", keyWord, url, mPage);
+        }
+        // 解说
+        if (position == 3) {
+            String keyWord = "解说,搞笑,排位";
+            requestData("21", keyWord, url, mPage);
+        }
     }
 
 }

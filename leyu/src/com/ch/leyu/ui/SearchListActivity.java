@@ -159,4 +159,9 @@ public class SearchListActivity extends BaseActivity implements OnClickListener,
 
     }
 
+    @Override
+    protected void reload() {
+        
+    }
+
 }

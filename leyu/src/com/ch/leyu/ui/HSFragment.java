@@ -110,7 +110,11 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 
     @Override
     protected void processLogic() {
-
+        requestData();
+        
+    }
+    
+    private void requestData() {
         JHttpClient.get(getActivity(), Constant.URL + Constant.HS_URL, null, HSResponse.class,
                 new DataCallback<HSResponse>() {
 
@@ -136,6 +140,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
@@ -147,10 +152,11 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-
+                        mHttpErrorView.setVisibility(View.VISIBLE);
                     }
                 });
     }
+    
 
     @Override
     protected void setListener() {
@@ -176,6 +182,11 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    protected void reload() {
+        requestData();
     }
 
 }

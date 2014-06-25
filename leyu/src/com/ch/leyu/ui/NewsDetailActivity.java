@@ -84,12 +84,17 @@ public class NewsDetailActivity extends BaseActivity {
     @Override
     protected void processLogic() {
         baiduShareConfig();
+        requestData();
+    }
+    
+    private void requestData() {
         RequestParams params = new RequestParams();
         params.put("id", mCid);
         JHttpClient.get(this, Constant.URL+Constant.ALL_NEWS+Constant.VIDEO_DETAIL, params , NewDetailResponse.class, new DataCallback<NewDetailResponse>() {
 
             @Override
             public void onStart() {
+                
                 mHttpLoadingView.setVisibility(View.VISIBLE);
             }
 
@@ -196,6 +201,11 @@ public class NewsDetailActivity extends BaseActivity {
         public void onCancel() {
             Log.d("Test","cancel ");
         }
+        
+    }
+
+    @Override
+    protected void reload() {
         
     }
     

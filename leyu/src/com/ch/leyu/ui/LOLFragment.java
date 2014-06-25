@@ -80,6 +80,11 @@ public class LOLFragment extends BaseFragment {
         mSlideTabIndicator.setViewPager(mViewPager);
         final int textSize = (int) getActivity().getResources().getDimension(R.dimen.tab_title_size);
         mSlideTabIndicator.setTextSize(textSize);
+        requestData();
+        
+    }
+    
+    private void requestData() {
         JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_URL, null, HSResponse.class, new DataCallback<HSResponse>() {
 
             @Override
@@ -98,6 +103,7 @@ public class LOLFragment extends BaseFragment {
 
             @Override
             public void onStart() {
+                mHttpErrorView.setVisibility(View.GONE);
                 mHttpLoadingView.setVisibility(View.VISIBLE);
 
             }
@@ -110,10 +116,11 @@ public class LOLFragment extends BaseFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
-
+                mHttpErrorView.setVisibility(View.VISIBLE);
             }
 
         });
+
     }
 
     // onEventMainThread，当使用这种类型时，回调函数会在主线程中执行.
@@ -175,6 +182,11 @@ public class LOLFragment extends BaseFragment {
         super.onDestroy();
         // 注销EventBus 事件监听
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void reload() {
+        requestData();
     }
 
 }

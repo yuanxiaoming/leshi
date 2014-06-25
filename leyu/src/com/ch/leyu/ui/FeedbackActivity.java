@@ -125,4 +125,9 @@ public class FeedbackActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    protected void reload() {
+        
+    }
 }

@@ -106,6 +106,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 
             @Override
             public void onStart() {
+                mHttpErrorView.setVisibility(View.GONE);
                 if(mPage==1){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                 }
@@ -121,7 +122,9 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-           
+                if(mPage<=1){
+                    mHttpErrorView.setVisibility(View.VISIBLE);
+                }
             }
         });
         
@@ -165,6 +168,12 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
             intent.putExtra(Constant.CID, item.getId());
             startActivity(intent);
         }
+        
+    }
+
+    @Override
+    protected void reload() {
+       requestData(mPage);
         
     }
 
