@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingTop="5dp" 
-    
+    android:paddingTop="3dp"
+	android:paddingBottom="3dp"
+	android:paddingRight="5dp"
+	android:paddingLeft="5dp"
     >
 
     <TextView
@@ -16,8 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:maxLines="1"
         android:gravity="center"
 		android:textColor="@color/slt_btn_text_color"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+       android:textSize="@dimen/title_size"/>
 
 </RelativeLayout>

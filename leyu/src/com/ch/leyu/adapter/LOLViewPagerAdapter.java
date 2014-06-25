@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.ui.LOLVideoFragment;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.widget.view.RestoreFragmentPagerAdapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * 
  * @author L
  */
-public class LOLViewPagerAdapter extends FragmentStatePagerAdapter {
+public class LOLViewPagerAdapter extends RestoreFragmentPagerAdapter {
 
     private ArrayList<String> mStrings;
 

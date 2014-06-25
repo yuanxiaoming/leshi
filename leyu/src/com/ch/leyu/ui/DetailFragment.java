@@ -68,4 +68,9 @@ public class DetailFragment extends BaseFragment {
 
     }
 
+    @Override
+    protected void reload() {
+        
+    }
+
 }

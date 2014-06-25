@@ -1,6 +1,12 @@
 
 package com.ch.leyu.ui;
 
+import com.baidu.frontia.Frontia;
+import com.baidu.frontia.api.FrontiaSocialShare;
+import com.baidu.frontia.api.FrontiaSocialShareContent;
+import com.baidu.frontia.api.FrontiaSocialShareListener;
+import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
+import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
 import com.ch.leyu.R;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
@@ -13,8 +19,11 @@ import org.apache.http.Header;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -38,6 +47,11 @@ public class NewsDetailActivity extends BaseActivity {
     private WebView mContent;
     
     private String mCid;
+    
+    //百度分享
+    private FrontiaSocialShare mSocialShare;
+    
+    private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
 
     @Override
     protected void getExtraParams() {
@@ -69,12 +83,18 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
+        baiduShareConfig();
+        requestData();
+    }
+    
+    private void requestData() {
         RequestParams params = new RequestParams();
         params.put("id", mCid);
         JHttpClient.get(this, Constant.URL+Constant.ALL_NEWS+Constant.VIDEO_DETAIL, params , NewDetailResponse.class, new DataCallback<NewDetailResponse>() {
 
             @Override
             public void onStart() {
+                
                 mHttpLoadingView.setVisibility(View.VISIBLE);
             }
 
@@ -126,4 +146,67 @@ public class NewsDetailActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.play, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                baiduShare();
+                break;
+
+            default:
+                break;
+        }
+
+        return true;
+    }
+    
+    private void baiduShare() {
+        mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
+    }
+    
+    private void baiduShareConfig() {
+        Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
+        mSocialShare = Frontia.getSocialShare();
+        mSocialShare.setContext(this);
+        mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
+        mSocialShare.setClientId(MediaType.QZONE.toString(), "100358052");
+        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "100358052");
+        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "9377");
+        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxd9a39c7122aa6516");
+        mImageContent.setTitle("9377安全中心");
+        mImageContent.setContent("欢迎使用9377安全中心");
+        mImageContent.setLinkUrl("http://www.9377.com");
+        mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
+    }
+    
+    private class ShareListener implements FrontiaSocialShareListener {
+
+        @Override
+        public void onSuccess() {
+            Log.d("Test","share success");
+        }
+
+        @Override
+        public void onFailure(int errCode, String errMsg) {
+            Log.d("Test","share errCode "+errCode);
+        }
+
+        @Override
+        public void onCancel() {
+            Log.d("Test","cancel ");
+        }
+        
+    }
+
+    @Override
+    protected void reload() {
+        
+    }
+    
 }

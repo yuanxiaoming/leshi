@@ -1,4 +1,3 @@
-
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
@@ -11,6 +10,7 @@ import com.ch.leyu.responseparse.VideoBankResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
+import com.ch.leyu.widget.xlistview.XXListView;
 
 import org.apache.http.Header;
 
@@ -23,7 +23,7 @@ import java.util.Date;
 
 /**
  * LOL视频库
- * 
+ *
  * @author L
  */
 public class LOLVideoFragment extends BaseFragment implements GridItemClickListener {
@@ -32,11 +32,9 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     private int position;
 
-    private XListView mXListView;
+    private XXListView mXListView;
 
     private ListChangeGridAdapter mAdapter;
-
-    private VideoBankResponse mResponse;
 
     private int mPage = 1;
 
@@ -64,7 +62,8 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
 
     @Override
     protected void findViewById() {
-        mXListView = (XListView) findViewById(R.id.lolvideo_xlistview);
+        mXListView = (XXListView) findViewById(R.id.lolvideo_xlistview);
+        mXListView.setViewPager(LOLFragment.mfocusViewPager);
     }
 
     @Override
@@ -108,59 +107,59 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         mParams.put(Constant.GMAE_ID, gameId);
         mParams.put(Constant.KEYWORD, keyWord);
         mParams.put(Constant.PAGE, page);
-        JHttpClient.get(getActivity(), url, mParams, VideoBankResponse.class,
-                new DataCallback<VideoBankResponse>() {
+        JHttpClient.get(getActivity(), url, mParams, VideoBankResponse.class,new DataCallback<VideoBankResponse>() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
-                        if (data != null) {
-                            mTotalPage = data.getTotalPage();
-
-                            mResponse = data;
-
-                            if (mPage == 1) {
-                                mAdapter.chargeArrayList(data.getVideoList());
-                            } else {
-                                mAdapter.addArrayList(data.getVideoList());
-                            }
-                            mPage++;
-                            if (mPage > mTotalPage) {
-                                mXListView.setPullLoadEnable(false);
-                            } else {
-                                mXListView.setPullLoadEnable(true);
-                            }
-
-                        }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, VideoBankResponse data) {
+                if (data != null) {
+                    mTotalPage = data.getTotalPage();
+                    if (mPage == 1) {
+                        mAdapter.chargeArrayList(data.getVideoList());
+                    } else {
+                        mAdapter.addArrayList(data.getVideoList());
+                    }
+                    mPage++;
+                    if (mPage > mTotalPage) {
+                        mXListView.setPullLoadEnable(false);
+                    } else {
+                        mXListView.setPullLoadEnable(true);
                     }
 
-                    @Override
-                    public void onStart() {
-                        if (mPage == 1 && mFlag == false) {
-                            mHttpLoadingView.setVisibility(View.VISIBLE);
-                        }
-                        if (mXListView != null) {
-                            onLoad();
-                        }
-                    }
+                }
+            }
 
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onStart() {
+                mHttpErrorView.setVisibility(View.GONE);
+                if (mPage == 1 && mFlag == false) {
+                    mHttpLoadingView.setVisibility(View.VISIBLE);
+                }
+                if (mXListView != null) {
+                    onLoad();
+                }
+            }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,
-                            Exception exception) {
+            @Override
+            public void onFinish() {
+                mHttpLoadingView.setVisibility(View.GONE);
+            }
 
-                    }
-                });
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    Exception exception) {
+                if(mPage<=1){
+                    mHttpErrorView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
     public void onGridItemClicked(View v, int position, long itemId) {
-        if (mResponse != null) {
+
+        if(mAdapter!=null&&mAdapter.getArrayList()!=null&&mAdapter.getArrayList().size()>0){
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-            String videoId = mResponse.getVideoList().get(position).getId();
+            String videoId = mAdapter.getArrayList().get(position).getId();
             intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
@@ -226,6 +225,29 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
         mXListView.stopLoadMore();
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
+
+    @Override
+    protected void reload() {
+        // 全部视频
+        if (position == 0) {
+            requestData("21", null, url, mPage);
+        }
+        // 本周热门
+        if (position == 1) {
+
+            requestData("21", null, Constant.LOL_HOT, mPage);
+        }
+        // 教学
+        if (position == 2) {
+            String keyWord = "精彩,教学,原创";
+            requestData("21", keyWord, url, mPage);
+        }
+        // 解说
+        if (position == 3) {
+            String keyWord = "解说,搞笑,排位";
+            requestData("21", keyWord, url, mPage);
+        }
     }
 
 }

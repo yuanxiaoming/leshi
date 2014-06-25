@@ -93,8 +93,14 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
                 addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
-        mTabStrip.setTextSize(24);
+        final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
+        mTabStrip.setTextSize(textSize);
 
+       
+
+    }
+    
+    private void requestData() {
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
         JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
@@ -110,6 +116,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
@@ -121,10 +128,9 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
                 });
-
     }
 
     private ArrayList<String> addTitle() {
@@ -174,6 +180,12 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void reload() {
+        requestData();
+        
     }
     
 }

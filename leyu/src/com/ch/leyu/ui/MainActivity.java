@@ -3,10 +3,12 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.application.CLYApplication;
+import com.ch.leyu.application.ExitAppUtils;
 import com.ch.leyu.utils.CommonUtil;
 
 
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,94 +22,116 @@ import android.widget.RadioButton;
  */
 public class MainActivity extends BaseActivity implements OnClickListener {
 
-    private RadioButton mHs, mLol, mStar, mNews;
-    
-    
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.act_nav_rb_hs:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
-                break;
+	private RadioButton mHs, mLol, mStar, mNews;
 
-            case R.id.act_nav_rb_lol:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new LOLFragment(), "");
-                break;
 
-            case R.id.act_nav_rb_star:
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content,new StarGirefFragment(), "");
-                break;
-            case R.id.act_nav_rb_news:
-                ((CLYApplication)this.getApplication()).setmFlag(true);
-                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
-                break;
-            default:
-                break;
-        }
-    }
-    
-    public void setFoucs(boolean isChecked){
-        mNews.setChecked(isChecked);
-    }
+	@Override
+	public void onClick(View v) {
+		HSNewsFragment.removemHsNewsDetailFragment();
+		switch (v.getId()) {
+		case R.id.act_nav_rb_hs:
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+			break;
 
-    @Override
-    protected void getExtraParams() {
-        mActionBar.setDisplayShowHomeEnabled(false);
-    }
+		case R.id.act_nav_rb_lol:
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content, new LOLFragment(), "");
+			break;
 
-    @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.activity_nav);
+		case R.id.act_nav_rb_star:
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content,new StarGirefFragment(), "");
+			break;
+		case R.id.act_nav_rb_news:
+			((CLYApplication)this.getApplication()).setmFlag(true);
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
+			break;
+		default:
+			break;
+		}
+	}
 
-    }
+	public void setFoucs(boolean isChecked){
+		mNews.setChecked(isChecked);
+	}
 
-    @Override
-    protected void findViewById() {
+	@Override
+	protected void getExtraParams() {
+		mActionBar.setDisplayShowHomeEnabled(false);
+	}
 
-        mHs = (RadioButton) findViewById(R.id.act_nav_rb_hs);
-        mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);
-        mStar = (RadioButton) findViewById(R.id.act_nav_rb_star);
-        mNews = (RadioButton) findViewById(R.id.act_nav_rb_news);
-    }
+	@Override
+	protected void loadViewLayout() {
+		setContentView(R.layout.activity_nav);
 
-    @Override
-    protected void setListener() {
-        mHs.setOnClickListener(this);
-        mLol.setOnClickListener(this);
-        mStar.setOnClickListener(this);
-        mNews.setOnClickListener(this);
-    }
+	}
 
-    @Override
-    protected void processLogic() {
+	@Override
+	protected void findViewById() {
 
-        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
-    }
+		mHs = (RadioButton) findViewById(R.id.act_nav_rb_hs);
+		mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);
+		mStar = (RadioButton) findViewById(R.id.act_nav_rb_star);
+		mNews = (RadioButton) findViewById(R.id.act_nav_rb_news);
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	@Override
+	protected void setListener() {
+		mHs.setOnClickListener(this);
+		mLol.setOnClickListener(this);
+		mStar.setOnClickListener(this);
+		mNews.setOnClickListener(this);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
-                break;
+	@Override
+	protected void processLogic() {
 
-            case R.id.action_feedback:
-                intent = new Intent(this,FeedbackActivity.class);
-                startActivity(intent);
-                break;
+		CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+	}
 
-            default:
-                break;
-        }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			intent = new Intent(this, SearchActivity.class);
+			startActivity(intent);
+			break;
+
+		case R.id.action_feedback:
+			intent = new Intent(this,FeedbackActivity.class);
+			startActivity(intent);
+			break;
+
+		default:
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void reload() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK&& event.getRepeatCount() == 0) {
+			if(HSNewsFragment.issRemove()){
+				ExitAppUtils.getInstance().exit();
+			}else{
+				HSNewsFragment.setsRemove(true);
+			}
+		}
+		// TODO Auto-generated method stub
+		return super.onKeyDown(keyCode, event);
+	}
+
 }

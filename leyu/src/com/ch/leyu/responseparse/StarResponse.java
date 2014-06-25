@@ -11,6 +11,16 @@ import java.util.ArrayList;
 public class StarResponse {
     private ArrayList<Info> userInfo;
 
+    private int totalPage;
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
     public ArrayList<Info> getUserInfo() {
         return userInfo;
     }

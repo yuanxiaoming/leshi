@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -42,7 +43,7 @@ public abstract class BaseActivity extends ActionBarActivity{
         mActivityContent = (LinearLayout) super.findViewById(R.id.activity_content_base);
         mHttpLoading = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
         mHttpError = (ViewStub) super.findViewById(R.id.viewstub_http_error);
-        mButton = (Button) mHttpError.findViewById(R.id.loading_lose_btn);
+
         if(mHttpLoading!=null){
             mHttpLoadingView=mHttpLoading.inflate();
             mHttpLoadingView.setVisibility(View.GONE);
@@ -51,10 +52,19 @@ public abstract class BaseActivity extends ActionBarActivity{
             mHttpErrorView=mHttpError.inflate();
             mHttpErrorView.setVisibility(View.GONE);
         }
+        mButton= (Button)mHttpErrorView.findViewById(R.id.loading_lose_btn);
         mContext = this;
         mActionBar = getSupportActionBar();
         initView();
         ExitAppUtils.getInstance().addActivity(this);
+        
+        mButton.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                reload();
+            }
+        });
 
     }
 
@@ -115,7 +125,10 @@ public abstract class BaseActivity extends ActionBarActivity{
      */
     protected abstract void processLogic();
 
-
+    /***
+     * 加载失败 重新加载
+     */
+    protected abstract void reload();
 
 
     @Override

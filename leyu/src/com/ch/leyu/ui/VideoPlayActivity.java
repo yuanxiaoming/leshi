@@ -101,8 +101,6 @@ public class VideoPlayActivity extends BaseActivity {
                  * @param videoUnique 视频ID
                  * @param videoName 视频名称
                  */
-                Log.d("tag", "vu:"+vu);
-                Log.d("tag", "title:"+title);
                 PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
                 
             }
@@ -134,6 +132,8 @@ public class VideoPlayActivity extends BaseActivity {
     protected void processLogic() {
         mImg.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
         mImg.setScaleType(ScaleType.FIT_XY);
+        final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
+        mSlideTabIndicator.setTextSize(textSize);
         requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
         baiduShareConfig();
     }
@@ -145,6 +145,7 @@ public class VideoPlayActivity extends BaseActivity {
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
@@ -156,7 +157,6 @@ public class VideoPlayActivity extends BaseActivity {
                             mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
-                            mSlideTabIndicator.setTextSize(24);
                             ImageLoader.getInstance().displayImage(data.getVideoInfo().getImageSrc(), mImg,
                                     ImageLoaderUtil.getImageLoaderOptions());
                         }
@@ -165,7 +165,7 @@ public class VideoPlayActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-
+                        mHttpErrorView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -231,6 +231,12 @@ public class VideoPlayActivity extends BaseActivity {
         public void onCancel() {
             Log.d("Test","cancel ");
         }
+        
+    }
+
+    @Override
+    protected void reload() {
+      requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
         
     }
     

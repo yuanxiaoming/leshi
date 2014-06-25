@@ -71,6 +71,12 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void processLogic() {
+        final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
+        mSlideTabIndicator.setTextSize(textSize);
+        requestData();
+    }
+    
+    private void requestData(){
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
         JHttpClient.get(this, Constant.URL + Constant.VIDEO_URL, params, VideoBankResponse.class,new DataCallback<VideoBankResponse>() {
@@ -81,29 +87,28 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
                             mVideobankPagerAdapter = new VideobankPagerAdapter(getSupportFragmentManager(), data);
                             mViewPager.setAdapter(mVideobankPagerAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
-                            mSlideTabIndicator.setTextSize(24);
-
                             mTitleList = data.getTags();
                         }
                     }
 
                     @Override
                     public void onStart() {
-
+                        mHttpErrorView.setVisibility(View.GONE);
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFinish() {
-
+                        mHttpLoadingView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-
+                        mHttpErrorView.setVisibility(View.VISIBLE);
                     }
                 });
-
-    }
+         
+     }
 
     public void showPop() {
         final View popView = LayoutInflater.from(this).inflate(R.layout.videos_popupwindow, null);
@@ -115,7 +120,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
         gridView.setAdapter(mPopAdapter);
 
         final PopupWindow popWindow = new PopupWindow(popView);
-        popWindow.setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);
+        popWindow.setWidth(RelativeLayout.LayoutParams.FILL_PARENT);
         popWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
         popWindow.setBackgroundDrawable(new BitmapDrawable());
         popWindow.setFocusable(true);
@@ -137,5 +142,10 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         showPop();
         
+    }
+
+    @Override
+    protected void reload() {
+        requestData();
     }
 }

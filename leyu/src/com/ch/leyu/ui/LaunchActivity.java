@@ -94,6 +94,10 @@ public class LaunchActivity extends BaseActivity {
         intent.setClass(this, MainActivity.class);
         startActivity(intent);
     }
+    @Override
+    protected void reload() {
+        
+    }
 
 
 }

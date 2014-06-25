@@ -116,6 +116,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
 
             @Override
             public void onStart() {
+                mHttpErrorView.setVisibility(View.GONE);
                 if(mPage==1&&mFlag==false){
                     mHttpLoadingView.setVisibility(View.VISIBLE);
                     
@@ -132,8 +133,10 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                            Exception exception) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Exception exception) {
+                if(mPage<=1){
+                    mHttpErrorView.setVisibility(View.VISIBLE);
+                }
             }
 
         });
@@ -173,5 +176,11 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
         mXlistView.stopLoadMore();
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.CHINA);
         mXlistView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
+
+    @Override
+    protected void reload() {
+       requestData("23",  mKeyword, mPage);
+        
     }
 }

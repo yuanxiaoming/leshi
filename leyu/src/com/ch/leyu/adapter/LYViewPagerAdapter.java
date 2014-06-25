@@ -1,13 +1,14 @@
 
 package com.ch.leyu.adapter;
 
+import com.ch.leyu.widget.view.RestoreFragmentPagerAdapter;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class LYViewPagerAdapter extends FragmentStatePagerAdapter {
+public class LYViewPagerAdapter extends RestoreFragmentPagerAdapter {
 
     private ArrayList<Fragment> mFragments;
 

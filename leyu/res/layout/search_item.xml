@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="5dp"
-    android:paddingTop="5dp" >
+    android:paddingTop="5dp" 
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
 
     <TextView
         android:id="@+id/search_item_tv_result"
@@ -12,11 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
         android:drawableLeft="@drawable/legames_pr"
         android:drawablePadding="5dp"
         android:text="一二三四五"
         android:textColor="#A4A4A4"
+        android:maxLines="1"
         android:textSize="15sp" />
 
 </RelativeLayout>

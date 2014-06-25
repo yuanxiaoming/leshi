@@ -22,7 +22,7 @@
         android:text="Medium Text"
         android:maxLines="1"
         android:textColor="#025A9A"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:textSize="@dimen/title_size"/>
 
     <TextView
         android:id="@+id/allnews_item_time"

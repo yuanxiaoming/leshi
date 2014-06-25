@@ -106,6 +106,7 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         if(mPage==1&&mFlag==false){
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
@@ -122,7 +123,9 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-                       
+                        if(mPage<=1){
+                            mHttpErrorView.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
         
@@ -162,6 +165,11 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    protected void reload() {
+        requestData(mPage);
     }
 
 }

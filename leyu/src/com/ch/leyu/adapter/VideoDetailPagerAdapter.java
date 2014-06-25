@@ -6,15 +6,15 @@ import com.ch.leyu.ui.CommentFragment;
 import com.ch.leyu.ui.DetailFragment;
 import com.ch.leyu.ui.RecommendFragment;
 import com.ch.leyu.utils.Constant;
+import com.ch.leyu.widget.view.RestoreFragmentPagerAdapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class VideoDetailPagerAdapter extends FragmentStatePagerAdapter {
+public class VideoDetailPagerAdapter extends RestoreFragmentPagerAdapter {
 
     private ArrayList<Fragment> mFragments;
 

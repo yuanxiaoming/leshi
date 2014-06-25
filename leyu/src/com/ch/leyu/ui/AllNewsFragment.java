@@ -99,9 +99,9 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                        if(data!=null){
                            mAutoScrollViewPager.startAutoScroll(2000);
                            mAutoScrollViewPager.setInterval(4000);
+                           mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                            mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                           mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
                            mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
                           
@@ -123,6 +123,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
 
                     @Override
                     public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
                         if(mPage==1&&mFlag==false){
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
@@ -140,7 +141,9 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString,
                             Exception exception) {
-                        mHttpErrorView.setVisibility(View.VISIBLE);
+                       if(mPage<=1){
+                           mHttpErrorView.setVisibility(View.VISIBLE);
+                       }
                     }
 
                 });
@@ -179,4 +182,11 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
         mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
     }
+
+    @Override
+    protected void reload() {
+        requestData(mPage);
+    }
+
+  
 }
