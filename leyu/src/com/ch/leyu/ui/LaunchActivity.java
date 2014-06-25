@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 public class LaunchActivity extends BaseActivity {
 
-    private static final String TAG = "LaunchActivity";
-
     private Button mStartAPPbtn;
     private TextView mAppVersion;
 

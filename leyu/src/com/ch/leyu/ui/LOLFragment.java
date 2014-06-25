@@ -70,14 +70,14 @@ public class LOLFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-    	
+
     }
 
     @Override
     protected void processLogic() {
     	//注册EventBus 事件
     	EventBus.getDefault().register(this);
-    	
+
         mPagerAdapter = new LOLViewPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mSlideTabIndicator.setViewPager(mViewPager);
@@ -94,7 +94,7 @@ public class LOLFragment extends BaseFragment {
                             mPageIndicator.setPageCount(data.getFocus().size());
                             mfocusViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
                             mPageIndicator.setViewPager(mfocusViewPager);
-                            
+
                         }
 
                     }
@@ -119,19 +119,19 @@ public class LOLFragment extends BaseFragment {
 
                 });
     }
-    
+
     //onEventMainThread，当使用这种类型时，回调函数会在主线程中执行.
     public static final float RADIO = 1.3f ;
 	public void onEventMainThread(XListViewTouchEventBus event) {
-		
+
 		int deltaY = (int)( event.getDeltaY() / RADIO);
 		XListView listView = event.getListView() ;
 		System.out.println("deltaY = " + deltaY);
-		
+
 		// 根据触摸的XListView的高度来动态改变AutoScrollerViewPager的高度
 		RelativeLayout.LayoutParams params = (LayoutParams) mView.getLayoutParams();
 		int newTopMargin = params.topMargin + deltaY;
-		
+
 		//移动到了 顶部布局刚好被hide
 		if(params.topMargin == - mView.getHeight())
 	    {
@@ -152,33 +152,33 @@ public class LOLFragment extends BaseFragment {
 					newTopMargin -= deltaY ;
 				}
 	    	}
-	    	else{ //表示上拉 
-	    		//ListView 可以滑动 
+	    	else{ //表示上拉
+	    		//ListView 可以滑动
 //	    		listView.canScroll(true);
 	    		//下面设置全局变量  保证多个XListView 的一致性
 	    		CommonUtil.getAppliction(getActivity()).canScroll(true);
 	    	}
 	    }
-		
+
 		//处理顶部布局的移动边界
 		if(deltaY > 0 && newTopMargin > 0)
 		{
 			newTopMargin = 0 ;
 		}
-		
+
 		//处理顶部布局的移动边界
 	    if(deltaY < 0 && newTopMargin < -mView.getHeight())
 		{
 			//处理topMargin的边界
 			newTopMargin = - mView.getHeight() ;
 		}
-	    
+
 		params.topMargin = newTopMargin ;
 		mView.setLayoutParams(params);
 		getView().invalidate();
-		
+
 	}
-    
+
     @Override
     public void onDestroy() {
     	super.onDestroy();
