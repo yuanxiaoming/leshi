@@ -96,7 +96,7 @@ public class LaunchActivity extends BaseActivity {
     }
     @Override
     protected void reload() {
-        
+
     }
 
 

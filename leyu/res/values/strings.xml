@@ -18,7 +18,7 @@
     <string name="launch_app_version_txt">v</string>
 
     <!-- 视频搜索结果 -->
-    <string name="search_newst">最新上传</string> 
+    <string name="search_newst">最新上传</string>
     <string name="search_hottest">最多播放</string>
     <string name="search_result_no">没有搜索到您要的结果</string>
     <string name="search_hint">请输入您要搜索的内容</string>

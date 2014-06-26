@@ -1,6 +1,16 @@
 
 package com.ch.leyu.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.http.Header;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.StarListAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
@@ -12,20 +22,9 @@ import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
-import org.apache.http.Header;
-
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /***
  * 首页--明星解说
- * 
+ *
  * @author L
  */
 public class StarGirefFragment extends BaseFragment {
@@ -33,7 +32,7 @@ public class StarGirefFragment extends BaseFragment {
     private XListView mXListView;
 
     private StarListAdapter mAdapter;
-    
+
     private SimpleDateFormat mSimpleDateFormat;
 
     private int mPage = 1;

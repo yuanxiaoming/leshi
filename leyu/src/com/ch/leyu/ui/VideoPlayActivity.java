@@ -1,6 +1,22 @@
 
 package com.ch.leyu.ui;
 
+import org.apache.http.Header;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.ActionBar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout;
+
 import com.baidu.frontia.Frontia;
 import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
 import com.baidu.frontia.api.FrontiaSocialShare;
@@ -21,30 +37,13 @@ import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.letv.playutils.PlayUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.apache.http.Header;
-
-import android.app.ActionBar;
-import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout;
-
 
 
 
 
 /***
  * 视频播放
- * 
+ *
  * @author L
  */
 public class VideoPlayActivity extends BaseActivity {
@@ -58,24 +57,25 @@ public class VideoPlayActivity extends BaseActivity {
     private String mId;
 
     private VideoDetailPagerAdapter mAdapter;
-    
+
   //百度分享
     private FrontiaSocialShare mSocialShare;
-    
+
     private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
-    
+
     private String vu ;
-    
+
     private String title;
 
-    
+
     @Override
     protected void onStart() {
         super.onStart();
-        ActionBar actionBar = this.getActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("乐娱视频");
-    }
+        actionBar.setLogo(R.drawable.legames_back);
+        actionBar.setHomeButtonEnabled(true);
+    	}
 
     @Override
     protected void getExtraParams() {
@@ -101,7 +101,7 @@ public class VideoPlayActivity extends BaseActivity {
     @Override
     protected void setListener() {
         mImg.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 /**
@@ -112,12 +112,12 @@ public class VideoPlayActivity extends BaseActivity {
                  * @param videoName 视频名称
                  */
                 PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
-                
+
             }
         });
-        
+
         mImg.setOnTouchListener(new OnTouchListener() {
-            
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -131,11 +131,11 @@ public class VideoPlayActivity extends BaseActivity {
                     default:
                         break;
                 }
-                
+
                 return false;
             }
         });
-       
+
     }
 
     @Override
@@ -190,7 +190,7 @@ public class VideoPlayActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.play, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -199,10 +199,11 @@ public class VideoPlayActivity extends BaseActivity {
                 break;
 
             case android.R.id.home:
-                Intent intent = new Intent(this, MainActivity.class);  
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
-                startActivity(intent);  
-                return true;  
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                return true;
 
             default:
                 break;
@@ -210,11 +211,11 @@ public class VideoPlayActivity extends BaseActivity {
 
         return true;
     }
-    
+
     private void baiduShare() {
         mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
     }
-    
+
     private void baiduShareConfig() {
         Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
         mSocialShare = Frontia.getSocialShare();
@@ -230,7 +231,7 @@ public class VideoPlayActivity extends BaseActivity {
         mImageContent.setLinkUrl("http://www.legames.cn/");
         mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
     }
-    
+
     private class ShareListener implements FrontiaSocialShareListener {
 
         @Override
@@ -247,13 +248,13 @@ public class VideoPlayActivity extends BaseActivity {
         public void onCancel() {
             Log.d("Test","cancel ");
         }
-        
+
     }
 
     @Override
     protected void reload() {
       requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
-        
+
     }
-    
+
 }

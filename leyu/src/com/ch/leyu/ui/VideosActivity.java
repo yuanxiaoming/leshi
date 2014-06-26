@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 /***
  * 炉石传说首页--视频库
- * 
+ *
  * @author L
  */
 public class VideosActivity extends BaseActivity implements OnClickListener {
@@ -43,7 +43,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     private VideobankPagerAdapter mVideobankPagerAdapter;
 
     private ArrayList<TagResponse> mTitleList;
-    
+
     private PopGridViewAdapter mPopAdapter = null;
 
     @Override
@@ -75,7 +75,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
         mSlideTabIndicator.setTextSize(textSize);
         requestData();
     }
-    
+
     private void requestData(){
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
@@ -107,13 +107,13 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
                         mHttpErrorView.setVisibility(View.VISIBLE);
                     }
                 });
-         
+
      }
 
     public void showPop() {
         final View popView = LayoutInflater.from(this).inflate(R.layout.videos_popupwindow, null);
         GridView gridView = (GridView) popView.findViewById(R.id.pop_gridview);
-      
+
         if (mTitleList != null) {
             mPopAdapter = new PopGridViewAdapter(mTitleList, this);
         }
@@ -141,7 +141,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         showPop();
-        
+
     }
 
     @Override

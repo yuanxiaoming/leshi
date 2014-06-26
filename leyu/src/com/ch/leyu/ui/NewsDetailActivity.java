@@ -1,20 +1,6 @@
 
 package com.ch.leyu.ui;
 
-import com.baidu.frontia.Frontia;
-import com.baidu.frontia.api.FrontiaSocialShare;
-import com.baidu.frontia.api.FrontiaSocialShareContent;
-import com.baidu.frontia.api.FrontiaSocialShareListener;
-import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
-import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
-import com.ch.leyu.R;
-import com.ch.leyu.http.httplibrary.RequestParams;
-import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.NewDetailResponse;
-import com.ch.leyu.utils.Constant;
-import com.ch.leyu.utils.LeUtils;
-
 import org.apache.http.Header;
 
 import android.content.Intent;
@@ -33,6 +19,20 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.baidu.frontia.Frontia;
+import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
+import com.baidu.frontia.api.FrontiaSocialShare;
+import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
+import com.baidu.frontia.api.FrontiaSocialShareContent;
+import com.baidu.frontia.api.FrontiaSocialShareListener;
+import com.ch.leyu.R;
+import com.ch.leyu.http.httplibrary.RequestParams;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.NewDetailResponse;
+import com.ch.leyu.utils.Constant;
+import com.ch.leyu.utils.LeUtils;
+
 public class NewsDetailActivity extends BaseActivity {
     /** 标题 */
     private TextView mTitle;
@@ -45,12 +45,12 @@ public class NewsDetailActivity extends BaseActivity {
 
     /** 正文 */
     private WebView mContent;
-    
+
     private String mCid;
-    
+
     //百度分享
     private FrontiaSocialShare mSocialShare;
-    
+
     private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
 
     @Override
@@ -86,7 +86,7 @@ public class NewsDetailActivity extends BaseActivity {
         baiduShareConfig();
         requestData();
     }
-    
+
     private void requestData() {
         RequestParams params = new RequestParams();
         params.put("id", mCid);
@@ -94,7 +94,7 @@ public class NewsDetailActivity extends BaseActivity {
 
             @Override
             public void onStart() {
-                
+
                 mHttpLoadingView.setVisibility(View.VISIBLE);
             }
 
@@ -116,15 +116,15 @@ public class NewsDetailActivity extends BaseActivity {
                     settings.setJavaScriptEnabled(true);
                     // 设置处理客户端
                     settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-                    settings.setUseWideViewPort(true); 
-                    settings.setLoadWithOverviewMode(true); 
+                    settings.setUseWideViewPort(true);
+                    settings.setLoadWithOverviewMode(true);
 
                     mContent.setWebViewClient(new WebViewClient());
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
                     mContent.loadDataWithBaseURL("", data.getInfo().getContent(), "text/html","UTF-8", "");
                     mTitle.setText(data.getInfo().getTitle());
                     mTime.setText(LeUtils.toDate(data.getInfo().getCreateTime()));
-                   
+
 
                     String s = "<font color=\"#8F8F8F\">感谢</font> ";
                     String s1 = "<font color=\"#CA4D4D\">"+ data.getInfo().getAuthor() +"</font> ";
@@ -136,7 +136,7 @@ public class NewsDetailActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-                
+
             }
 
             @Override
@@ -151,7 +151,7 @@ public class NewsDetailActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.play, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -165,26 +165,27 @@ public class NewsDetailActivity extends BaseActivity {
 
         return true;
     }
-    
+
     private void baiduShare() {
         mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
     }
-    
+
     private void baiduShareConfig() {
         Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
         mSocialShare = Frontia.getSocialShare();
         mSocialShare.setContext(this);
         mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
-        mSocialShare.setClientId(MediaType.QZONE.toString(), "100358052");
-        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "100358052");
-        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "9377");
-        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxd9a39c7122aa6516");
-        mImageContent.setTitle("9377安全中心");
-        mImageContent.setContent("欢迎使用9377安全中心");
-        mImageContent.setLinkUrl("http://www.9377.com");
+        mSocialShare.setClientId(MediaType.QZONE.toString(), "101069451");
+        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "101069451");
+        mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
+        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
+        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
+        mImageContent.setTitle("乐娱互动");
+        mImageContent.setContent("欢迎使用乐娱互动");
+        mImageContent.setLinkUrl("http://www.legames.cn/");
         mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
     }
-    
+
     private class ShareListener implements FrontiaSocialShareListener {
 
         @Override
@@ -201,12 +202,12 @@ public class NewsDetailActivity extends BaseActivity {
         public void onCancel() {
             Log.d("Test","cancel ");
         }
-        
+
     }
 
     @Override
     protected void reload() {
-        
+
     }
-    
+
 }
