@@ -11,6 +11,7 @@ import com.ch.leyu.responseparse.VideoDetailResponse;
 import com.ch.leyu.responseparse.VideoSearchResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
+import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
@@ -19,6 +20,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 视频播放界面--相关推荐
@@ -32,6 +36,16 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
     private VideoDetailResponse mVideoDetailResponse = null;
     
     private RecommendListAdapter mListAdapter;
+    
+    private SimpleDateFormat mSimpleDateFormat;
+    
+    private String mKeyWord;
+    
+    private int mPage = 1;
+
+    private int mTotalPage;
+
+    private boolean mFlag;
 
     @Override
     protected void getExtraParams() {
@@ -60,20 +74,23 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
 
     @Override
     protected void processLogic() {
+        mXListView.setPullRefreshEnable(true);
+        mXListView.setPullLoadEnable(true);
+        mXListView.setXListViewListener(mIXListViewListenerImp);
         mXListView.setAdapter(mListAdapter);
         if(mVideoDetailResponse!=null){
-            String keyWord = "["+mVideoDetailResponse.getTag()+","+mVideoDetailResponse.getGame()+"]";
-            String url = Constant.URL+Constant.SEARCH;
-            requestData(keyWord, url);
+            mKeyWord = "["+mVideoDetailResponse.getTag()+","+mVideoDetailResponse.getGame()+"]";
+            requestData(mKeyWord,mPage);
         }
        
     }
 
     
-    private void requestData(String keyWord,String url){
-        
+    private void requestData(String keyWord,int page){
+        String url = Constant.URL+Constant.SEARCH;
         RequestParams params = new RequestParams();
         params.put(Constant.KEYWORD, keyWord);
+        params.put(Constant.PAGE, page);
         JHttpClient.get(getActivity(), url, params , VideoSearchResponse.class, callBack);
     }
     
@@ -83,15 +100,31 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
 
         @Override
         public void onStart() {
-            
+            if(mPage==1&&mFlag==false){
+                mHttpLoadingView.setVisibility(View.VISIBLE);
+            }
+           
+            if (mXListView != null) {
+                onLoad();
+            }
         }
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, VideoSearchResponse data) {
             if(data!=null){
-                mListAdapter.chargeArrayList(data.getVideoList());
+                mTotalPage = data.getTotalPage();
+                if (mPage == 1) {
+                    mListAdapter.chargeArrayList(data.getVideoList());
+                } else {
+                    mListAdapter.addArrayList(data.getVideoList());
+                }
+                mPage++;
+                if (mPage > mTotalPage) {
+                    mXListView.setPullLoadEnable(false);
+                } else {
+                    mXListView.setPullLoadEnable(true);
+                }
             }
-            
         }
 
         @Override
@@ -101,7 +134,7 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
 
         @Override
         public void onFinish() {
-            
+            mHttpLoadingView.setVisibility(View.GONE);
         }
     };
 
@@ -120,11 +153,32 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
 
     @Override
     protected void reload() {
-        // TODO Auto-generated method stub
         
     }
     
+    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+        
+        @Override
+        public void onRefresh() {
+            mFlag = true;
+            mPage = 1;
+            requestData(mKeyWord,mPage);
+        }
+
+        @Override
+        public void onLoadMore() {
+            requestData(mKeyWord,mPage);
+
+        }
+    };
     
-    
+    // 加载中时间监听
+    private void onLoad() {
+        mXListView.stopRefresh();
+        mXListView.stopLoadMore();
+        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
+    }
+
     
 }

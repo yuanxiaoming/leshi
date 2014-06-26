@@ -18,6 +18,7 @@ import org.apache.http.Header;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -90,13 +91,11 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
 
     @Override
     protected void processLogic() {
-        mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),
-                addTitle()));
+        mLyViewPager.setAdapter(new LYViewPagerAdapter(getSupportFragmentManager(), addFragment(),addTitle()));
         mTabStrip.setViewPager(mLyViewPager);
         final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
         mTabStrip.setTextSize(textSize);
-
-       
+       requestData();
 
     }
     

@@ -10,7 +10,7 @@
     <com.ch.leyu.widget.view.ClearEditText
         android:id="@+id/search_head_et_detail"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="38dp"
         android:layout_toLeftOf="@+id/search_head_bt_commit"
         android:background="@drawable/search_edittext_bg"
         android:ems="10" />

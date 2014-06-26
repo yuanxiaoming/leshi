@@ -138,6 +138,7 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 			detailFragment.setArguments(bundle);
 			FragmentManager manager = getActivity().getSupportFragmentManager();
 			manager.beginTransaction().add(R.id.fragment_content, detailFragment, item.getCid()).addToBackStack(null).hide(HSNewsFragment.this).commit();
+			
 			//     CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, detailFragment, item.getCid());
 		}
 	}

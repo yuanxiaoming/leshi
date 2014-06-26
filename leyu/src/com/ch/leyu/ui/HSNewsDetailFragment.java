@@ -46,6 +46,8 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 	private String mCid ;
 
 	public static final String GAMEID="23";
+	
+	 private boolean mFlag;
 
 
 	@Override
@@ -113,7 +115,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 			@Override
 			public void onStart() {
 				mHttpErrorView.setVisibility(View.GONE);
-				if(mPage==1){
+				if(mPage==1&&mFlag==false){
 					mHttpLoadingView.setVisibility(View.VISIBLE);
 				}
 				if (mXListView != null) {
@@ -143,6 +145,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 	private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
 		@Override
 		public void onRefresh() {
+		    mFlag = true ;
 			mPage = 1;
 			requestData(mPage);
 		}

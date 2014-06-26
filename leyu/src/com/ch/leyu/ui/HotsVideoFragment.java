@@ -89,7 +89,6 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
                         if (data != null) {
                             mResponse = data.getVideoList();
                             mTotalPage = data.getVideoList().getTotalPage();
-                            Log.d("tag", mTotalPage+"----");
                             if (mPage == 1) {
                                 mAdapter.chargeArrayList(data.getVideoList().getData());
                             } else {

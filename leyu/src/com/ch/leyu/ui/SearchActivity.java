@@ -209,8 +209,7 @@ public class SearchActivity extends BaseActivity {
                 startActivity(intent);
 
             } else {
-                Toast.makeText(mContext, R.string.search_hint_null, Toast.LENGTH_LONG).show();
-
+                mResult.setText(R.string.search_hint_null);
             }
         }
 

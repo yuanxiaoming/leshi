@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -32,9 +33,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 
@@ -66,6 +68,14 @@ public class VideoPlayActivity extends BaseActivity {
     
     private String title;
 
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setTitle("乐娱视频");
+    }
 
     @Override
     protected void getExtraParams() {
@@ -130,7 +140,7 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
-        mImg.setLayoutParams(new LinearLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
+        mImg.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
         mImg.setScaleType(ScaleType.FIT_XY);
         final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
         mSlideTabIndicator.setTextSize(textSize);
@@ -174,7 +184,6 @@ public class VideoPlayActivity extends BaseActivity {
                     }
                 });
     }
-    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -188,6 +197,12 @@ public class VideoPlayActivity extends BaseActivity {
             case R.id.action_share:
                 baiduShare();
                 break;
+
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);  
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+                startActivity(intent);  
+                return true;  
 
             default:
                 break;
@@ -205,13 +220,14 @@ public class VideoPlayActivity extends BaseActivity {
         mSocialShare = Frontia.getSocialShare();
         mSocialShare.setContext(this);
         mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
-        mSocialShare.setClientId(MediaType.QZONE.toString(), "100358052");
-        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "100358052");
-        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "9377");
-        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxd9a39c7122aa6516");
-        mImageContent.setTitle("9377安全中心");
-        mImageContent.setContent("欢迎使用9377安全中心");
-        mImageContent.setLinkUrl("http://www.9377.com");
+        mSocialShare.setClientId(MediaType.QZONE.toString(), "101069451");
+        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "101069451");
+        mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
+        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
+        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
+        mImageContent.setTitle("乐娱互动");
+        mImageContent.setContent("欢迎使用乐娱互动");
+        mImageContent.setLinkUrl("http://www.legames.cn/");
         mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
     }
     

@@ -19,6 +19,16 @@ public class VideoSearchResponse implements Serializable {
     private ArrayList<Property> videoList;
 
     private int totalPage;
+    
+    private String total;
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
 
     public ArrayList<Property> getVideoList() {
         return videoList;

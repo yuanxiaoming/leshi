@@ -3,13 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/color_light_gray">
+    android:background="@color/color_light_gray"
+    android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/act_videodetail_img"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/act_videodetail_img"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerInside" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/play_ico" />
+    </RelativeLayout>
 
     <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/act_videodetail_pagertab"
