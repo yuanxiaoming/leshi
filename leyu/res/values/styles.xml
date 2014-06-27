@@ -2,14 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
-
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -18,10 +17,9 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
-    
+
     <!-- general styles for the action bar -->
-    <style name="MyActionBar"
-           parent="@style/Widget.AppCompat.ActionBar">
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/TitleTextStyle</item>
         <item name="android:background">@drawable/actionbar_background</item>
 
@@ -31,8 +29,7 @@
     </style>
 
     <!-- action bar title text -->
-    <style name="TitleTextStyle"
-           parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -46,15 +43,14 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-    
-    
-     <!-- popwidnow 显示消失动画-->
 
- <style name="popwindow_anim_style">
-	  <item name="android:windowEnterAnimation">@anim/pupup_anim_enter</item>        <!-- 指定显示的动画xml  -->
-	  <item name="android:windowExitAnimation">@anim/pupup_anim_exit</item>       <!-- 指定消失的动画xml  -->
- </style>
-    
-    
+    <!-- popwidnow 显示消失动画 -->
+
+    <style name="popwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pupup_anim_enter</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pupup_anim_exit</item>
+        <!-- 指定消失的动画xml -->
+    </style>
 
 </resources>

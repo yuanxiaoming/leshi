@@ -73,8 +73,10 @@ public class VideoPlayActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         ActionBar actionBar = this.getActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setIcon(null);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("乐娱视频");
+        actionBar.setIcon(null);
     }
 
     @Override

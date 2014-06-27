@@ -100,7 +100,8 @@
             android:name="com.ch.leyu.ui.VideoPlayActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan" 
+            android:logo="@drawable/legames_back">
         </activity>
         <activity
             android:name="com.ch.leyu.ui.NewsDetailActivity"
