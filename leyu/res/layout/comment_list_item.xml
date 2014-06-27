@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_tab"
     android:paddingBottom="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:paddingTop="5dp" >
 
     <TextView

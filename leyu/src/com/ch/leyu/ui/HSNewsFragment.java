@@ -44,6 +44,7 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	private CustomScrollView mCustomScrollView;
 
 	private static  HSNewsDetailFragment detailFragment = null;
+
 	private static  HSNewsFragment mHSNewsFragment = null;
 
 	public static FragmentActivity activity;

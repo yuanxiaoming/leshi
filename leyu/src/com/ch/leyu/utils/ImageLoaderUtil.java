@@ -10,22 +10,22 @@ import android.graphics.Bitmap;
 public class ImageLoaderUtil {
 
 	public static DisplayImageOptions getImageLoaderOptions() {
-		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.abc_ab_bottom_solid_dark_holo).showImageForEmptyUri(R.drawable.abc_ab_bottom_solid_dark_holo)
-				.showImageOnFail(R.drawable.abc_ab_bottom_solid_dark_holo).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(0)).bitmapConfig(Bitmap.Config.ARGB_8888).build();
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.legames_default).showImageForEmptyUri(R.drawable.legames_default)
+				.showImageOnFail(R.drawable.legames_default).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(0)).bitmapConfig(Bitmap.Config.ARGB_8888).build();
 
 		return options;
 	}
 	
 	public static DisplayImageOptions getImageLoaderOptions(int roundDegree) {
-		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.abc_ab_bottom_solid_dark_holo).showImageForEmptyUri(R.drawable.abc_ab_bottom_solid_dark_holo)
-				.showImageOnFail(R.drawable.abc_ab_bottom_solid_dark_holo).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(roundDegree)).bitmapConfig(Bitmap.Config.ARGB_8888).build();
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.legames_default).showImageForEmptyUri(R.drawable.legames_default)
+				.showImageOnFail(R.drawable.legames_default).cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(roundDegree)).bitmapConfig(Bitmap.Config.ARGB_8888).build();
 
 		return options;
 	}
 
 	public static DisplayImageOptions getImageOptions() {
-		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.abc_ab_bottom_solid_dark_holo).showImageForEmptyUri(R.drawable.abc_ab_bottom_solid_dark_holo)
-				.showImageOnFail(R.drawable.abc_ab_bottom_solid_dark_holo).cacheInMemory(true).cacheOnDisc(true).displayer(new FadeInBitmapDisplayer(300)).bitmapConfig(Bitmap.Config.ARGB_8888)
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.legames_default).showImageForEmptyUri(R.drawable.legames_default)
+				.showImageOnFail(R.drawable.legames_default).cacheInMemory(true).cacheOnDisc(true).displayer(new FadeInBitmapDisplayer(300)).bitmapConfig(Bitmap.Config.ARGB_8888)
 				.build();
 		return options;
 	}

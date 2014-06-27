@@ -25,6 +25,16 @@ public class Property implements Serializable {
     private String createTime;
     
     private String cid ;
+    
+    private String detail; 
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public String getCid() {
         return cid;

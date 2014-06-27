@@ -62,6 +62,7 @@ public class BigImgGridAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.bigimg_grid_item, null);
             holder.img = (ImageView) convertView.findViewById(R.id.big_img);
             holder.title = (TextView) convertView.findViewById(R.id.big_title);
+            holder.detail = (TextView) convertView.findViewById(R.id.big_detail);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -74,6 +75,7 @@ public class BigImgGridAdapter extends BaseAdapter {
         ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
                 ImageLoaderUtil.getImageLoaderOptions());
         holder.title.setText(mNewsList.get(position).getTitle());
+        holder.detail.setText("低洼大碗大碗饭");
 
         return convertView;
     }
@@ -81,7 +83,7 @@ public class BigImgGridAdapter extends BaseAdapter {
     class ViewHolder {
         ImageView img;
 
-        TextView title;
+        TextView title,detail;
     }
 
 }

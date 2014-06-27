@@ -158,12 +158,13 @@ public class NewVideoFragment extends BaseFragment implements GridItemClickListe
     
     @Override
     public void onGridItemClicked(View v, int position, long itemId) {
-        if (mResponse != null) {
-            String cId = mResponse.getData().get(position).getId();
+        if(mAdapter!=null&&mAdapter.getArrayList()!=null&&mAdapter.getArrayList().size()>0){
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-            intent.putExtra(Constant.CID, cId);
+            String videoId = mAdapter.getArrayList().get(position).getId();
+            intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
+        
 
     }
 

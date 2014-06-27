@@ -39,8 +39,8 @@
     <application
         android:name="com.ch.leyu.application.CLYApplication"
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.ch.leyu.ui.LaunchActivity"
@@ -100,8 +100,7 @@
             android:name="com.ch.leyu.ui.VideoPlayActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" 
-            android:logo="@drawable/legames_back">
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.NewsDetailActivity"
@@ -133,14 +132,14 @@
                 <data android:scheme="tencent100358052" />
             </intent-filter>
         </activity>
-           <activity
+        <activity
             android:name="com.letv.android.sdk.play.BasePlayActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
-        
+
         <provider
             android:name="com.letv.datastatistics.db.StatisContentProvider"
             android:authorities="sdker.StatisContentProvider" />

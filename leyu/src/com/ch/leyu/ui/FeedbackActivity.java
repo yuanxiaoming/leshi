@@ -11,8 +11,12 @@ import com.ch.leyu.widget.view.ClearEditText;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,7 +25,7 @@ import android.widget.Toast;
  * 
  * @author L
  */
-public class FeedbackActivity extends BaseActivity {
+public class FeedbackActivity extends BaseActivity implements OnFocusChangeListener {
 
     public static final String TYPE = "type";
 
@@ -85,11 +89,17 @@ public class FeedbackActivity extends BaseActivity {
                 }
             }
         });
+        
+        mDetail_Edit.setOnFocusChangeListener(this);
+        mPhoneModel_Edit.setOnFocusChangeListener(this);
+        mTel_Edit.setOnFocusChangeListener(this);
     }
 
     @Override
     protected void processLogic() {
-        
+        if(mDetail_Edit.hasFocus()){
+            mDetail_Edit.setHint("");
+        }
     }
 
     public void requestData(String type,String detail,String contact){
@@ -130,4 +140,46 @@ public class FeedbackActivity extends BaseActivity {
     protected void reload() {
         
     }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        ClearEditText edit = (ClearEditText) v;
+        String hint;
+        if (hasFocus) {
+            hint = edit.getHint().toString();
+            edit.setTag(hint);
+            edit.setHint("");
+        } else {
+            hint = edit.getTag().toString();
+            edit.setHint(hint);
+        } 
+        
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("视频搜索");
+        actionBar.setLogo(R.drawable.legames_back);
+        actionBar.setHomeButtonEnabled(true);
+        }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                return true;
+
+            default:
+                break;
+        }
+
+        return true;
+    }
+    
 }

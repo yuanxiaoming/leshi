@@ -13,6 +13,7 @@
         android:layout_height="38dp"
         android:layout_toLeftOf="@+id/search_head_bt_commit"
         android:background="@drawable/search_edittext_bg"
+        android:paddingLeft="5dp"
         android:ems="10" />
 
     <Button

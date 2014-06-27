@@ -18,7 +18,7 @@ import org.apache.http.Header;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,10 +55,12 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     private ArrayList<String> mTitles;
 
     private ArrayList<Fragment> mFragments;
+    
+    private String name ="";
 
     @Override
     public void onClick(View v) {
-
+         
     }
 
     @Override
@@ -66,6 +68,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             uid = bundle.getString(Constant.UID);
+            name = bundle.getString("name");
         }
     }
 
@@ -173,7 +176,13 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
                 intent = new Intent(this,FeedbackActivity.class);
                 startActivity(intent);
                 break;
-
+            case android.R.id.home:
+                intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                return true;
+                
             default:
                 break;
         }
@@ -186,5 +195,14 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         requestData();
         
     }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(name);
+        actionBar.setLogo(R.drawable.legames_back);
+        actionBar.setHomeButtonEnabled(true);
+        }
     
 }

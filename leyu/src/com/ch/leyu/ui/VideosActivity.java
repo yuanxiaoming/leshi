@@ -15,8 +15,11 @@ import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -29,8 +32,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 /***
- * 炉石传说首页--视频库
- * 
+ * 炉石传说--视频库
+ *
  * @author L
  */
 public class VideosActivity extends BaseActivity implements OnClickListener {
@@ -43,8 +46,19 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     private VideobankPagerAdapter mVideobankPagerAdapter;
 
     private ArrayList<TagResponse> mTitleList;
-    
+
     private PopGridViewAdapter mPopAdapter = null;
+    
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("炉石传说-视频库");
+        actionBar.setLogo(R.drawable.legames_back);
+        actionBar.setHomeButtonEnabled(true);
+        }
+
 
     @Override
     protected void getExtraParams() {
@@ -75,7 +89,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
         mSlideTabIndicator.setTextSize(textSize);
         requestData();
     }
-    
+
     private void requestData(){
         RequestParams params = new RequestParams();
         params.put(Constant.GMAE_ID, 23);
@@ -107,13 +121,13 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
                         mHttpErrorView.setVisibility(View.VISIBLE);
                     }
                 });
-         
+
      }
 
     public void showPop() {
         final View popView = LayoutInflater.from(this).inflate(R.layout.videos_popupwindow, null);
         GridView gridView = (GridView) popView.findViewById(R.id.pop_gridview);
-      
+
         if (mTitleList != null) {
             mPopAdapter = new PopGridViewAdapter(mTitleList, this);
         }
@@ -141,11 +155,31 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         showPop();
-        
+
     }
 
     @Override
     protected void reload() {
         requestData();
     }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                return true;
+
+            default:
+                break;
+        }
+
+        return true;
+    }
+
+    
+    
 }

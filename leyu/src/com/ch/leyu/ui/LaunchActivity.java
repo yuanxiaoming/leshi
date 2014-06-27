@@ -35,7 +35,7 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
-        getActionBar().hide();
+        getSupportActionBar().hide();
         int oldVersion = Settings.getVersionCode();
         int currentVersion = VersionUtil.getVersionCode();
         if (oldVersion == 0) {
@@ -96,7 +96,7 @@ public class LaunchActivity extends BaseActivity {
     }
     @Override
     protected void reload() {
-        
+
     }
 
 

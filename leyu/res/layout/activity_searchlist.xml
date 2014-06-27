@@ -18,25 +18,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/search_radiogroup"
-        android:paddingLeft="8dp"
-        android:paddingTop="5dp"
         android:drawableLeft="@drawable/legames_label"
         android:drawablePadding="5dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
         android:text="TextView" />
-
-    <com.ch.leyu.widget.xlistview.XListView
-        android:id="@+id/act_searchlist_gd"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/search_radiogroup"
-        android:layout_marginTop="16dp"
-        android:divider="#FFCC00"
-        android:footerDividersEnabled="false"
-        android:horizontalSpacing="10dp"
-        android:listSelector="@drawable/search_grid_item_selector"
-        android:paddingTop="10dp"
-        android:verticalSpacing="10dp" />
 
     <RadioGroup
         android:id="@+id/search_radiogroup"
@@ -84,5 +70,19 @@
             android:textColor="#959595"
             android:textSize="15sp" />
     </RadioGroup>
+
+    <com.ch.leyu.widget.xlistview.XListView
+        android:id="@+id/act_searchlist_gd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_radiogroup"
+        android:layout_marginTop="16dp"
+        android:divider="#FFCC00"
+        android:footerDividersEnabled="false"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@drawable/search_grid_item_selector"
+        android:paddingTop="5dp"
+        android:verticalSpacing="10dp" />
 
 </RelativeLayout>

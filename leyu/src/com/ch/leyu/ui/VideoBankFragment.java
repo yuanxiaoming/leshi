@@ -144,10 +144,10 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
 
     @Override
     public void onGridItemClicked(View v, int position, long itemId) {
-        if (mBankResponse != null) {
-            String uId = mBankResponse.getVideoList().get(position).getId();
+        if(mAdapter!=null&&mAdapter.getArrayList()!=null&&mAdapter.getArrayList().size()>0){
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-            intent.putExtra(Constant.CID, uId);
+            String videoId = mAdapter.getArrayList().get(position).getId();
+            intent.putExtra(Constant.CID, videoId);
             startActivity(intent);
         }
 

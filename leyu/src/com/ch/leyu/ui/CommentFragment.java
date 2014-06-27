@@ -100,7 +100,6 @@ public class CommentFragment extends BaseFragment {
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
             nickName = bundle.getString(Constant.NICKNAME);
-            Log.d("tag", "mCid:"+mCid);
         }
     }
 

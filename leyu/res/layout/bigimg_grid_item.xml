@@ -2,27 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/list_item_selector"
- >
+    android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/big_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" 
-        android:src="@drawable/launcher_first_bg"/>
+        android:layout_alignParentTop="true"
+        android:src="@drawable/launcher_first_bg" />
 
-    <TextView
-        android:id="@+id/big_title"
+    <LinearLayout
+        android:id="@+id/big_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/big_img"
         android:layout_alignParentLeft="true"
         android:background="@drawable/recommend_item_selector"
-        android:maxLines="1"
-        android:text="TextView"
-        android:textColor="#FFFFFF" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/big_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingLeft="5dp"
+            android:text="TextView"
+            android:textColor="@color/color_write"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/big_detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingLeft="5dp"
+            android:text="TextView"
+            android:textColor="#c7c7c7"
+            android:textSize="13sp" />
+    </LinearLayout>
 
 </RelativeLayout>
