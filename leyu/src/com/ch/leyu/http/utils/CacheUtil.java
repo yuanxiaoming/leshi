@@ -22,6 +22,6 @@ public class CacheUtil {
     }
 
     public static void deleteCache(Context context) {
-        CacheManager.getInstance(context).deleteCache();
+        CacheManager.getInstance(context).deleteCache();    
     }
 }
