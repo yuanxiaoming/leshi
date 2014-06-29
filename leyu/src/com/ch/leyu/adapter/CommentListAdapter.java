@@ -3,7 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.CommentDetail;
-import com.ch.leyu.utils.LeUtils;
+import com.ch.leyu.utils.TimeUtils;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -114,7 +114,7 @@ public class CommentListAdapter extends BaseAdapter {
         }
 
 
-        holder.time.setText(LeUtils.toDate(mArrayList.get(position).getCreateTime()));
+        holder.time.setText(TimeUtils.toDate(mArrayList.get(position).getCreateTime()));
         WebSettings settings = holder.detail.getSettings();
         // 设置布局算法
         settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);

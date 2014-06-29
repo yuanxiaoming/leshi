@@ -63,7 +63,7 @@ public class CommentFragment extends BaseFragment {
 
     private String mCid;
 
-    private String nickName="";
+    private String nickName="我";
 
     /** ListView 要加入的头部View */
     private View mListViewHeaderView;
@@ -92,14 +92,14 @@ public class CommentFragment extends BaseFragment {
     private boolean mFlag = false;
 
     private  ArrayList<CommentDetail> mDetailsList ;
-    
+
 
     @Override
     protected void getExtraParams() {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mCid = bundle.getString(Constant.GMAE_ID);
-            nickName = bundle.getString(Constant.NICKNAME);
+//            nickName = bundle.getString(Constant.NICKNAME);
         }
     }
 
@@ -324,9 +324,9 @@ public class CommentFragment extends BaseFragment {
     @Override
     protected void reload() {
         requestData(mPage);
-        
+
     }
 
-   
+
 
 }

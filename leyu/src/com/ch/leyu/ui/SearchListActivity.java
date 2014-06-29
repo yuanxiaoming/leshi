@@ -1,13 +1,16 @@
 package com.ch.leyu.ui;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.Header;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,311 +39,354 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
  */
 public class SearchListActivity extends BaseActivity {
 
-    /** 最新 */
-    private RadioButton mNewst;
+	/** 最新 */
+	private RadioButton mNewst;
 
-    /** 最热 */
-    private RadioButton mHottest;
+	/** 最多 */
+	private RadioButton mHottest;
 
-    private XListView mXListView;
+	/** 默认显示的listview */
+	private XListView mXListView_default;
 
-    /** 搜索结果 */
-    private TextView mResult;
+	/** 显示最多上传的listview */
+	private XListView mXListView_hot;
 
-    /** 搜索内容 */
-    private EditText mEditText;
+	/** 搜索结果 */
+	private TextView mResult;
 
-    /** 搜索按钮 */
-    private Button mSearch;
+	/** 搜索内容 */
+	private EditText mEditText;
 
-    private VideoSearchResponse mResponse;
+	/** 搜索按钮 */
+	private Button mSearch;
 
-    private String mKeyWord;
+	private RelativeLayout mLayout;
 
-    private ListChangeGridAdapter mAdapter;
+	private VideoSearchResponse mResponse;
 
-    private RelativeLayout mLayout;
+	private String mKeyWord;
 
-    private int mPage = 1;
+	/**默认列表适配器*/
+	private ListChangeGridAdapter mAdapter_default;
 
-    private int mTotalPage;
+	/**最多播放列表适配器*/
+	private ListChangeGridAdapter mAdapter_hot;
 
-    private SimpleDateFormat mSimpleDateFormat;
+	private int mPage_default = 1;
 
-    private String mTotal = "0";
+	private int mPage_hot = 1;
 
-    private RequestParams mRequestParams;
+	private int mTotalPage;
 
-    private static final String S1 = "<font color=\"#3F74A7\">" + "共有"+ "</font> <font color=\"#C73030\">";
+	private SimpleDateFormat mSimpleDateFormat;
 
-    private static final String S2 = "</font> <font color=\"#3F74A7\">"+ "个搜索结果" + "</font> ";
+	private String mTotal = "0";
 
-    @Override
-    protected void getExtraParams() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            mResponse = (VideoSearchResponse) intent.getSerializableExtra("result");
-            mKeyWord = intent.getStringExtra(Constant.KEYWORD);
-            mTotal = mResponse.getTotal();
-            mRequestParams = new RequestParams();
-            mRequestParams.put(Constant.KEYWORD, mKeyWord);
-        }
-    }
+	private RequestParams mRequestParams;
 
-    @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.activity_searchlist);
-    }
+	private static final String S1 = "<font color=\"#3F74A7\">" + "共有"+ "</font> <font color=\"#C73030\">";
 
-    @Override
-    protected void findViewById() {
-        mLayout = (RelativeLayout) findViewById(R.id.searchlist_include);
-        mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
-        mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
-        mXListView = (XListView) findViewById(R.id.act_searchlist_gd);
-        mResult = (TextView) findViewById(R.id.act_searchlist_tv_count);
-        mEditText = (EditText) mLayout.findViewById(R.id.search_head_et_detail);
-        mSearch = (Button) mLayout.findViewById(R.id.search_head_bt_commit);
+	private static final String S2 = "</font> <font color=\"#3F74A7\">"+ "个搜索结果" + "</font> ";
 
-    }
+	private ArrayList<Property> mNewList =null;
 
-    @Override
-    protected void setListener() {
-        mSearch.setOnClickListener(new OnClickListener() {
+	private ArrayList<Property> mHotList = null;
 
-            @Override
-            public void onClick(View v) {
-                mPage = 1;
-                mKeyWord = mEditText.getText().toString();
-                mRequestParams = new RequestParams();
-                mRequestParams.put(Constant.KEYWORD, mKeyWord);
-                searchOnclick(mRequestParams);
-            }
-        });
-        mNewst.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                mPage = 1;
-                mRequestParams = new RequestParams();
-                mRequestParams.put(Constant.SORT, "click");
-                mRequestParams.put(Constant.KEYWORD, mKeyWord);
-                searchOnclick(mRequestParams);
-            }
-        });
-        mHottest.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void getExtraParams() {
+		Intent intent = getIntent();
+		if (intent != null) {
+			mResponse = (VideoSearchResponse) intent.getSerializableExtra("result");
+			mKeyWord = intent.getStringExtra(Constant.KEYWORD);
+			mTotal = mResponse.getTotal();
+			mNewList = mResponse.getVideoList();
+			mPage_default = 2 ;
+			mTotalPage = mResponse.getTotalPage();
+			requestParams(0);
+		}
+	}
 
-            @Override
-            public void onClick(View v) {
-                mPage = 1;
-                mRequestParams = new RequestParams();
-                mRequestParams.put(Constant.KEYWORD, mKeyWord);
-                searchOnclick(mRequestParams);
-            }
-        });
-        mAdapter.setOnGridClickListener(new GridItemClickListener() {
+	@Override
+	protected void loadViewLayout() {
+		setContentView(R.layout.activity_searchlist);
+	}
 
-            @Override
-            public void onGridItemClicked(View v, int position, long itemId) {
-                Property item = mAdapter.getArrayList().get(position);
-                if (item != null) {
-                    String videoId = item.getId();
-                    Intent intent = new Intent(SearchListActivity.this,VideoPlayActivity.class);
-                    intent.putExtra(Constant.CID, videoId);
-                    startActivity(intent);
-                }
+	@Override
+	protected void findViewById() {
+		mLayout = (RelativeLayout) findViewById(R.id.searchlist_include);
+		mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
+		mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
+		mXListView_default = (XListView) findViewById(R.id.act_searchlist_gd);
+		mXListView_hot = (XListView) findViewById(R.id.act_searchlist_gd_hot);
+		mResult = (TextView) findViewById(R.id.act_searchlist_tv_count);
+		mEditText = (EditText) mLayout.findViewById(R.id.search_head_et_detail);
+		mSearch = (Button) mLayout.findViewById(R.id.search_head_bt_commit);
+		mXListView_default.setXListViewListener(mIXListViewListenerImp);
+		mXListView_hot.setXListViewListener(mIXListViewListenerImp);
+	}
 
-            }
-        });
 
-        mXListView.setXListViewListener(mIXListViewListenerImp);
-    }
+	@Override
+	protected void setListener() {
+		mSearch.setOnClickListener(new OnClickListener() {
 
-    @Override
-    protected void processLogic() {
+			@Override
+			public void onClick(View v) {
+				mPage_default = 1;
+				mPage_hot=1;
+				mKeyWord = mEditText.getText().toString();
+				mXListView_default.setVisibility(View.VISIBLE);
+				mXListView_default.setSelection(0);
+				mXListView_hot.setVisibility(View.GONE);
+				requestParams(0);
+				requestData(mPage_default, 0);
+				hidden();
+			}
+		});
+		mNewst.setOnClickListener(new OnClickListener() {
 
-        mResult.setText(Html.fromHtml(S1 + mTotal + S2));
-        mXListView.setPullLoadEnable(true);
-        mXListView.setPullRefreshEnable(true);
-        mAdapter = new ListChangeGridAdapter(mResponse.getVideoList(), this);
-        mAdapter.setNumColumns(2);
-        mXListView.setAdapter(mAdapter);
-        mXListView.stopLoadMore();
-        mPage = 2;
-    }
+			@Override
+			public void onClick(View v) {
+				mXListView_default.setVisibility(View.VISIBLE);
+				mXListView_hot.setVisibility(View.GONE);
 
-    public void searchOnclick(RequestParams params) {
+			}
+		});
+		mHottest.setOnClickListener(new OnClickListener() {
 
-        JHttpClient.get(this, Constant.URL + Constant.SEARCH, params,
-                VideoSearchResponse.class,
-                new DataCallback<VideoSearchResponse>() {
+			@Override
+			public void onClick(View v) {
+				mXListView_default.setVisibility(View.GONE);
+				mXListView_hot.setVisibility(View.VISIBLE);
+				requestParams(1);
+				if(mPage_hot==1){
+					mXListView_hot.setSelection(0);
+					requestData(mPage_hot,1);
+				}
 
-                    @Override
-                    public void onStart() {
-                        showProgressDialog();
-                        if (mXListView != null) {
-                            onLoad();
-                        }
-                    }
+			}
+		});
+		mAdapter_default.setOnGridClickListener(new GridItemClickListener() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers,
-                            VideoSearchResponse data) {
-                        if (data != null) {
-                            mTotal = data.getTotal();
-                            mTotalPage = data.getTotalPage();
-                            mAdapter = new ListChangeGridAdapter(data.getVideoList(), SearchListActivity.this);
-                            mAdapter.setNumColumns(2);
-                            mXListView.setAdapter(mAdapter);
-                            mResult.setText(Html.fromHtml(S1 + mTotal + S2));
-                            /* mAdapter.chargeArrayList(data.getVideoList()); */
-                            if (mPage >= mTotalPage) {
-                                mXListView.setPullLoadEnable(false);
-                            } else {
-                                mXListView.setPullLoadEnable(true);
-                            }
-                            mPage = 2;
-                            mAdapter.setOnGridClickListener(new GridItemClickListener() {
+			@Override
+			public void onGridItemClicked(View v, int position, long itemId) {
+				Property item = mAdapter_default.getArrayList().get(position);
+				if (item != null) {
+					String videoId = item.getId();
+					Intent intent = new Intent(SearchListActivity.this,VideoPlayActivity.class);
+					intent.putExtra(Constant.CID, videoId);
+					startActivity(intent);
+				}
 
-                                @Override
-                                public void onGridItemClicked(View v,int position, long itemId) {
-                                    Property item = mAdapter.getArrayList().get(position);
-                                    if (item != null) {
-                                        String videoId = item.getId();
-                                        Intent intent = new Intent(SearchListActivity.this,VideoPlayActivity.class);
-                                        intent.putExtra(Constant.CID, videoId);
-                                        startActivity(intent);
-                                    }
+			}
+		});
 
-                                }
-                            });
+		mAdapter_hot.setOnGridClickListener(new GridItemClickListener() {
 
-                        }
-                    }
+			@Override
+			public void onGridItemClicked(View v, int position, long itemId) {
+				Property item = mAdapter_hot.getArrayList().get(position);
+				if (item != null) {
+					String videoId = item.getId();
+					Intent intent = new Intent(SearchListActivity.this,VideoPlayActivity.class);
+					intent.putExtra(Constant.CID, videoId);
+					startActivity(intent);
+				}
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers,
-                            String responseString, Exception exception) {
-                        if (mPage <= 1) {
-                            mHttpErrorView.setVisibility(View.VISIBLE);
-                        }
-                    }
+			}
+		});
 
-                    @Override
-                    public void onFinish() {
-                        closeProgressDialog();
-                    }
-                });
+	}
 
-    }
+	@Override
+	protected void processLogic() {
+		mEditText.setText(mKeyWord);
+		mResult.setText(Html.fromHtml(S1 + mTotal + S2));
+		mXListView_default.setPullLoadEnable(true);
+		mXListView_default.setPullRefreshEnable(true);
+		mAdapter_default = new ListChangeGridAdapter(mNewList, this);
+		mAdapter_default.setNumColumns(2);
+		mXListView_default.setAdapter(mAdapter_default);
 
-    @Override
-    protected void reload() {
+		mXListView_hot.setPullLoadEnable(true);
+		mXListView_hot.setPullRefreshEnable(true);
+		mAdapter_hot = new ListChangeGridAdapter(mHotList, this);
+		mAdapter_hot.setNumColumns(2);
+		mXListView_hot.setAdapter(mAdapter_hot);
 
-    }
+	}
 
-    protected void requestData(int page) {
-        mRequestParams.put(Constant.PAGE, page);
-        System.out.println(JHttpClient.getUrlWithQueryString(Constant.URL+ Constant.SEARCH, mRequestParams));
-        JHttpClient.get(this, Constant.URL + Constant.SEARCH, mRequestParams,VideoSearchResponse.class,
-                new DataCallback<VideoSearchResponse>() {
+	@Override
+	protected void reload() {
 
-                    @Override
-                    public void onStart() {
-                        showProgressDialog();
-                        if (mXListView != null) {
-                            onLoad();
-                        }
-                    }
+	}
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers,VideoSearchResponse data) {
-                        if (data != null) {
-                            mTotal = data.getTotal();
-                            mTotalPage = data.getTotalPage();
-                            if (mPage == 1) {
-                                mAdapter.chargeArrayList(data.getVideoList());
-                            } else {
-                                mAdapter.addArrayList(data.getVideoList());
-                            }
-                            mResult.setText(Html.fromHtml(S1 + mTotal + S2));
-                            mPage++;
-                            if (mPage > mTotalPage) {
-                                mXListView.setPullLoadEnable(false);
-                            } else {
-                                mXListView.setPullLoadEnable(true);
-                            }
 
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers,
-                            String responseString, Exception exception) {
-                        if (mPage <= 1) {
-                            mHttpErrorView.setVisibility(View.VISIBLE);
-                        }
-                    }
+	private void requestData(int page , final int listViewTag){
+		Log.d("tag",JHttpClient.getUrlWithQueryString(Constant.URL+ Constant.SEARCH, mRequestParams));
+		JHttpClient.get(this, Constant.URL + Constant.SEARCH, mRequestParams,VideoSearchResponse.class, new DataCallback<VideoSearchResponse>() {
 
-                    @Override
-                    public void onFinish() {
-                        closeProgressDialog();
-                    }
-                });
+			@Override
+			public void onStart() {
+				if(listViewTag==0){
+					if (mXListView_default!= null) {
+						onLoad();
+					}
+				}
+				else if (listViewTag==1) {
+					if (mXListView_hot!= null) {
+						onLoad();
+					}
+					if(mPage_hot==1){
+						 showProgressDialog();
+					}
+				}
 
-    }
+				if(mTotalPage==1){
+					mXListView_default.setPullLoadEnable(false);
+				}
 
-    private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
-        // 下拉刷新
-        @Override
-        public void onRefresh() {
-            mPage = 1;
-            requestData(mPage);
-        }
+			}
 
-        // 上拉加载
-        @Override
-        public void onLoadMore() {
-            requestData(mPage);
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,VideoSearchResponse data) {
+				if(data!=null){
+					mTotalPage = data.getTotalPage();
+					mTotal = data.getTotal();
+					mResult.setText(Html.fromHtml(S1 + mTotal + S2));
+					if(listViewTag==0){
+						mNewst.setChecked(true);
+						if (mPage_default == 1) {
+							mAdapter_default.chargeArrayList(data.getVideoList());
+						} else {
+							mAdapter_default.addArrayList(data.getVideoList());
+						}
+						mPage_default++;
+						if (mPage_default > mTotalPage) {
+							mXListView_default.setPullLoadEnable(false);
+						} else {
+							mXListView_default.setPullLoadEnable(true);
+						}
+					}
+					else if (listViewTag==1) {
+						mHottest.setChecked(true);
+						if (mPage_hot == 1) {
+							mAdapter_hot.chargeArrayList(data.getVideoList());
+						} else {
+							mAdapter_hot.addArrayList(data.getVideoList());
+						}
 
-        }
-    };
+						mPage_hot++;
+						if (mPage_hot > mTotalPage) {
+							mXListView_hot.setPullLoadEnable(false);
+						} else {
+							mXListView_hot.setPullLoadEnable(true);
+						}
+					}
 
-    // 加载中时间监听
-    private void onLoad() {
-        mXListView.stopRefresh();
-        mXListView.stopLoadMore();
-        mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        mXListView.setRefreshTime(mSimpleDateFormat.format(new Date()));
-    }
-    
-    
-    
-     @Override
-        protected void onStart() {
-            super.onStart();
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("视频搜索");
-            actionBar.setLogo(R.drawable.legames_back);
-            actionBar.setHomeButtonEnabled(true);
-            }
-    
-    @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case android.R.id.home:
-                    Intent intent = new Intent(this, SearchActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                    finish();
-                    return true;
+				}
+			}
 
-                default:
-                    break;
-            }
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Exception exception) {
 
-            return true;
-        }
+			}
 
+			@Override
+			public void onFinish() {
+				closeProgressDialog();
+			}
+		});
+	}
+
+	private void requestParams(int listViewTag){
+		mRequestParams = new RequestParams();
+		if(listViewTag==0){
+			mRequestParams.put(Constant.KEYWORD, mKeyWord);
+			mRequestParams.put(Constant.PAGE, mPage_default);
+		}
+		else if(listViewTag==1){
+			mRequestParams.put(Constant.KEYWORD, mKeyWord);
+			mRequestParams.put(Constant.PAGE, mPage_hot);
+			mRequestParams.put(Constant.SORT, "click");
+		}
+	}
+
+
+	private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
+		@Override
+		public void onRefresh() {
+			if(mNewst.isChecked()){
+				mNewList.clear();
+				mPage_default = 1;
+				requestParams(0);
+				requestData(mPage_default,0);
+			}
+			else  if(mHottest.isChecked()){
+				mPage_hot = 1;
+				requestParams(1);
+				requestData(mPage_hot,1);
+			}
+
+		}
+
+		@Override
+		public void onLoadMore() {
+			if(mNewst.isChecked()){
+				requestParams(0);
+				requestData(mPage_default,0);
+			}
+			else if(mHottest.isChecked()){
+				requestParams(1);
+				requestData(mPage_hot,1);
+			}
+		}
+	};
+
+
+	// 加载中时间监听
+	@SuppressLint("SimpleDateFormat")
+	private void onLoad() {
+		mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		if(mNewst.isChecked()){
+			mXListView_default.stopRefresh();
+			mXListView_default.stopLoadMore();
+			mXListView_default.setRefreshTime(mSimpleDateFormat.format(new Date()));
+		}
+		if (mHottest.isChecked()) {
+			mXListView_hot.stopRefresh();
+			mXListView_hot.stopLoadMore();
+			mXListView_hot.setRefreshTime(mSimpleDateFormat.format(new Date()));
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle("视频搜索");
+		actionBar.setLogo(R.drawable.legames_back);
+		actionBar.setHomeButtonEnabled(true);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, SearchActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			finish();
+			return true;
+
+		default:
+			break;
+		}
+
+		return true;
+	}
 
 }

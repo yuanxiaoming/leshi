@@ -117,6 +117,39 @@ public class CommonUtil {
 		app.mCurrent_fragment_array.put(contentid, to_fragment);
 	}
 
+
+    /**
+	 * Fragment切换
+	 * @param fragmentActivity    ContText
+	 * @param contentid      资源id
+	 * @param to   Fragment实例
+	 * @param tag  标记
+	 */
+    public static void switchToFragmentaddToBackStack(FragmentActivity fragmentActivity, int contentid, Fragment to, String tag) {
+		CLYApplication app = (CLYApplication) fragmentActivity.getApplication();
+		FragmentManager manager = fragmentActivity.getSupportFragmentManager();
+		String  fragment_tag = to.getClass().getSimpleName();
+		if(!TextUtils.isEmpty(tag)){
+		  fragment_tag = fragment_tag.concat(tag);
+		}
+		//获取缓存的Fragment
+		Fragment to_fragment = manager.findFragmentByTag(fragment_tag);
+		//获取当前集合里面显示的 Fragment
+		Fragment current_fragment = app.mCurrent_fragment_array.get(contentid);
+
+		if (to_fragment == null) {
+			if (current_fragment == null) {
+				manager.beginTransaction().add(contentid, to, fragment_tag).addToBackStack(fragment_tag).commit();
+			} else {
+				manager.beginTransaction().add(contentid, to, fragment_tag).hide(current_fragment).addToBackStack(fragment_tag).commit();
+			}
+			to_fragment = to;
+		} else if (to_fragment != current_fragment) {
+		    manager.beginTransaction().show(to_fragment).hide(current_fragment).addToBackStack(fragment_tag).commit();
+		}
+		app.mCurrent_fragment_array.put(contentid, to_fragment);
+	}
+
 	// 验证密码是否格式良好
 	protected boolean isPasswordCorrect(String password) {
 		if (!TextUtils.isEmpty(password)) {
@@ -164,7 +197,7 @@ public class CommonUtil {
 		}
         return false;
     }
-	
+
 	public static CLYApplication getAppliction(Context context){
 		return ((CLYApplication)context.getApplicationContext());
 	}

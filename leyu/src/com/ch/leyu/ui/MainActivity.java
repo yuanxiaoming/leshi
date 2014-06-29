@@ -1,11 +1,8 @@
 
 package com.ch.leyu.ui;
 
-import com.ch.leyu.R;
-import com.ch.leyu.application.CLYApplication;
-import com.ch.leyu.application.ExitAppUtils;
-import com.ch.leyu.utils.CommonUtil;
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.Intent;
 import android.view.KeyEvent;
@@ -14,6 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import com.ch.leyu.R;
+import com.ch.leyu.application.CLYApplication;
+import com.ch.leyu.application.ExitAppUtils;
+import com.ch.leyu.utils.CommonUtil;
+import com.ch.leyu.utils.TimeUtils;
 
 /***
  * 导航页
@@ -120,18 +124,45 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK&& event.getRepeatCount() == 0) {
 			if(HSNewsFragment.issRemove()){
-				ExitAppUtils.getInstance().exit();
+				exitBy2Click();
+				return false;
 			}else{
 				HSNewsFragment.setsRemove(true);
+				if(!HSNewsFragment.isAddToBackStack()){
+					exitBy2Click();
+					return false;
+				}
 			}
+
 		}
-		// TODO Auto-generated method stub
 		return super.onKeyDown(keyCode, event);
 	}
 
+
+	/**
+	 * 双击退出函数
+	 */
+	private static Boolean sExit = false;
+
+	private void exitBy2Click() {
+		Timer tExit = null;
+		if (sExit == false) {
+			sExit = true; // 准备退出
+			Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+			tExit = new Timer();
+			tExit.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					sExit = false; // 取消退出
+				}
+			}, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+		}else {
+			ExitAppUtils.getInstance().exit();
+		}
+	}
 }

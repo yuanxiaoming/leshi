@@ -6,7 +6,7 @@ import android.os.SystemClock;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LeUtils {
+public class TimeUtils {
     private static final long MILLISECOND = 1000;
 
     public static long getTime(long unixTime) {

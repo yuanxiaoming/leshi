@@ -57,9 +57,9 @@ public abstract class BaseActivity extends ActionBarActivity{
         mActionBar = getSupportActionBar();
         initView();
         ExitAppUtils.getInstance().addActivity(this);
-        
+
         mButton.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 reload();
@@ -170,5 +170,6 @@ public abstract class BaseActivity extends ActionBarActivity{
         if (this.mProgressDialog != null && this.mProgressDialog.isShowing())
             this.mProgressDialog.dismiss();
     }
+
 
 }

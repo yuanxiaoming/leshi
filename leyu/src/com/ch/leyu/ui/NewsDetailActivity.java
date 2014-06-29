@@ -13,7 +13,7 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.NewDetailResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.utils.LeUtils;
+import com.ch.leyu.utils.TimeUtils;
 
 import org.apache.http.Header;
 
@@ -124,7 +124,7 @@ public class NewsDetailActivity extends BaseActivity {
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
                     mContent.loadDataWithBaseURL("", data.getInfo().getContent(), "text/html","UTF-8", "");
                     mTitle.setText(data.getInfo().getTitle());
-                    mTime.setText(LeUtils.toDate(data.getInfo().getCreateTime()));
+                    mTime.setText(TimeUtils.toDate(data.getInfo().getCreateTime()));
 
 
                     String s = "<font color=\"#8F8F8F\">感谢</font> ";

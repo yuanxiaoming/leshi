@@ -71,18 +71,36 @@
             android:textSize="15sp" />
     </RadioGroup>
 
-    <com.ch.leyu.widget.xlistview.XListView
-        android:id="@+id/act_searchlist_gd"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/search_radiogroup"
         android:layout_marginTop="16dp"
-        android:divider="#FFCC00"
-        android:footerDividersEnabled="false"
-        android:horizontalSpacing="10dp"
-        android:listSelector="@drawable/search_grid_item_selector"
-        android:paddingTop="5dp"
-        android:verticalSpacing="10dp" />
+        android:orientation="vertical" >
+
+        <com.ch.leyu.widget.xlistview.XListView
+            android:id="@+id/act_searchlist_gd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#FFCC00"
+            android:footerDividersEnabled="false"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@drawable/search_grid_item_selector"
+            android:paddingTop="5dp"
+            android:verticalSpacing="10dp" />
+
+        <com.ch.leyu.widget.xlistview.XListView
+            android:id="@+id/act_searchlist_gd_hot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#FFCC00"
+            android:footerDividersEnabled="false"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@drawable/search_grid_item_selector"
+            android:paddingTop="5dp"
+            android:verticalSpacing="10dp"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>

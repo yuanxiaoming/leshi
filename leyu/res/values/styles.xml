@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -16,6 +16,22 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
         <item name="android:windowIsTranslucent">true</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="android:windowAnimationStyle">@style/windowAnimation</item>
+    </style>
+
+    <style name="windowAnimation" parent="@style/Theme.AppCompat.Light">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
     </style>
 
     <!-- general styles for the action bar -->

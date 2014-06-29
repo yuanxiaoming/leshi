@@ -5,7 +5,6 @@ import org.apache.http.Header;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,6 +17,7 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
@@ -50,6 +50,8 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	public static FragmentActivity activity;
 
 	public static boolean sRemove=false;
+
+	public static boolean sAddToBackStack=false;
 
 	@Override
 	protected void getExtraParams() {
@@ -133,14 +135,15 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 		Property item = (Property) parent.getAdapter().getItem(position);
 		if(item!=null){
 			sRemove=false;
+			sAddToBackStack=true;
 			Bundle bundle = new Bundle();
 			detailFragment = new HSNewsDetailFragment();
 			bundle.putString(Constant.CID, item.getCid());
 			detailFragment.setArguments(bundle);
-			FragmentManager manager = getActivity().getSupportFragmentManager();
-			manager.beginTransaction().add(R.id.fragment_content, detailFragment, item.getCid()).addToBackStack(null).hide(HSNewsFragment.this).commit();
-			
-			//     CommonUtil.switchToFragment(getActivity(), R.id.fragment_content, detailFragment, item.getCid());
+			//			FragmentManager manager = getActivity().getSupportFragmentManager();
+			//			manager.beginTransaction().add(R.id.fragment_content, detailFragment, item.getCid()).addToBackStack(null).hide(HSNewsFragment.this).commit();
+
+			CommonUtil.switchToFragmentaddToBackStack(getActivity(), R.id.fragment_content, detailFragment, item.getCid());
 		}
 	}
 
@@ -153,8 +156,22 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 		if(detailFragment!=null&&mHSNewsFragment!=null&&activity!=null){
 			activity.getSupportFragmentManager().beginTransaction().remove(detailFragment).show(mHSNewsFragment).commit();
 			sRemove=true;
+			sAddToBackStack=false;
 		}
 	}
+
+	public static boolean isAddToBackStack() {
+		return sAddToBackStack;
+	}
+
+
+
+	public static void setAddToBackStack(boolean sAddToBackStack) {
+		HSNewsFragment.sAddToBackStack = sAddToBackStack;
+	}
+
+
+
 	public static boolean issRemove() {
 		return sRemove;
 	}
@@ -165,7 +182,6 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		activity=null;
 		detailFragment=null;

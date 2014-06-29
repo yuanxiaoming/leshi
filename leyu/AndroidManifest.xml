@@ -44,9 +44,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.ch.leyu.ui.LaunchActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,56 +55,57 @@
         </activity>
         <activity
             android:name="com.ch.leyu.ui.MainActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.SearchActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.StarDetailActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.FeedbackActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.SearchListActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.VideosActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.VideoPlayActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:alwaysRetainTaskState="true"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.NewsDetailActivity"
-            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
 
