@@ -48,222 +48,219 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class VideoPlayActivity extends BaseActivity {
 
-    private LYViewPager mViewPager;
+	private LYViewPager mViewPager;
 
-    private PagerSlidingTabStrip mSlideTabIndicator;
+	private PagerSlidingTabStrip mSlideTabIndicator;
 
-    private ImageView mImg;
+	private ImageView mImg;
 
-    private String mId;
+	private String mId;
 
-    private VideoDetailPagerAdapter mAdapter;
+	private VideoDetailPagerAdapter mAdapter;
 
-  //百度分享
-    private FrontiaSocialShare mSocialShare;
+	//百度分享
+	private FrontiaSocialShare mSocialShare;
 
-    private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
+	private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
 
-    private String vu ;
+	private String vu ;
 
-    private String title;
-    
-    private String mShareImg ;
-    
-    private String mUrl = "http://www.legames.cn/";
+	private String title;
+
+	private String mShareImg ="";
+
+	private String mUrl = "http://www.legames.cn/";
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("乐娱视频");
-        actionBar.setLogo(R.drawable.legames_back);
-        actionBar.setHomeButtonEnabled(true);
-    	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle("乐娱视频");
+		actionBar.setLogo(R.drawable.legames_back);
+		actionBar.setHomeButtonEnabled(true);
+	}
 
-    @Override
-    protected void getExtraParams() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            mId = intent.getStringExtra(Constant.CID);
-        }
+	@Override
+	protected void getExtraParams() {
+		Intent intent = getIntent();
+		if (intent != null) {
+			mId = intent.getStringExtra(Constant.CID);
+		}
 
-    }
+	}
 
-    @Override
-    protected void loadViewLayout() {
-        setContentView(R.layout.activity_videodetail);
-    }
+	@Override
+	protected void loadViewLayout() {
+		setContentView(R.layout.activity_videodetail);
+	}
 
-    @Override
-    protected void findViewById() {
-        mImg = (ImageView) findViewById(R.id.act_videodetail_img);
-        mViewPager = (LYViewPager) findViewById(R.id.act_videodetail_viewpager);
-        mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videodetail_pagertab);
-    }
+	@Override
+	protected void findViewById() {
+		mImg = (ImageView) findViewById(R.id.act_videodetail_img);
+		mViewPager = (LYViewPager) findViewById(R.id.act_videodetail_viewpager);
+		mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videodetail_pagertab);
+	}
 
-    @Override
-    protected void setListener() {
-        mImg.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void setListener() {
+		mImg.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                /**
-                 * @param context
-                 * @param userKey 用户私钥
-                 * @param userUnique 用户ID
-                 * @param videoUnique 视频ID
-                 * @param videoName 视频名称
-                 */
-                PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
+			@Override
+			public void onClick(View v) {
+				/**
+				 * @param context
+				 * @param userKey 用户私钥
+				 * @param userUnique 用户ID
+				 * @param videoUnique 视频ID
+				 * @param videoName 视频名称
+				 */
+				PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
 
-            }
-        });
+			}
+		});
 
-        mImg.setOnTouchListener(new OnTouchListener() {
+		mImg.setOnTouchListener(new OnTouchListener() {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mImg.setAlpha(200);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mImg.setAlpha(255);
-                        break;
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					mImg.setAlpha(200);
+					break;
+				case MotionEvent.ACTION_UP:
+					mImg.setAlpha(255);
+					break;
 
-                    default:
-                        break;
-                }
+				default:
+					break;
+				}
 
-                return false;
-            }
-        });
+				return false;
+			}
+		});
 
-    }
+	}
 
-    @Override
-    protected void processLogic() {
-        mImg.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
-        mImg.setScaleType(ScaleType.FIT_XY);
-        final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
-        mSlideTabIndicator.setTextSize(textSize);
-        requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
-        baiduShareConfig();
-    }
+	@Override
+	protected void processLogic() {
+		mImg.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 1, CommonUtil.getWidthMetrics(mContext) / 2));
+		mImg.setScaleType(ScaleType.FIT_XY);
+		final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
+		mSlideTabIndicator.setTextSize(textSize);
+		requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
+		baiduShareConfig();
+	}
 
-    private void requestData(String mid, String url) {
-        RequestParams params = new RequestParams();
-        params.put("id", mid);
-        JHttpClient.get(this, url, params, VideoPlayResponse.class,new DataCallback<VideoPlayResponse>() {
+	private void requestData(String mid, String url) {
+		RequestParams params = new RequestParams();
+		params.put("id", mid);
+		JHttpClient.get(this, url, params, VideoPlayResponse.class,new DataCallback<VideoPlayResponse>() {
 
-                    @Override
-                    public void onStart() {
-                        mHttpErrorView.setVisibility(View.GONE);
-                        mHttpLoadingView.setVisibility(View.VISIBLE);
-                    }
+			@Override
+			public void onStart() {
+				mHttpErrorView.setVisibility(View.GONE);
+				mHttpLoadingView.setVisibility(View.VISIBLE);
+			}
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, VideoPlayResponse data) {
-                        if (data != null) {
-                            vu = data.getVideoInfo().getVu();
-                            title = data.getVideoInfo().getTitle();
-                            mShareImg = data.getVideoInfo().getImageSrc();
-                            mUrl = data.getVideoInfo().getLinkUrl();
-                            mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
-                            mViewPager.setAdapter(mAdapter);
-                            mSlideTabIndicator.setViewPager(mViewPager);
-                            ImageLoader.getInstance().displayImage(data.getVideoInfo().getImageSrc(), mImg,
-                                    ImageLoaderUtil.getImageLoaderOptions());
-                        }
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, VideoPlayResponse data) {
+				if (data != null) {
+					vu = data.getVideoInfo().getVu();
+					title = data.getVideoInfo().getTitle();
+					mShareImg = data.getVideoInfo().getImageSrc();
+					mUrl = data.getVideoInfo().getLinkUrl();
+					mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
+					mViewPager.setAdapter(mAdapter);
+					mSlideTabIndicator.setViewPager(mViewPager);
+					ImageLoader.getInstance().displayImage(data.getVideoInfo().getImageSrc(), mImg,
+							ImageLoaderUtil.getImageLoaderOptions());
+				}
 
-                    }
+			}
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-                        mHttpErrorView.setVisibility(View.VISIBLE);
-                    }
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
+				mHttpErrorView.setVisibility(View.VISIBLE);
+			}
 
-                    @Override
-                    public void onFinish() {
-                        mHttpLoadingView.setVisibility(View.GONE);
-                    }
-                });
-    }
+			@Override
+			public void onFinish() {
+				mHttpLoadingView.setVisibility(View.GONE);
+			}
+		});
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.play, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.play, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_share:
-                baiduShare();
-                break;
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_share:
+			baiduShare();
+			break;
 
-            case android.R.id.home:
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                finish();
-                return true;
+		case android.R.id.home:
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			finish();
+			return true;
 
-            default:
-                break;
-        }
+		default:
+			break;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    private void baiduShare() {
-        mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
-    }
+	private void baiduShare() {
+		mImageContent.setContent(title);
+		mImageContent.setLinkUrl(mUrl);
+		mImageContent.setImageUri(Uri.parse(mShareImg));
 
-    private void baiduShareConfig() {
-        Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
-        mSocialShare = Frontia.getSocialShare();
-        mSocialShare.setContext(this);
-        mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
-        mSocialShare.setClientId(MediaType.QZONE.toString(), "101069451");
-        mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "101069451");
-        mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
-        mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
-        mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
-        mImageContent.setTitle("欢迎使用乐娱互动");
-        mImageContent.setContent(title);
-        mImageContent.setLinkUrl(mUrl);
-        if(mShareImg!=null){
-            mImageContent.setImageUri(Uri.parse(mShareImg));
-        }
-       
-    }
+		mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
+	}
 
-    private class ShareListener implements FrontiaSocialShareListener {
+	private void baiduShareConfig() {
+		Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
+		mSocialShare = Frontia.getSocialShare();
+		mSocialShare.setContext(this);
+		mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
+		mSocialShare.setClientId(MediaType.QZONE.toString(), "101069451");
+		mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "101069451");
+		mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
+		mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
+		mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
+	}
 
-        @Override
-        public void onSuccess() {
-            Log.d("Test","share success");
-        }
+	private class ShareListener implements FrontiaSocialShareListener {
 
-        @Override
-        public void onFailure(int errCode, String errMsg) {
-            Log.d("Test","share errCode "+errCode);
-        }
+		@Override
+		public void onSuccess() {
+			Log.d("Test","share success");
+		}
 
-        @Override
-        public void onCancel() {
-            Log.d("Test","cancel ");
-        }
+		@Override
+		public void onFailure(int errCode, String errMsg) {
+			Log.d("Test","share errCode "+errCode);
+		}
 
-    }
+		@Override
+		public void onCancel() {
+			Log.d("Test","cancel ");
+		}
 
-    @Override
-    protected void reload() {
-      requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
+	}
 
-    }
+	@Override
+	protected void reload() {
+		requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
+
+	}
 
 }

@@ -18,6 +18,7 @@ import com.ch.leyu.utils.TimeUtils;
 import org.apache.http.Header;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
@@ -48,19 +49,17 @@ public class NewsDetailActivity extends BaseActivity {
     private WebView mContent;
 
     private String mCid;
-    
+
     private String mShareTitle ;
-    
+
     private String mShareUrl ="http://www.legames.cn/";
 
     //百度分享
     private FrontiaSocialShare mSocialShare;
 
     private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
-    
-    WebSettings settings;
 
-    private int fontSize =1;
+    WebSettings settings;
 
     @Override
     protected void getExtraParams() {
@@ -113,29 +112,28 @@ public class NewsDetailActivity extends BaseActivity {
                     mShareTitle = data.getInfo().getTitle();
                     mShareUrl  = data.getInfo().getLinkUrl();
                     settings = mContent.getSettings();
-                    // 设置布局算法
-                    settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
-                    // 设置渲染等级
-                    settings.setRenderPriority(RenderPriority.HIGH);
-                    // 设置缓存模式
+                    settings = mContent.getSettings();
                     settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-                    // 设置预览模式
-                    settings.setLoadWithOverviewMode(true);
-                    // 设置字体缩放级别
-                    settings.setTextSize(TextSize.LARGEST);
-                    settings.setDefaultFontSize(25);
-                    // 设置支持js
-                    settings.setJavaScriptEnabled(true);
-                    // 设置处理客户端
+                    settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
+                   // settings.setTextSize(TextSize.LARGEST);
+//                    settings.setDefaultFontSize(50);
+                    settings.setAllowFileAccess(true); // 允许访问文件
+                    settings.setRenderPriority(RenderPriority.HIGH);
+                    settings.setAllowFileAccess(true); // 允许访问文件
+                    settings.setBuiltInZoomControls(false); // 设置显示缩放按钮
+                    settings.setSupportZoom(false); // 支持缩放
                     settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-                    settings.setUseWideViewPort(true);
-                    settings.setLoadWithOverviewMode(true);
+                    settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:26px"+">" +data.getInfo().getContent()
+                    		+ "</body></html>";
 
-                    mContent.setWebViewClient(new WebViewClient());
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
-                    mContent.loadDataWithBaseURL("", data.getInfo().getContent(), "text/html","UTF-8", "");
+                    mContent.loadDataWithBaseURL("file:///", webTextContext, "text/html","UTF-8", "");
+                    mContent.setWebViewClient(new MyWebViewClient());
                     mTitle.setText(data.getInfo().getTitle());
                     mTime.setText(TimeUtils.toDate(data.getInfo().getCreateTime()));
+
+
 
 
                     String s = "<font color=\"#8F8F8F\">感谢</font> ";
@@ -157,7 +155,7 @@ public class NewsDetailActivity extends BaseActivity {
             }
         });
     }
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,7 +169,7 @@ public class NewsDetailActivity extends BaseActivity {
             case R.id.action_share:
                 baiduShare();
                 break;
-           
+
             case android.R.id.home:
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -187,6 +185,10 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     private void baiduShare() {
+    	 mImageContent.setTitle("欢迎使用乐娱互动");
+         mImageContent.setContent(mShareTitle);
+         mImageContent.setLinkUrl(mShareUrl);
+         mImageContent.setImageUri(Uri.parse("http://img.legames.cn/templates/images/logo.jpg"));
         mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
     }
 
@@ -200,10 +202,6 @@ public class NewsDetailActivity extends BaseActivity {
         mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
         mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
         mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
-        mImageContent.setTitle("欢迎使用乐娱互动");
-        mImageContent.setContent(mShareTitle);
-        mImageContent.setLinkUrl(mShareUrl);
-        mImageContent.setImageUri(Uri.parse("http://img.legames.cn/templates/images/logo.jpg"));
     }
 
     private class ShareListener implements FrontiaSocialShareListener {
@@ -229,7 +227,37 @@ public class NewsDetailActivity extends BaseActivity {
     protected void reload() {
 
     }
-    
+ // 监听
+ 	private class MyWebViewClient extends WebViewClient {
+ 		@Override
+ 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+ 			return super.shouldOverrideUrlLoading(view, url);
+ 		}
+
+ 		@Override
+ 		public void onPageFinished(WebView view, String url) {
+
+ 			view.getSettings().setJavaScriptEnabled(true);
+
+ 			super.onPageFinished(view, url);
+
+ 		}
+
+ 		@Override
+ 		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+ 			view.getSettings().setJavaScriptEnabled(true);
+
+ 			super.onPageStarted(view, url, favicon);
+ 		}
+
+ 		@Override
+ 		public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+
+ 			super.onReceivedError(view, errorCode, description, failingUrl);
+
+ 		}
+ 	}
 
     @Override
     protected void onStart() {
