@@ -21,6 +21,7 @@
         android:layout_alignBottom="@+id/rec_img"
         android:layout_alignParentLeft="true"
         android:maxLines="1"
+        android:paddingLeft="5dp"
         android:background="@drawable/recommend_item_selector"
         android:textColor="#FFFFFF"
         android:text="TextView" />

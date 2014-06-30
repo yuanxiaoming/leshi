@@ -15,11 +15,8 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 import org.apache.http.Header;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;

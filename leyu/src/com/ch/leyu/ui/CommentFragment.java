@@ -141,7 +141,7 @@ public class CommentFragment extends BaseFragment {
                     CommentDetail  commentDetail = new CommentDetail();
                     commentDetail.setUid(mCid);
                     commentDetail.setComment(comment);
-                    commentDetail.setCreateTime(System.currentTimeMillis());
+                    commentDetail.setCreateTime(System.currentTimeMillis()/1000);
                     commentDetail.setNickname(nickName);
                     commentDetail.setReplyNickname(mReplyName);
                     mDetail.setText("");

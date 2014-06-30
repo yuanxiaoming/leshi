@@ -66,6 +66,10 @@ public class VideoPlayActivity extends BaseActivity {
     private String vu ;
 
     private String title;
+    
+    private String mShareImg ;
+    
+    private String mUrl = "http://www.legames.cn/";
 
 
     @Override
@@ -164,6 +168,8 @@ public class VideoPlayActivity extends BaseActivity {
                         if (data != null) {
                             vu = data.getVideoInfo().getVu();
                             title = data.getVideoInfo().getTitle();
+                            mShareImg = data.getVideoInfo().getImageSrc();
+                            mUrl = data.getVideoInfo().getLinkUrl();
                             mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
                             mViewPager.setAdapter(mAdapter);
                             mSlideTabIndicator.setViewPager(mViewPager);
@@ -226,10 +232,13 @@ public class VideoPlayActivity extends BaseActivity {
         mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
         mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
         mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
-        mImageContent.setTitle("乐娱互动");
-        mImageContent.setContent("欢迎使用乐娱互动");
-        mImageContent.setLinkUrl("http://www.legames.cn/");
-        mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
+        mImageContent.setTitle("欢迎使用乐娱互动");
+        mImageContent.setContent(title);
+        mImageContent.setLinkUrl(mUrl);
+        if(mShareImg!=null){
+            mImageContent.setImageUri(Uri.parse(mShareImg));
+        }
+       
     }
 
     private class ShareListener implements FrontiaSocialShareListener {

@@ -23,6 +23,16 @@ public class NewDetailInfoResponse {
     private String img;
 
     private String detail;
+    
+    private String linkUrl ;
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
 
     private long createTime;
 

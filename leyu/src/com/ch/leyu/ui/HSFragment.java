@@ -110,6 +110,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 
     @Override
     protected void processLogic() {
+
         requestData();
         
     }

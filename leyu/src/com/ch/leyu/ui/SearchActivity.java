@@ -97,11 +97,12 @@ public class SearchActivity extends BaseActivity {
         if (mLatestSearchArrayList != null && mLatestSearchArrayList.size() != 0) {
             mHistory.setVisibility(View.VISIBLE);
             mResult.setVisibility(View.GONE);
-
+            mDel.setVisibility(View.VISIBLE);
         } else {
             // 提示没有最近搜索记录
             mHistory.setVisibility(View.GONE);
             mResult.setVisibility(View.VISIBLE);
+            mDel.setVisibility(View.GONE);
         }
 
     }
@@ -117,6 +118,7 @@ public class SearchActivity extends BaseActivity {
                     LatestSearchManager.deleteSearch();
                     mHistory.setVisibility(View.GONE);
                     mResult.setVisibility(View.VISIBLE);
+                    mDel.setVisibility(View.GONE);
                 }
 
             }
@@ -199,6 +201,7 @@ public class SearchActivity extends BaseActivity {
                 LatestSearchManager.insertOrUpdateSearch(latestSearch);
                 if (mLatestSearchAdapter != null) {
                     if (mHistory.getVisibility() != View.VISIBLE) {
+                        mDel.setVisibility(View.VISIBLE);
                         mHistory.setVisibility(View.VISIBLE);
                         mResult.setVisibility(View.GONE);
                     }
@@ -211,6 +214,9 @@ public class SearchActivity extends BaseActivity {
                 startActivity(intent);
 
             } else {
+                if(mLatestSearchArrayList == null || mLatestSearchArrayList.size() <= 0){
+                    mDel.setVisibility(View.GONE);
+                }
                 mHistory.setVisibility(View.GONE);
                 mResult.setVisibility(View.VISIBLE);
                 mResult.setText(R.string.search_hint_null);

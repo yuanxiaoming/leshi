@@ -29,6 +29,16 @@ public class VideoDetailResponse implements Serializable {
 
     private String imageSrc;
 
+    private String linkUrl;
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
     public String getVu() {
         return vu;
     }

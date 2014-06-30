@@ -50,6 +50,18 @@ public class LaunchActivity extends BaseActivity {
 
     private void onFirstLaunch() {
         showWelcomePage();
+        new Thread(){
+            public void run() {
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Settings.setVersionCode(VersionUtil.getVersionCode());
+                gotoMainActivity();
+                finish();
+            };
+        }.start();
     }
 
     private void showWelcomePage() {
@@ -71,6 +83,7 @@ public class LaunchActivity extends BaseActivity {
 
             }
         });
+       
 
 //        mAppVersion.setText(getResources().getString(R.string.launch_app_version_txt)+VersionUtil.getVersionName());
 
@@ -80,6 +93,7 @@ public class LaunchActivity extends BaseActivity {
         switch (currentVersion) {
             case 1:
                 showWelcomePage();
+                
                 break;
             default:
                 Settings.setVersionCode(VersionUtil.getVersionCode());

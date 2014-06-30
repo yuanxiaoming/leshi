@@ -23,10 +23,21 @@ public class Property implements Serializable {
     private String linkUrl;
 
     private String createTime;
-    
-    private String cid ;
-    
-    private String detail; 
+
+    private String cid;
+
+    private String detail;
+
+    // 0新闻。1视频
+    private int linkTitle;
+
+    public int getLinkTitle() {
+        return linkTitle;
+    }
+
+    public void setLinkTitle(int linkTitle) {
+        this.linkTitle = linkTitle;
+    }
 
     public String getDetail() {
         return detail;

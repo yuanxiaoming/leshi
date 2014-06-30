@@ -33,16 +33,16 @@ public class CustomScrollView extends ScrollView {
 		}
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent ev) {
-		if (inner == null) {
-			return super.onTouchEvent(ev);
-		} else {
-			commOnTouchEvent(ev);
-		}
-
-		return super.onTouchEvent(ev);
-	}
+//	@Override
+//	public boolean onTouchEvent(MotionEvent ev) {
+//		if (inner == null) {
+//			return super.onTouchEvent(ev);
+//		} else {
+//			commOnTouchEvent(ev);
+//		}
+//
+//		return super.onTouchEvent(ev);
+//	}
 
 	public void commOnTouchEvent(MotionEvent ev) {
 		int action = ev.getAction();

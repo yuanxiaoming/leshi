@@ -24,6 +24,10 @@ public interface Constant {
     public static final String KEYWORD = "keyword";
 
     public static final String POSITION = "position";
+    
+    public static final String IMG = "img";
+    
+    public static final String TITLE = "title";
 
     /** 实体类传输key */
     public static final String DATA = "data";

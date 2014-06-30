@@ -1,17 +1,9 @@
 
 package com.ch.leyu.ui;
 
-import org.apache.http.Header;
-
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-
 import com.ch.leyu.R;
+import com.ch.leyu.adapter.FouceNewsPagerAdapter;
 import com.ch.leyu.adapter.HSNewsGridViewAdapter;
-import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
@@ -23,6 +15,15 @@ import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 import com.ch.leyu.widget.view.CustomScrollView;
 import com.ch.leyu.widget.view.LYGridView;
+
+import org.apache.http.Header;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /***
  * 新闻资讯--炉石攻略
@@ -100,7 +101,7 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 					mGridView.setAdapter(maAdapter);
 					mViewPager.startAutoScroll(2000);
 					mViewPager.setInterval(4000);
-					mViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(),data.getFocus()));
+					mViewPager.setAdapter(new FouceNewsPagerAdapter(getActivity(),data.getFocus()));
 					mViewPager.setCurrentItem(data.getFocus().size() * 10000);
 					mPageIndicator.setPageCount(data.getFocus().size());
 					mPageIndicator.setViewPager(mViewPager);
@@ -140,10 +141,10 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 			detailFragment = new HSNewsDetailFragment();
 			bundle.putString(Constant.CID, item.getCid());
 			detailFragment.setArguments(bundle);
-			//			FragmentManager manager = getActivity().getSupportFragmentManager();
-			//			manager.beginTransaction().add(R.id.fragment_content, detailFragment, item.getCid()).addToBackStack(null).hide(HSNewsFragment.this).commit();
+						FragmentManager manager = getActivity().getSupportFragmentManager();
+						manager.beginTransaction().add(R.id.fragment_content, detailFragment, item.getCid()).addToBackStack(null).hide(HSNewsFragment.this).commit();
 
-			CommonUtil.switchToFragmentaddToBackStack(getActivity(), R.id.fragment_content, detailFragment, item.getCid());
+//			CommonUtil.switchToFragmentaddToBackStack(getActivity(), R.id.fragment_content, detailFragment, item.getCid());
 		}
 	}
 

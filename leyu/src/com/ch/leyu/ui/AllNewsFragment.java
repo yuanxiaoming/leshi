@@ -3,6 +3,7 @@ package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CLYAdapter;
+import com.ch.leyu.adapter.FouceNewsPagerAdapter;
 import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
@@ -99,7 +100,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                        if(data!=null){
                            mAutoScrollViewPager.startAutoScroll(2000);
                            mAutoScrollViewPager.setInterval(4000);
-                           mAutoScrollViewPager.setAdapter(new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus()));
+                           mAutoScrollViewPager.setAdapter(new FouceNewsPagerAdapter(getActivity(), data.getFocus()));
                            mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);

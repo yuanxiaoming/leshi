@@ -3,6 +3,7 @@ package com.ch.leyu.adapter;
 
 import com.ch.leyu.R;
 import com.ch.leyu.responseparse.Property;
+import com.ch.leyu.ui.NewsDetailActivity;
 import com.ch.leyu.ui.VideoPlayActivity;
 import com.ch.leyu.utils.Constant;
 
@@ -59,7 +60,7 @@ public class NewsListAdapter extends BaseAdapter {
             
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(mContext, VideoPlayActivity.class);
+                    Intent intent = new Intent(mContext, NewsDetailActivity.class);
                     intent.putExtra(Constant.CID , mNewsList.get(position).getId());
                     mContext.startActivity(intent);
             }

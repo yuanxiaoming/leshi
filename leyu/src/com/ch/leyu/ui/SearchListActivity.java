@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.ListAsGridBaseAdapter.GridItemClickListener;
@@ -126,6 +127,7 @@ public class SearchListActivity extends BaseActivity {
 		mXListView_hot.setXListViewListener(mIXListViewListenerImp);
 	}
 
+	private int a =0;
 
 	@Override
 	protected void setListener() {
@@ -133,6 +135,7 @@ public class SearchListActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+			    a = 1 ;
 				mPage_default = 1;
 				mPage_hot=1;
 				mKeyWord = mEditText.getText().toString();
@@ -247,6 +250,10 @@ public class SearchListActivity extends BaseActivity {
 				if(mTotalPage==1){
 					mXListView_default.setPullLoadEnable(false);
 				}
+				
+				if(a==1){
+				    showProgressDialog();
+				}
 
 			}
 
@@ -286,7 +293,12 @@ public class SearchListActivity extends BaseActivity {
 						}
 					}
 
-				}
+				}else {
+                    if(a==1){
+                        Toast.makeText(SearchListActivity.this, R.string.search_hint_null, Toast.LENGTH_LONG).show();
+                        a=0;
+                    }
+                }
 			}
 
 			@Override

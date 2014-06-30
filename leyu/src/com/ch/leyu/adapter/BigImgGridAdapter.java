@@ -75,7 +75,7 @@ public class BigImgGridAdapter extends BaseAdapter {
         ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,
                 ImageLoaderUtil.getImageLoaderOptions());
         holder.title.setText(mNewsList.get(position).getTitle());
-        holder.detail.setText("低洼大碗大碗饭");
+        holder.detail.setText(mNewsList.get(position).getDetail());
 
         return convertView;
     }

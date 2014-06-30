@@ -48,11 +48,19 @@ public class NewsDetailActivity extends BaseActivity {
     private WebView mContent;
 
     private String mCid;
+    
+    private String mShareTitle ;
+    
+    private String mShareUrl ="http://www.legames.cn/";
 
     //百度分享
     private FrontiaSocialShare mSocialShare;
 
     private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
+    
+    WebSettings settings;
+
+    private int fontSize =1;
 
     @Override
     protected void getExtraParams() {
@@ -84,8 +92,8 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     protected void processLogic() {
-        baiduShareConfig();
         requestData();
+        baiduShareConfig();
     }
 
     private void requestData() {
@@ -102,7 +110,9 @@ public class NewsDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, NewDetailResponse data) {
                 if(data!=null){
-                    WebSettings settings = mContent.getSettings();
+                    mShareTitle = data.getInfo().getTitle();
+                    mShareUrl  = data.getInfo().getLinkUrl();
+                    settings = mContent.getSettings();
                     // 设置布局算法
                     settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
                     // 设置渲染等级
@@ -113,6 +123,7 @@ public class NewsDetailActivity extends BaseActivity {
                     settings.setLoadWithOverviewMode(true);
                     // 设置字体缩放级别
                     settings.setTextSize(TextSize.LARGEST);
+                    settings.setDefaultFontSize(25);
                     // 设置支持js
                     settings.setJavaScriptEnabled(true);
                     // 设置处理客户端
@@ -146,6 +157,7 @@ public class NewsDetailActivity extends BaseActivity {
             }
         });
     }
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -188,10 +200,10 @@ public class NewsDetailActivity extends BaseActivity {
         mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
         mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
         mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
-        mImageContent.setTitle("乐娱互动");
-        mImageContent.setContent("欢迎使用乐娱互动");
-        mImageContent.setLinkUrl("http://www.legames.cn/");
-        mImageContent.setImageUri(Uri.parse("http://resource.9377.com/images/cms_style_2012_new/game/hot/game_center_ly.jpg"));
+        mImageContent.setTitle("欢迎使用乐娱互动");
+        mImageContent.setContent(mShareTitle);
+        mImageContent.setLinkUrl(mShareUrl);
+        mImageContent.setImageUri(Uri.parse("http://img.legames.cn/templates/images/logo.jpg"));
     }
 
     private class ShareListener implements FrontiaSocialShareListener {
@@ -227,7 +239,4 @@ public class NewsDetailActivity extends BaseActivity {
         actionBar.setLogo(R.drawable.legames_back);
         actionBar.setHomeButtonEnabled(true);
         }
-    
-    
-
-}
+    }
