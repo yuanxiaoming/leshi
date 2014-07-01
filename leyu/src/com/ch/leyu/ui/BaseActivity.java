@@ -4,6 +4,7 @@ package com.ch.leyu.ui;
 import com.ch.leyu.R;
 import com.ch.leyu.application.ExitAppUtils;
 import com.ch.leyu.widget.view.CustomProgressDialog;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
-public abstract class BaseActivity extends ActionBarActivity{
+public abstract class BaseActivity extends ActionBarActivity {
     protected FragmentActivity mContext;
 
     protected ActionBar mActionBar;
@@ -29,12 +30,14 @@ public abstract class BaseActivity extends ActionBarActivity{
     private View mChildView;
 
     protected ViewStub mHttpLoading, mHttpError;
-    protected View mHttpLoadingView=null;
-    protected View mHttpErrorView=null;
+
+    protected View mHttpLoadingView = null;
+
+    protected View mHttpErrorView = null;
+
     protected CustomProgressDialog mProgressDialog;
 
     public Button mButton;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,15 +47,15 @@ public abstract class BaseActivity extends ActionBarActivity{
         mHttpLoading = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
         mHttpError = (ViewStub) super.findViewById(R.id.viewstub_http_error);
 
-        if(mHttpLoading!=null){
-            mHttpLoadingView=mHttpLoading.inflate();
+        if (mHttpLoading != null) {
+            mHttpLoadingView = mHttpLoading.inflate();
             mHttpLoadingView.setVisibility(View.GONE);
         }
-        if(mHttpError!=null){
-            mHttpErrorView=mHttpError.inflate();
+        if (mHttpError != null) {
+            mHttpErrorView = mHttpError.inflate();
             mHttpErrorView.setVisibility(View.GONE);
         }
-        mButton= (Button)mHttpErrorView.findViewById(R.id.loading_lose_btn);
+        mButton = (Button) mHttpErrorView.findViewById(R.id.loading_lose_btn);
         mContext = this;
         mActionBar = getSupportActionBar();
         initView();
@@ -90,15 +93,14 @@ public abstract class BaseActivity extends ActionBarActivity{
         return mChildView.findViewById(viewId);
     }
 
-
     public String getResourceString(int resId) {
         return getResources().getString(resId);
     }
 
-    public void hidden(){
-      //隐藏键盘
-        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mContext.getCurrentFocus().
-                        getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    public void hidden() {
+        // 隐藏键盘
+        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+                mContext.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**
@@ -110,6 +112,7 @@ public abstract class BaseActivity extends ActionBarActivity{
      * 加载布局
      */
     protected abstract void loadViewLayout();
+
     /**
      * 初始化控件
      */
@@ -130,6 +133,18 @@ public abstract class BaseActivity extends ActionBarActivity{
      */
     protected abstract void reload();
 
+   
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onDestroy() {
@@ -170,6 +185,5 @@ public abstract class BaseActivity extends ActionBarActivity{
         if (this.mProgressDialog != null && this.mProgressDialog.isShowing())
             this.mProgressDialog.dismiss();
     }
-
 
 }

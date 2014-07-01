@@ -16,25 +16,37 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-    <!-- Frontia框架的公共权限 -->
+    <!-- 乐视sdk -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
+
+    <!-- 友盟统计权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- share -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-
-    <!-- FrontiaPush 和FrontiaStatistics 需要的权限 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" >
-    </uses-permission>
-
-    <!-- FrontiaPush 需要的权限 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:name="com.ch.leyu.application.CLYApplication"
@@ -45,7 +57,6 @@
         <activity
             android:name="com.ch.leyu.ui.LaunchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,83 +66,60 @@
         </activity>
         <activity
             android:name="com.ch.leyu.ui.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.SearchActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.StarDetailActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.FeedbackActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.SearchListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.VideosActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.VideoPlayActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.ch.leyu.ui.NewsDetailActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
 
-        <!-- 百度分享 -->
-        <activity
-            android:name="com.baidu.frontia.activity.share.FrontiaSocialOAuthActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
-        </activity>
-        <activity
-            android:name="com.baidu.frontia.activity.share.FrontiaLocalShareActivity"
-            android:launchMode="singleTask" >
-        </activity>
-        <activity
-            android:name="com.baidu.frontia.activity.share.FrontiaQQFriendShareReceiverActivity"
-            android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="tencent100358052" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="com.letv.android.sdk.play.BasePlayActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -140,9 +128,41 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
 
+        <!-- share activity信息 -->
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- share activity信息 -->
+
         <provider
             android:name="com.letv.datastatistics.db.StatisContentProvider"
             android:authorities="sdker.StatisContentProvider" />
     </application>
+
+    <!-- ###################添加UmengAppkey###################### -->
+    <meta-data
+        android:name="UMENG_APPKEY"
+        android:value="@string/umeng_key" >
+    </meta-data>
+    <!-- ###################添加UmengAppkey###################### -->
 
 </manifest>

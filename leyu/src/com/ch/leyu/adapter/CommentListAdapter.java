@@ -129,7 +129,7 @@ public class CommentListAdapter extends BaseAdapter {
         // 设置支持js
         settings.setJavaScriptEnabled(true);
         // 设置处理客户端
-        holder.detail.setWebViewClient(new WebViewClient());
+        holder.detail.setWebViewClient(new MyWebviewClient());
         holder.detail.setBackgroundColor(Color.parseColor("#F0F0F0"));
         holder.detail.loadDataWithBaseURL("", mArrayList.get(position).getComment(), "text/html",
                 "UTF-8", "");

@@ -14,6 +14,7 @@
         android:layout_toLeftOf="@+id/search_head_bt_commit"
         android:background="@drawable/search_edittext_bg"
         android:paddingLeft="5dp"
+        android:maxLines="1"
         android:ems="10" />
 
     <Button

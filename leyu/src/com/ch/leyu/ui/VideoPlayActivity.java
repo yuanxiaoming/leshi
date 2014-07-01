@@ -1,28 +1,9 @@
 
 package com.ch.leyu.ui;
 
-import org.apache.http.Header;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout;
-
-import com.baidu.frontia.Frontia;
-import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
-import com.baidu.frontia.api.FrontiaSocialShare;
-import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
-import com.baidu.frontia.api.FrontiaSocialShareContent;
-import com.baidu.frontia.api.FrontiaSocialShareListener;
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.VideoDetailPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
@@ -36,6 +17,20 @@ import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.letv.playutils.PlayUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.apache.http.Header;
+
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout;
 
 
 
@@ -57,11 +52,6 @@ public class VideoPlayActivity extends BaseActivity {
 	private String mId;
 
 	private VideoDetailPagerAdapter mAdapter;
-
-	//百度分享
-	private FrontiaSocialShare mSocialShare;
-
-	private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
 
 	private String vu ;
 
@@ -149,7 +139,6 @@ public class VideoPlayActivity extends BaseActivity {
 		final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
 		mSlideTabIndicator.setTextSize(textSize);
 		requestData(mId, Constant.URL + Constant.VIDEO_URL + Constant.VIDEO_DETAIL);
-		baiduShareConfig();
 	}
 
 	private void requestData(String mid, String url) {
@@ -201,7 +190,7 @@ public class VideoPlayActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_share:
-			baiduShare();
+		    showShare();
 			break;
 
 		case android.R.id.home:
@@ -218,44 +207,40 @@ public class VideoPlayActivity extends BaseActivity {
 		return true;
 	}
 
-	private void baiduShare() {
-		mImageContent.setContent(title);
-		mImageContent.setLinkUrl(mUrl);
-		mImageContent.setImageUri(Uri.parse(mShareImg));
+	
+	 private void showShare() {
+	        ShareSDK.initSDK(this);
+	        OnekeyShare oks = new OnekeyShare();
+	        //关闭sso授权
+	        oks.disableSSOWhenAuthorize();
+	        
+	        // 分享时Notification的图标和文字
+	        oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+	        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+	        oks.setTitle(getString(R.string.share));
+	        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+	        oks.setTitleUrl(mUrl);
+	        // text是分享文本，所有平台都需要这个字段
+	        oks.setText(title);
+	        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//	        oks.setImagePath("/sdcard/test.jpg");
+	        oks.setImageUrl(mShareImg);
+	        // url仅在微信（包括好友和朋友圈）中使用
+	        oks.setUrl(mUrl);
+	        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+//	        oks.setComment("我是测试评论文本");
+	        // site是分享此内容的网站名称，仅在QQ空间使用
+	        oks.setSite(getString(R.string.app_name));
+	        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+	        oks.setSiteUrl(mShareImg);
 
-		mSocialShare.show(getWindow().getDecorView(),mImageContent, FrontiaTheme.LIGHT,  new ShareListener());
-	}
+	        // 启动分享GUI
+	        oks.show(this);
+	   }
+	
+	
+	
 
-	private void baiduShareConfig() {
-		Frontia.init(this, "ZFkbingwMIo36LV2YrjkCThu");
-		mSocialShare = Frontia.getSocialShare();
-		mSocialShare.setContext(this);
-		mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "1098403121");
-		mSocialShare.setClientId(MediaType.QZONE.toString(), "101069451");
-		mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "101069451");
-		mSocialShare.setClientId(MediaType.QQWEIBO.toString(), "801517958");
-		mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wx3822d16c9c071ef2");
-		mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "乐娱互动");
-	}
-
-	private class ShareListener implements FrontiaSocialShareListener {
-
-		@Override
-		public void onSuccess() {
-			Log.d("Test","share success");
-		}
-
-		@Override
-		public void onFailure(int errCode, String errMsg) {
-			Log.d("Test","share errCode "+errCode);
-		}
-
-		@Override
-		public void onCancel() {
-			Log.d("Test","cancel ");
-		}
-
-	}
 
 	@Override
 	protected void reload() {

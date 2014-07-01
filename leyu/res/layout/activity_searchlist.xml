@@ -76,7 +76,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/search_radiogroup"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical" >
 
         <com.ch.leyu.widget.xlistview.XListView
