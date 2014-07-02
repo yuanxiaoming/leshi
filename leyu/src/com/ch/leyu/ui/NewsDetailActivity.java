@@ -5,7 +5,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.ch.leyu.R;
-import com.ch.leyu.adapter.MyWebviewClient;
+import com.ch.leyu.html.LeWebviewClient;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
@@ -115,7 +115,7 @@ public class NewsDetailActivity extends BaseActivity {
 
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
                     mContent.loadDataWithBaseURL("file:///", webTextContext, "text/html","UTF-8", "");
-                    mContent.setWebViewClient(new MyWebviewClient());
+                    mContent.setWebViewClient(new LeWebviewClient());
                     mTitle.setText(data.getInfo().getTitle());
                     mTime.setText(TimeUtils.toDate(data.getInfo().getCreateTime()));
 

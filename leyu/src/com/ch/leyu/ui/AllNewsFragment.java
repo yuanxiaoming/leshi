@@ -4,7 +4,6 @@ package com.ch.leyu.ui;
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.CLYAdapter;
 import com.ch.leyu.adapter.FouceNewsPagerAdapter;
-import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;

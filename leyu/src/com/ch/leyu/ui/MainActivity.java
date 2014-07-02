@@ -1,10 +1,14 @@
 
 package com.ch.leyu.ui;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.ch.leyu.R;
+import com.ch.leyu.application.CLYApplication;
+import com.ch.leyu.application.ExitAppUtils;
+import com.ch.leyu.utils.CommonUtil;
+import com.umeng.update.UmengUpdateAgent;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +17,8 @@ import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.ch.leyu.R;
-import com.ch.leyu.application.CLYApplication;
-import com.ch.leyu.application.ExitAppUtils;
-import com.ch.leyu.utils.CommonUtil;
-import com.ch.leyu.utils.TimeUtils;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /***
  * 导航页
@@ -27,6 +28,13 @@ import com.ch.leyu.utils.TimeUtils;
 public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private RadioButton mHs, mLol, mStar, mNews;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    UmengUpdateAgent.setUpdateOnlyWifi(false);
+	    UmengUpdateAgent.update(this);
+	}
 
 
 	@Override

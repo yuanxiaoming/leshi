@@ -69,7 +69,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
         Intent intent = null ;
         switch (v.getId()) {
             case R.id.hs_bt_match:
-
+                intent = new Intent(getActivity(), EventActivity.class);
+                startActivity(intent);
                 break;
             case R.id.hs_bt_videos:
                 intent = new Intent(getActivity(), VideosActivity.class);

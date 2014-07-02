@@ -18,12 +18,10 @@ import org.apache.http.Header;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -92,7 +90,7 @@ public class CommentFragment extends BaseFragment {
     private boolean mFlag = false;
 
     private  ArrayList<CommentDetail> mDetailsList ;
-
+    
 
     @Override
     protected void getExtraParams() {
@@ -189,6 +187,7 @@ public class CommentFragment extends BaseFragment {
         });
 
         mListView.setXListViewListener(mIXListViewListenerImp);
+        
     }
 
 
