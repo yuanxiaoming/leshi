@@ -182,7 +182,7 @@ public class SearchActivity extends BaseActivity {
     private void requestData() {
         JHttpClient.get(mContext, Constant.URL + Constant.HOT_SEARCH, null, SearchResponse.class,mHotSearchDataCallback);
     }
-    
+
     /**
      * 关键字搜索
      */
@@ -190,6 +190,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onStart() {
+
             showProgressDialog();
         }
 
@@ -226,7 +227,6 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
-
         }
 
         @Override
@@ -269,9 +269,9 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void reload() {
-        
+    	requestData();
     }
-    
+
 
     @Override
     protected void onStart() {
@@ -281,7 +281,7 @@ public class SearchActivity extends BaseActivity {
         actionBar.setLogo(R.drawable.legames_back);
         actionBar.setHomeButtonEnabled(true);
         }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

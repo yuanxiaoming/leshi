@@ -8,6 +8,8 @@
         android:id="@+id/starviedo_fragment_xlistview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:divider="#FFCC00"
         android:footerDividersEnabled="false"
         android:listSelector="#00000000"

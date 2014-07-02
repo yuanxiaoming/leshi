@@ -12,6 +12,7 @@ import com.ch.leyu.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -76,8 +77,8 @@ public class XListViewFooter extends LinearLayout {
             break;
 
         case STATE_OVER:
-            mHintView.setVisibility(View.VISIBLE);
-            mHintView.setText("暂无更多");
+//            mHintView.setVisibility(View.VISIBLE);
+//            mHintView.setText("暂无更多");
             break;
 
         default:

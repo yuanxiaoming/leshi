@@ -1,18 +1,6 @@
 
 package com.ch.leyu.ui;
 
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-
-import com.ch.leyu.R;
-import com.ch.leyu.adapter.MyWebviewClient;
-import com.ch.leyu.http.httplibrary.RequestParams;
-import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.NewDetailResponse;
-import com.ch.leyu.utils.Constant;
-import com.ch.leyu.utils.TimeUtils;
-
 import org.apache.http.Header;
 
 import android.content.Intent;
@@ -25,8 +13,20 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.RenderPriority;
+import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
 import android.widget.TextView;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
+import com.ch.leyu.R;
+import com.ch.leyu.html.LeWebviewClient;
+import com.ch.leyu.http.httplibrary.RequestParams;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.NewDetailResponse;
+import com.ch.leyu.utils.Constant;
+import com.ch.leyu.utils.TimeUtils;
 
 public class NewsDetailActivity extends BaseActivity {
     /** 标题 */
@@ -47,9 +47,7 @@ public class NewsDetailActivity extends BaseActivity {
 
     private String mShareUrl ="http://www.legames.cn/";
 
-  
-
-    WebSettings settings;
+    private WebSettings settings;
 
     @Override
     protected void getExtraParams() {
@@ -91,7 +89,7 @@ public class NewsDetailActivity extends BaseActivity {
 
             @Override
             public void onStart() {
-
+            	 mHttpErrorView.setVisibility(View.GONE);
                 mHttpLoadingView.setVisibility(View.VISIBLE);
             }
 
@@ -103,7 +101,7 @@ public class NewsDetailActivity extends BaseActivity {
                     settings = mContent.getSettings();
                     settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                     settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
-//                    settings.setTextSize(TextSize.LARGEST);
+                    settings.setTextSize(TextSize.LARGER);
                     settings.setAllowFileAccess(true); // 允许访问文件
                     settings.setRenderPriority(RenderPriority.HIGH);
                     settings.setBuiltInZoomControls(false); // 设置显示缩放按钮
@@ -115,7 +113,7 @@ public class NewsDetailActivity extends BaseActivity {
 
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
                     mContent.loadDataWithBaseURL("file:///", webTextContext, "text/html","UTF-8", "");
-                    mContent.setWebViewClient(new MyWebviewClient());
+                    mContent.setWebViewClient(new LeWebviewClient());
                     mTitle.setText(data.getInfo().getTitle());
                     mTime.setText(TimeUtils.toDate(data.getInfo().getCreateTime()));
 
@@ -132,7 +130,7 @@ public class NewsDetailActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-
+            	mHttpErrorView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -157,7 +155,7 @@ public class NewsDetailActivity extends BaseActivity {
                 break;
 
             case android.R.id.home:
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, HSNewsDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 finish();
@@ -169,13 +167,13 @@ public class NewsDetailActivity extends BaseActivity {
 
         return true;
     }
-    
+
     private void showShare() {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
-        
+
         // 分享时Notification的图标和文字
         oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
@@ -203,7 +201,7 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     protected void reload() {
-
+    	requestData();
     }
 
 

@@ -1,10 +1,10 @@
-package com.ch.leyu.adapter;
+package com.ch.leyu.html;
 
 import android.graphics.Bitmap;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MyWebviewClient extends WebViewClient{
+public class LeWebviewClient extends WebViewClient{
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {

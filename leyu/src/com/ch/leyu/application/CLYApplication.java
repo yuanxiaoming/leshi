@@ -25,9 +25,9 @@ public class CLYApplication extends Application {
     public SparseArray<Fragment> mCurrent_fragment_array;
 
     private boolean mFlag;
-    
+
     private boolean mScroll ; //XListView是否能滑动
-    
+
     public boolean isScroll() {
 		return mScroll;
 	}

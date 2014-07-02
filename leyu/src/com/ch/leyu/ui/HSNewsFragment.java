@@ -1,5 +1,12 @@
-
 package com.ch.leyu.ui;
+
+import org.apache.http.Header;
+
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.FouceNewsPagerAdapter;
@@ -9,21 +16,11 @@ import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.AllNewResponse;
 import com.ch.leyu.responseparse.Property;
-import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.view.AutoScrollViewPager;
 import com.ch.leyu.widget.view.CircleLoopPageIndicator;
 import com.ch.leyu.widget.view.CustomScrollView;
 import com.ch.leyu.widget.view.LYGridView;
-
-import org.apache.http.Header;
-
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /***
  * 新闻资讯--炉石攻略
@@ -44,24 +41,15 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 
 	private CustomScrollView mCustomScrollView;
 
-	private static  HSNewsDetailFragment detailFragment = null;
-
-	private static  HSNewsFragment mHSNewsFragment = null;
-
 	public static FragmentActivity activity;
 
-	public static boolean sRemove=false;
+	public static boolean sRemove = false;
 
-	public static boolean sAddToBackStack=false;
+	public static boolean sAddToBackStack = false;
 
 	@Override
 	protected void getExtraParams() {
-		activity = getActivity();
-		mHSNewsFragment=this;
-		sRemove=false;
 	}
-
-
 
 	@Override
 	protected void loadViewLayout() {
@@ -72,8 +60,10 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	protected void findViewById() {
 		mGridView = (LYGridView) findViewById(R.id.fragment_hsnews_grid);
 		layout = findViewById(R.id.fragment_hsnews_include);
-		mViewPager = (AutoScrollViewPager) layout.findViewById(R.id.all_auto_scroll_viewpager);
-		mPageIndicator = (CircleLoopPageIndicator) layout.findViewById(R.id.all_cirle_pageindicator);
+		mViewPager = (AutoScrollViewPager) layout
+				.findViewById(R.id.all_auto_scroll_viewpager);
+		mPageIndicator = (CircleLoopPageIndicator) layout
+				.findViewById(R.id.all_cirle_pageindicator);
 		mCustomScrollView = (CustomScrollView) findViewById(R.id.customscrollview);
 	}
 
@@ -91,60 +81,58 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	private void requestData() {
 		RequestParams params = new RequestParams();
 		params.put(Constant.GMAE_ID, "23");
-		JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS, params,
-				AllNewResponse.class, new DataCallback<AllNewResponse>() {
+		JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS,
+				params, AllNewResponse.class,
+				new DataCallback<AllNewResponse>() {
 
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
-				if (data != null) {
-					maAdapter = new HSNewsGridViewAdapter(data.getCareer(), getActivity());
-					mGridView.setAdapter(maAdapter);
-					mViewPager.startAutoScroll(2000);
-					mViewPager.setInterval(4000);
-					mViewPager.setAdapter(new FouceNewsPagerAdapter(getActivity(),data.getFocus()));
-					mViewPager.setCurrentItem(data.getFocus().size() * 10000);
-					mPageIndicator.setPageCount(data.getFocus().size());
-					mPageIndicator.setViewPager(mViewPager);
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							AllNewResponse data) {
+						if (data != null) {
+							maAdapter = new HSNewsGridViewAdapter(data
+									.getCareer(), getActivity());
+							mGridView.setAdapter(maAdapter);
+							mViewPager.startAutoScroll(2000);
+							mViewPager.setInterval(4000);
+							mViewPager.setAdapter(new FouceNewsPagerAdapter(
+									getActivity(), data.getFocus()));
+							mViewPager
+									.setCurrentItem(data.getFocus().size() * 10000);
+							mPageIndicator.setPageCount(data.getFocus().size());
+							mPageIndicator.setViewPager(mViewPager);
 
-				}
+						}
 
-			}
+					}
 
-			@Override
-			public void onStart() {
-				mHttpErrorView.setVisibility(View.GONE);
-				mHttpLoadingView.setVisibility(View.VISIBLE);
-			}
+					@Override
+					public void onStart() {
+						mHttpErrorView.setVisibility(View.GONE);
+						mHttpLoadingView.setVisibility(View.VISIBLE);
+					}
 
-			@Override
-			public void onFinish() {
-				mHttpLoadingView.setVisibility(View.GONE);
-			}
+					@Override
+					public void onFinish() {
+						mHttpLoadingView.setVisibility(View.GONE);
+					}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers, String responseString,
-					Exception exception) {
-				mHttpErrorView.setVisibility(View.VISIBLE);
-			}
-		});
-
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Exception exception) {
+						mHttpErrorView.setVisibility(View.VISIBLE);
+					}
+				});
 
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		Property item = (Property) parent.getAdapter().getItem(position);
-		if(item!=null){
-			sRemove=false;
-			sAddToBackStack=true;
-			Bundle bundle = new Bundle();
-			detailFragment = new HSNewsDetailFragment();
-			bundle.putString(Constant.CID, item.getCid());
-			detailFragment.setArguments(bundle);
-						FragmentManager manager = getActivity().getSupportFragmentManager();
-						manager.beginTransaction().add(R.id.fragment_content, detailFragment, item.getCid()).addToBackStack(null).hide(HSNewsFragment.this).commit();
-
-//			CommonUtil.switchToFragmentaddToBackStack(getActivity(), R.id.fragment_content, detailFragment, item.getCid());
+		if (item != null) {
+			Intent intent = new Intent(getActivity(), HSNewsDetailActivity.class);
+			intent.putExtra(Constant.CID, item.getCid());
+			intent.putExtra(Constant.TITLE, item.getTitle());
+			getActivity().startActivity(intent);
 		}
 	}
 
@@ -153,39 +141,4 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 		requestData();
 	}
 
-	public static  void  removemHsNewsDetailFragment() {
-		if(detailFragment!=null&&mHSNewsFragment!=null&&activity!=null){
-			activity.getSupportFragmentManager().beginTransaction().remove(detailFragment).show(mHSNewsFragment).commit();
-			sRemove=true;
-			sAddToBackStack=false;
-		}
-	}
-
-	public static boolean isAddToBackStack() {
-		return sAddToBackStack;
-	}
-
-
-
-	public static void setAddToBackStack(boolean sAddToBackStack) {
-		HSNewsFragment.sAddToBackStack = sAddToBackStack;
-	}
-
-
-
-	public static boolean issRemove() {
-		return sRemove;
-	}
-
-	public static void setsRemove(boolean sRemove) {
-		HSNewsFragment.sRemove = sRemove;
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		activity=null;
-		detailFragment=null;
-		mHSNewsFragment=null;
-	}
 }

@@ -1,10 +1,13 @@
-
 package com.ch.leyu.ui;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.ch.leyu.R;
+import com.ch.leyu.application.CLYApplication;
+import com.ch.leyu.application.ExitAppUtils;
+import com.ch.leyu.utils.CommonUtil;
+import com.umeng.update.UmengUpdateAgent;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +16,8 @@ import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.ch.leyu.R;
-import com.ch.leyu.application.CLYApplication;
-import com.ch.leyu.application.ExitAppUtils;
-import com.ch.leyu.utils.CommonUtil;
-import com.ch.leyu.utils.TimeUtils;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /***
  * 导航页
@@ -28,32 +28,41 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private RadioButton mHs, mLol, mStar, mNews;
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		UmengUpdateAgent.setUpdateOnlyWifi(false);
+		UmengUpdateAgent.update(this);
+	}
 
 	@Override
 	public void onClick(View v) {
-		HSNewsFragment.removemHsNewsDetailFragment();
 		switch (v.getId()) {
 		case R.id.act_nav_rb_hs:
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
+					new HSFragment(), "");
 			break;
 
 		case R.id.act_nav_rb_lol:
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content, new LOLFragment(), "");
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
+					new LOLFragment(), "");
 			break;
 
 		case R.id.act_nav_rb_star:
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content,new StarGirefFragment(), "");
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
+					new StarGirefFragment(), "");
 			break;
 		case R.id.act_nav_rb_news:
-			((CLYApplication)this.getApplication()).setmFlag(true);
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
+			((CLYApplication) this.getApplication()).setmFlag(true);
+			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
+					new NewsFragment(), "");
 			break;
 		default:
 			break;
 		}
 	}
 
-	public void setFoucs(boolean isChecked){
+	public void setFoucs(boolean isChecked) {
 		mNews.setChecked(isChecked);
 	}
 
@@ -88,7 +97,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void processLogic() {
 
-		CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+		CommonUtil.switchToFragment(mContext, R.id.fragment_content,
+				new HSFragment(), "");
 	}
 
 	@Override
@@ -107,7 +117,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			break;
 
 		case R.id.action_feedback:
-			intent = new Intent(this,FeedbackActivity.class);
+			intent = new Intent(this, FeedbackActivity.class);
 			startActivity(intent);
 			break;
 
@@ -126,22 +136,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK&& event.getRepeatCount() == 0) {
-			if(HSNewsFragment.issRemove()){
-				exitBy2Click();
-				return false;
-			}else{
-				HSNewsFragment.setsRemove(true);
-				if(!HSNewsFragment.isAddToBackStack()){
-					exitBy2Click();
-					return false;
-				}
-			}
-
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			exitBy2Click();
+			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
 
 	/**
 	 * 双击退出函数
@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				}
 			}, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
-		}else {
+		} else {
 			ExitAppUtils.getInstance().exit();
 		}
 	}

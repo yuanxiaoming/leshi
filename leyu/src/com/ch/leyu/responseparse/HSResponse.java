@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /***
  * 炉石传说数据
- * 
+ *
  * @author L
  */
 public class HSResponse {
@@ -20,7 +20,17 @@ public class HSResponse {
 
     private ArrayList<Property> hot;
 
-    public ArrayList<Property> getFocus() {
+    private ArrayList<Property> saishi ;
+
+    public ArrayList<Property> getSaishi() {
+		return saishi;
+	}
+
+	public void setSaishi(ArrayList<Property> saishi) {
+		this.saishi = saishi;
+	}
+
+	public ArrayList<Property> getFocus() {
         return focus;
     }
 

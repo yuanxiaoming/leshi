@@ -1,6 +1,19 @@
 
 package com.ch.leyu.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.http.Header;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+
 import com.ch.leyu.R;
 import com.ch.leyu.adapter.HSNewsDetailListAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
@@ -12,24 +25,12 @@ import com.ch.leyu.utils.Constant;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
-import org.apache.http.Header;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /***
  * 炉石传说新闻内页
  *
  * @author Administrator
  */
-public class HSNewsDetailFragment extends BaseFragment implements OnItemClickListener {
+public class HSNewsDetailActivity extends BaseActivity implements OnItemClickListener {
 	private XListView mXListView;
 
 	private HSNewsDetailListAdapter mAdapter;
@@ -43,16 +44,28 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 	private String mCid ;
 
 	public static final String GAMEID="23";
-	
-	 private boolean mFlag;
+
+	private boolean mFlag;
+
+	private String mName ="";
 
 
 	@Override
 	protected void getExtraParams() {
-		Bundle bundle = getArguments();
+		Intent bundle = getIntent();
 		if(bundle!=null){
-			mCid = bundle.getString(Constant.CID);
+			mCid = bundle.getStringExtra(Constant.CID);
+			mName = bundle.getStringExtra(Constant.TITLE);
 		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(mName);
+		actionBar.setLogo(R.drawable.legames_back);
+		actionBar.setHomeButtonEnabled(true);
 	}
 
 	@Override
@@ -63,7 +76,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 	@Override
 	protected void findViewById() {
 		mXListView = (XListView) findViewById(R.id.hsnews_detail_listview_cly);
-		mAdapter = new HSNewsDetailListAdapter(getActivity(), null);
+		mAdapter = new HSNewsDetailListAdapter(this, null);
 	}
 
 	@Override
@@ -87,7 +100,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 		params.put(Constant.PAGE, page);
 		//		String urlWithQueryString = JHttpClient.getUrlWithQueryString(Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params);
 		//		System.out.println(urlWithQueryString);
-		JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
+		JHttpClient.get(this, Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
 
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
@@ -170,7 +183,7 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Property item = (Property) parent.getAdapter().getItem(position);
 		if(item!=null){
-			Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+			Intent intent = new Intent(this, NewsDetailActivity.class);
 			intent.putExtra(Constant.CID, item.getId());
 			startActivity(intent);
 		}
@@ -182,6 +195,23 @@ public class HSNewsDetailFragment extends BaseFragment implements OnItemClickLis
 		requestData(mPage);
 
 	}
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			finish();
+			return true;
+
+		default:
+			break;
+		}
+
+		return true;
+	}
+
 
 }

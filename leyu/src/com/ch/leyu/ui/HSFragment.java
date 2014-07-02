@@ -63,13 +63,20 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
     /** 高玩攻略 */
     private Button mRaiders;
 
+    private String mId ="";
+
+    private String mTitle = "";
+
 
     @Override
     public void onClick(View v) {
         Intent intent = null ;
         switch (v.getId()) {
             case R.id.hs_bt_match:
-
+                intent = new Intent(getActivity(), EventActivity.class);
+                intent.putExtra(Constant.ID, mId);
+                intent.putExtra(Constant.TITLE, mTitle);
+                startActivity(intent);
                 break;
             case R.id.hs_bt_videos:
                 intent = new Intent(getActivity(), VideosActivity.class);
@@ -112,9 +119,9 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
     protected void processLogic() {
 
         requestData();
-        
+
     }
-    
+
     private void requestData() {
         JHttpClient.get(getActivity(), Constant.URL + Constant.HS_URL, null, HSResponse.class,
                 new DataCallback<HSResponse>() {
@@ -125,6 +132,8 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                             mAtuoScrollViewPager.startAutoScroll(2000);
                             mAtuoScrollViewPager.setInterval(4000);
                             mCustomScrollView.setAutoScrollViewPager(mAtuoScrollViewPager);
+                            mId = data.getSaishi().get(0).getId();
+                            mTitle = data.getSaishi().get(0).getTitle();
                             HeadofAllFragmentPagerAdapter adapter = new HeadofAllFragmentPagerAdapter(getActivity(), data.getFocus());
                             mAtuoScrollViewPager.setAdapter(adapter);
                             mAtuoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
@@ -157,7 +166,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
                     }
                 });
     }
-    
+
 
     @Override
     protected void setListener() {

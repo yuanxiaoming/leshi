@@ -72,7 +72,22 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
+            android:name="com.ch.leyu.ui.EventActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
             android:name="com.ch.leyu.ui.SearchActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+
+         <activity
+            android:name="com.ch.leyu.ui.HSNewsDetailActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
@@ -119,7 +134,6 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-
         <activity
             android:name="com.letv.android.sdk.play.BasePlayActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -156,13 +170,24 @@
         <provider
             android:name="com.letv.datastatistics.db.StatisContentProvider"
             android:authorities="sdker.StatisContentProvider" />
-    </application>
 
-    <!-- ###################添加UmengAppkey###################### -->
-    <meta-data
-        android:name="UMENG_APPKEY"
-        android:value="@string/umeng_key" >
-    </meta-data>
-    <!-- ###################添加UmengAppkey###################### -->
+        <!-- ###################添加UmengAppkey###################### -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="@string/umeng_key" >
+        </meta-data>
+        <!-- ###################添加UmengAppkey###################### -->
+<!-- 友盟自动更新 -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- 友盟自动更新 -->
+    </application>
 
 </manifest>

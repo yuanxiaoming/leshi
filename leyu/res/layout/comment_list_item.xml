@@ -17,7 +17,7 @@
         android:text="XX玩家"
         android:textColor="#3F74A7" />
 
-    <WebView
+    <TextView
         android:id="@+id/comment_list_web_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

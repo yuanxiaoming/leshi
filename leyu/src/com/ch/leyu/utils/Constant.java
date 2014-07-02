@@ -24,10 +24,12 @@ public interface Constant {
     public static final String KEYWORD = "keyword";
 
     public static final String POSITION = "position";
-    
+
     public static final String IMG = "img";
-    
+
     public static final String TITLE = "title";
+
+    public static final String ID = "id";
 
     /** 实体类传输key */
     public static final String DATA = "data";
@@ -61,7 +63,7 @@ public interface Constant {
 
     /** 全部新闻 */
     public static final String ALL_NEWS = "news.php?";
-    
+
     /** 其他新闻 */
     public static final String RESTS_NEWS = "action=list";
 

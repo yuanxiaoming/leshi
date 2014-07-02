@@ -7,6 +7,7 @@ import com.ch.leyu.widget.view.CustomProgressDialog;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -98,9 +99,18 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     public void hidden() {
-        // 隐藏键盘
-        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-                mContext.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if(isOpenKeyBoard()==true){
+            // 隐藏键盘
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+                    mContext.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        
+    }
+
+    public boolean isOpenKeyBoard(){
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean isOpen=imm.isActive();
+        return isOpen;
     }
 
     /**
@@ -133,13 +143,12 @@ public abstract class BaseActivity extends ActionBarActivity {
      */
     protected abstract void reload();
 
-   
     @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
-    
+
     @Override
     protected void onPause() {
         super.onPause();

@@ -56,7 +56,8 @@
         android:layout_height="2dp"
         android:layout_below="@+id/star_act_layout"
         android:layout_marginTop="20dp"
-        android:background="@drawable/legames_serch_bag" />
+        android:background="@drawable/legames_serch_bag" 
+        android:visibility="gone"/>
 
     <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/star_act_pagertab"
