@@ -7,21 +7,20 @@ import java.util.LinkedList;
 
 /**
  * android退出程序的工具类，使用单例模式
- * 1.在Activity的onCreate()的方法中调用addActivity()方法添加到mActivityList
- * 2.你可以在Activity的onDestroy()的方法中调用delActivity()来删除已经销毁的Activity实例
+ * 1.在Activity的onCreate()的方法中调用pushActivity()方法添加到mActivityList
+ * 2.你可以在Activity的onDestroy()的方法中调用popActivity()或者removeActivity()来删除已经销毁的Activity实例
  * 这样避免了mActivityList容器中有多余的实例而影响程序退出速度
  *
  * @author yuanxiaoming
  */
 public class ExitAppUtils {
     /**
-    * 转载Activity的容器
+    * 装载Activity的容器
     */
     private LinkedList<Activity> mActivityList = new LinkedList<Activity>();
 
-    private static ExitAppUtils instance;
+    private static ExitAppUtils sInstance;
 
-    private static byte[] lock = new byte[0];
 
     /**
     * 将构造函数私有化
@@ -36,14 +35,14 @@ public class ExitAppUtils {
     * @return
     */
     public static ExitAppUtils getInstance() {
-        if (instance == null) {
-            synchronized (lock) {
-                if (instance == null) {
-                    instance = new ExitAppUtils();
+        if (sInstance == null) {
+            synchronized (ExitAppUtils.class) {
+                if (sInstance == null) {
+                    sInstance = new ExitAppUtils();
                 }
             }
         }
-        return instance;
+        return sInstance;
     }
 
     /**
@@ -57,30 +56,28 @@ public class ExitAppUtils {
 
     /**
     * 弹出一个活动
-    *
+    * 在onDestroy()中调用
     * @return 返回Activity对象
     */
     public Activity popActivity() {
         return mActivityList.pop();
     }
 
-
     /**
     * 从容器中删除多余的Activity实例，在onDestroy()中调用
     *
     * @param activity
     */
-    public boolean  removeActivity(Activity activity) {
+    public boolean removeActivity(Activity activity) {
         return mActivityList.remove(activity);
     }
-
 
     /**
     * 清除所有活动
     *
     * @return 返回操作结果
     */
-    public  void destoryAll() {
+    public void destoryAll() {
         try {
             for (Activity activity : mActivityList) {
                 if (!activity.isFinishing()) {
@@ -88,7 +85,7 @@ public class ExitAppUtils {
                 }
             }
         } catch (Exception e) {
-            Log.i("ActivityStore", e.getMessage() + "");
+            Log.i("ExitAppUtils", e.getMessage() + "");
         }
     }
 
@@ -117,7 +114,7 @@ public class ExitAppUtils {
     *            活动对象
     * @return 返回是否在当前链表中存在
     */
-    public  boolean containsObject(Activity activity) {
+    public boolean containsObject(Activity activity) {
         return mActivityList.contains(activity);
     }
 
