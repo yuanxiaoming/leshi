@@ -1,89 +1,124 @@
 package com.ch.leyu.application;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * android退出程序的工具类，使用单例模式
  * 1.在Activity的onCreate()的方法中调用addActivity()方法添加到mActivityList
  * 2.你可以在Activity的onDestroy()的方法中调用delActivity()来删除已经销毁的Activity实例
  * 这样避免了mActivityList容器中有多余的实例而影响程序退出速度
- * 
+ *
  * @author yuanxiaoming
  */
 public class ExitAppUtils {
-	/**
-	 * 转载Activity的容器
-	 */
-	private List<Activity> mActivityList = new LinkedList<Activity>();
+    /**
+    * 转载Activity的容器
+    */
+    private LinkedList<Activity> mActivityList = new LinkedList<Activity>();
 
-	private static ExitAppUtils instance;
+    private static ExitAppUtils instance;
 
-	private static byte[] lock = new byte[0];
+    private static byte[] lock = new byte[0];
 
-	/**
-	 * 将构造函数私有化
-	 */
-	private ExitAppUtils() {
+    /**
+    * 将构造函数私有化
+    */
+    private ExitAppUtils() {
 
-	};
+    };
 
-	/**
-	 * 获取ExitAppUtils的实例，保证只有一个ExitAppUtils实例存在
-	 * 
-	 * @return
-	 */
-	public static ExitAppUtils getInstance() {
-		if (instance == null) {
-			synchronized (lock) {
-				if (instance == null) {
-					instance = new ExitAppUtils();
-				}
-			}
-		}
-		return instance;
-	}
+    /**
+    * 获取ExitAppUtils的实例，保证只有一个ExitAppUtils实例存在
+    *
+    * @return
+    */
+    public static ExitAppUtils getInstance() {
+        if (instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new ExitAppUtils();
+                }
+            }
+        }
+        return instance;
+    }
 
-	/**
-	 * 添加Activity实例到mActivityList中，在onCreate()中调用
-	 * 
-	 * @param activity
-	 */
-	public void addActivity(Activity activity) {
-		mActivityList.add(activity);
-	}
+    /**
+    * 添加Activity实例到mActivityList中，在onCreate()中调用
+    *
+    * @param activity
+    */
+    public void pushActivity(Activity activity) {
+        mActivityList.push(activity);
+    }
 
-	/**
-	 * 从容器中删除多余的Activity实例，在onDestroy()中调用
-	 * 
-	 * @param activity
-	 */
-	public void delActivity(Activity activity) {
-		mActivityList.remove(activity);
-	}
+    /**
+    * 弹出一个活动
+    *
+    * @return 返回Activity对象
+    */
+    public Activity popActivity() {
+        return mActivityList.pop();
+    }
 
-	/**
-	 * 退出程序的方法
-	 */
-	public void exit() {
-		for (Activity activity : mActivityList) {
-			if (!activity.isFinishing()) {
-				activity.finish();
-			}
-		}
-		System.exit(0);
-	}
 
-	/**
-	 * 获取当前运行的Activity
-	 * 
-	 * @return
-	 */
-	public Activity getRunActivity() {
-		return mActivityList.get(mActivityList.size() - 1);
+    /**
+    * 从容器中删除多余的Activity实例，在onDestroy()中调用
+    *
+    * @param activity
+    */
+    public boolean  removeActivity(Activity activity) {
+        return mActivityList.remove(activity);
+    }
 
-	}
+
+    /**
+    * 清除所有活动
+    *
+    * @return 返回操作结果
+    */
+    public  void destoryAll() {
+        try {
+            for (Activity activity : mActivityList) {
+                if (!activity.isFinishing()) {
+                    activity.finish();
+                }
+            }
+        } catch (Exception e) {
+            Log.i("ActivityStore", e.getMessage() + "");
+        }
+    }
+
+    /**
+    * 退出程序的方法
+    */
+    public void exit() {
+        destoryAll();
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    /**
+    * 获取当前运行的Activity
+    *
+    * @return
+    */
+    public Activity getRunActivity() {
+        return mActivityList.getLast();
+
+    }
+
+    /**
+    * 是否已存在活动
+    *
+    * @param activity
+    *            活动对象
+    * @return 返回是否在当前链表中存在
+    */
+    public  boolean containsObject(Activity activity) {
+        return mActivityList.contains(activity);
+    }
 
 }

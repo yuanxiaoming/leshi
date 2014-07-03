@@ -60,7 +60,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         mContext = this;
         mActionBar = getSupportActionBar();
         initView();
-        ExitAppUtils.getInstance().addActivity(this);
+        ExitAppUtils.getInstance().pushActivity(this);
 
         mButton.setOnClickListener(new OnClickListener() {
 
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ExitAppUtils.getInstance().delActivity(this);
+        ExitAppUtils.getInstance().removeActivity(this);
 
     }
 
