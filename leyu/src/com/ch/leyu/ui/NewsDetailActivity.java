@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,14 +49,16 @@ public class NewsDetailActivity extends BaseActivity {
     private String mShareUrl ="http://www.legames.cn/";
 
     private WebSettings settings;
+    
+    private String mTag = "tag";
 
     @Override
     protected void getExtraParams() {
         Intent intent = getIntent();
         if(intent!=null){
             mCid= intent.getStringExtra(Constant.CID);
+            mTag = intent.getStringExtra("tag");
         }
-
     }
 
     @Override
@@ -110,15 +113,13 @@ public class NewsDetailActivity extends BaseActivity {
                     settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
                     String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+">" +data.getInfo().getContent()
                     		+ "</body></html>";
-
+//                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+";font-size:17px"+">" +data.getInfo().getContent()
+//                            + "</body></html>";
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
                     mContent.loadDataWithBaseURL("file:///", webTextContext, "text/html","UTF-8", "");
                     mContent.setWebViewClient(new LeWebviewClient());
                     mTitle.setText(data.getInfo().getTitle());
                     mTime.setText(TimeUtils.toDate(data.getInfo().getCreateTime()));
-
-
-
 
                     String s = "<font color=\"#8F8F8F\">感谢</font> ";
                     String s1 = "<font color=\"#CA4D4D\">"+ data.getInfo().getAuthor() +"</font> ";
@@ -155,12 +156,17 @@ public class NewsDetailActivity extends BaseActivity {
                 break;
 
             case android.R.id.home:
-                Intent intent = new Intent(this, HSNewsDetailActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                finish();
-                return true;
-
+                if(mTag!=null&&mTag.equals("1")){
+                    Intent intent = new Intent(this, HSNewsDetailActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                }
             default:
                 break;
         }

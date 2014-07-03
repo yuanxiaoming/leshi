@@ -10,7 +10,6 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.CommentDetail;
 import com.ch.leyu.responseparse.CommentResponse;
 import com.ch.leyu.utils.Constant;
-import com.ch.leyu.widget.view.ClearEditText;
 import com.ch.leyu.widget.xlistview.XListView;
 import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
@@ -19,11 +18,10 @@ import org.apache.http.Header;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -72,13 +70,13 @@ public class CommentFragment extends BaseFragment {
     private Button mPublish;
 
     /** 有评论时回复内容 */
-    private ClearEditText mDetail;
+    private EditText mDetail;
 
     /** 无评论时发表回复 */
     private Button mPublish_EmptyView;
 
     /** 无评论时回复内容 */
-    private ClearEditText mDetail_EmptyView;
+    private EditText mDetail_EmptyView;
 
     /** 小贴士 */
     private View mTipsLayout;
@@ -114,9 +112,9 @@ public class CommentFragment extends BaseFragment {
     protected void findViewById() {
         mListView = (XListView) findViewById(R.id.fragment_comment_xistview);
         mPublish = (Button) mListViewHeaderView.findViewById(R.id.comment_head_bt_commit);
-        mDetail = (ClearEditText) mListViewHeaderView.findViewById(R.id.comment_head_et_detail);
+        mDetail = (EditText) mListViewHeaderView.findViewById(R.id.comment_head_et_detail);
         mPublish_EmptyView = (Button)findViewById(R.id.comment_head_bt_commit);
-        mDetail_EmptyView = (ClearEditText)findViewById(R.id.comment_head_et_detail);
+        mDetail_EmptyView = (EditText)findViewById(R.id.comment_head_et_detail);
         mTipsLayout = findViewById(R.id.comment_emptyview_layout);
         mListView.setEmptyView(mTipsLayout);
         mListView.addHeaderView(mListViewHeaderView);

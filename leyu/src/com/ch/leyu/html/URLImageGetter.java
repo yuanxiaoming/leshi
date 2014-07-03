@@ -24,16 +24,14 @@ public class URLImageGetter implements ImageGetter {
 
     TextView textView;
 
-    URLDrawable urlDrawable;
-
     public URLImageGetter(Context context, TextView textView) {
         this.context = context;
         this.textView = textView;
-        urlDrawable = new URLDrawable(context);
     }
 
     @Override
     public Drawable getDrawable(String paramString) {
+        final URLDrawable urlDrawable = new URLDrawable(context);
 
         ImageGetterAsyncTask getterTask = new ImageGetterAsyncTask(urlDrawable);
         getterTask.execute(paramString);
@@ -66,10 +64,9 @@ public class URLImageGetter implements ImageGetter {
             try {
                 InputStream is = fetch(url);
 
-                Rect bounds = URLDrawable.getDefaultImageBounds(context);
+                Rect bounds = urlDrawable.getDefaultImageBounds(context);
                 Bitmap bitmapOrg = BitmapFactory.decodeStream(is);
-                Bitmap bitmap = Bitmap.createScaledBitmap(bitmapOrg, bounds.right, bounds.bottom,
-                        true);
+                Bitmap bitmap = Bitmap.createScaledBitmap(bitmapOrg, bounds.right, bounds.bottom,true);
 
                 BitmapDrawable drawable = new BitmapDrawable(bitmap);
                 drawable.setBounds(bounds);
@@ -87,6 +84,7 @@ public class URLImageGetter implements ImageGetter {
         private InputStream fetch(String url) throws ClientProtocolException, IOException {
             DefaultHttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet(url);
+
             HttpResponse response = client.execute(request);
             return response.getEntity().getContent();
         }

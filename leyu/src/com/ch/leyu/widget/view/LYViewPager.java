@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.EditText;
 
 /**
  * 解决viewpager中嵌套viewFlow的事件冲突。
@@ -24,6 +25,9 @@ public class LYViewPager extends ViewPager {
     @Override
     protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
         if (v != this && v instanceof ViewPager) {
+            return true;
+        }
+        if (v != this && v instanceof EditText) {
             return true;
         }
 

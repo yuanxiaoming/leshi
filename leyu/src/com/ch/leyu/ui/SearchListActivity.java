@@ -251,7 +251,7 @@ public class SearchListActivity extends BaseActivity {
 					mXListView_default.setPullLoadEnable(false);
 				}
 				
-				if(a==1){
+				if(a==1&&mPage_default==1){
 				    showProgressDialog();
 				}
 

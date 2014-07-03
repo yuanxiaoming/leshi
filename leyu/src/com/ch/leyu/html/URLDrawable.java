@@ -17,12 +17,8 @@ public class URLDrawable extends BitmapDrawable{
     
     public URLDrawable(Context context) {
         this.setBounds(getDefaultImageBounds(context));
-        if(drawable==null){
-            drawable = context.getResources().getDrawable(R.drawable.abc_ab_bottom_solid_dark_holo);
-        }else {
-            drawable.setBounds(getDefaultImageBounds(context));
-        }
-      
+        drawable = context.getResources().getDrawable(R.drawable.abc_ab_bottom_solid_dark_holo);
+        drawable.setBounds(getDefaultImageBounds(context));
     }
                    
     @Override

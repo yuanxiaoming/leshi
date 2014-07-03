@@ -3,26 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/loading_lose_tv"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="190dp"
-        android:textColor="@color/text_color"
-        android:text="加载错误,点击重新加载"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_centerVertical="true" >
 
-    <Button
-        android:id="@+id/loading_lose_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/loading_lose_tv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/commit_selector"
-        android:text="加载"
-        android:textColor="#FFFFFF" />
+        <TextView
+            android:id="@+id/loading_lose_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="加载失败,点击重新加载"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_color" />
+
+        <Button
+            android:id="@+id/loading_lose_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loading_lose_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/commit_selector"
+            android:text="加载"
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
 
 </RelativeLayout>

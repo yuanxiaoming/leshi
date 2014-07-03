@@ -192,6 +192,7 @@ public class EditPage extends FakeActivity implements OnClickListener, TextWatch
 //		if (resId > 0) {
 //			llTitle.setBackgroundResource(resId);
 //		}
+		llTitle.setBackgroundColor(0xFF025a9a);
 		llTitle.getBtnBack().setOnClickListener(this);
 		int resId = getStringRes(activity, "multi_share");
 		if (resId > 0) {

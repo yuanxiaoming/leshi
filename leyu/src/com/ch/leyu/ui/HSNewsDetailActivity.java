@@ -185,6 +185,7 @@ public class HSNewsDetailActivity extends BaseActivity implements OnItemClickLis
 		if(item!=null){
 			Intent intent = new Intent(this, NewsDetailActivity.class);
 			intent.putExtra(Constant.CID, item.getId());
+			intent.putExtra("tag", "1");
 			startActivity(intent);
 		}
 
