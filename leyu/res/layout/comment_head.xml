@@ -8,7 +8,7 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp" >
 
-    <com.ch.leyu.widget.view.ClearEditText
+    <EditText
         android:id="@+id/comment_head_et_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

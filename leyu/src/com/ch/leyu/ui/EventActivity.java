@@ -88,6 +88,7 @@ public class EventActivity extends BaseActivity {
 		                    settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		                    settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
 		                    settings.setTextSize(TextSize.LARGER);
+//		                    settings.setTextZoom(30);
 		                    settings.setAllowFileAccess(true); // 允许访问文件
 		                    settings.setRenderPriority(RenderPriority.HIGH);
 		                    settings.setBuiltInZoomControls(false); // 设置显示缩放按钮
