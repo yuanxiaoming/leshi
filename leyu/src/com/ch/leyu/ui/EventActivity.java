@@ -87,7 +87,7 @@ public class EventActivity extends BaseActivity {
 		                    settings = mWebView.getSettings();
 		                    settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		                    settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
-		                    settings.setTextSize(TextSize.LARGER);
+		                    settings.setTextSize(TextSize.NORMAL);
 //		                    settings.setTextZoom(30);
 		                    settings.setAllowFileAccess(true); // 允许访问文件
 		                    settings.setRenderPriority(RenderPriority.HIGH);
@@ -95,8 +95,9 @@ public class EventActivity extends BaseActivity {
 		                    settings.setSupportZoom(false); // 支持缩放
 		                    settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
 		                    settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-		                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+">" +data.getInfo().getContent()
-		                    		+ "</body></html>";
+		                    final int textSize = (int)getResources().getDimension(R.dimen.web_textsize);
+		                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+";font-size:"+textSize+"px>" +data.getInfo().getContent()
+		                            + "</body></html>";
 		                    mWebView.setBackgroundColor(Color.parseColor("#F0F0F0"));
 		                    mWebView.setWebViewClient(new LeWebviewClient());
 		                    mWebView.loadDataWithBaseURL("file:///", webTextContext, "text/html","UTF-8", "");

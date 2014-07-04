@@ -3,4 +3,5 @@
     <dimen name="title_size">16sp</dimen>
      <dimen name="tab_title_size">28px</dimen>
      <dimen name="tab_wire">-3.5dp</dimen>
+         <dimen name="web_textsize">14px</dimen>
 </resources>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-     <dimen name="title_size">16sp</dimen>
+
+    <dimen name="title_size">16sp</dimen>
     <dimen name="tab_title_size">40px</dimen>
     <dimen name="tab_wire">-3.2dp</dimen>
+    <dimen name="web_textsize">24px</dimen>
 
 </resources>
