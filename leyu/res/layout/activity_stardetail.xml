@@ -36,7 +36,6 @@
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/star_act_img"
             android:paddingBottom="5dp"
-            android:text="name"
             android:textColor="#025A9A" />
 
         <TextView
@@ -46,7 +45,6 @@
             android:layout_alignLeft="@+id/star_act_tv_name"
             android:layout_below="@+id/star_act_tv_name"
             android:maxLines="4"
-            android:text="detail"
             android:textColor="#707070" />
     </RelativeLayout>
 
@@ -56,8 +54,8 @@
         android:layout_height="2dp"
         android:layout_below="@+id/star_act_layout"
         android:layout_marginTop="20dp"
-        android:background="@drawable/legames_serch_bag" 
-        android:visibility="gone"/>
+        android:background="@drawable/legames_serch_bag"
+        android:visibility="gone" />
 
     <com.ch.leyu.widget.view.PagerSlidingTabStrip
         android:id="@+id/star_act_pagertab"
@@ -77,10 +75,10 @@
         android:layout_width="fill_parent"
         android:layout_height="3dp"
         android:layout_below="@+id/bg_view1"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="45dp"
         android:layout_toRightOf="@+id/star_act_pagertab"
-        android:background="#D7D7D7" 
-        android:layout_marginRight="8dp"/>
+        android:background="#D7D7D7" />
 
     <com.ch.leyu.widget.view.LYViewPager
         android:id="@+id/star_act_viewpager"

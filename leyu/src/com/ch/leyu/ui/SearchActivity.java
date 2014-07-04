@@ -220,7 +220,6 @@ public class SearchActivity extends BaseActivity {
                 }
                 mHistory.setVisibility(View.GONE);
                 mResult.setVisibility(View.VISIBLE);
-                mResult.setText(R.string.search_hint_null);
                 Toast.makeText(SearchActivity.this, R.string.search_hint_null, Toast.LENGTH_LONG).show();
             }
         }

@@ -106,6 +106,12 @@ public abstract class BaseFragment extends Fragment {
         }
     }
     
+//    public void show() {
+//        InputMethodManager inputManager =
+//                (InputMethodManager)editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//    inputManager.showSoftInput(editText, 0);
+//    }
+    
 
     public View findViewById(int resId) {
         return mContentView.findViewById(resId);

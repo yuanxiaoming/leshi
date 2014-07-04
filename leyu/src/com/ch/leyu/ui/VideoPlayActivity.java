@@ -61,6 +61,7 @@ public class VideoPlayActivity extends BaseActivity {
 
 	private String mUrl = "http://www.legames.cn/";
 
+	private String mTag = "tag";
 
 	@Override
 	protected void onStart() {
@@ -76,6 +77,7 @@ public class VideoPlayActivity extends BaseActivity {
 		Intent intent = getIntent();
 		if (intent != null) {
 			mId = intent.getStringExtra(Constant.CID);
+			 mTag = intent.getStringExtra("tag");
 		}
 
 	}
@@ -194,10 +196,17 @@ public class VideoPlayActivity extends BaseActivity {
 			break;
 
 		case android.R.id.home:
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
-			finish();
+		    if(mTag!=null&&mTag.equals("1")){
+                Intent intent = new Intent(this, VideoPlayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+            }else {
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+            }
 			return true;
 
 		default:
@@ -221,7 +230,7 @@ public class VideoPlayActivity extends BaseActivity {
 	        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
 	        oks.setTitleUrl(mUrl);
 	        // text是分享文本，所有平台都需要这个字段
-	        oks.setText(title);
+	        oks.setText(title+"地址:"+mUrl);
 	        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //	        oks.setImagePath("/sdcard/test.jpg");
 	        oks.setImageUrl(mShareImg);
@@ -232,7 +241,7 @@ public class VideoPlayActivity extends BaseActivity {
 	        // site是分享此内容的网站名称，仅在QQ空间使用
 	        oks.setSite(getString(R.string.app_name));
 	        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-	        oks.setSiteUrl(mShareImg);
+	        oks.setSiteUrl(mUrl);
 
 	        // 启动分享GUI
 	        oks.show(this);

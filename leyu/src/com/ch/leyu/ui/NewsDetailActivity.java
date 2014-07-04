@@ -187,7 +187,7 @@ public class NewsDetailActivity extends BaseActivity {
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl(mShareUrl);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(mShareTitle);
+        oks.setText(mShareTitle+"地址:"+mShareUrl);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //      oks.setImagePath("/sdcard/test.jpg");
         oks.setImageUrl("http://www.legames.cn/templates/index2014/images/logo.jpg");

@@ -160,16 +160,18 @@
         </activity>
         <!-- 微信分享回调 -->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="cn.sharesdk.hellocpp.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- share activity信息 -->
-
+		
+		<!-- 乐视 -->
         <provider
             android:name="com.letv.datastatistics.db.StatisContentProvider"
             android:authorities="sdker.StatisContentProvider" />
+        	<!-- 乐视 -->
 
         <!-- ###################添加UmengAppkey###################### -->
         <meta-data
