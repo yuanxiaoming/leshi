@@ -54,7 +54,7 @@ public class EventActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mWebView = (WebView) findViewById(R.id.act_event_web);
         mTextView = (TextView)findViewById(R.id.act_event_title);
     }

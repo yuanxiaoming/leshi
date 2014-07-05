@@ -63,7 +63,7 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mXlistView = (XListView) findViewById(R.id.hsvideo_xlistview);
         mAdapter = new ListChangeGridAdapter(null, getActivity());
 

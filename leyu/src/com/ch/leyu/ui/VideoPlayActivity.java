@@ -88,7 +88,7 @@ public class VideoPlayActivity extends BaseActivity {
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mImg = (ImageView) findViewById(R.id.act_videodetail_img);
 		mViewPager = (LYViewPager) findViewById(R.id.act_videodetail_viewpager);
 		mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videodetail_pagertab);

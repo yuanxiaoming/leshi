@@ -67,7 +67,7 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mTitle = (TextView) findViewById(R.id.activity_newsdetail_title);
         mAuthor = (TextView) findViewById(R.id.activity_newsdetail_author);
         mTime = (TextView) findViewById(R.id.activity_newsdetail_time);

@@ -42,7 +42,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mTitle = (TextView) findViewById(R.id.fragment_detail_title);
         mName = (TextView) findViewById(R.id.fragment_detail_name);
         mCount = (TextView) findViewById(R.id.fragment_detail_count);

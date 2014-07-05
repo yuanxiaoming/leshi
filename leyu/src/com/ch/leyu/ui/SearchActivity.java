@@ -83,7 +83,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mDel = (RelativeLayout) findViewById(R.id.search_del_include);
         mLayout = (RelativeLayout) findViewById(R.id.search_include);
         mHistory = (LYGridView) findViewById(R.id.act_search_gd_history);

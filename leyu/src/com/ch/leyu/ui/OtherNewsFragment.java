@@ -53,7 +53,7 @@ public class OtherNewsFragment extends BaseFragment implements OnItemClickListen
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mListView = (XListView) findViewById(R.id.othernews_listview_cly);
         mAdapter = new CLYAdapter(getActivity(), null);
     }

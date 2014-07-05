@@ -74,7 +74,7 @@ public class HSNewsDetailActivity extends BaseActivity implements OnItemClickLis
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mXListView = (XListView) findViewById(R.id.hsnews_detail_listview_cly);
 		mAdapter = new HSNewsDetailListAdapter(this, null);
 	}

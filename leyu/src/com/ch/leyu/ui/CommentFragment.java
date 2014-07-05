@@ -111,7 +111,7 @@ public class CommentFragment extends BaseFragment {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mListView = (XListView) findViewById(R.id.fragment_comment_xistview);
         mPublish = (Button) mListViewHeaderView.findViewById(R.id.comment_head_bt_commit);
         mDetail = (EditText) mListViewHeaderView.findViewById(R.id.comment_head_et_detail);

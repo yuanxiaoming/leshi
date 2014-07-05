@@ -57,7 +57,7 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mGridView = (LYGridView) findViewById(R.id.fragment_hsnews_grid);
 		layout = findViewById(R.id.fragment_hsnews_include);
 		mViewPager = (AutoScrollViewPager) layout.findViewById(R.id.all_auto_scroll_viewpager);

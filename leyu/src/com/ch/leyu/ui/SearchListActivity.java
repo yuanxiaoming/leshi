@@ -114,7 +114,7 @@ public class SearchListActivity extends BaseActivity {
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mLayout = (RelativeLayout) findViewById(R.id.searchlist_include);
 		mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
 		mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
