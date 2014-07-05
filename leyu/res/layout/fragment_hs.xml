@@ -44,10 +44,10 @@
                 android:id="@+id/hs_listview_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="#00000000"
-                android:paddingBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:divider="#00000000"
                 android:listSelector="@null"
+                android:paddingBottom="5dp"
                 android:paddingTop="5dp" />
         </LinearLayout>
 
@@ -67,11 +67,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/event_bg_selector"
                 android:drawableLeft="@drawable/event_left_selector"
-                android:drawablePadding="-8dp"
-                android:paddingLeft="15dp"
+                android:drawablePadding="@dimen/pic_padding"
+                android:paddingLeft="@dimen/txt_padding"
                 android:text="赛事专栏"
                 android:textColor="@color/event_slt_btn_text_color"
-                android:textSize="15sp" />
+                android:textSize="@dimen/txt_size" />
 
             <Button
                 android:id="@+id/hs_bt_videos"
@@ -80,11 +80,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/videos_bg_selector"
                 android:drawableLeft="@drawable/videos_left_selector"
-                android:drawablePadding="-20dp"
-                android:paddingLeft="23dp"
+                android:drawablePadding="@dimen/pic_padding_videos"
+                android:paddingLeft="@dimen/txt_padding_videos"
                 android:text="视频库"
                 android:textColor="@color/videos_slt_btn_text_color"
-                android:textSize="15sp" />
+                android:textSize="@dimen/txt_size" />
 
             <Button
                 android:id="@+id/hs_bt_raiders"
@@ -93,11 +93,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/star_bg_selector"
                 android:drawableLeft="@drawable/star_left_selector"
-                android:drawablePadding="-8dp"
-                android:paddingLeft="15dp"
+                android:drawablePadding="@dimen/pic_padding"
+                android:paddingLeft="@dimen/txt_padding"
                 android:text="高玩攻略"
                 android:textColor="@color/star_slt_btn_text_color"
-                android:textSize="15sp" />
+                android:textSize="@dimen/txt_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,15 +120,15 @@
                 android:textColor="#707070"
                 android:textSize="18sp" />
 
-          <com.ch.leyu.widget.view.LYGridView
+            <com.ch.leyu.widget.view.LYGridView
                 android:id="@+id/hs_big_img"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:horizontalSpacing="10dp"
                 android:numColumns="2"
+                android:paddingBottom="10dp"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp" 
-                android:paddingBottom="10dp"/>
+                android:verticalSpacing="10dp" />
 
             <com.ch.leyu.widget.view.LYGridView
                 android:id="@+id/hs_gridview_recommend"

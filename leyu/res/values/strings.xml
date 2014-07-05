@@ -55,10 +55,10 @@
     <string name="feedback_model_tips">手机型号不能为空</string>
     <string name="feedback_phone_tips">联系方式不能为空</string>
     <string name="feedback_commit_tips">提交成功</string>
-    
+
     <!-- 友盟统计 -->
     <string name="umeng_key">53b2179156240b88e8096034</string>
     <string name="umeng_channeLname">手机型号不能为空</string>
-    
+
 
 </resources>

@@ -85,8 +85,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-
-         <activity
+        <activity
             android:name="com.ch.leyu.ui.HSNewsDetailActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -166,12 +165,13 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- share activity信息 -->
-		
-		<!-- 乐视 -->
+
+        <!-- 乐视 -->
         <provider
             android:name="com.letv.datastatistics.db.StatisContentProvider"
             android:authorities="sdker.StatisContentProvider" />
-        	<!-- 乐视 -->
+        <!-- 乐视 -->
+
 
         <!-- ###################添加UmengAppkey###################### -->
         <meta-data
@@ -179,7 +179,7 @@
             android:value="@string/umeng_key" >
         </meta-data>
         <!-- ###################添加UmengAppkey###################### -->
-<!-- 友盟自动更新 -->
+        <!-- 友盟自动更新 -->
         <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService" >

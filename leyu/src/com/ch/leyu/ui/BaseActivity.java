@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -43,6 +44,8 @@ public abstract class BaseActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setSupportProgressBarIndeterminate(false);
         super.setContentView(R.layout.activity_base);
         mActivityContent = (LinearLayout) super.findViewById(R.id.activity_content_base);
         mHttpLoading = (ViewStub) super.findViewById(R.id.viewstub_http_loading);
@@ -104,7 +107,7 @@ public abstract class BaseActivity extends ActionBarActivity {
             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                     mContext.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-        
+
     }
 
     public boolean isOpenKeyBoard(){

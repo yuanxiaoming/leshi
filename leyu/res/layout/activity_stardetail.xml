@@ -76,7 +76,7 @@
         android:layout_height="3dp"
         android:layout_below="@+id/bg_view1"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="@dimen/view_top"
         android:layout_toRightOf="@+id/star_act_pagertab"
         android:background="#D7D7D7" />
 
