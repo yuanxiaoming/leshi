@@ -49,7 +49,7 @@ public class NewsDetailActivity extends BaseActivity {
     private String mShareUrl ="http://www.legames.cn/";
 
     private WebSettings settings;
-    
+
     private String mTag = "tag";
 
     @Override
@@ -67,7 +67,7 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mTitle = (TextView) findViewById(R.id.activity_newsdetail_title);
         mAuthor = (TextView) findViewById(R.id.activity_newsdetail_author);
         mTime = (TextView) findViewById(R.id.activity_newsdetail_time);
@@ -104,17 +104,16 @@ public class NewsDetailActivity extends BaseActivity {
                     settings = mContent.getSettings();
                     settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                     settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
-                    settings.setTextSize(TextSize.LARGER);
+                    settings.setTextSize(TextSize.NORMAL );
                     settings.setAllowFileAccess(true); // 允许访问文件
                     settings.setRenderPriority(RenderPriority.HIGH);
                     settings.setBuiltInZoomControls(false); // 设置显示缩放按钮
                     settings.setSupportZoom(false); // 支持缩放
                     settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
                     settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+">" +data.getInfo().getContent()
-                    		+ "</body></html>";
-//                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+";font-size:17px"+">" +data.getInfo().getContent()
-//                            + "</body></html>";
+                    final int textSize = (int)getResources().getDimension(R.dimen.web_textsize);
+                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+";font-size:"+textSize+"px>" +data.getInfo().getContent()
+                            + "</body></html>";
                     mContent.setBackgroundColor(Color.parseColor("#F0F0F0"));
                     mContent.loadDataWithBaseURL("file:///", webTextContext, "text/html","UTF-8", "");
                     mContent.setWebViewClient(new LeWebviewClient());
@@ -187,7 +186,7 @@ public class NewsDetailActivity extends BaseActivity {
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl(mShareUrl);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(mShareTitle);
+        oks.setText(mShareTitle+"地址:"+mShareUrl);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //      oks.setImagePath("/sdcard/test.jpg");
         oks.setImageUrl("http://www.legames.cn/templates/index2014/images/logo.jpg");

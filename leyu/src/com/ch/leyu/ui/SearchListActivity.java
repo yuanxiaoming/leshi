@@ -114,7 +114,7 @@ public class SearchListActivity extends BaseActivity {
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mLayout = (RelativeLayout) findViewById(R.id.searchlist_include);
 		mNewst = (RadioButton) findViewById(R.id.act_search_rb_news);
 		mHottest = (RadioButton) findViewById(R.id.act_search_rb_hots);
@@ -135,10 +135,15 @@ public class SearchListActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+			    mKeyWord = mEditText.getText().toString();
+			    if(mKeyWord.equals("")){
+			        Toast.makeText(SearchListActivity.this, R.string.search_hint, Toast.LENGTH_SHORT).show();
+			        hidden();
+			        return;
+			    }
 			    a = 1 ;
 				mPage_default = 1;
 				mPage_hot=1;
-				mKeyWord = mEditText.getText().toString();
 				mXListView_default.setVisibility(View.VISIBLE);
 				mXListView_default.setSelection(0);
 				mXListView_hot.setVisibility(View.GONE);

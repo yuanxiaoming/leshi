@@ -47,7 +47,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
     private AutoScrollViewPager mAutoScrollViewPager;
 
     private CircleLoopPageIndicator mCircleLoopPageIndicator;
-    
+
     private int mPage = 1;
 
     private int mTotalPage;
@@ -66,7 +66,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mAutoScrollViewPager = (AutoScrollViewPager) mListViewHeaderView.findViewById(R.id.all_auto_scroll_viewpager);
         mCircleLoopPageIndicator = (CircleLoopPageIndicator) mListViewHeaderView.findViewById(R.id.all_cirle_pageindicator);
         mXListView = (XListView) findViewById(R.id.all_listview_cly);
@@ -80,8 +80,8 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
 
     @Override
     protected void processLogic() {
-        mXListView.setAdapter(mAdapter);
         mXListView.addHeaderView(mListViewHeaderView);
+        mXListView.setAdapter(mAdapter);
         mXListView.setPullRefreshEnable(true);
         mXListView.setPullLoadEnable(true);
         mXListView.setXListViewListener(mIXListViewListenerImp);
@@ -104,7 +104,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                            mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
                            mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
                            mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
-                          
+
                            mTotalPage = data.getTotalPage();
                            if (mPage == 1) {
                                mAdapter.chargeArrayList(data.getNewsList());
@@ -117,7 +117,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                            } else {
                                mXListView.setPullLoadEnable(true);
                            }
-                           
+
                        }
                     }
 
@@ -127,7 +127,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                         if(mPage==1&&mFlag==false){
                             mHttpLoadingView.setVisibility(View.VISIBLE);
                         }
-                       
+
                         if (mXListView != null) {
                             onLoad();
                         }
@@ -150,7 +150,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
     }
 
     private XListView.IXListViewListener mIXListViewListenerImp = new IXListViewListener() {
-       
+
         @Override
         public void onRefresh() {
             mFlag = true;
@@ -174,7 +174,7 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
             startActivity(intent);
         }
     }
-    
+
     // 加载中时间监听
     private void onLoad() {
         mXListView.stopRefresh();
@@ -188,5 +188,5 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
         requestData(mPage);
     }
 
-  
+
 }

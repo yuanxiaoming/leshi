@@ -48,8 +48,8 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     private ArrayList<TagResponse> mTitleList;
 
     private PopGridViewAdapter mPopAdapter = null;
-    
-    
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -71,7 +71,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videos_tabstrip);
         mViewPager = (LYViewPager) findViewById(R.id.act_videos_viewpager);
         mButton = (Button) findViewById(R.id.act_videos_bt);
@@ -162,7 +162,7 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
     protected void reload() {
         requestData();
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -180,6 +180,6 @@ public class VideosActivity extends BaseActivity implements OnClickListener {
         return true;
     }
 
-    
-    
+
+
 }

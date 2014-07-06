@@ -56,7 +56,7 @@ public class LOLFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mViewPager = (LYViewPager) findViewById(R.id.fragment_lol_viewpager);
 		mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.fragment_lol_pagertab);
 		mView = findViewById(R.id.fragment_lol_include);

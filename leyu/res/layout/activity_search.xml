@@ -79,6 +79,7 @@
                 android:text="@string/search_result_no"
                 android:textColor="#A4A4A4"
                 android:textSize="18sp"
+                android:drawablePadding="5dp"
                 android:visibility="visible" />
         </RelativeLayout>
     </LinearLayout>

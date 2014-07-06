@@ -53,7 +53,7 @@ public class StarGirefFragment extends BaseFragment {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mXListView = (XListView) findViewById(R.id.star_xistview);
         mAdapter = new StarListAdapter(getActivity(), null);
 

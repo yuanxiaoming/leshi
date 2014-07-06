@@ -96,14 +96,14 @@
 
     <Wechat
         AppId="wx3822d16c9c071ef2"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true"
         Id="4"
         SortId="4" />
 
     <WechatMoments
         AppId="wx3822d16c9c071ef2"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true"
         
         Id="5"

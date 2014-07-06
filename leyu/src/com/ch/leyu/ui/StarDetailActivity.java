@@ -78,7 +78,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mImageView = (ImageView) findViewById(R.id.star_act_img);
         mName = (TextView) findViewById(R.id.star_act_tv_name);
         mDetail = (TextView) findViewById(R.id.star_act_tv_detail);

@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
     protected View mHttpErrorView = null;
 
     private  Button mButton ;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
         mFragmentContent = (LinearLayout) inflater.inflate(R.layout.fragment_base, container, false);
         mHttpLoading = (ViewStub) mFragmentContent.findViewById(R.id.viewstub_http_loading);
         mHttpError = (ViewStub) mFragmentContent.findViewById(R.id.viewstub_http_error);
-       
+
         if (mHttpLoading != null) {
             mHttpLoadingView = mHttpLoading.inflate();
             mHttpLoadingView.setVisibility(View.GONE);
@@ -60,30 +60,29 @@ public abstract class BaseFragment extends Fragment {
             mHttpErrorView.setVisibility(View.GONE);
         }
         mButton= (Button)mHttpErrorView.findViewById(R.id.loading_lose_btn);
-        
+
         getExtraParams();
         loadViewLayout();
         if (mResouce_id != 0) {
             mContentView = inflater.inflate(mResouce_id, container, false);
             // 将子类的布局加载进来
-            mFragmentContent.addView(mContentView, new LayoutParams(LayoutParams.MATCH_PARENT,
-                    LayoutParams.MATCH_PARENT));
-            findViewById();
+            mFragmentContent.addView(mContentView, new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+            loadfindViewById();
             processLogic();
             setListener();
             return mFragmentContent;
         }
-       
-        
+
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
- 
-    
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-       
+
         mButton.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 reload();
@@ -91,7 +90,7 @@ public abstract class BaseFragment extends Fragment {
         });
         super.onActivityCreated(savedInstanceState);
     }
-   
+
 
     public void setContentView(int resId) {
         this.mResouce_id = resId;
@@ -105,7 +104,13 @@ public abstract class BaseFragment extends Fragment {
                     getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-    
+
+//    public void show() {
+//        InputMethodManager inputManager =
+//                (InputMethodManager)editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//    inputManager.showSoftInput(editText, 0);
+//    }
+
 
     public View findViewById(int resId) {
         return mContentView.findViewById(resId);
@@ -124,7 +129,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 初始化控件
      */
-    protected abstract void findViewById();
+    protected abstract void loadfindViewById();
 
     /**
      * 设置监听
@@ -135,7 +140,7 @@ public abstract class BaseFragment extends Fragment {
      * 处理逻辑
      */
     protected abstract void processLogic();
-    
+
     /***
      * 加载失败 重新加载
      */

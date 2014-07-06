@@ -9,6 +9,7 @@
         android:id="@+id/hsnews_detail_listview_cly"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:footerDividersEnabled="false"/>
 
 </RelativeLayout>

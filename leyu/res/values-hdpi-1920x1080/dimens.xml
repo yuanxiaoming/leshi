@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-     <dimen name="title_size">16sp</dimen>
+
+    <dimen name="title_size">16sp</dimen>
     <dimen name="tab_title_size">40px</dimen>
     <dimen name="tab_wire">-3.2dp</dimen>
+    <dimen name="web_textsize">24px</dimen>
+
+    <!-- 首页按钮适配 start -->
+    <dimen name="pic_padding">-8dp</dimen>
+    <dimen name="txt_padding">15dp</dimen>
+    <dimen name="txt_size">15sp</dimen>
+    <!-- 适配库按钮适配 -->
+    <dimen name="pic_padding_videos">-20dp</dimen>
+    <dimen name="txt_padding_videos">23dp</dimen>
+    <!-- 首页按钮适配 end -->
+
+
+    <!-- 明星详情横线适配 -->
+    <dimen name="view_top">45dp</dimen>
 
 </resources>

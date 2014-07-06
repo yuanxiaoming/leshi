@@ -15,11 +15,13 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 
 import org.apache.http.Header;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -109,7 +111,7 @@ public class CommentFragment extends BaseFragment {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mListView = (XListView) findViewById(R.id.fragment_comment_xistview);
         mPublish = (Button) mListViewHeaderView.findViewById(R.id.comment_head_bt_commit);
         mDetail = (EditText) mListViewHeaderView.findViewById(R.id.comment_head_et_detail);
@@ -148,7 +150,7 @@ public class CommentFragment extends BaseFragment {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                mListView.setPullLoadEnable(true);
             }
         });
         mPublish_EmptyView.setOnClickListener(new OnClickListener() {
@@ -161,7 +163,7 @@ public class CommentFragment extends BaseFragment {
                     CommentDetail  commentDetail = new CommentDetail();
                     commentDetail.setUid(mCid);
                     commentDetail.setComment(comment);
-                    commentDetail.setCreateTime(System.currentTimeMillis());
+                    commentDetail.setCreateTime(System.currentTimeMillis()/1000);
                     commentDetail.setNickname(nickName);
                     mDetail_EmptyView.setText("");
                     publishComment(0,commentDetail);
@@ -169,6 +171,7 @@ public class CommentFragment extends BaseFragment {
                     Toast.makeText(getActivity(), R.string.comment_toast_tips, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mListView.setPullLoadEnable(false);
             }
         });
 
@@ -181,7 +184,8 @@ public class CommentFragment extends BaseFragment {
                 mDetail.setFocusable(true);
                 mDetail.setFocusableInTouchMode(true);
                 mDetail.requestFocus();
-                hidden();
+                InputMethodManager inputManager =(InputMethodManager)mDetail.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(mDetail, 0);
 
             }
         });
@@ -279,6 +283,7 @@ public class CommentFragment extends BaseFragment {
                     mAdapter.notifyDataSetChanged();
                 }else{
                     mAdapter.addArrayList(mDetailsList);
+                  
                 }
                 Toast.makeText(getActivity(), R.string.comment_win, Toast.LENGTH_SHORT).show();
             }

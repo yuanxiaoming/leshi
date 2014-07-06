@@ -83,7 +83,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mDel = (RelativeLayout) findViewById(R.id.search_del_include);
         mLayout = (RelativeLayout) findViewById(R.id.search_include);
         mHistory = (LYGridView) findViewById(R.id.act_search_gd_history);
@@ -220,7 +220,6 @@ public class SearchActivity extends BaseActivity {
                 }
                 mHistory.setVisibility(View.GONE);
                 mResult.setVisibility(View.VISIBLE);
-                mResult.setText(R.string.search_hint_null);
                 Toast.makeText(SearchActivity.this, R.string.search_hint_null, Toast.LENGTH_LONG).show();
             }
         }

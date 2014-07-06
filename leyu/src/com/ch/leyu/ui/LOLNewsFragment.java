@@ -53,7 +53,7 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mListView = (XListView) findViewById(R.id.lolnews_listview_cly);
         mAdapter = new CLYAdapter(getActivity(), null);
     }

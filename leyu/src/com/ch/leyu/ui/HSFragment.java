@@ -95,7 +95,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mNewsListView = (ListView) findViewById(R.id.hs_listview_news);
         mBigImg = (LYGridView) findViewById(R.id.hs_big_img);
         mRecommendGrid = (LYGridView) findViewById(R.id.hs_gridview_recommend);
@@ -117,7 +117,7 @@ public class HSFragment extends BaseFragment implements OnClickListener, OnItemC
 
     @Override
     protected void processLogic() {
-
+        mNewsListView.setEnabled(false);
         requestData();
 
     }

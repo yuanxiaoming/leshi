@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 
 		mHs = (RadioButton) findViewById(R.id.act_nav_rb_hs);
 		mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);

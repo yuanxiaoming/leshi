@@ -62,7 +62,7 @@ public class RecommendFragment extends BaseFragment implements OnItemClickListen
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mXListView = (XListView) findViewById(R.id.fragment_recommend_xistview);
         mListAdapter=new RecommendListAdapter(null, getActivity());
     }

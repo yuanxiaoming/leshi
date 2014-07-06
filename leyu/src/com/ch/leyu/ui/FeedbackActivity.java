@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 /***
  * 反馈
- * 
+ *
  * @author L
  */
 public class FeedbackActivity extends BaseActivity implements OnFocusChangeListener {
@@ -40,11 +40,11 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
     private ClearEditText mTel_Edit;
 
     private Button mCommit;
-    
+
     private String mDetail;
-    
+
     private String mTel ;
-    
+
     private String mPhoneModel;
 
     @Override
@@ -58,7 +58,7 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mDetail_Edit = (ClearEditText) findViewById(R.id.act_feed_et_detail);
         mPhoneModel_Edit = (ClearEditText) findViewById(R.id.act_feed_et_phone);
         mTel_Edit = (ClearEditText) findViewById(R.id.act_feed_et_contact);
@@ -68,7 +68,7 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
     @Override
     protected void setListener() {
         mCommit.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 if(!mDetail_Edit.getText().toString().equals("")&&!mPhoneModel_Edit.getText().toString().equals("")&&
@@ -89,7 +89,7 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
                 }
             }
         });
-        
+
         mDetail_Edit.setOnFocusChangeListener(this);
         mPhoneModel_Edit.setOnFocusChangeListener(this);
         mTel_Edit.setOnFocusChangeListener(this);
@@ -126,7 +126,7 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                     Exception exception) {
-                
+
             }
 
             @Override
@@ -138,7 +138,7 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
 
     @Override
     protected void reload() {
-        
+
     }
 
     @Override
@@ -152,19 +152,19 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
         } else {
             hint = edit.getTag().toString();
             edit.setHint(hint);
-        } 
-        
+        }
+
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
-        ActionBar actionBar = getSupportActionBar();
+        android.app.ActionBar actionBar = getActionBar();
         actionBar.setTitle("视频搜索");
         actionBar.setLogo(R.drawable.legames_back);
         actionBar.setHomeButtonEnabled(true);
         }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -181,5 +181,5 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
 
         return true;
     }
-    
+
 }

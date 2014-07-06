@@ -57,13 +57,11 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mGridView = (LYGridView) findViewById(R.id.fragment_hsnews_grid);
 		layout = findViewById(R.id.fragment_hsnews_include);
-		mViewPager = (AutoScrollViewPager) layout
-				.findViewById(R.id.all_auto_scroll_viewpager);
-		mPageIndicator = (CircleLoopPageIndicator) layout
-				.findViewById(R.id.all_cirle_pageindicator);
+		mViewPager = (AutoScrollViewPager) layout.findViewById(R.id.all_auto_scroll_viewpager);
+		mPageIndicator = (CircleLoopPageIndicator) layout.findViewById(R.id.all_cirle_pageindicator);
 		mCustomScrollView = (CustomScrollView) findViewById(R.id.customscrollview);
 	}
 
@@ -81,23 +79,18 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 	private void requestData() {
 		RequestParams params = new RequestParams();
 		params.put(Constant.GMAE_ID, "23");
-		JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS,
-				params, AllNewResponse.class,
+		JHttpClient.get(getActivity(), Constant.URL + Constant.ALL_NEWS,params, AllNewResponse.class,
 				new DataCallback<AllNewResponse>() {
 
 					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							AllNewResponse data) {
+					public void onSuccess(int statusCode, Header[] headers,AllNewResponse data) {
 						if (data != null) {
-							maAdapter = new HSNewsGridViewAdapter(data
-									.getCareer(), getActivity());
+							maAdapter = new HSNewsGridViewAdapter(data.getCareer(), getActivity());
 							mGridView.setAdapter(maAdapter);
 							mViewPager.startAutoScroll(2000);
 							mViewPager.setInterval(4000);
-							mViewPager.setAdapter(new FouceNewsPagerAdapter(
-									getActivity(), data.getFocus()));
-							mViewPager
-									.setCurrentItem(data.getFocus().size() * 10000);
+							mViewPager.setAdapter(new FouceNewsPagerAdapter(getActivity(), data.getFocus()));
+							mViewPager.setCurrentItem(data.getFocus().size() * 10000);
 							mPageIndicator.setPageCount(data.getFocus().size());
 							mPageIndicator.setViewPager(mViewPager);
 
@@ -117,8 +110,7 @@ public class HSNewsFragment extends BaseFragment implements OnItemClickListener 
 					}
 
 					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Exception exception) {
+					public void onFailure(int statusCode, Header[] headers,String responseString, Exception exception) {
 						mHttpErrorView.setVisibility(View.VISIBLE);
 					}
 				});

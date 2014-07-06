@@ -57,7 +57,7 @@ public class HotsVideoFragment extends BaseFragment implements GridItemClickList
     }
 
     @Override
-    protected void findViewById() {
+    protected void loadfindViewById() {
         mXListView = (XListView) findViewById(R.id.starviedo_fragment_xlistview);
         mAdapter = new ListChangeGridAdapter(null, getActivity());
     }

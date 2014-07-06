@@ -40,7 +40,7 @@ public class NewsFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void findViewById() {
+	protected void loadfindViewById() {
 		mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.newsfragment_tab_indicator);
 		mViewPager = (ViewPager) findViewById(R.id.newsfragment_viewpager);
 	}

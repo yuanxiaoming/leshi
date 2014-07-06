@@ -151,7 +151,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		shouldExpand = a.getBoolean(R.styleable.PagerSlidingTabStrip_pstsShouldExpand, shouldExpand);
 		scrollOffset = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsScrollOffset, scrollOffset);
 		textAllCaps = a.getBoolean(R.styleable.PagerSlidingTabStrip_pstsTextAllCaps, textAllCaps);
-		
+
 		tabTextColor = a.getResourceId(R.styleable.PagerSlidingTabStrip_pstsTextColor, R.drawable.slide_tabindicator_selector);
 
 		a.recycle();
@@ -212,13 +212,11 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 			@SuppressLint("NewApi")
 			@Override
 			public void onGlobalLayout() {
-
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-					getViewTreeObserver().removeGlobalOnLayoutListener(this);
-				} else {
+				if (Build.VERSION.SDK_INT >= 16) {
 					getViewTreeObserver().removeOnGlobalLayoutListener(this);
+				} else {
+					getViewTreeObserver().removeGlobalOnLayoutListener(this);
 				}
-
 				currentPosition = pager.getCurrentItem();
 				scrollToChild(currentPosition, 0);
 			}
@@ -295,9 +293,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		}
 
 		int newScrollX = tabsContainer.getChildAt(position).getLeft() + offset;
-		
+
 		tabsContainer.getChildAt(currentPosition).setSelected(true);
-		
+
 		if (position > 0 || offset > 0) {
 			newScrollX -= scrollOffset;
 		}
@@ -331,7 +329,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 	            final boolean isSelected = (i == currentPosition);
 	            child.setSelected(isSelected);
 	        }
-		
+
 		float lineLeft = currentTab.getLeft();
 		float lineRight = currentTab.getRight();
 
@@ -380,7 +378,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		}
 
 		private int mScrollState ;
-		
+
 		@Override
 		public void onPageScrollStateChanged(int state) {
 			mScrollState = state ;
@@ -400,14 +398,14 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 				currentPosition = position;
 				currentPositionOffset = 0 ;
 			}
-			
+
 			if (delegatePageListener != null) {
 				delegatePageListener.onPageSelected(position);
 			}
 		}
 
 	}
-	
+
 
 	public void setIndicatorColor(int indicatorColor) {
 		this.indicatorColor = indicatorColor;
