@@ -1,4 +1,5 @@
 <resources>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -7,5 +8,23 @@
     <dimen name="indicator_internal_padding">4dp</dimen>
     <dimen name="header_footer_left_right_padding">24dp</dimen>
     <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
+    <dimen name="title_size">16sp</dimen>
+    <dimen name="tab_title_size">28px</dimen>
+    <dimen name="tab_wire">-3.5dp</dimen>
+    <dimen name="web_textsize">17px</dimen>
+
+    <!-- 首页按钮适配 start -->
+    <dimen name="pic_padding">-8dp</dimen>
+    <dimen name="txt_padding">15dp</dimen>
+    <dimen name="txt_size">15sp</dimen>
+    <!-- 适配库按钮适配 -->
+    <dimen name="pic_padding_videos">-20dp</dimen>
+    <dimen name="txt_padding_videos">23dp</dimen>
+    <!-- 首页按钮适配 end -->
+
+
+    <!-- 明星详情横线适配 -->
+    <dimen name="view_top">45dp</dimen>
 
 </resources>

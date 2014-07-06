@@ -12,7 +12,6 @@ import com.ch.leyu.widget.view.ClearEditText;
 import org.apache.http.Header;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -159,10 +158,10 @@ public class FeedbackActivity extends BaseActivity implements OnFocusChangeListe
     @Override
     protected void onStart() {
         super.onStart();
-        android.app.ActionBar actionBar = getActionBar();
-        actionBar.setTitle("视频搜索");
-        actionBar.setLogo(R.drawable.legames_back);
-        actionBar.setHomeButtonEnabled(true);
+
+        mActionBar.setTitle("视频搜索");
+        mActionBar.setLogo(R.drawable.legames_back);
+        mActionBar.setHomeButtonEnabled(true);
         }
 
     @Override
