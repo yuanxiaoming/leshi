@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="libs/letv_datastatistics_5.0.jar"/>
 	<classpathentry kind="lib" path="libs/Letv_DataCloud_5.0hlib.jar"/>
 	<classpathentry kind="lib" path="libs/Letv_player_5.0hlib.jar"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
