@@ -31,7 +31,10 @@ public class NewsListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mNewsList.size();
+        if(mNewsList!=null){
+            return mNewsList.size();
+        }
+        return 0;
     }
 
     @Override

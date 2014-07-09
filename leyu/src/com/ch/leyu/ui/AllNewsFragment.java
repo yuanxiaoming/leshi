@@ -97,16 +97,16 @@ public class AllNewsFragment extends BaseFragment implements OnItemClickListener
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {
                        if(data!=null){
-                           mAutoScrollViewPager.startAutoScroll(2000);
-                           mAutoScrollViewPager.setInterval(4000);
-                           mAutoScrollViewPager.setAdapter(new FouceNewsPagerAdapter(getActivity(), data.getFocus()));
-                           mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
-                           mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
-                           mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
-                           mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
-
                            mTotalPage = data.getTotalPage();
                            if (mPage == 1) {
+                               mAutoScrollViewPager.startAutoScroll(2000);
+                               mAutoScrollViewPager.setInterval(4000);
+                               mAutoScrollViewPager.setAdapter(new FouceNewsPagerAdapter(getActivity(), data.getFocus()));
+                               mAutoScrollViewPager.setCurrentItem(data.getFocus().size() * 10000);
+                               mCircleLoopPageIndicator.setPageCount(data.getFocus().size());
+                               mCircleLoopPageIndicator.setViewPager(mAutoScrollViewPager);
+                               mXListView.setAutoScrollViewPager(mAutoScrollViewPager);
+
                                mAdapter.chargeArrayList(data.getNewsList());
                            } else {
                                mAdapter.addArrayList(data.getNewsList());

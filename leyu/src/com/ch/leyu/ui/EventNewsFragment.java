@@ -24,11 +24,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /***
- * LOL新闻资讯
+ * 竞技场新闻资讯
  *
  * @author L
  */
-public class LOLNewsFragment extends BaseFragment implements OnItemClickListener {
+public class EventNewsFragment extends BaseFragment implements OnItemClickListener {
+    
+    public static final String EVENT_URL = "http://www.legames.cn/app/api/search.php?type=news&keyword=竞技场";
 
     private XListView mListView;
     
@@ -76,9 +78,8 @@ public class LOLNewsFragment extends BaseFragment implements OnItemClickListener
     
     public void requestData(int page) {
         RequestParams params = new RequestParams();
-        params.put(Constant.GMAE_ID, 21);
         params.put(Constant.PAGE, page);
-        JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
+        JHttpClient.get(getActivity(), EVENT_URL, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {

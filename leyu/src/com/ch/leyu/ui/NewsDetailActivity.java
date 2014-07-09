@@ -50,14 +50,12 @@ public class NewsDetailActivity extends BaseActivity {
 
     private WebSettings settings;
 
-    private String mTag = "tag";
 
     @Override
     protected void getExtraParams() {
         Intent intent = getIntent();
         if(intent!=null){
             mCid= intent.getStringExtra(Constant.CID);
-            mTag = intent.getStringExtra("tag");
         }
     }
 
@@ -155,17 +153,8 @@ public class NewsDetailActivity extends BaseActivity {
                 break;
 
             case android.R.id.home:
-                if(mTag!=null&&mTag.equals("1")){
-                    Intent intent = new Intent(this, HSNewsDetailActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                    finish();
-                }
+                finish();
+                return true ;
             default:
                 break;
         }

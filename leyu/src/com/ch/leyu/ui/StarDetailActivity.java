@@ -177,9 +177,6 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
                 startActivity(intent);
                 break;
             case android.R.id.home:
-                intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
                 finish();
                 return true;
                 

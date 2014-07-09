@@ -1,201 +1,152 @@
+
 package com.ch.leyu.ui;
+
+import com.ch.leyu.R;
+import com.ch.leyu.adapter.PopGridViewAdapter;
+import com.ch.leyu.adapter.VideobankPagerAdapter;
+import com.ch.leyu.http.httplibrary.RequestParams;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.TagResponse;
+import com.ch.leyu.responseparse.VideoBankResponse;
+import com.ch.leyu.utils.Constant;
+import com.ch.leyu.widget.view.LYViewPager;
+import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 
 import org.apache.http.Header;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
-import com.ch.leyu.R;
-import com.ch.leyu.adapter.HeadofAllFragmentPagerAdapter;
-import com.ch.leyu.adapter.LOLViewPagerAdapter;
-import com.ch.leyu.adapter.eventbus.XListViewTouchEventBus;
-import com.ch.leyu.http.work.DataCallback;
-import com.ch.leyu.http.work.JHttpClient;
-import com.ch.leyu.responseparse.HSResponse;
-import com.ch.leyu.utils.CommonUtil;
-import com.ch.leyu.utils.Constant;
-import com.ch.leyu.widget.view.AutoScrollViewPager;
-import com.ch.leyu.widget.view.CircleLoopPageIndicator;
-import com.ch.leyu.widget.view.LYViewPager;
-import com.ch.leyu.widget.view.PagerSlidingTabStrip;
-import com.ch.leyu.widget.xlistview.XListView;
-
-import de.greenrobot.event.EventBus;
+import java.util.ArrayList;
 
 /***
- * 首页--英雄联盟
- *
+ * 炉石传说--视频库
+ * 
  * @author L
  */
-public class LOLFragment extends BaseFragment {
+public class LOLFragment extends BaseFragment implements OnClickListener {
+    private PagerSlidingTabStrip mSlideTabIndicator;
 
-	/** 焦点栏viewpager */
-	public static AutoScrollViewPager mfocusViewPager;
+    private LYViewPager mViewPager;
 
-	/** 焦点栏ViewPager指示点 */
-	private CircleLoopPageIndicator mPageIndicator;
+    private Button mButton;
 
-	private LYViewPager mViewPager;
+    private VideobankPagerAdapter mVideobankPagerAdapter;
 
-	private PagerSlidingTabStrip mSlideTabIndicator;
+    private ArrayList<TagResponse> mTitleList;
 
-	private LOLViewPagerAdapter mPagerAdapter;
+    private PopGridViewAdapter mPopAdapter = null;
 
-	private View mView;
+    @Override
+    protected void getExtraParams() {
 
-	@Override
-	protected void getExtraParams() {
+    }
 
-	}
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.activity_videos);
+    }
 
-	@Override
-	protected void loadViewLayout() {
-		setContentView(R.layout.fragment_lol);
+    @Override
+    protected void loadfindViewById() {
+        mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_videos_tabstrip);
+        mViewPager = (LYViewPager) findViewById(R.id.act_videos_viewpager);
+        mButton = (Button) findViewById(R.id.act_videos_bt);
 
-	}
+    }
 
-	@Override
-	protected void loadfindViewById() {
-		mViewPager = (LYViewPager) findViewById(R.id.fragment_lol_viewpager);
-		mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.fragment_lol_pagertab);
-		mView = findViewById(R.id.fragment_lol_include);
-		mfocusViewPager = (AutoScrollViewPager) mView
-				.findViewById(R.id.all_auto_scroll_viewpager);
-		mPageIndicator = (CircleLoopPageIndicator) mView
-				.findViewById(R.id.all_cirle_pageindicator);
+    @Override
+    protected void setListener() {
+        mButton.setOnClickListener(this);
+    }
 
-	}
+    @Override
+    protected void processLogic() {
+        final int textSize = (int) getResources().getDimension(R.dimen.tab_title_size);
+        mSlideTabIndicator.setTextSize(textSize);
+        requestData();
+    }
 
-	@Override
-	protected void setListener() {
+    private void requestData() {
+        RequestParams params = new RequestParams();
+        params.put(Constant.GMAE_ID, 23);
+        JHttpClient.get(getActivity(), Constant.URL + Constant.VIDEO_URL, params, VideoBankResponse.class, new DataCallback<VideoBankResponse>() {
 
-	}
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, final VideoBankResponse data) {
+                        if (data != null) {
+                            mVideobankPagerAdapter = new VideobankPagerAdapter(getChildFragmentManager(), data);
+                            mViewPager.setAdapter(mVideobankPagerAdapter);
+                            mSlideTabIndicator.setViewPager(mViewPager);
+                            mTitleList = data.getTags();
+                        }
+                    }
 
-	@Override
-	protected void processLogic() {
-		// 注册EventBus 事件
-		EventBus.getDefault().register(this);
+                    @Override
+                    public void onStart() {
+                        mHttpErrorView.setVisibility(View.GONE);
+                        mHttpLoadingView.setVisibility(View.VISIBLE);
+                    }
 
-		mPagerAdapter = new LOLViewPagerAdapter(getFragmentManager());
-		mViewPager.setAdapter(mPagerAdapter);
-		mSlideTabIndicator.setViewPager(mViewPager);
-		final int textSize = (int) getActivity().getResources().getDimension(R.dimen.tab_title_size);
-		mSlideTabIndicator.setTextSize(textSize);
-		requestData();
+                    @Override
+                    public void onFinish() {
+                        mHttpLoadingView.setVisibility(View.GONE);
+                    }
 
-	}
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString,Exception exception) {
+                        mHttpErrorView.setVisibility(View.VISIBLE);
+                    }
+                });
 
-	private void requestData() {
-		JHttpClient.get(getActivity(), Constant.URL + Constant.LOL_URL, null,
-				HSResponse.class, new DataCallback<HSResponse>() {
+    }
 
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							HSResponse data) {
-						if (data != null) {
-							mfocusViewPager.startAutoScroll(2000);
-							mfocusViewPager.setInterval(4000);
-							mfocusViewPager.setCurrentItem(data.getFocus()
-									.size() * 10000);
-							mPageIndicator.setPageCount(data.getFocus().size());
-							mfocusViewPager
-									.setAdapter(new HeadofAllFragmentPagerAdapter(
-											getActivity(), data.getFocus()));
-							mPageIndicator.setViewPager(mfocusViewPager);
+    public void showPop() {
+        final View popView = LayoutInflater.from(getActivity()).inflate(R.layout.videos_popupwindow, null);
+        GridView gridView = (GridView) popView.findViewById(R.id.pop_gridview);
 
-						}
+        if (mTitleList != null) {
+            mPopAdapter = new PopGridViewAdapter(mTitleList, getActivity());
+        }
+        gridView.setAdapter(mPopAdapter);
 
-					}
+        final PopupWindow popWindow = new PopupWindow(popView);
+        popWindow.setWidth(RelativeLayout.LayoutParams.FILL_PARENT);
+        popWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
+        popWindow.setBackgroundDrawable(new BitmapDrawable());
+        popWindow.setFocusable(true);
+        popWindow.setTouchable(true);
+        popWindow.setOutsideTouchable(true);
+        popWindow.showAsDropDown(mButton);
+        gridView.setOnItemClickListener(new OnItemClickListener() {
 
-					@Override
-					public void onStart() {
-						mHttpErrorView.setVisibility(View.GONE);
-						mHttpLoadingView.setVisibility(View.VISIBLE);
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mViewPager.setCurrentItem(position);
+                popWindow.dismiss();
+            }
+        });
 
-					}
+    }
 
-					@Override
-					public void onFinish() {
-						mHttpLoadingView.setVisibility(View.GONE);
+    @Override
+    public void onClick(View v) {
+        showPop();
 
-					}
+    }
 
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Exception exception) {
-						mHttpErrorView.setVisibility(View.VISIBLE);
-					}
-
-				});
-
-	}
-
-	// onEventMainThread，当使用这种类型时，回调函数会在主线程中执行.
-	public static final float RADIO = 1.3f;
-
-	public void onEventMainThread(XListViewTouchEventBus event) {
-
-		int deltaY = (int) (event.getDeltaY() / RADIO);
-		XListView listView = event.getListView();
-		System.out.println("deltaY = " + deltaY);
-
-		// 根据触摸的XListView的高度来动态改变AutoScrollerViewPager的高度
-		RelativeLayout.LayoutParams params = (LayoutParams) mView
-				.getLayoutParams();
-		int newTopMargin = params.topMargin + deltaY;
-
-		// 移动到了 顶部布局刚好被hide
-		if (params.topMargin == -mView.getHeight()) {
-			if (deltaY > 0) // 表示下拉
-			{
-				// 当前可见的Item为 0 才让其下滑
-				if (listView.getFirstVisiblePosition() == 0) {
-					// ListView 禁止滑动 顶部布局移动
-					// listView.canScroll(false);
-					CommonUtil.getAppliction(getActivity()).canScroll(false);
-					if (newTopMargin > 0) {
-						newTopMargin = 0;
-					}
-				} else {
-					// 这里表示只有ListView 滑动 顶部布局的topMargin不变化
-					newTopMargin -= deltaY;
-				}
-			} else { // 表示上拉
-				// ListView 可以滑动
-				// listView.canScroll(true);
-				// 下面设置全局变量 保证多个XListView 的一致性
-				CommonUtil.getAppliction(getActivity()).canScroll(true);
-			}
-		}
-
-		// 处理顶部布局的移动边界
-		if (deltaY > 0 && newTopMargin > 0) {
-			newTopMargin = 0;
-		}
-
-		// 处理顶部布局的移动边界
-		if (deltaY < 0 && newTopMargin < -mView.getHeight()) {
-			// 处理topMargin的边界
-			newTopMargin = -mView.getHeight();
-		}
-
-		params.topMargin = newTopMargin;
-		mView.setLayoutParams(params);
-		getView().invalidate();
-
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		// 注销EventBus 事件监听
-		EventBus.getDefault().unregister(this);
-	}
-
-	@Override
-	protected void reload() {
-		requestData();
-	}
+    @Override
+    protected void reload() {
+        requestData();
+    }
 
 }

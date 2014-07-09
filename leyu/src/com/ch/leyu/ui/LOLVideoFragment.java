@@ -63,7 +63,7 @@ public class LOLVideoFragment extends BaseFragment implements GridItemClickListe
     @Override
     protected void loadfindViewById() {
         mXListView = (XXListView) findViewById(R.id.lolvideo_xlistview);
-        mXListView.setViewPager(LOLFragment.mfocusViewPager);
+//        mXListView.setViewPager(LOLFragment.mfocusViewPager);
     }
 
     @Override

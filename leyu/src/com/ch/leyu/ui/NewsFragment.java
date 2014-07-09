@@ -62,9 +62,9 @@ public class NewsFragment extends BaseFragment {
 	private ArrayList<String> addTitle() {
 		mTitleList = new ArrayList<String>();
 		mTitleList.add("全部");
-		mTitleList.add("炉石传说");
-		mTitleList.add("英雄联盟");
-		mTitleList.add("其他");
+		mTitleList.add("职业攻略");
+		mTitleList.add("竞技场");
+		mTitleList.add("天梯");
 
 		return mTitleList;
 	}
@@ -73,8 +73,8 @@ public class NewsFragment extends BaseFragment {
 		mFragmentList = new ArrayList<Fragment>();
 		mFragmentList.add(new AllNewsFragment());
 		mFragmentList.add(new HSNewsFragment());
-		mFragmentList.add(new LOLNewsFragment());
-		mFragmentList.add(new OtherNewsFragment());
+		mFragmentList.add(new EventNewsFragment());
+		mFragmentList.add(new TiantiNewsFragment());
 		return mFragmentList;
 
 	}

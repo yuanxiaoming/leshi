@@ -61,8 +61,6 @@ public class VideoPlayActivity extends BaseActivity {
 
 	private String mUrl = "http://www.legames.cn/";
 
-	private String mTag = "tag";
-
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -77,7 +75,6 @@ public class VideoPlayActivity extends BaseActivity {
 		Intent intent = getIntent();
 		if (intent != null) {
 			mId = intent.getStringExtra(Constant.CID);
-			 mTag = intent.getStringExtra("tag");
 		}
 
 	}
@@ -196,17 +193,7 @@ public class VideoPlayActivity extends BaseActivity {
 			break;
 
 		case android.R.id.home:
-		    if(mTag!=null&&mTag.equals("1")){
-                Intent intent = new Intent(this, VideoPlayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                finish();
-            }else {
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                finish();
-            }
+		    finish();
 			return true;
 
 		default:

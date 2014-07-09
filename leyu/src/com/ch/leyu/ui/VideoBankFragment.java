@@ -148,7 +148,6 @@ public class VideoBankFragment extends BaseFragment implements GridItemClickList
             Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
             String videoId = mAdapter.getArrayList().get(position).getId();
             intent.putExtra(Constant.CID, videoId);
-            intent.putExtra("tag", "1");
             startActivity(intent);
         }
 

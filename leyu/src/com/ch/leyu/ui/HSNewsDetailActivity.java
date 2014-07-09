@@ -185,7 +185,6 @@ public class HSNewsDetailActivity extends BaseActivity implements OnItemClickLis
 		if(item!=null){
 			Intent intent = new Intent(this, NewsDetailActivity.class);
 			intent.putExtra(Constant.CID, item.getId());
-			intent.putExtra("tag", "1");
 			startActivity(intent);
 		}
 
@@ -201,9 +200,6 @@ public class HSNewsDetailActivity extends BaseActivity implements OnItemClickLis
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
 			finish();
 			return true;
 

@@ -58,7 +58,8 @@
             android:layout_below="@+id/hs_ll_bg"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/hs_bt_match"
@@ -115,7 +116,7 @@
                 android:drawableLeft="@drawable/legames_label"
                 android:drawablePadding="5dp"
                 android:paddingBottom="10dp"
-                android:paddingTop="10dp"
+                android:paddingTop="5dp"
                 android:text="@string/hs_tips_recommed"
                 android:textColor="#707070"
                 android:textSize="18sp" />

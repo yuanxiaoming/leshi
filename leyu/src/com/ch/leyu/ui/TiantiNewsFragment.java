@@ -24,13 +24,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /***
- * 其他新闻资讯
+ * 天梯新闻资讯
  *
  * @author L
  */
-public class OtherNewsFragment extends BaseFragment implements OnItemClickListener {
+public class TiantiNewsFragment extends BaseFragment implements OnItemClickListener {
+    
+    public static final String TIANTI_URL = "http://www.legames.cn/app/api/search.php?type=news&keyword=天梯";
 
-  private XListView mListView;
+    private XListView mListView;
     
     private CLYAdapter mAdapter;
 
@@ -77,7 +79,7 @@ public class OtherNewsFragment extends BaseFragment implements OnItemClickListen
     private void requestData(int page) {
         RequestParams params = new RequestParams();
         params.put(Constant.PAGE, page);
-        JHttpClient.get(getActivity(), Constant.URL+Constant.ALL_NEWS+Constant.RESTS_NEWS, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
+        JHttpClient.get(getActivity(), TIANTI_URL, params, AllNewResponse.class,new DataCallback<AllNewResponse>() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, AllNewResponse data) {

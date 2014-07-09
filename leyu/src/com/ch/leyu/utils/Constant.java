@@ -62,7 +62,7 @@ public interface Constant {
     public static final String HOT_SEARCH = "search.php?action=hot";
 
     /** 全部新闻 */
-    public static final String ALL_NEWS = "news.php?";
+    public static final String ALL_NEWS = "news.php?";  
 
     /** 其他新闻 */
     public static final String RESTS_NEWS = "action=list";
