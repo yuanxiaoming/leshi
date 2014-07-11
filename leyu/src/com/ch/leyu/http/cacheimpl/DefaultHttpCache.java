@@ -11,8 +11,8 @@ public class DefaultHttpCache implements HttpCache {
     /**
      * 缓存过期时间
      */
-    private static final long SG_CACHE_TIME_OUT = 60 * 1000 * 60 * 24;
-    private static final long WIFI_CACHE_TIME_OUT = 60 * 1000 * 60 * 2;
+    private static final long SG_CACHE_TIME_OUT = 60 * 1000 * 60 * 3;
+    private static final long WIFI_CACHE_TIME_OUT = 60 * 1000 * 30 * 1;
     private CacheManager mCacheManager;
     private Context mContext;
 

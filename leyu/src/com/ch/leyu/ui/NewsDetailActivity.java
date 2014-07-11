@@ -49,6 +49,8 @@ public class NewsDetailActivity extends BaseActivity {
     private String mShareUrl ="http://www.legames.cn/";
 
     private WebSettings settings;
+    
+    private String mPhoneModel="";
 
 
     @Override
@@ -62,6 +64,7 @@ public class NewsDetailActivity extends BaseActivity {
     @Override
     protected void loadViewLayout() {
         setContentView(R.layout.activity_newsdetail);
+        mPhoneModel = android.os.Build.MODEL; 
     }
 
     @Override
@@ -102,13 +105,19 @@ public class NewsDetailActivity extends BaseActivity {
                     settings = mContent.getSettings();
                     settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                     settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
-                    settings.setTextSize(TextSize.NORMAL );
                     settings.setAllowFileAccess(true); // 允许访问文件
                     settings.setRenderPriority(RenderPriority.HIGH);
                     settings.setBuiltInZoomControls(false); // 设置显示缩放按钮
                     settings.setSupportZoom(false); // 支持缩放
                     settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
                     settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+                    settings.setTextSize(TextSize.NORMAL );
+                    if(mPhoneModel.equals("MI 3W")||mPhoneModel.equals("MI 3C")||mPhoneModel.equals("MI 3")){
+                        settings.setUseWideViewPort(true); 
+                        settings.setLoadWithOverviewMode(true); 
+                        settings.setTextSize(TextSize.LARGEST );
+                    }
+                    
                     final int textSize = (int)getResources().getDimension(R.dimen.web_textsize);
                     String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+";font-size:"+textSize+"px>" +data.getInfo().getContent()
                             + "</body></html>";

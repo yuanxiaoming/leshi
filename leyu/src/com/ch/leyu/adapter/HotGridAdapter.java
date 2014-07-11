@@ -67,8 +67,7 @@ public class HotGridAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil
-                .getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 3));
+        holder.img.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, (int) (CommonUtil.getWidthMetrics(mContext) / 3.5)));
         holder.img.setScaleType(ScaleType.FIT_XY);
 
         ImageLoader.getInstance().displayImage(mNewsList.get(position).getImageSrc(), holder.img,

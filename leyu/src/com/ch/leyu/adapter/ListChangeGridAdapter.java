@@ -90,7 +90,7 @@ public class ListChangeGridAdapter extends ListAsGridBaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, CommonUtil.getWidthMetrics(mContext) / 3));
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 2, (int) (CommonUtil.getWidthMetrics(mContext) / 3.5)));
         holder.imageView.setScaleType(ScaleType.FIT_XY) ;
 
         ImageLoader.getInstance().displayImage(mArrayList.get(position).getImageSrc(),

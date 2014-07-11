@@ -18,5 +18,13 @@
 
     <!-- 明星详情横线适配 -->
     <dimen name="view_top">45dp</dimen>
-
+    
+        <!-- 启动页 -->
+        <dimen name="first_marginTop">86dp</dimen>
+        
+         <dimen name="first_height">100dp</dimen>
+          <dimen name="two_height">80dp</dimen>
+           <dimen name="three_height">90dp</dimen>
+         <dimen name="four_height">80dp</dimen>
+ 	<dimen name="fire_height">80dp</dimen>
 </resources>

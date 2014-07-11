@@ -166,6 +166,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- share activity信息 -->
 
+
         <!-- 乐视 -->
         <provider
             android:name="com.letv.datastatistics.db.StatisContentProvider"
@@ -176,10 +177,13 @@
         <!-- ###################添加UmengAppkey###################### -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="@string/umeng_key" >
-        </meta-data>
+            android:value="@string/umeng_key" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="canheID" />
+
         <!-- ###################添加UmengAppkey###################### -->
-        <!-- 友盟自动更新 -->
+        <!-- 友盟自动更新 start -->
         <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService" >
@@ -189,7 +193,7 @@
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <!-- 友盟自动更新 -->
+        <!-- 友盟自动更新 end -->
     </application>
 
 </manifest>

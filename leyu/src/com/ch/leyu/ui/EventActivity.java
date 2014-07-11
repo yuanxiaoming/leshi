@@ -29,6 +29,7 @@ public class EventActivity extends BaseActivity {
     private WebSettings settings;
     private String mId;
     private String mTitle ;
+    private String mPhoneModel = "";
 
     @Override
     protected void getExtraParams() {
@@ -51,6 +52,7 @@ public class EventActivity extends BaseActivity {
     @Override
     protected void loadViewLayout() {
         setContentView(R.layout.activity_event);
+        mPhoneModel  = android.os.Build.MODEL; 
     }
 
     @Override
@@ -95,6 +97,12 @@ public class EventActivity extends BaseActivity {
 		                    settings.setSupportZoom(false); // 支持缩放
 		                    settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
 		                    settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+		                    
+		                    if(mPhoneModel.equals("MI 3W")||mPhoneModel.equals("MI 3C")||mPhoneModel.equals("MI 3")){
+		                        settings.setUseWideViewPort(true); 
+		                        settings.setLoadWithOverviewMode(true); 
+		                        settings.setTextSize(TextSize.LARGEST );
+		                    }
 		                    final int textSize = (int)getResources().getDimension(R.dimen.web_textsize);
 		                    String  webTextContext = "<html><body style="+"background-color:"+"#f0f0f0;"+"line-height:30px"+";font-size:"+textSize+"px>" +data.getInfo().getContent()
 		                            + "</body></html>";

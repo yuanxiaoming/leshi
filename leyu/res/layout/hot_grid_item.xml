@@ -16,16 +16,15 @@
     <TextView
         android:id="@+id/hot_title"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/hot_img"
         android:background="@drawable/list_item_selector"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textSize="13sp"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="TextView"
         android:textColor="#8C8C8C" />
 
 </RelativeLayout>

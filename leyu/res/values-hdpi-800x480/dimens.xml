@@ -15,7 +15,16 @@
     <dimen name="txt_padding_videos">17dp</dimen>
     <!-- 首页按钮适配 end -->
 
-    <!-- 明星详情横线适配 -->
+
+    <!-- 明星详情横线适配 -->
     <dimen name="view_top">44.5dp</dimen>
+
+    <!-- 启动页 -->
+    <dimen name="first_marginTop">60dp</dimen>
+    <dimen name="first_height">90dp</dimen>
+    <dimen name="two_height">70dp</dimen>
+    <dimen name="three_height">80dp</dimen>
+    <dimen name="four_height">70dp</dimen>
+    <dimen name="fire_height">70dp</dimen>
 
 </resources>

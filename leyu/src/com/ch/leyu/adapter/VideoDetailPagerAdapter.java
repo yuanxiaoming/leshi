@@ -43,14 +43,14 @@ public class VideoDetailPagerAdapter extends RestoreFragmentPagerAdapter {
         Bundle args = null;
         if (position == 0) {
             args = new Bundle();
-            args.putString(Constant.GMAE_ID, mid);
-            args.putString(Constant.NICKNAME, mResponse.getNickname());
-            commentFragment.setArguments(args);
+            args.putSerializable(Constant.DATA, mResponse);
+            detailFragment.setArguments(args);
         }
         if (position == 1) {
             args = new Bundle();
-            args.putSerializable(Constant.DATA, mResponse);
-            detailFragment.setArguments(args);
+            args.putString(Constant.GMAE_ID, mid);
+            args.putString(Constant.NICKNAME, mResponse.getNickname());
+            commentFragment.setArguments(args);
         }
         if (position == 2) {
             args = new Bundle();
@@ -76,8 +76,8 @@ public class VideoDetailPagerAdapter extends RestoreFragmentPagerAdapter {
         recommendFragment = new RecommendFragment();
         commentFragment = new CommentFragment();
         mFragments = new ArrayList<Fragment>();
-        mFragments.add(commentFragment);
         mFragments.add(detailFragment);
+        mFragments.add(commentFragment);
         mFragments.add(recommendFragment);
 
         return mFragments;
@@ -85,8 +85,8 @@ public class VideoDetailPagerAdapter extends RestoreFragmentPagerAdapter {
 
     private ArrayList<String> addTitle() {
         mStrings = new ArrayList<String>();
-        mStrings.add("评论");
         mStrings.add("详情");
+        mStrings.add("评论");
         mStrings.add("相关推荐");
 
         return mStrings;
