@@ -57,8 +57,7 @@ public class LaunchActivity extends BaseActivity {
     @Override
     protected void processLogic() {
         getSupportActionBar().hide();
-        mAppVersion.setText("出品" + getResources().getString(R.string.launch_app_version_txt)
-                + VersionUtil.getVersionName());
+        mAppVersion.setText("出品" + getResources().getString(R.string.launch_app_version_txt)+ VersionUtil.getVersionName());
         new Thread() {
             public void run() {
                 try {
@@ -93,7 +92,7 @@ public class LaunchActivity extends BaseActivity {
     class EffectAnimationListener implements AnimationListener {
         @Override
         public void onAnimationEnd(Animation animation) {
-            Log.d("tag", "11");
+            
         }
 
         @Override

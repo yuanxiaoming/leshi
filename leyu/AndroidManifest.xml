@@ -180,7 +180,7 @@
             android:value="@string/umeng_key" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="canheID" />
+            android:value="canheID" /> 
 
         <!-- ###################添加UmengAppkey###################### -->
         <!-- 友盟自动更新 start -->

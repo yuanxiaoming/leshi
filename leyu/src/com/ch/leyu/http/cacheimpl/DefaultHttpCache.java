@@ -34,7 +34,7 @@ public class DefaultHttpCache implements HttpCache {
                 return true;
             }
             String networkType = NetWorkUtil.getNetworkType(mContext);
-            if (NetWorkUtil.NetworkType.NET_3G.equals(networkType)) {
+            if (NetWorkUtil.NetworkType.WIFI.equals(networkType)) {
                 long cacheTimeMillis = serverDataCache.getTime();
                 long currentTimeMillis = System.currentTimeMillis();
                 if ((currentTimeMillis - cacheTimeMillis) < wifiCacheExpriedTime()) {
