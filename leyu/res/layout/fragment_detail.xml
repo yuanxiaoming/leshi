@@ -31,7 +31,6 @@
             android:id="@+id/fragment_detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="刘X"
             android:textColor="@color/text_color" />
     </LinearLayout>
 
@@ -87,7 +86,6 @@
         android:id="@+id/fragment_detail_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="你为何这么屌"
         android:textColor="@color/text_color" />
 
 </LinearLayout>
