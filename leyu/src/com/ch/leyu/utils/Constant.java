@@ -18,6 +18,8 @@ public interface Constant {
     public static final String UID = "uid";
 
     public static final String NICKNAME = "nickname";
+    
+    public static final String PASSWORD = "password";
 
     public static final String SORT = "sort";
 
@@ -30,6 +32,12 @@ public interface Constant {
     public static final String TITLE = "title";
 
     public static final String ID = "id";
+    
+    public static final String LOGIN_UID = "loginUid";
+    
+    public static final String AUTH = "auth";
+    
+    public static final String PASS_STR = "passStr";
 
     /** 实体类传输key */
     public static final String DATA = "data";
@@ -81,4 +89,11 @@ public interface Constant {
 
     /** 反馈接口 */
     public static final String FEED_BACK = "http://www.legames.cn/app/api/feedback.php";
+    
+    /** 登录接口 */
+    public static final String LOGIN = "http://www.legames.cn/app/api/user.php?action=login";
+    
+    /** 我的视频接口 */
+    public static final String MY_VIDEOS = "http://www.legames.cn/app/api/user.php?action=myVideos";
+    
 }

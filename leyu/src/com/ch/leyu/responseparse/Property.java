@@ -30,6 +30,18 @@ public class Property implements Serializable {
 
     // 0新闻。1视频
     private int linkTitle;
+    
+    private String type ;
+    
+    
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getLinkTitle() {
         return linkTitle;

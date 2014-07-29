@@ -46,6 +46,16 @@
             android:layout_below="@+id/star_act_tv_name"
             android:maxLines="4"
             android:textColor="#707070" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:text="订阅" />
+
     </RelativeLayout>
 
     <View

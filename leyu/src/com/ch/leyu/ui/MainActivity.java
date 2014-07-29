@@ -120,6 +120,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			intent = new Intent(this, FeedbackActivity.class);
 			startActivity(intent);
 			break;
+			
+		case R.id.action_Login:
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            break;
 
 		default:
 			break;

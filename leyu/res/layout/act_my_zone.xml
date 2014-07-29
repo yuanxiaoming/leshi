@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.ch.leyu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/act_zone_img_icon"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/legames_default" />
+
+    <TextView
+        android:id="@+id/act_zone_txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/act_zone_img_icon"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="17dp"
+        android:layout_toRightOf="@+id/act_zone_img_icon"
+        android:text="昵称昵称"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/act_zone_img_icon"
+        android:orientation="vertical" >
+
+        <com.ch.leyu.widget.view.PagerSlidingTabStrip
+            android:id="@+id/act_zone_tabstrip"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_weight="0"
+            app:pstsIndicatorColor="#025A9A"
+            app:pstsIndicatorHeight="3dp"
+            app:pstsShouldExpand="true"
+            app:pstsTabPaddingLeftRight="0dp"
+            app:pstsUnderlineHeight="3dp" />
+
+        <com.ch.leyu.widget.view.LYViewPager
+            android:id="@+id/act_zone_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/act_tv_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="52dp"
+        android:text="邮箱/用户名：" />
+
+    <EditText
+        android:id="@+id/act_et_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/act_tv_user"
+        android:layout_toRightOf="@+id/act_tv_user"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/act_tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/act_et_user"
+        android:layout_marginTop="36dp"
+        android:layout_toLeftOf="@+id/act_et_password"
+        android:text="密码：" />
+
+    <EditText
+        android:id="@+id/act_et_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/act_tv_password"
+        android:layout_alignLeft="@+id/act_et_user"
+        android:inputType="textPassword"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/act_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/act_et_password"
+        android:layout_marginTop="28dp"
+        android:text="立即登录" />
+
+</RelativeLayout>

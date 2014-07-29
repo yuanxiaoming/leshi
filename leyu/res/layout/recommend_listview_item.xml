@@ -31,6 +31,7 @@
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/recommend_img_pic"
             android:text="aaa"
+            android:textSize="@dimen/nav_text_size"
             android:textColor="#707070" />
 
     </RelativeLayout>

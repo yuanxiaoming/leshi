@@ -127,6 +127,19 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
+            android:name="com.ch.leyu.ui.LoginActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.ch.leyu.ui.MyZoneActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        
+        <activity
             android:name="com.ch.leyu.ui.NewsDetailActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -180,7 +193,7 @@
             android:value="@string/umeng_key" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="canheID" /> 
+            android:value="canheID" />
 
         <!-- ###################添加UmengAppkey###################### -->
         <!-- 友盟自动更新 start -->

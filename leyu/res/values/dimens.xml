@@ -8,7 +8,6 @@
     <dimen name="indicator_internal_padding">4dp</dimen>
     <dimen name="header_footer_left_right_padding">24dp</dimen>
     <dimen name="header_footer_top_bottom_padding">12dp</dimen>
-
     <dimen name="title_size">16sp</dimen>
     <dimen name="tab_title_size">28px</dimen>
     <dimen name="tab_wire">-3.5dp</dimen>
@@ -26,14 +25,16 @@
 
     <!-- 明星详情横线适配 -->
     <dimen name="view_top">45dp</dimen>
+
+    <!-- 启动页 -->
+    <dimen name="first_marginTop">86dp</dimen>
+    <dimen name="first_height">100dp</dimen>
+    <dimen name="two_height">80dp</dimen>
+    <dimen name="three_height">90dp</dimen>
+    <dimen name="four_height">80dp</dimen>
+    <dimen name="fire_height">80dp</dimen>
     
-            <!-- 启动页 -->
-        <dimen name="first_marginTop">86dp</dimen>
-        
-          <dimen name="first_height">100dp</dimen>
-          <dimen name="two_height">80dp</dimen>
-           <dimen name="three_height">90dp</dimen>
-         <dimen name="four_height">80dp</dimen>
- 	<dimen name="fire_height">80dp</dimen>
+     <!-- 首页导航 -->
+       <dimen name="nav_text_size">13sp</dimen>
 
 </resources>

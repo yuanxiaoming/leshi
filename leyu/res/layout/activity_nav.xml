@@ -37,7 +37,7 @@
             android:paddingTop="5dp"
             android:text="小编推荐"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="@dimen/nav_text_size" />
 
         <RadioButton
             android:id="@+id/act_nav_rb_lol"
@@ -52,7 +52,7 @@
             android:paddingTop="5dp"
             android:text="视频库"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="@dimen/nav_text_size" />
 
         <RadioButton
             android:id="@+id/act_nav_rb_star"
@@ -67,7 +67,7 @@
             android:paddingTop="5dp"
             android:text="明星解说"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="@dimen/nav_text_size" />
 
         <RadioButton
             android:id="@+id/act_nav_rb_news"
@@ -82,7 +82,7 @@
             android:paddingTop="5dp"
             android:text="资讯攻略"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="@dimen/nav_text_size" />
     </RadioGroup>
 
 </LinearLayout>
