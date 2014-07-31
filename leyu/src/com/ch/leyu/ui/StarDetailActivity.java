@@ -9,6 +9,7 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.StarDetailResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
+import com.ch.leyu.utils.SharedPreferencesUtil;
 import com.ch.leyu.widget.view.LYViewPager;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,10 +20,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +50,9 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
 
     /** 明星详情 */
     private TextView mDetail;
+    
+    /**订阅*/
+    private Button mSubscription;
 
     private LYViewPager mLyViewPager;
 
@@ -57,7 +63,22 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     private ArrayList<Fragment> mFragments;
     
     private String name ="";
-
+    
+    /**判断是否已经登录*/
+    private boolean mIsLogin ; 
+    
+    private String mLoginUid ;
+    
+    private String mAuth ;
+    
+    private String mPassStr ;
+    
+    private SharedPreferencesUtil mPreferencesUtil;
+    
+    private int mSubscribeId;
+  
+    private boolean mIsStarTag;  
+    
     @Override
     public void onClick(View v) {
          
@@ -84,12 +105,53 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mDetail = (TextView) findViewById(R.id.star_act_tv_detail);
         mLyViewPager = (LYViewPager) findViewById(R.id.star_act_viewpager);
         mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.star_act_pagertab);
-
+        mSubscription = (Button) findViewById(R.id.act_star_bt_subscription);
+        mPreferencesUtil = new SharedPreferencesUtil(this);
+        getSharedPreferences(mPreferencesUtil);
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(name);
+        actionBar.setLogo(R.drawable.legames_back);
+        actionBar.setHomeButtonEnabled(true);
+        }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSharedPreferences(mPreferencesUtil);
+        if(mIsStarTag==true){
+            subscription("mySubscribe", "add", uid, mAuth, mLoginUid, mPassStr);
+            mPreferencesUtil.putBoolean(Constant.STAR_TAG, false);
+        }
     }
 
+    public void getSharedPreferences(SharedPreferencesUtil mPreferencesUtil){
+        mIsLogin = mPreferencesUtil.getBoolean(Constant.TAG, false);
+        mAuth = mPreferencesUtil.getString(Constant.AUTH, "");
+        mLoginUid = mPreferencesUtil.getString(Constant.LOGIN_UID, "");
+        mPassStr = mPreferencesUtil.getString(Constant.PASS_STR, "");
+        mIsStarTag = mPreferencesUtil.getBoolean(Constant.STAR_TAG, false);
+    }
+    
     @Override
     protected void setListener() {
-
+        mSubscription.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                if(!mIsLogin){
+                    Intent intent = new Intent(StarDetailActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    subscription("mySubscribe", "add", uid, mAuth, mLoginUid, mPassStr);
+                }
+                
+            }
+        });
     }
 
     @Override
@@ -98,14 +160,15 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mTabStrip.setViewPager(mLyViewPager);
         final int textSize = (int)getResources().getDimension(R.dimen.tab_title_size);
         mTabStrip.setTextSize(textSize);
-       requestData();
+        requestData();
 
     }
     
     private void requestData() {
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        JHttpClient.get(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+        params.put(Constant.LOGIN_UID, mLoginUid);
+        JHttpClient.getFromServer(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
@@ -113,6 +176,11 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
                            mName.setText(data.getUserInfo().getNickname());
                            ImageLoader.getInstance().displayImage(data.getUserInfo().getThumb(), mImageView, ImageLoaderUtil.getImageLoaderOptions());
                            mDetail.setText(data.getUserInfo().getDetail());
+                           mSubscribeId = data.getSubscribeId();
+                           if(mSubscribeId>0){
+                               mSubscription.setText("已订阅");
+                               mSubscription.setClickable(false);
+                           }
                        }
                     }
 
@@ -134,6 +202,42 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
                     }
                 });
     }
+    
+    private void subscription(String action,String sort,String uid,String auth,String loginUid,String passStr){
+        RequestParams params = new RequestParams();
+        params.put("action", action);
+        params.put(Constant.SORT, sort);
+        params.put(Constant.UID, uid);
+        params.put(Constant.AUTH,auth);
+        params.put(Constant.LOGIN_UID,loginUid);
+        params.put(Constant.PASS_STR,passStr);
+        Log.d("tag", JHttpClient.getUrlWithQueryString(Constant._URL, params));
+        JHttpClient.getFromServer(this, Constant._URL, params, StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
+
+            @Override
+            public void onStart() {
+                
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, StarDetailResponse data) {
+                    mSubscription.setText("已订阅");
+                    mSubscription.setClickable(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    Exception exception) {
+                
+            }
+
+            @Override
+            public void onFinish() {
+                
+            }
+        });
+    }
+    
 
     private ArrayList<String> addTitle() {
         mTitles = new ArrayList<String>();
@@ -149,17 +253,10 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         return mFragments;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
+   
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.star, menu);
         return true;
     }
 
@@ -193,13 +290,13 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         
     }
     
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(name);
-        actionBar.setLogo(R.drawable.legames_back);
-        actionBar.setHomeButtonEnabled(true);
-        }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     
 }

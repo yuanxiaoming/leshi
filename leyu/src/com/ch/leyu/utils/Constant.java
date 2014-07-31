@@ -16,10 +16,16 @@ public interface Constant {
     public static final String PAGE = "page";
 
     public static final String UID = "uid";
+    
+    public static final String USER = "user";
 
     public static final String NICKNAME = "nickname";
     
     public static final String PASSWORD = "password";
+    
+    public static final String TAG = "tag";
+    
+    public static final String STAR_TAG = "star_tag";
 
     public static final String SORT = "sort";
 
@@ -95,5 +101,8 @@ public interface Constant {
     
     /** 我的视频接口 */
     public static final String MY_VIDEOS = "http://www.legames.cn/app/api/user.php?action=myVideos";
+    
+    /**前缀*/
+    public static final String _URL = URL+STAR_DETAIL;
     
 }

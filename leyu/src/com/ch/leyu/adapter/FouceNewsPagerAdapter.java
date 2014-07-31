@@ -25,8 +25,6 @@ public class FouceNewsPagerAdapter extends RecyclingPagerAdapter {
 	
 	private ArrayList<Property> mList;
 	
-	private int mTag ;
-
 	public FouceNewsPagerAdapter(Context context, ArrayList<Property>arrayList) {
 	   this.mList = arrayList ;
 	   this.mContext = context ;

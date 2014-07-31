@@ -10,6 +10,17 @@ public class StarDetailResponse {
     private Info userInfo;
 
     private VideoListResponse videoList;
+    
+    private int subscribeId ;
+
+
+    public int getSubscribeId() {
+        return subscribeId;
+    }
+
+    public void setSubscribeId(int subscribeId) {
+        this.subscribeId = subscribeId;
+    }
 
     public Info getUserInfo() {
         return userInfo;

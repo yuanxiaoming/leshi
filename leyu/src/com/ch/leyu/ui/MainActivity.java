@@ -3,8 +3,17 @@ package com.ch.leyu.ui;
 import com.ch.leyu.R;
 import com.ch.leyu.application.CLYApplication;
 import com.ch.leyu.application.ExitAppUtils;
+import com.ch.leyu.http.httplibrary.RequestParams;
+import com.ch.leyu.http.work.DataCallback;
+import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.responseparse.LoginResponse;
+import com.ch.leyu.utils.AESUtils;
 import com.ch.leyu.utils.CommonUtil;
+import com.ch.leyu.utils.Constant;
+import com.ch.leyu.utils.SharedPreferencesUtil;
 import com.umeng.update.UmengUpdateAgent;
+
+import org.apache.http.Header;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +36,13 @@ import java.util.TimerTask;
 public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private RadioButton mHs, mLol, mStar, mNews;
+	
+	/**跳转标记*/
+	private int mIntentFlag =0;
+	
+	private SharedPreferencesUtil mPreferencesUtil ;
+	
+	private LoginResponse mResponse;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +100,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);
 		mStar = (RadioButton) findViewById(R.id.act_nav_rb_star);
 		mNews = (RadioButton) findViewById(R.id.act_nav_rb_news);
+		mPreferencesUtil = new SharedPreferencesUtil(this);
 	}
 
 	@Override
@@ -96,9 +113,18 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void processLogic() {
+		CommonUtil.switchToFragment(mContext, R.id.fragment_content,new HSFragment(), "");
+	}
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	   if(mIntentFlag==0){
+	       String user =  mPreferencesUtil.getString(Constant.USER, "user");
+	       String passWord = mPreferencesUtil.getString(Constant.PASSWORD, "passWord");
+	       requestData(user, passWord);
 
-		CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-				new HSFragment(), "");
+	   }
 	}
 
 	@Override
@@ -122,8 +148,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			break;
 			
 		case R.id.action_Login:
-            intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            if(mIntentFlag==0){
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }else {
+                intent = new Intent(this, MyZoneActivity.class);
+                intent.putExtra(Constant.DATA, mResponse);
+                startActivity(intent);
+            }
             break;
 
 		default:
@@ -135,9 +167,41 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void reload() {
-		// TODO Auto-generated method stub
 
 	}
+	
+	private void requestData(String nickName, String passWord){
+	    RequestParams params = new RequestParams();
+	    params.put(Constant.NICKNAME, nickName);
+        params.put(Constant.PASSWORD, passWord);
+        JHttpClient.post(this, Constant.LOGIN, params , LoginResponse.class,new DataCallback<LoginResponse>() {
+
+            @Override
+            public void onStart() {
+                
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, LoginResponse data) {
+                if(data!=null){
+                    mIntentFlag = 1 ;
+                    mResponse = data ;
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                    Exception exception) {
+                
+            }
+
+            @Override
+            public void onFinish() {
+                
+            }
+        });
+	}
+	
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

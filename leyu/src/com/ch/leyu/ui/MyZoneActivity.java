@@ -11,6 +11,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -97,10 +99,35 @@ public class MyZoneActivity extends BaseActivity {
     private ArrayList<Fragment> addFragment() {
         mFragmentList = new ArrayList<Fragment>();
         mFragmentList.add(new MyVideosFragment());
-        mFragmentList.add(new HSNewsFragment());
+        mFragmentList.add(new MySubscriptionFragment());
         mFragmentList.add(new EventNewsFragment());
         return mFragmentList;
 
     }
+    
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.zone);
+        actionBar.setLogo(R.drawable.legames_back);
+        actionBar.setHomeButtonEnabled(true);
+        }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                break;
+        }
+
+        return true;
+    }
+    
 
 }

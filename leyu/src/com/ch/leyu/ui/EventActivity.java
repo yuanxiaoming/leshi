@@ -1,7 +1,5 @@
 package com.ch.leyu.ui;
 
-import org.apache.http.Header;
-
 import com.ch.leyu.R;
 import com.ch.leyu.html.LeWebviewClient;
 import com.ch.leyu.http.httplibrary.RequestParams;
@@ -10,16 +8,18 @@ import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.NewDetailResponse;
 import com.ch.leyu.utils.Constant;
 
+import org.apache.http.Header;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebSettings.TextSize;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 public class EventActivity extends BaseActivity {

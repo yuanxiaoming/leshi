@@ -65,7 +65,7 @@ public class VideoPlayActivity extends BaseActivity {
 	protected void onStart() {
 		super.onStart();
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle("乐娱视频");
+		actionBar.setTitle(R.string.leyu_video);
 		actionBar.setLogo(R.drawable.legames_back);
 		actionBar.setHomeButtonEnabled(true);
 	}
@@ -199,7 +199,7 @@ public class VideoPlayActivity extends BaseActivity {
 		default:
 			break;
 		}
-
+ 
 		return true;
 	}
 

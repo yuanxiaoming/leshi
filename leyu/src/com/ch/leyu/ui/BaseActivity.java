@@ -1,13 +1,17 @@
 
 package com.ch.leyu.ui;
 
+import com.ch.leyu.R;
+import com.ch.leyu.application.ExitAppUtils;
+import com.ch.leyu.widget.view.CustomProgressDialog;
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,11 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-
-import com.ch.leyu.R;
-import com.ch.leyu.application.ExitAppUtils;
-import com.ch.leyu.widget.view.CustomProgressDialog;
-import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends ActionBarActivity {
 	protected FragmentActivity mContext;

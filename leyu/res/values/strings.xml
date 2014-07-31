@@ -60,5 +60,11 @@
     <string name="umeng_key">53b2179156240b88e8096034</string>
     <string name="umeng_channeLname">手机型号不能为空</string>
 
+    <!-- action title -->
+    <string name="login">乐娱帐号登录</string>
+    <string name="zone">个人中心</string>
+    <string name="search">搜索</string>
+    <string name="veido_search">视频搜索</string>
+    <string name="leyu_video">乐娱视频</string>
 
 </resources>

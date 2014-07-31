@@ -48,7 +48,7 @@
             android:textColor="#707070" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/act_star_bt_subscription"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"

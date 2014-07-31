@@ -52,7 +52,6 @@ public class MyVideosFragment extends BaseFragment implements GridItemClickListe
 
     @Override
     protected void getExtraParams() {
-        ((MyZoneActivity) getActivity()).getmResponse();
         if( ((MyZoneActivity) getActivity()).getmResponse()!=null){
             mLoginUid =  ((MyZoneActivity) getActivity()).getmResponse().getUserInfo().getLoginUid();
             mAuth =  ((MyZoneActivity) getActivity()).getmResponse().getUserInfo().getAuth();
@@ -93,8 +92,6 @@ public class MyVideosFragment extends BaseFragment implements GridItemClickListe
         params.put(Constant.AUTH, mAuth);
         params.put(Constant.PASS_STR, mPassStr);
         params.put(Constant.PAGE, page);
-        String s = JHttpClient.getUrlWithQueryString(Constant.MY_VIDEOS, params);
-        Log.d("tag", s);
         JHttpClient.get(getActivity(), Constant.MY_VIDEOS, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override

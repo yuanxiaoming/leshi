@@ -384,7 +384,7 @@ public class SearchListActivity extends BaseActivity {
 	protected void onStart() {
 		super.onStart();
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle("视频搜索");
+		actionBar.setTitle(R.string.veido_search);
 		actionBar.setLogo(R.drawable.legames_back);
 		actionBar.setHomeButtonEnabled(true);
 	}

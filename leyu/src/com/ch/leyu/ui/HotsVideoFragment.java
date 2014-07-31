@@ -16,7 +16,6 @@ import com.ch.leyu.widget.xlistview.XListView.IXListViewListener;
 import org.apache.http.Header;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
