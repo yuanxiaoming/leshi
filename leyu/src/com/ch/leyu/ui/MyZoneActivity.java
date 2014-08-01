@@ -100,7 +100,7 @@ public class MyZoneActivity extends BaseActivity {
         mFragmentList = new ArrayList<Fragment>();
         mFragmentList.add(new MyVideosFragment());
         mFragmentList.add(new MySubscriptionFragment());
-        mFragmentList.add(new EventNewsFragment());
+        mFragmentList.add(new HistoryRecordFragment());
         return mFragmentList;
 
     }

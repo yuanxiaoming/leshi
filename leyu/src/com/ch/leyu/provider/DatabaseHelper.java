@@ -57,6 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         switch (version) {
             case 1:
                 db.execSQL(LatestSearchTable.CREATE_TABLE_LATESTSEARCHTABLE);
+                
+                db.execSQL(LatestSearchTable.CREATE_TABLE_HISTROY);
                 break;
 
             default:

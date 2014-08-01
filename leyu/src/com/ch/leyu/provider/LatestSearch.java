@@ -53,7 +53,7 @@ public class LatestSearch {
 
     public void setmVideoSearchResponse(VideoSearchResponse mVideoSearchResponse) {
         try {
-            this.mVideoSearchResponseString = JacksonParser.getInstance().writeValueAsString(mVideoSearchResponse);
+           this.mVideoSearchResponseString = JacksonParser.getInstance().writeValueAsString(mVideoSearchResponse);
         } catch (Exception e) {
            this.mVideoSearchResponseString="{}";
         };

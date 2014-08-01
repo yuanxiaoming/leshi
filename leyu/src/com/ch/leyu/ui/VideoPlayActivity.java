@@ -9,6 +9,7 @@ import com.ch.leyu.adapter.VideoDetailPagerAdapter;
 import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
+import com.ch.leyu.provider.HistoryManager;
 import com.ch.leyu.responseparse.VideoPlayResponse;
 import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
@@ -53,13 +54,16 @@ public class VideoPlayActivity extends BaseActivity {
 
 	private VideoDetailPagerAdapter mAdapter;
 
-	private String vu ;
+	private String mVu ;
 
-	private String title;
+	private String mTitle;
 
-	private String mShareImg ="";
+	private String mImgPath ="";
 
 	private String mUrl = "http://www.legames.cn/";
+	
+	private String mTimestamp;
+	
 
 	@Override
 	protected void onStart() {
@@ -97,6 +101,8 @@ public class VideoPlayActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+			    mTimestamp = System.currentTimeMillis()+"";
+			    HistoryManager.insertHistory(mImgPath, mTitle, mId, mTimestamp);
 				/**
 				 * @param context
 				 * @param userKey 用户私钥
@@ -104,7 +110,7 @@ public class VideoPlayActivity extends BaseActivity {
 				 * @param videoUnique 视频ID
 				 * @param videoName 视频名称
 				 */
-				PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", vu, title);
+				PlayUtils.playVideo(VideoPlayActivity.this, "c24462c6cd50d25c57a8e8ec32f597ae", "20c3de8a2e", mVu, mTitle);
 
 			}
 		});
@@ -154,9 +160,9 @@ public class VideoPlayActivity extends BaseActivity {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, VideoPlayResponse data) {
 				if (data != null) {
-					vu = data.getVideoInfo().getVu();
-					title = data.getVideoInfo().getTitle();
-					mShareImg = data.getVideoInfo().getImageSrc();
+				    mVu = data.getVideoInfo().getVu();
+					mTitle = data.getVideoInfo().getTitle();
+					mImgPath = data.getVideoInfo().getImageSrc();
 					mUrl = data.getVideoInfo().getLinkUrl();
 					mAdapter = new VideoDetailPagerAdapter(getSupportFragmentManager(),data.getVideoInfo(),mId);
 					mViewPager.setAdapter(mAdapter);
@@ -217,10 +223,10 @@ public class VideoPlayActivity extends BaseActivity {
 	        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
 	        oks.setTitleUrl(mUrl);
 	        // text是分享文本，所有平台都需要这个字段
-	        oks.setText(title+"地址:"+mUrl);
+	        oks.setText(mTitle+"地址:"+mUrl);
 	        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //	        oks.setImagePath("/sdcard/test.jpg");
-	        oks.setImageUrl(mShareImg);
+	        oks.setImageUrl(mImgPath);
 	        // url仅在微信（包括好友和朋友圈）中使用
 	        oks.setUrl(mUrl);
 	        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
