@@ -233,7 +233,6 @@ public class SearchListActivity extends BaseActivity {
 
 
 	private void requestData(int page , final int listViewTag){
-		Log.d("tag",JHttpClient.getUrlWithQueryString(Constant.URL+ Constant.SEARCH, mRequestParams));
 		JHttpClient.get(this, Constant.URL + Constant.SEARCH, mRequestParams,VideoSearchResponse.class, new DataCallback<VideoSearchResponse>() {
 
 			@Override

@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,7 +105,7 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         mLyViewPager = (LYViewPager) findViewById(R.id.star_act_viewpager);
         mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.star_act_pagertab);
         mSubscription = (Button) findViewById(R.id.act_star_bt_subscription);
-        mPreferencesUtil = new SharedPreferencesUtil(this);
+        mPreferencesUtil = SharedPreferencesUtil.getInstance(this);
         getSharedPreferences(mPreferencesUtil);
     }
     
@@ -167,7 +166,9 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
     private void requestData() {
         RequestParams params = new RequestParams();
         params.put(Constant.UID, uid);
-        params.put(Constant.LOGIN_UID, mLoginUid);
+        if(mIsLogin==true){
+            params.put(Constant.LOGIN_UID, mLoginUid);
+        }
         JHttpClient.getFromServer(this, Constant.URL + Constant.STAR_DETAIL, params,StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
                     @Override
@@ -211,7 +212,6 @@ public class StarDetailActivity extends BaseActivity implements OnClickListener 
         params.put(Constant.AUTH,auth);
         params.put(Constant.LOGIN_UID,loginUid);
         params.put(Constant.PASS_STR,passStr);
-        Log.d("tag", JHttpClient.getUrlWithQueryString(Constant._URL, params));
         JHttpClient.getFromServer(this, Constant._URL, params, StarDetailResponse.class, new DataCallback<StarDetailResponse>() {
 
             @Override

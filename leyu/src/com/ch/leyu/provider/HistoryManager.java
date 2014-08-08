@@ -25,7 +25,7 @@ public class HistoryManager {
     
     public static ArrayList<HistroyResponse> findLatestSearchAll() {
         SQLiteDatabase db = mHistroyHelper.getWritableDatabase();
-        String sql="select * from "+LatestSearchTable.HISTROY_TABLE_NAME +" order by " +LatestSearchTable._ID+" desc limit 200 offset 0";
+        String sql="select * from "+LatestSearchTable.HISTROY_TABLE_NAME +" order by " +LatestSearchTable._ID+" desc limit 100 offset 0";
 
         ArrayList<HistroyResponse> histroyList = new ArrayList<HistroyResponse>();
         Cursor r = db.rawQuery(sql, null);

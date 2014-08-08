@@ -5,7 +5,6 @@ import com.ch.leyu.R;
 import com.ch.leyu.utils.VersionUtil;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;

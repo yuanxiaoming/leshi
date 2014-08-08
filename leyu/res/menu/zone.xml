@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:alpha="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/action_quit"
+        alpha:showAsAction="always"
+        android:title="登出"
+        android:orderInCategory="100"/>
+    
+    
+
+</menu>

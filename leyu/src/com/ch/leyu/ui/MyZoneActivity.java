@@ -5,6 +5,7 @@ import com.ch.leyu.adapter.LYViewPagerAdapter;
 import com.ch.leyu.responseparse.LoginResponse;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.ImageLoaderUtil;
+import com.ch.leyu.utils.SharedPreferencesUtil;
 import com.ch.leyu.widget.view.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +35,8 @@ public class MyZoneActivity extends BaseActivity {
     private ArrayList<Fragment> mFragmentList;
     
     private LYViewPagerAdapter mVPagerAdapter;
+    
+    private SharedPreferencesUtil mPreferencesUtil;
     
     private LoginResponse mResponse;
 
@@ -63,6 +67,7 @@ public class MyZoneActivity extends BaseActivity {
         mName = (TextView) findViewById(R.id.act_zone_txt_name);
         mSlideTabIndicator = (PagerSlidingTabStrip) findViewById(R.id.act_zone_tabstrip);
         mViewPager = (ViewPager) findViewById(R.id.act_zone_viewpager);
+        mPreferencesUtil = SharedPreferencesUtil.getInstance(this);
     }
 
     @Override
@@ -121,11 +126,25 @@ public class MyZoneActivity extends BaseActivity {
             case android.R.id.home:
                 finish();
                 return true;
+                
+            case R.id.action_quit:
+//                mPreferencesUtil.clear();
+                mPreferencesUtil.putBoolean(Constant.TAG, false);
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
 
             default:
                 break;
         }
 
+        return true;
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.zone, menu);
         return true;
     }
     

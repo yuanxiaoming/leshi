@@ -7,7 +7,6 @@ import com.ch.leyu.http.httplibrary.RequestParams;
 import com.ch.leyu.http.work.DataCallback;
 import com.ch.leyu.http.work.JHttpClient;
 import com.ch.leyu.responseparse.LoginResponse;
-import com.ch.leyu.utils.AESUtils;
 import com.ch.leyu.utils.CommonUtil;
 import com.ch.leyu.utils.Constant;
 import com.ch.leyu.utils.SharedPreferencesUtil;
@@ -37,12 +36,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private RadioButton mHs, mLol, mStar, mNews;
 	
-	/**跳转标记*/
-	private int mIntentFlag =0;
-	
 	private SharedPreferencesUtil mPreferencesUtil ;
 	
 	private LoginResponse mResponse;
+	
+	private boolean mTag ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +98,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);
 		mStar = (RadioButton) findViewById(R.id.act_nav_rb_star);
 		mNews = (RadioButton) findViewById(R.id.act_nav_rb_news);
-		mPreferencesUtil = new SharedPreferencesUtil(this);
+		mPreferencesUtil = SharedPreferencesUtil.getInstance(this);
 	}
 
 	@Override
@@ -114,16 +112,19 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void processLogic() {
 		CommonUtil.switchToFragment(mContext, R.id.fragment_content,new HSFragment(), "");
+		mTag = mPreferencesUtil.getBoolean(Constant.TAG, false);
 	}
 	
 	@Override
 	protected void onResume() {
 	    super.onResume();
-	   if(mIntentFlag==0){
+	    mTag = mPreferencesUtil.getBoolean(Constant.TAG, false);
+	   if(mResponse==null){
 	       String user =  mPreferencesUtil.getString(Constant.USER, "user");
 	       String passWord = mPreferencesUtil.getString(Constant.PASSWORD, "passWord");
-	       requestData(user, passWord);
-
+	       if(mTag==true){
+	           requestData(user, passWord);
+	       }
 	   }
 	}
 
@@ -148,7 +149,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			break;
 			
 		case R.id.action_Login:
-            if(mIntentFlag==0){
+            if(mTag==false){
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
             }else {
@@ -184,7 +185,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onSuccess(int statusCode, Header[] headers, LoginResponse data) {
                 if(data!=null){
-                    mIntentFlag = 1 ;
                     mResponse = data ;
                 }
             }

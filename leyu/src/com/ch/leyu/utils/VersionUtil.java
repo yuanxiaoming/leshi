@@ -9,15 +9,16 @@ import android.text.TextUtils;
 
 public class VersionUtil {
 
-    private static final String TAG = "VersionUtil";
     private static int sVersionCode;
+
     private static String sVersionName;
 
     public static int getVersionCode() {
         try {
             if (sVersionCode == 0) {
                 PackageManager manager = AppContext.getInstance().getPackageManager();
-                PackageInfo info = manager.getPackageInfo(AppContext.getInstance().getPackageName(), 0);
+                PackageInfo info = manager.getPackageInfo(
+                        AppContext.getInstance().getPackageName(), 0);
                 sVersionCode = info.versionCode;
             }
         } catch (Exception e) {
@@ -29,7 +30,8 @@ public class VersionUtil {
         try {
             if (TextUtils.isEmpty(sVersionName)) {
                 PackageManager manager = AppContext.getInstance().getPackageManager();
-                PackageInfo info = manager.getPackageInfo(AppContext.getInstance().getPackageName(), 0);
+                PackageInfo info = manager.getPackageInfo(
+                        AppContext.getInstance().getPackageName(), 0);
                 sVersionName = info.versionName;
             }
         } catch (Exception e) {
@@ -37,4 +39,3 @@ public class VersionUtil {
         return sVersionName;
     }
 }
-
