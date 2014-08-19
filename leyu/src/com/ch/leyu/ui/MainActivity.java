@@ -1,3 +1,4 @@
+
 package com.ch.leyu.ui;
 
 import com.ch.leyu.R;
@@ -29,209 +30,209 @@ import java.util.TimerTask;
 
 /***
  * 导航页
- *
+ * 
  * @author L
  */
 public class MainActivity extends BaseActivity implements OnClickListener {
 
-	private RadioButton mHs, mLol, mStar, mNews;
-	
-	private SharedPreferencesUtil mPreferencesUtil ;
-	
-	private LoginResponse mResponse;
-	
-	private boolean mTag ;
+    private RadioButton mHs, mLol, mStar, mNews;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		UmengUpdateAgent.setUpdateOnlyWifi(false);
-		UmengUpdateAgent.update(this);
-	}
+    private SharedPreferencesUtil mPreferencesUtil;
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.act_nav_rb_hs:
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-					new HSFragment(), "");
-			break;
+    private LoginResponse mResponse;
 
-		case R.id.act_nav_rb_lol:
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-					new LOLFragment(), "");
-			break;
+    /**是否登录标志*/
+    private boolean mTag;
 
-		case R.id.act_nav_rb_star:
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-					new StarGirefFragment(), "");
-			break;
-		case R.id.act_nav_rb_news:
-			((CLYApplication) this.getApplication()).setmFlag(true);
-			CommonUtil.switchToFragment(mContext, R.id.fragment_content,
-					new NewsFragment(), "");
-			break;
-		default:
-			break;
-		}
-	}
+    /**双击退出标志*/
+    private static Boolean sExit = false;
 
-	public void setFoucs(boolean isChecked) {
-		mNews.setChecked(isChecked);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        UmengUpdateAgent.setUpdateOnlyWifi(false);
+        UmengUpdateAgent.update(this);
+    }
 
-	@Override
-	protected void getExtraParams() {
-		mActionBar.setDisplayShowHomeEnabled(false);
-	}
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.act_nav_rb_hs:
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+                break;
 
-	@Override
-	protected void loadViewLayout() {
-		setContentView(R.layout.activity_nav);
+            case R.id.act_nav_rb_lol:
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content, new LOLFragment(), "");
+                break;
 
-	}
+            case R.id.act_nav_rb_star:
+                CommonUtil.switchToFragment(mContext, R.id.fragment_content,
+                        new StarGirefFragment(), "");
+                break;
+            case R.id.act_nav_rb_news:
+                ((CLYApplication) this.getApplication()).setmFlag(true);
+                CommonUtil
+                        .switchToFragment(mContext, R.id.fragment_content, new NewsFragment(), "");
+                break;
+            default:
+                break;
+        }
+    }
 
-	@Override
-	protected void loadfindViewById() {
+    public void setFoucs(boolean isChecked) {
+        mNews.setChecked(isChecked);
+    }
 
-		mHs = (RadioButton) findViewById(R.id.act_nav_rb_hs);
-		mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);
-		mStar = (RadioButton) findViewById(R.id.act_nav_rb_star);
-		mNews = (RadioButton) findViewById(R.id.act_nav_rb_news);
-		mPreferencesUtil = SharedPreferencesUtil.getInstance(this);
-	}
+    @Override
+    protected void getExtraParams() {
+        mActionBar.setDisplayShowHomeEnabled(false);
+    }
 
-	@Override
-	protected void setListener() {
-		mHs.setOnClickListener(this);
-		mLol.setOnClickListener(this);
-		mStar.setOnClickListener(this);
-		mNews.setOnClickListener(this);
-	}
+    @Override
+    protected void loadViewLayout() {
+        setContentView(R.layout.activity_nav);
 
-	@Override
-	protected void processLogic() {
-		CommonUtil.switchToFragment(mContext, R.id.fragment_content,new HSFragment(), "");
-		mTag = mPreferencesUtil.getBoolean(Constant.TAG, false);
-	}
-	
-	@Override
-	protected void onResume() {
-	    super.onResume();
-	    mTag = mPreferencesUtil.getBoolean(Constant.TAG, false);
-	   if(mResponse==null){
-	       String user =  mPreferencesUtil.getString(Constant.USER, "user");
-	       String passWord = mPreferencesUtil.getString(Constant.PASSWORD, "passWord");
-	       if(mTag==true){
-	           requestData(user, passWord);
-	       }
-	   }
-	}
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    protected void loadfindViewById() {
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent;
-		switch (item.getItemId()) {
-		case R.id.action_search:
-			intent = new Intent(this, SearchActivity.class);
-			startActivity(intent);
-			break;
+        mHs = (RadioButton) findViewById(R.id.act_nav_rb_hs);
+        mLol = (RadioButton) findViewById(R.id.act_nav_rb_lol);
+        mStar = (RadioButton) findViewById(R.id.act_nav_rb_star);
+        mNews = (RadioButton) findViewById(R.id.act_nav_rb_news);
+        mPreferencesUtil = SharedPreferencesUtil.getInstance(this);
+    }
 
-		case R.id.action_feedback:
-			intent = new Intent(this, FeedbackActivity.class);
-			startActivity(intent);
-			break;
-			
-		case R.id.action_Login:
-            if(mTag==false){
-                intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-            }else {
-                intent = new Intent(this, MyZoneActivity.class);
-                intent.putExtra(Constant.DATA, mResponse);
-                startActivity(intent);
+    @Override
+    protected void setListener() {
+        mHs.setOnClickListener(this);
+        mLol.setOnClickListener(this);
+        mStar.setOnClickListener(this);
+        mNews.setOnClickListener(this);
+    }
+
+    @Override
+    protected void processLogic() {
+        CommonUtil.switchToFragment(mContext, R.id.fragment_content, new HSFragment(), "");
+        mTag = mPreferencesUtil.getBoolean(Constant.TAG, false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTag = mPreferencesUtil.getBoolean(Constant.TAG, false);
+        if (mResponse == null) {
+            String user = mPreferencesUtil.getString(Constant.USER, "user");
+            String passWord = mPreferencesUtil.getString(Constant.PASSWORD, "passWord");
+            if (mTag == true) {
+                requestData(user, passWord);
             }
-            break;
+        }
+    }
 
-		default:
-			break;
-		}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                break;
 
-	@Override
-	protected void reload() {
+            case R.id.action_feedback:
+                intent = new Intent(this, FeedbackActivity.class);
+                startActivity(intent);
+                break;
 
-	}
-	
-	private void requestData(String nickName, String passWord){
-	    RequestParams params = new RequestParams();
-	    params.put(Constant.NICKNAME, nickName);
-        params.put(Constant.PASSWORD, passWord);
-        JHttpClient.post(this, Constant.LOGIN, params , LoginResponse.class,new DataCallback<LoginResponse>() {
-
-            @Override
-            public void onStart() {
-                
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, LoginResponse data) {
-                if(data!=null){
-                    mResponse = data ;
+            case R.id.action_Login:
+                if (mTag == false) {
+                    intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(this, MyZoneActivity.class);
+                    intent.putExtra(Constant.DATA, mResponse);
+                    startActivity(intent);
                 }
-            }
+                break;
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                    Exception exception) {
-                
-            }
+            default:
+                break;
+        }
 
-            @Override
-            public void onFinish() {
-                
-            }
-        });
-	}
-	
+        return super.onOptionsItemSelected(item);
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			exitBy2Click();
-			return false;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+    @Override
+    protected void reload() {
 
-	/**
-	 * 双击退出函数
-	 */
-	private static Boolean sExit = false;
+    }
 
-	private void exitBy2Click() {
-		Timer tExit = null;
-		if (sExit == false) {
-			sExit = true; // 准备退出
-			Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-			tExit = new Timer();
-			tExit.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					sExit = false; // 取消退出
-				}
-			}, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+    private void requestData(String nickName, String passWord) {
+        RequestParams params = new RequestParams();
+        params.put(Constant.NICKNAME, nickName);
+        params.put(Constant.PASSWORD, passWord);
+        JHttpClient.post(this, Constant.LOGIN, params, LoginResponse.class,
+                new DataCallback<LoginResponse>() {
 
-		} else {
-			ExitAppUtils.getInstance().exit();
-		}
-	}
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, LoginResponse data) {
+                        if (data != null) {
+                            mResponse = data;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString,
+                            Exception exception) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            exitBy2Click();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 双击退出函数
+     */
+    private void exitBy2Click() {
+        Timer tExit = null;
+        if (sExit == false) {
+            sExit = true; // 准备退出
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    sExit = false; // 取消退出
+                }
+            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            ExitAppUtils.getInstance().exit();
+        }
+    }
 }

@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * LOL视频库
+ * LOL视频库---已停用
  *
  * @author L
  */

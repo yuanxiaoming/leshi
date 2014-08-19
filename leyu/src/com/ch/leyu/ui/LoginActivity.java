@@ -29,9 +29,6 @@ public class LoginActivity extends BaseActivity {
     private Button mLogin;
 
     private SharedPreferencesUtil mPreferencesUtil;
-    
-    private Button mQQbutton ;
-    
 
     @Override
     protected void getExtraParams() {
@@ -49,7 +46,6 @@ public class LoginActivity extends BaseActivity {
         mUser = (EditText) findViewById(R.id.act_et_user);
         mPassWord = (EditText) findViewById(R.id.act_et_password);
         mLogin = (Button) findViewById(R.id.act_btn_login);
-        mQQbutton = (Button) findViewById(R.id.qq_btn);
         mPreferencesUtil = SharedPreferencesUtil.getInstance(this);
     }
 
@@ -61,19 +57,12 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
                 String name = mUser.getText().toString();
                 String passWord = mPassWord.getText().toString();
-                if(name.equals("")||passWord.equals("")){
-                    Toast.makeText(LoginActivity.this, R.string.login_null, Toast.LENGTH_SHORT).show();
+                if (name.equals("") || passWord.equals("")) {
+                    Toast.makeText(LoginActivity.this, R.string.login_null, Toast.LENGTH_SHORT)
+                            .show();
                     return;
                 }
                 requestData(name, passWord);
-            }
-        });
-        
-        mQQbutton.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-             
             }
         });
     }
@@ -100,18 +89,21 @@ public class LoginActivity extends BaseActivity {
                         hidden();
                         if (data != null) {
                             mPreferencesUtil.putString(Constant.USER, nickName);
-                            mPreferencesUtil.putString(Constant.PASSWORD,  passWord);
+                            mPreferencesUtil.putString(Constant.PASSWORD, passWord);
                             mPreferencesUtil.putBoolean(Constant.TAG, true);
-                            mPreferencesUtil.putString(Constant.LOGIN_UID, data.getUserInfo() .getLoginUid());
+                            mPreferencesUtil.putString(Constant.LOGIN_UID, data.getUserInfo()
+                                    .getLoginUid());
                             mPreferencesUtil.putString(Constant.AUTH, data.getUserInfo().getAuth());
-                            mPreferencesUtil.putString(Constant.PASS_STR, data.getUserInfo() .getPassStr());
+                            mPreferencesUtil.putString(Constant.PASS_STR, data.getUserInfo()
+                                    .getPassStr());
                             mPreferencesUtil.putBoolean(Constant.STAR_TAG, true);
                             Intent intent = new Intent(LoginActivity.this, MyZoneActivity.class);
                             intent.putExtra(Constant.DATA, data);
                             startActivity(intent);
                             finish();
-                        }else {
-                            Toast.makeText(LoginActivity.this, R.string.login_error, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LoginActivity.this, R.string.login_error,
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 

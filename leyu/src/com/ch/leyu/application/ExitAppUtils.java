@@ -1,10 +1,9 @@
 package com.ch.leyu.application;
 
-import java.util.LinkedList;
-
 import android.app.Activity;
-import android.os.Build;
 import android.util.Log;
+
+import java.util.LinkedList;
 
 /**
  * android退出程序的工具类，使用单例模式

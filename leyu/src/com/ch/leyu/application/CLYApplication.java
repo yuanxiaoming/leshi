@@ -26,17 +26,17 @@ public class CLYApplication extends Application {
 
     private boolean mFlag;
 
-    private boolean mScroll ; //XListView是否能滑动
+    private boolean mScroll; // XListView是否能滑动
 
     public boolean isScroll() {
-		return mScroll;
-	}
+        return mScroll;
+    }
 
-	public void canScroll(boolean scroll) {
-		this.mScroll = scroll;
-	}
+    public void canScroll(boolean scroll) {
+        this.mScroll = scroll;
+    }
 
-	public boolean ismFlag() {
+    public boolean ismFlag() {
         return mFlag;
     }
 
@@ -58,7 +58,7 @@ public class CLYApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-      //  AppContext.init(getApplicationContext());
+        // AppContext.init(getApplicationContext());
     }
 
     public void copyDataBase() {
