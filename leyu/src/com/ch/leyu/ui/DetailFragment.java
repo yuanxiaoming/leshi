@@ -5,7 +5,11 @@ import com.ch.leyu.R;
 import com.ch.leyu.responseparse.VideoDetailResponse;
 import com.ch.leyu.utils.Constant;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -24,7 +28,7 @@ public class DetailFragment extends BaseFragment {
     private TextView mLabel;
 
     private TextView mIntro;
-
+    
     private VideoDetailResponse mVideoDetailResponse = null;
 
     @Override
@@ -52,7 +56,16 @@ public class DetailFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        mName.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), StarDetailActivity.class);
+                intent.putExtra(Constant.UID, mVideoDetailResponse.getUid());
+                intent.putExtra("name", mVideoDetailResponse.getNickname());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

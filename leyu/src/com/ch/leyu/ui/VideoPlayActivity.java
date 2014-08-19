@@ -23,6 +23,7 @@ import org.apache.http.Header;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -149,6 +150,7 @@ public class VideoPlayActivity extends BaseActivity {
 	private void requestData(String mid, String url) {
 		RequestParams params = new RequestParams();
 		params.put("id", mid);
+		Log.d("tag", JHttpClient.getUrlWithQueryString(url, params));
 		JHttpClient.get(this, url, params, VideoPlayResponse.class,new DataCallback<VideoPlayResponse>() {
 
 			@Override
